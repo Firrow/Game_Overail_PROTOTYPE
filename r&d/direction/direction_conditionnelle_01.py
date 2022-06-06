@@ -31,14 +31,14 @@ TILEMAP = [
 # Pour les commandes façon Manon il faut inverser
 INVERSION_NORD = -1
 
-# position de départ du train en B1
+# position de départ du train en B2
 position = Point(1, 1)
-# le train regarde à droite, donc il "vient" de la case A1
+# le train regarde à gauche, donc il "vient" de la case C2
 from_direction = "E"
 # la sortie que le train doit prendre
 go_direction = ""  # inconnu pour l'instant
 # utilisation d'une valeur par défaut pour la direction choisie par le joueur
-player_direction = "G"
+player_direction = 1
 
 loop = True
 while loop:
