@@ -132,10 +132,12 @@ public class PlayerMovementOnTile : MonoBehaviour
         //récupération des positions des points dans bon sens
         if (_reversePoints == true) //sens inverse
         {
+            Debug.Log("Route A inverser !");
             p0 = _road.ElementAt(roadNum).Find("p4").position;
             p1 = _road.ElementAt(roadNum).Find("p3").position;
             p2 = _road.ElementAt(roadNum).Find("p2").position;
             p3 = _road.ElementAt(roadNum).Find("p1").position;
+            Debug.Log("Route inversée !");
         }
         else //sens définit dans éditeur
         {
