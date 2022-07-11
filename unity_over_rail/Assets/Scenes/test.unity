@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 118497562}
   m_Layer: 0
   m_Name: trigger3
-  m_TagString: Untagged
+  m_TagString: Tile
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -569,7 +569,7 @@ GameObject:
   - component: {fileID: 635705455}
   m_Layer: 0
   m_Name: trigger4
-  m_TagString: Untagged
+  m_TagString: Tile
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -690,7 +690,7 @@ GameObject:
   - component: {fileID: 693264745}
   m_Layer: 0
   m_Name: Tile6
-  m_TagString: Untagged
+  m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -905,7 +905,7 @@ GameObject:
   - component: {fileID: 800726437}
   m_Layer: 0
   m_Name: Tile3
-  m_TagString: Untagged
+  m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1181,7 +1181,7 @@ GameObject:
   - component: {fileID: 927071788}
   m_Layer: 0
   m_Name: trigger2
-  m_TagString: Untagged
+  m_TagString: Tile
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1240,7 +1240,7 @@ GameObject:
   - component: {fileID: 940705079}
   m_Layer: 0
   m_Name: Tile5
-  m_TagString: Untagged
+  m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1371,7 +1371,7 @@ GameObject:
   - component: {fileID: 986642758}
   m_Layer: 0
   m_Name: trigger1
-  m_TagString: Untagged
+  m_TagString: Tile
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1473,7 +1473,7 @@ GameObject:
   - component: {fileID: 995296693}
   m_Layer: 0
   m_Name: trigger6
-  m_TagString: Untagged
+  m_TagString: Tile
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1519,29 +1519,67 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.0104284, y: 4.969296}
   m_EdgeRadius: 0
---- !u!1 &1066779169 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 625254992458161528, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
-  m_PrefabInstance: {fileID: 6282290171012555641}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1066779173
-MonoBehaviour:
+--- !u!1001 &1003514036
+PrefabInstance:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1066779169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0acbc0be90f63cc408df064672a14d76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletSpeed: 15
-  offset: 0
-  weapon: {fileID: 1066779169}
-  bullet: {fileID: 7192635792457381554, guid: 2d4597576fe0ee44cb29713efded71f5, type: 3}
-  firePoint: {fileID: 1537154335}
-  startTimeBtwShots: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6282290170516749649, guid: c39d641f3c1fe3445801f4c9ae6c49bf, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282290170516749659, guid: c39d641f3c1fe3445801f4c9ae6c49bf, type: 3}
+      propertyPath: m_Name
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282290170516749660, guid: c39d641f3c1fe3445801f4c9ae6c49bf, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282290170516749660, guid: c39d641f3c1fe3445801f4c9ae6c49bf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282290170516749660, guid: c39d641f3c1fe3445801f4c9ae6c49bf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5.93
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282290170516749660, guid: c39d641f3c1fe3445801f4c9ae6c49bf, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282290170516749660, guid: c39d641f3c1fe3445801f4c9ae6c49bf, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282290170516749660, guid: c39d641f3c1fe3445801f4c9ae6c49bf, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282290170516749660, guid: c39d641f3c1fe3445801f4c9ae6c49bf, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282290170516749660, guid: c39d641f3c1fe3445801f4c9ae6c49bf, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282290170516749660, guid: c39d641f3c1fe3445801f4c9ae6c49bf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282290170516749660, guid: c39d641f3c1fe3445801f4c9ae6c49bf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282290170516749660, guid: c39d641f3c1fe3445801f4c9ae6c49bf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c39d641f3c1fe3445801f4c9ae6c49bf, type: 3}
 --- !u!1 &1131631468
 GameObject:
   m_ObjectHideFlags: 0
@@ -1554,7 +1592,7 @@ GameObject:
   - component: {fileID: 1131631470}
   m_Layer: 0
   m_Name: trigger5
-  m_TagString: Untagged
+  m_TagString: Tile
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1613,7 +1651,7 @@ GameObject:
   - component: {fileID: 1136608104}
   m_Layer: 0
   m_Name: Tile2
-  m_TagString: Untagged
+  m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1868,7 +1906,7 @@ GameObject:
   - component: {fileID: 1446133332}
   m_Layer: 0
   m_Name: Tile4
-  m_TagString: Untagged
+  m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2276,7 +2314,7 @@ Transform:
   - {fileID: 940705077}
   - {fileID: 693264743}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1868087958
 GameObject:
@@ -2477,7 +2515,7 @@ GameObject:
   - component: {fileID: 2102657658}
   m_Layer: 0
   m_Name: Tile1
-  m_TagString: Untagged
+  m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2707,11 +2745,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6282290170516749660, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.181
+      value: -1.83
       objectReference: {fileID: 0}
     - target: {fileID: 6282290170516749660, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.74
+      value: 3.88
       objectReference: {fileID: 0}
     - target: {fileID: 6282290170516749660, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: m_LocalPosition.z

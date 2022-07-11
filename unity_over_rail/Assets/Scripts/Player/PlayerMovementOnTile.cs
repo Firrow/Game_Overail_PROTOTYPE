@@ -69,6 +69,7 @@ public class PlayerMovementOnTile : MonoBehaviour
         _reversePoints = false;
         //DÉTERMINER LA DIRECTION-----------------------------------------
         //récupération de la tuile actuelle
+        //PROBLÈME ICI ! LE COLLIDER DE LA BALLE COMPTE COMME CELUI DU TRAINs
         _currentTile = collider.transform.parent.gameObject;
 
         _allDirectionsOfATile = PossibleDirections(_currentTile);
