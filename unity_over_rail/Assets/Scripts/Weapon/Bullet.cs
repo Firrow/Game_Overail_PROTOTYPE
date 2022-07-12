@@ -37,6 +37,7 @@ public class Bullet : MonoBehaviour
         else
         {
             Physics2D.IgnoreLayerCollision(0, 1);
+            Destroy(this.gameObject, 5f); //5f = temps avant destruction (à régler en fonction de la taille de la map)
         }
     }
 }
