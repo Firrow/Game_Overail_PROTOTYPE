@@ -23,5 +23,6 @@ public class EnemyHealth : MonoBehaviour
     {
         _currentHealth -= damage; //a voir pour la valeur des dégats
         Debug.Log("PV enemy : " + _currentHealth);
+        //Détruire ennemi quand plus de PV
     }
 }

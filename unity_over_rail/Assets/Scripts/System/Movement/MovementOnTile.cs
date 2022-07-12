@@ -2,12 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
-using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 //CE SCRIPT UTILE LES TUILES POUR PERMETTRE LE DÉPLACEMENT
-public class PlayerMovementOnTile : MonoBehaviour
+public class MovementOnTile : MonoBehaviour
 {
     private LinkedList<Transform> _road = new LinkedList<Transform>();
     private int _indexRoadToGo;
@@ -17,7 +15,7 @@ public class PlayerMovementOnTile : MonoBehaviour
     private string _fromDirection;
     private GameObject _currentTile;
     private string _allDirectionsOfATile;
-    private int _playerChoice = 1;
+    private int _choice = 1;
     private string _goDirection = "";
     private int _indexDirection;
     private int _NORTH_INVERSION = -1; //a gérer quand il y aura l'input system
@@ -52,15 +50,26 @@ public class PlayerMovementOnTile : MonoBehaviour
             StartCoroutine(GoByTheRoute(_indexRoadToGo)); //pour le test
         }
 
-        //PLAYER INPUT (à retravailler) --> avant prochain aiguillage
-        if (Input.GetKey(KeyCode.Q))
+        //Si l'objet possédant le script possède le tag joueur
+        if (this.gameObject.GetComponent<MovementOnTile>().tag == "Player")
         {
-            _playerChoice = 1;
+            //PLAYER INPUT (à retravailler) --> avant prochain aiguillage
+            if (Input.GetKey(KeyCode.Q))
+            {
+                _choice = 1;
+            }
+            else if (Input.GetKey(KeyCode.D))
+            {
+                _choice = -1;
+            }
         }
-        else if (Input.GetKey(KeyCode.D))
+
+        if (this.gameObject.GetComponent<MovementOnTile>().tag == "Enemy")
         {
-            _playerChoice = -1;
+            //CODER CHOIX IA ENEMY
+            _choice = 1;
         }
+
     }
 
     //récupère la tuile sur laquelle le joueur est entrain de naviguer
@@ -78,7 +87,7 @@ public class PlayerMovementOnTile : MonoBehaviour
 
         _allDirectionsOfATile = PossibleDirections(_currentTile);
         _indexDirection = GetIndexDirection(_allDirectionsOfATile, _fromDirection);
-        _goDirection = GetDirection(_indexDirection, _playerChoice, _NORTH_INVERSION, _fromDirection, _allDirectionsOfATile);
+        _goDirection = GetDirection(_indexDirection, _choice, _NORTH_INVERSION, _fromDirection, _allDirectionsOfATile);
 
         //DÉTERMINER LA BONNE ROUTE-----------------------------------------
         //récupérer la prochaine route en fonction du nom et l'ajoute à la liste
