@@ -66,11 +66,15 @@ public class PlayerMovementOnTile : MonoBehaviour
     //récupère la tuile sur laquelle le joueur est entrain de naviguer
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        _reversePoints = false;
         //DÉTERMINER LA DIRECTION-----------------------------------------
         //récupération de la tuile actuelle
-        //PROBLÈME ICI ! LE COLLIDER DE LA BALLE COMPTE COMME CELUI DU TRAINs
+        if (collider.gameObject.CompareTag("Bullet"))//si la balle entre en collision avec le train
+            return;//tu ne fais rien
+        //si autre chose entre en contact avec le train (attention, à faire évoluer pour la suite du jeu :
+        //penser à créer un prefab pour les tuile, mettre un tag et vérifier que le parent du collider possède le tag "tile"
         _currentTile = collider.transform.parent.gameObject;
+
+        _reversePoints = false;
 
         _allDirectionsOfATile = PossibleDirections(_currentTile);
         _indexDirection = GetIndexDirection(_allDirectionsOfATile, _fromDirection);

@@ -5,8 +5,8 @@ using UnityEngine;
 public class Shooting : MonoBehaviour
 {
     /*A CODER :
-        - Diriger arme
-        - Tirer
+            - Diriger arme
+            - Tirer
         - Destruction des balles
      */
     // Start is called before the first frame update
