@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using UnityEngine;
 
 //CE SCRIPT UTILE LES TUILES POUR PERMETTRE LE DÉPLACEMENT
@@ -79,6 +80,12 @@ public class MovementOnTile : MonoBehaviour
         //récupération de la tuile actuelle
         if (collider.gameObject.CompareTag("Bullet"))//si la balle entre en collision avec le train
             return;//tu ne fais rien
+        else if (collider.gameObject.CompareTag("Enemy") || collider.gameObject.CompareTag("Player"))
+        {
+            //animation à mettre
+            //A VOIR S'IL SUFFIT D'UNE COLLISION POUR DETRUIRE LES TRAINS
+            Destroy(this.gameObject);
+        }
         //si autre chose entre en contact avec le train (attention, à faire évoluer pour la suite du jeu :
         //penser à créer un prefab pour les tuile, mettre un tag et vérifier que le parent du collider possède le tag "tile"
         _currentTile = collider.transform.parent.gameObject;
