@@ -49,6 +49,7 @@ public class Shooting : MonoBehaviour
 
         if (_timeBtwShots <= 0)
         {
+            //input du joueur
             if (Input.GetMouseButtonDown(0))
             {
                 Shoot(firePoint, bulletSpeed, bullet, weapon);

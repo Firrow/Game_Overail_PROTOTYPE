@@ -171,8 +171,17 @@ public class MovementOnTile : MonoBehaviour
                               3 * (1 - _tParam) * Mathf.Pow(_tParam, 2) * p2 +
                               Mathf.Pow(_tParam, 3) * p3;
 
+
+            //Rotation de la forme en fonction de la direction de la courbe
+            //création vecteur de déplacement (grâce actuelle et nouvelle position) > création angle > rotation de l'angle en z seulement
+            Vector3 dir = new Vector3(_objectPosition.x - transform.position.x, _objectPosition.y - transform.position.y, 0.0f);
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0, 0, angle);
+
+
             //déplacement
             transform.position = _objectPosition;
+
             yield return new WaitForEndOfFrame();
         }
 

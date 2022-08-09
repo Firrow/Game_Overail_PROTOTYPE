@@ -670,7 +670,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 675020032}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.546, y: 9.3, z: -0.035388872}
+  m_LocalPosition: {x: -2.532, y: 9.305, z: -0.035388872}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1030,6 +1030,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -971880288473286017, guid: d552e1a62a8a5244d9bb1101a0425627, type: 3}
+      propertyPath: speed
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6282290170516749659, guid: d552e1a62a8a5244d9bb1101a0425627, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -1044,7 +1048,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6282290170516749660, guid: d552e1a62a8a5244d9bb1101a0425627, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.77
+      value: -6.31
       objectReference: {fileID: 0}
     - target: {fileID: 6282290170516749660, guid: d552e1a62a8a5244d9bb1101a0425627, type: 3}
       propertyPath: m_LocalPosition.z
