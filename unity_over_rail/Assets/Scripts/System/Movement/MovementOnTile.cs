@@ -104,9 +104,13 @@ public class MovementOnTile : MonoBehaviour
             nameNextRoad = _goDirection + _fromDirection;
             _reversePoints = true;
         }
+
+        Debug.Log("Nom prochaine route : " + nameNextRoad);
+
         _nextRoad = _currentTile.transform.Find(nameNextRoad);
         _road.AddLast(_nextRoad);
-         
+
+
         switch (_goDirection)
         {
             case "N":
