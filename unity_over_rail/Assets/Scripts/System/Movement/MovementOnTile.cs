@@ -55,15 +55,17 @@ public class MovementOnTile : MonoBehaviour
         if (this.gameObject.GetComponent<MovementOnTile>().tag == "Player")
         {
             //PLAYER INPUT (à retravailler) --> avant prochain aiguillage
-            if (Input.GetKey(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
                 _choice = 1;
             }
-            else if (Input.GetKey(KeyCode.D))
+            else if (Input.GetKeyDown(KeyCode.D))
             {
                 _choice = -1;
             }
         }
+
+        //Debug.Log(_choice);
 
         if (this.gameObject.GetComponent<MovementOnTile>().tag == "Enemy")
         {
@@ -92,9 +94,15 @@ public class MovementOnTile : MonoBehaviour
 
         _reversePoints = false;
 
+        Debug.Log("TUILE actuelle : " + _currentTile.name);
         _allDirectionsOfATile = PossibleDirections(_currentTile);
+        Debug.Log("Directions possibles : " + _allDirectionsOfATile);
         _indexDirection = GetIndexDirection(_allDirectionsOfATile, _fromDirection);
+        Debug.Log("ORIGINE : " + _indexDirection);
         _goDirection = GetDirection(_indexDirection, _choice, _NORTH_INVERSION, _fromDirection, _allDirectionsOfATile);
+        Debug.Log("Prochaine DIRECTION : " + _goDirection);
+        Debug.Log("--------------------------------------------------------------------------------");
+
 
         //DÉTERMINER LA BONNE ROUTE-----------------------------------------
         //récupérer la prochaine route en fonction du nom et l'ajoute à la liste
@@ -105,7 +113,7 @@ public class MovementOnTile : MonoBehaviour
             _reversePoints = true;
         }
 
-        Debug.Log("Nom prochaine route : " + nameNextRoad);
+        Debug.Log("Nom prochaine ROUTE : " + nameNextRoad);
 
         _nextRoad = _currentTile.transform.Find(nameNextRoad);
         _road.AddLast(_nextRoad);
@@ -134,7 +142,6 @@ public class MovementOnTile : MonoBehaviour
         return actualTile.GetComponent<tileManager>().directionOfTile;
     }
 
-
     //calcul index de la direction de provenance dans la liste des directions de la tuile
     private int GetIndexDirection(string allDirections, string previousDirection)
     {
@@ -144,6 +151,7 @@ public class MovementOnTile : MonoBehaviour
     //calcul index puis prochaine direction
     private string GetDirection(int index, int playerDirection, int INVERSION, string fromD, string allPossibleDirections)
     {
+        //_choice (playerDirection) ne marche pas tout le temps ?
         int i = index + playerDirection * (fromD == "N" ? INVERSION : 1);
         return allPossibleDirections.Substring((i + allPossibleDirections.Length) % allPossibleDirections.Length, 1);
     }

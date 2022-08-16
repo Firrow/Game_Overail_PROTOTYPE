@@ -580,7 +580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4c5c848687934f438228c88cd7d4177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  directionOfTile: EO
+  directionOfTile: NOE
 --- !u!1 &7776028274449461443
 GameObject:
   m_ObjectHideFlags: 0

@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4c5c848687934f438228c88cd7d4177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  directionOfTile: EO
+  directionOfTile: NS
 --- !u!1001 &5417871093142858452
 PrefabInstance:
   m_ObjectHideFlags: 0
