@@ -64,7 +64,7 @@ public class MovementOnTile : MonoBehaviour
                 _choice = -1;
             }
         }
-
+        
         //Debug.Log(_choice);
 
         if (this.gameObject.GetComponent<MovementOnTile>().tag == "Enemy")
@@ -78,6 +78,7 @@ public class MovementOnTile : MonoBehaviour
     //récupère la tuile sur laquelle le joueur est entrain de naviguer
     private void OnTriggerEnter2D(Collider2D collider)
     {
+        Debug.Log("TUILE ACTUELLE : " + _currentTile);
         //DÉTERMINER LA DIRECTION-----------------------------------------
         //récupération de la tuile actuelle
         if (collider.gameObject.CompareTag("Bullet"))//si la balle entre en collision avec le train
@@ -94,13 +95,13 @@ public class MovementOnTile : MonoBehaviour
 
         _reversePoints = false;
 
-        Debug.Log("TUILE actuelle : " + _currentTile.name);
+        //Debug.Log("TUILE actuelle : " + _currentTile.name);
         _allDirectionsOfATile = PossibleDirections(_currentTile);
-        Debug.Log("Directions possibles : " + _allDirectionsOfATile);
+        //Debug.Log("Directions possibles : " + _allDirectionsOfATile);
         _indexDirection = GetIndexDirection(_allDirectionsOfATile, _fromDirection);
-        Debug.Log("ORIGINE : " + _indexDirection);
+        //Debug.Log("ORIGINE : " + _indexDirection);
         _goDirection = GetDirection(_indexDirection, _choice, _NORTH_INVERSION, _fromDirection, _allDirectionsOfATile);
-        Debug.Log("Prochaine DIRECTION : " + _goDirection);
+        //Debug.Log("Prochaine DIRECTION : " + _goDirection);
         Debug.Log("--------------------------------------------------------------------------------");
 
 
