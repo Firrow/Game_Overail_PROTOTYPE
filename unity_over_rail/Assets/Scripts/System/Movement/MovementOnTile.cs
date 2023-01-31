@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using UnityEngine;
 
 //CE SCRIPT UTILE LES TUILES POUR PERMETTRE LE DÉPLACEMENT
@@ -21,6 +20,10 @@ public class MovementOnTile : MonoBehaviour
     private int _indexDirection;
     private int _NORTH_INVERSION = -1; //a gérer quand il y aura l'input system
     private Transform _nextRoad;
+
+    //TEST DISPARITION SPRITE
+    private float x;
+    private float y;
 
     //déplacements mathématique
     private float _tParam;
@@ -45,6 +48,12 @@ public class MovementOnTile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*x = this.transform.position.x;
+        y = this.transform.position.y;
+        Debug.Log("x = " + x);
+        Debug.Log("y = " + y);*/
+
+
         if (_coroutineAllowed)
         {
             //StartCoroutine(GoByTheRoute(_indexTileCollection));
@@ -78,6 +87,9 @@ public class MovementOnTile : MonoBehaviour
     //récupère la tuile sur laquelle le joueur est entrain de naviguer
     private void OnTriggerEnter2D(Collider2D collider)
     {
+        //vitesse : but --> faire en sorte que la vitesse reste constante malgré la distance
+        speed = (float)(speed + 0.1);
+
         //Debug.Log("TUILE ACTUELLE : " + _currentTile);
         //DÉTERMINER LA DIRECTION-----------------------------------------
         //récupération de la tuile actuelle
