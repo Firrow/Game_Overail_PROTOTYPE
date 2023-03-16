@@ -43,7 +43,7 @@ public class MovementOnTile : MonoBehaviour
         _indexRoadToGo = 0; //pour test
         _tParam = 0f;
         _coroutineAllowed = true;
-        cGauche.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 1);
+        ArrowColor(cGauche.GetComponent<SpriteRenderer>(), cDroit.GetComponent<SpriteRenderer>(), 1);
     }
     // Update is called once per frame
     void Update()
