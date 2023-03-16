@@ -3682,7 +3682,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6282290170516749663, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: speed
-      value: 0.5
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6282290170516749663, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: cDroit

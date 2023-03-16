@@ -43,6 +43,7 @@ public class MovementOnTile : MonoBehaviour
         _indexRoadToGo = 0; //pour test
         _tParam = 0f;
         _coroutineAllowed = true;
+        cGauche.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 1);
     }
     // Update is called once per frame
     void Update()
@@ -66,14 +67,12 @@ public class MovementOnTile : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 _choice = 1;
-                cGauche.GetComponent<SpriteRenderer>().color = new Color (1, 0, 0, 1);
-                cDroit.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
+                ArrowColor(cGauche.GetComponent<SpriteRenderer>(), cDroit.GetComponent<SpriteRenderer>(), _choice);
             }
             else if (Input.GetKeyDown(KeyCode.D))
             {
                 _choice = -1;
-                cGauche.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
-                cDroit.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 1);
+                ArrowColor(cDroit.GetComponent<SpriteRenderer>(), cGauche.GetComponent<SpriteRenderer>(), _choice);
             }
         }
 
@@ -173,8 +172,15 @@ public class MovementOnTile : MonoBehaviour
     {
         //_choice (playerDirection) ne marche pas tout le temps ?
         //VERSION AVEC 2 TOUCHES
-        int i = index + playerDirection; //* (fromD == "N" ? INVERSION : 1);
+        int i = index + playerDirection; //* (fromD == "N" ? INVERSION : 1); --> Origine du bug de direction 
         return allPossibleDirections.Substring((i + allPossibleDirections.Length) % allPossibleDirections.Length, 1);
+    }
+
+    //Créer une fonction pour le changement de couleur des flèches
+    private void ArrowColor(SpriteRenderer actualArrow, SpriteRenderer otherArrow, int choice)
+    {
+        actualArrow.color = new Color(1, 0, 0, 1);
+        otherArrow.color = new Color(1, 0, 0, 0);
     }
 
 
