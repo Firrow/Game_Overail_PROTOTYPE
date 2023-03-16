@@ -15,15 +15,15 @@ public class MovementOnTile : MonoBehaviour
     private string _fromDirection;
     private GameObject _currentTile;
     private string _allDirectionsOfATile;
-    private int _choice = 1;
+    private int _choice = 1; //ne pas mettre de choix par défaut fixe
     private string _goDirection = "";
     private int _indexDirection;
     private int _NORTH_INVERSION = -1; //a gérer quand il y aura l'input system
     private Transform _nextRoad;
 
-    //TEST DISPARITION SPRITE
-    private float x;
-    private float y;
+    //Flèches (circle actuellement)
+    public GameObject cGauche;
+    public GameObject cDroit;
 
     //déplacements mathématique
     private float _tParam;
@@ -44,7 +44,6 @@ public class MovementOnTile : MonoBehaviour
         _tParam = 0f;
         _coroutineAllowed = true;
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -67,22 +66,26 @@ public class MovementOnTile : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 _choice = 1;
+                cGauche.GetComponent<SpriteRenderer>().color = new Color (1, 0, 0, 1);
+                cDroit.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
             }
             else if (Input.GetKeyDown(KeyCode.D))
             {
                 _choice = -1;
+                cGauche.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
+                cDroit.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 1);
             }
         }
-        
-        //Debug.Log(_choice);
 
         if (this.gameObject.GetComponent<MovementOnTile>().tag == "Enemy")
         {
             //CODER CHOIX IA ENEMY
             _choice = 1;
         }
-
+        Debug.Log("choix :" + _choice);
     }
+
+    
 
     //récupère la tuile sur laquelle le joueur est entrain de naviguer
     private void OnTriggerEnter2D(Collider2D collider)
@@ -107,15 +110,14 @@ public class MovementOnTile : MonoBehaviour
 
         _reversePoints = false;
 
-        Debug.Log("TUILE actuelle : " + _currentTile.name);
+        //Debug.Log("TUILE actuelle : " + _currentTile.name);
         _allDirectionsOfATile = PossibleDirections(_currentTile);
-        Debug.Log("Directions possibles : " + _allDirectionsOfATile);
+        //Debug.Log("Directions possibles : " + _allDirectionsOfATile);
         _indexDirection = GetIndexDirection(_allDirectionsOfATile, _fromDirection);
-        Debug.Log("ORIGINE : " + _indexDirection);
+        //Debug.Log("ORIGINE : " + _indexDirection);
         _goDirection = GetDirection(_indexDirection, _choice, _NORTH_INVERSION, _fromDirection, _allDirectionsOfATile);
         Debug.Log("Prochaine DIRECTION : " + _goDirection);
         Debug.Log("--------------------------------------------------------------------------------");
-
 
         //DÉTERMINER LA BONNE ROUTE-----------------------------------------
         //récupérer la prochaine route en fonction du nom et l'ajoute à la liste
@@ -130,7 +132,6 @@ public class MovementOnTile : MonoBehaviour
 
         _nextRoad = _currentTile.transform.Find(nameNextRoad);
         _road.AddLast(_nextRoad);
-
 
         switch (_goDirection)
         {
@@ -149,11 +150,15 @@ public class MovementOnTile : MonoBehaviour
         }
     }
 
+
+
     //récupère les directions possibles
     private string PossibleDirections(GameObject actualTile)
     {
         return actualTile.GetComponent<tileManager>().directionOfTile;
     }
+
+
 
     //calcul index de la direction de provenance dans la liste des directions de la tuile
     private int GetIndexDirection(string allDirections, string previousDirection)
@@ -161,11 +166,14 @@ public class MovementOnTile : MonoBehaviour
         return allDirections.IndexOf(previousDirection);
     }
 
+
+
     //calcul index puis prochaine direction
     private string GetDirection(int index, int playerDirection, int INVERSION, string fromD, string allPossibleDirections)
     {
         //_choice (playerDirection) ne marche pas tout le temps ?
-        int i = index + playerDirection * (fromD == "N" ? INVERSION : 1);
+        //VERSION AVEC 2 TOUCHES
+        int i = index + playerDirection; //* (fromD == "N" ? INVERSION : 1);
         return allPossibleDirections.Substring((i + allPossibleDirections.Length) % allPossibleDirections.Length, 1);
     }
 
@@ -178,12 +186,12 @@ public class MovementOnTile : MonoBehaviour
         //récupération des positions des points dans bon sens
         if (_reversePoints == true) //sens inverse
         {
-            Debug.Log("Route A inverser !");
+            //Debug.Log("Route A inverser !");
             p0 = _road.ElementAt(roadNum).Find("p4").position;
             p1 = _road.ElementAt(roadNum).Find("p3").position;
             p2 = _road.ElementAt(roadNum).Find("p2").position;
             p3 = _road.ElementAt(roadNum).Find("p1").position;
-            Debug.Log("Route inversée !");
+            //Debug.Log("Route inversée !");
         }
         else //sens définit dans éditeur
         {
