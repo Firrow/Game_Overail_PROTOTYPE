@@ -3584,6 +3584,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GaucheCircle
       objectReference: {fileID: 0}
+    - target: {fileID: 1343822561901170608, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5738191835909045885, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: m_Name
       value: DroitCircle
@@ -3682,7 +3686,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6282290170516749663, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: speed
-      value: 0.7
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6282290170516749663, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: cDroit
@@ -3695,6 +3699,10 @@ PrefabInstance:
     - target: {fileID: 6282290170516749663, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: _fromDirection
       value: O
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675652313775326967, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
