@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - FirstRoad
+  - Enemy
+  - Tile
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -40,4 +44,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player and IA
+    uniqueID: 1660347997
     locked: 0
