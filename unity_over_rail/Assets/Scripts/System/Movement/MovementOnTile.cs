@@ -18,7 +18,7 @@ public class MovementOnTile : MonoBehaviour
     private int _choice = 1; //ne pas mettre de choix par défaut fixe
     private string _goDirection = "";
     private int _indexDirection;
-    private int _NORTH_INVERSION = -1; //a gérer quand il y aura l'input system
+    //private int _NORTH_INVERSION = -1; //a gérer quand il y aura l'input system
     private Transform _nextRoad;
 
     //Flèches (circle actuellement)
@@ -63,7 +63,6 @@ public class MovementOnTile : MonoBehaviour
         //Si l'objet possédant le script possède le tag joueur
         if (this.gameObject.GetComponent<MovementOnTile>().tag == "Player")
         {
-            //PLAYER INPUT (à retravailler) --> avant prochain aiguillage
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 _choice = 1;
@@ -114,7 +113,7 @@ public class MovementOnTile : MonoBehaviour
         //Debug.Log("Directions possibles : " + _allDirectionsOfATile);
         _indexDirection = GetIndexDirection(_allDirectionsOfATile, _fromDirection);
         //Debug.Log("ORIGINE : " + _indexDirection);
-        _goDirection = GetDirection(_indexDirection, _choice, _NORTH_INVERSION, _fromDirection, _allDirectionsOfATile);
+        _goDirection = GetDirection(_indexDirection, _choice, /*_NORTH_INVERSION,*/ _fromDirection, _allDirectionsOfATile);
         Debug.Log("Prochaine DIRECTION : " + _goDirection);
         Debug.Log("--------------------------------------------------------------------------------");
 
@@ -127,7 +126,7 @@ public class MovementOnTile : MonoBehaviour
             _reversePoints = true;
         }
 
-        Debug.Log("Nom prochaine ROUTE : " + nameNextRoad);
+        //Debug.Log("Nom prochaine ROUTE : " + nameNextRoad);
 
         _nextRoad = _currentTile.transform.Find(nameNextRoad);
         _road.AddLast(_nextRoad);
@@ -168,7 +167,7 @@ public class MovementOnTile : MonoBehaviour
 
 
     //calcul index puis prochaine direction
-    private string GetDirection(int index, int playerDirection, int INVERSION, string fromD, string allPossibleDirections)
+    private string GetDirection(int index, int playerDirection, /*int INVERSION,*/ string fromD, string allPossibleDirections)
     {
         //_choice (playerDirection) ne marche pas tout le temps ?
         //VERSION AVEC 2 TOUCHES
