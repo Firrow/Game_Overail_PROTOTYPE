@@ -70,11 +70,11 @@ public class Shooting : MonoBehaviour
     }
 
     //fonction de tir
-    private void Shoot(Transform firePointWeapon, float speed, GameObject projectile, GameObject weaponOrigin)//Fonction appelée lors de l'input de tir
+    private void Shoot(Transform firePointWeapon, float speedBullet, GameObject projectile, GameObject weaponOrigin)//Fonction appelée lors de l'input de tir
     {
         GameObject bulletInst = Instantiate(projectile, firePointWeapon.position, weaponOrigin.transform.rotation);
         _timeBtwShots = startTimeBtwShots;
         Rigidbody2D rb = bulletInst.GetComponent<Rigidbody2D>();
-        rb.AddForce(firePointWeapon.right * speed, ForceMode2D.Impulse);
+        rb.AddForce(firePointWeapon.right * speedBullet, ForceMode2D.Impulse);
     }
 }

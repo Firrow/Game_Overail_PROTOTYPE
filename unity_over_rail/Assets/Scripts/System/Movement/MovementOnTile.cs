@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using UnityEngine;
+
+using Debug = UnityEngine.Debug; //TEMPORAIRE
 
 //CE SCRIPT UTILE LES TUILES POUR PERMETTRE LE DÉPLACEMENT
 public class MovementOnTile : MonoBehaviour
@@ -52,6 +55,7 @@ public class MovementOnTile : MonoBehaviour
         y = this.transform.position.y;
         Debug.Log("x = " + x);
         Debug.Log("y = " + y);*/
+        //Debug.Log("speed : " + speed);
 
 
         if (_coroutineAllowed)
@@ -80,7 +84,8 @@ public class MovementOnTile : MonoBehaviour
             //CODER CHOIX IA ENEMY
             _choice = 1;
         }
-        Debug.Log("choix :" + _choice);
+        //Debug.Log("choix :" + _choice);
+        
     }
 
     
@@ -88,9 +93,6 @@ public class MovementOnTile : MonoBehaviour
     //récupère la tuile sur laquelle le joueur est entrain de naviguer
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        //vitesse : but --> faire en sorte que la vitesse reste constante malgré la distance
-        speed = (float)(speed + 0.1);
-
         //Debug.Log("TUILE ACTUELLE : " + _currentTile);
         //DÉTERMINER LA DIRECTION-----------------------------------------
         //récupération de la tuile actuelle
@@ -232,7 +234,6 @@ public class MovementOnTile : MonoBehaviour
 
         //MAJ des paramètres après le déplacement
         _tParam = 0;
-        speed = speed * 0.90f;
         _indexRoadToGo += 1;
 
         _coroutineAllowed = true;
