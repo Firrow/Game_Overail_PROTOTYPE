@@ -89,9 +89,6 @@ public class MovementOnTile : MonoBehaviour
     //récupère la tuile sur laquelle le joueur est entrain de naviguer
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        //vitesse : but --> faire en sorte que la vitesse reste constante malgré la distance
-        speed = (float)(speed + 0.1);
-
         //Debug.Log("TUILE ACTUELLE : " + _currentTile);
         //DÉTERMINER LA DIRECTION-----------------------------------------
         //récupération de la tuile actuelle
@@ -233,7 +230,6 @@ public class MovementOnTile : MonoBehaviour
 
         //MAJ des paramètres après le déplacement
         _tParam = 0;
-        speed = speed * 0.90f;
         _indexRoadToGo += 1;
 
         _coroutineAllowed = true;

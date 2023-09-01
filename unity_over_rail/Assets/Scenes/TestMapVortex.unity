@@ -3610,7 +3610,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6282290170516749649, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: m_Size.x
-      value: 0.9472612
+      value: 0.5019792
       objectReference: {fileID: 0}
     - target: {fileID: 6282290170516749649, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: m_Size.y
@@ -3622,7 +3622,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6282290170516749649, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: m_Offset.x
-      value: 1.2800715
+      value: 0.8659092
       objectReference: {fileID: 0}
     - target: {fileID: 6282290170516749649, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: m_Offset.y
@@ -3734,7 +3734,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6282290170516749663, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: speed
-      value: 0.7
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6282290170516749663, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: cDroit
