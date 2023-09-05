@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1311469716273282023}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.22, y: 1.13, z: 0}
+  m_LocalPosition: {x: 0.22, y: 1.39, z: 0}
   m_LocalScale: {x: 0.7674, y: 0.7674, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -109,7 +109,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5738191835909045885}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.24, y: -1.63, z: 0}
+  m_LocalPosition: {x: 0.24, y: -1.3699998, z: 0}
   m_LocalScale: {x: 0.7674, y: 0.7674, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -272,9 +272,9 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 3.941248, y: -0.110227585}
-  m_Size: {x: 2.4066277, y: 2.9341145}
-  m_Direction: 0
+  m_Offset: {x: 0.92780185, y: 0.0046416316}
+  m_Size: {x: 0.6433771, y: 0.584634}
+  m_Direction: 1
 --- !u!50 &6282290170516749662
 Rigidbody2D:
   serializedVersion: 4
@@ -309,8 +309,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fromDirection: O
-  cGauche: {fileID: 0}
-  cDroit: {fileID: 0}
+  cGauche: {fileID: 1311469716273282023}
+  cDroit: {fileID: 5738191835909045885}
   speed: 0.5
 --- !u!114 &2311776466070137488
 MonoBehaviour:
@@ -358,7 +358,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6928176294672176317, guid: ef4ec2a9577453444ac4bb41cd116558, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.21
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 6928176294672176317, guid: ef4ec2a9577453444ac4bb41cd116558, type: 3}
       propertyPath: m_LocalPosition.z

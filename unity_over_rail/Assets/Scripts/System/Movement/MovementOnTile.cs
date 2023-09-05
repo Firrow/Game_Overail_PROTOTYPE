@@ -12,13 +12,14 @@ public class MovementOnTile : MonoBehaviour
     //-------------------------
     
     [SerializeField]
-    private string _fromDirection;
+    public string _fromDirection;
+    public int startPoint;
     private GameObject _currentTile;
     private string _allDirectionsOfATile;
     private int _choice = 1; //ne pas mettre de choix par défaut fixe
     private string _goDirection = "";
     private int _indexDirection;
-    private int _NORTH_INVERSION = -1; //a gérer quand il y aura l'input system
+    // private int _NORTH_INVERSION = -1; //a gérer quand il y aura l'input system
     private Transform _nextRoad;
 
     //Flèches (circle actuellement)
@@ -81,17 +82,21 @@ public class MovementOnTile : MonoBehaviour
             //CODER CHOIX IA ENEMY
             _choice = 1;
         }
-        Debug.Log("choix :" + _choice);
+        //Debug.Log("choix :" + _choice);
     }
 
     
 
     //récupère la tuile sur laquelle le joueur est entrain de naviguer
+    //POURQUOI LE CODE À L'INTÉRIEUR SE JOUE ALORS QUE LA FONCTION N'EST JAMAIS APPELÉE ?
     private void OnTriggerEnter2D(Collider2D collider)
     {
         //Debug.Log("TUILE ACTUELLE : " + _currentTile);
         //DÉTERMINER LA DIRECTION-----------------------------------------
-        //récupération de la tuile actuelle
+
+        /*if (!collider.gameObject.CompareTag("Tile"))
+            return;//tu ne fais rien*/
+
         if (collider.gameObject.CompareTag("Bullet"))//si la balle entre en collision avec le train
             return;//tu ne fais rien
         else if (collider.gameObject.CompareTag("Enemy") || collider.gameObject.CompareTag("Player"))
@@ -102,6 +107,9 @@ public class MovementOnTile : MonoBehaviour
         }
         //si autre chose entre en contact avec le train (attention, à faire évoluer pour la suite du jeu :
         //penser à créer un prefab pour les tuile, mettre un tag et vérifier que le parent du collider possède le tag "tile"
+
+
+        //récupération de la tuile actuelle
         _currentTile = collider.transform.parent.gameObject;
 
         _reversePoints = false;
@@ -111,9 +119,9 @@ public class MovementOnTile : MonoBehaviour
         //Debug.Log("Directions possibles : " + _allDirectionsOfATile);
         _indexDirection = GetIndexDirection(_allDirectionsOfATile, _fromDirection);
         //Debug.Log("ORIGINE : " + _indexDirection);
-        _goDirection = GetDirection(_indexDirection, _choice, _NORTH_INVERSION, _fromDirection, _allDirectionsOfATile);
-        Debug.Log("Prochaine DIRECTION : " + _goDirection);
-        Debug.Log("--------------------------------------------------------------------------------");
+        _goDirection = GetDirection(_indexDirection, _choice, /*_NORTH_INVERSION,*/ _fromDirection, _allDirectionsOfATile);
+        //Debug.Log("Prochaine DIRECTION : " + _goDirection);
+        //Debug.Log("--------------------------------------------------------------------------------");
 
         //DÉTERMINER LA BONNE ROUTE-----------------------------------------
         //récupérer la prochaine route en fonction du nom et l'ajoute à la liste
@@ -124,7 +132,7 @@ public class MovementOnTile : MonoBehaviour
             _reversePoints = true;
         }
 
-        Debug.Log("Nom prochaine ROUTE : " + nameNextRoad);
+        //Debug.Log("Nom prochaine ROUTE : " + nameNextRoad);
 
         _nextRoad = _currentTile.transform.Find(nameNextRoad);
         _road.AddLast(_nextRoad);
@@ -165,7 +173,7 @@ public class MovementOnTile : MonoBehaviour
 
 
     //calcul index puis prochaine direction
-    private string GetDirection(int index, int playerDirection, int INVERSION, string fromD, string allPossibleDirections)
+    private string GetDirection(int index, int playerDirection, /*int INVERSION,*/ string fromD, string allPossibleDirections)
     {
         //_choice (playerDirection) ne marche pas tout le temps ?
         //VERSION AVEC 2 TOUCHES
