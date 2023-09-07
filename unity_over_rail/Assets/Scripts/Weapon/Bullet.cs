@@ -19,25 +19,26 @@ public class Bullet : MonoBehaviour
         
     }
 
-    void OnTriggerEnter2D(Collider2D collision)//Se déclenche quand la balle touche quelque chose
+    void OnTriggerEnter2D(Collider2D collider)//Se déclenche quand la balle touche quelque chose
     {
-        if (collision.gameObject.name == "Enemy")
+        //Debug.Log(collider.name);
+        if (collider.gameObject.name == "Enemy")
         {
             //Si la balle entre en collision avec ennemi
-            EnemyHealth enemyHealth = collision.transform.GetComponent<EnemyHealth>();
+            EnemyHealth enemyHealth = collider.transform.GetComponent<EnemyHealth>();
             enemyHealth.TakeDamage(damage);
             Destroy(this.gameObject);
         }
-        else if (collision.gameObject.name == "Player")
+        else if (collider.gameObject.name == "Player")
         {
-            PlayerHealth playerHealth = collision.transform.GetComponent<PlayerHealth>();
+            PlayerHealth playerHealth = collider.transform.GetComponent<PlayerHealth>();
             playerHealth.TakeDamage(damage);
             Destroy(this.gameObject);
         }
         else
         {
             Physics2D.IgnoreLayerCollision(0, 1);
-            Destroy(this.gameObject, 5f); //5f = temps avant destruction (à régler en fonction de la taille de la map)
+            Destroy(this.gameObject, 2f); //2f = temps avant destruction (à régler en fonction de la taille de la map)
         }
     }
 }

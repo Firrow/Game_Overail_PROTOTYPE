@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Timers;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Shooting : MonoBehaviour
@@ -19,8 +22,15 @@ public class Shooting : MonoBehaviour
     public Transform firePoint;
     public float startTimeBtwShots;
 
-    private float _timeBtwShots;
+    //private float _timeBtwShots;
+    //private float _timeBtwShots = 2.0f * Time.deltaTime;
+    private DateTime _timeShot1;
+    private DateTime _timeShot2;
 
+    void Start()
+    {
+        _timeShot1 = DateTime.Now;
+    }
 
     // Update is called once per frame
     void Update()
@@ -47,17 +57,16 @@ public class Shooting : MonoBehaviour
         float rotZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, rotZ + offset);
 
-        if (_timeBtwShots <= 0)
+        //input du joueur
+        if (Input.GetMouseButtonDown(0))
         {
-            //input du joueur
-            if (Input.GetMouseButtonDown(0))
+            _timeShot2 = DateTime.Now;
+
+            if (_timeShot2 - _timeShot1 >= new TimeSpan(0, 0, 0,0,150)) 
             {
                 Shoot(firePoint, bulletSpeed, bullet, weapon);
+                _timeShot1 = _timeShot2;
             }
-        }
-        else
-        {
-            _timeBtwShots -= Time.deltaTime;
         }
 
         //DESTRUCTION DES BALLES ???----------------------------------------------------------------------
@@ -73,7 +82,6 @@ public class Shooting : MonoBehaviour
     private void Shoot(Transform firePointWeapon, float speed, GameObject projectile, GameObject weaponOrigin)//Fonction appelée lors de l'input de tir
     {
         GameObject bulletInst = Instantiate(projectile, firePointWeapon.position, weaponOrigin.transform.rotation);
-        _timeBtwShots = startTimeBtwShots;
         Rigidbody2D rb = bulletInst.GetComponent<Rigidbody2D>();
         rb.AddForce(firePointWeapon.right * speed, ForceMode2D.Impulse);
     }

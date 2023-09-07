@@ -94,20 +94,9 @@ public class MovementOnTile : MonoBehaviour
         //Debug.Log("TUILE ACTUELLE : " + _currentTile);
         //DÉTERMINER LA DIRECTION-----------------------------------------
 
-        /*if (!collider.gameObject.CompareTag("Tile"))
-            return;//tu ne fais rien*/
-
+        //Ne pas prendre en compte les balles qui touchent les tuiles
         if (collider.gameObject.CompareTag("Bullet"))//si la balle entre en collision avec le train
             return;//tu ne fais rien
-        else if (collider.gameObject.CompareTag("Enemy") || collider.gameObject.CompareTag("Player"))
-        {
-            //animation à mettre
-            //A VOIR S'IL SUFFIT D'UNE COLLISION POUR DETRUIRE LES TRAINS
-            Destroy(this.gameObject);
-        }
-        //si autre chose entre en contact avec le train (attention, à faire évoluer pour la suite du jeu :
-        //penser à créer un prefab pour les tuile, mettre un tag et vérifier que le parent du collider possède le tag "tile"
-
 
         //récupération de la tuile actuelle
         _currentTile = collider.transform.parent.gameObject;
