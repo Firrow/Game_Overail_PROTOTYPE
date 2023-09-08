@@ -1342,11 +1342,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6282290170516749660, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -35.95
+      value: -36.36
       objectReference: {fileID: 0}
     - target: {fileID: 6282290170516749660, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -22.52
+      value: -22.53
       objectReference: {fileID: 0}
     - target: {fileID: 6282290170516749660, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1383,6 +1383,10 @@ PrefabInstance:
     - target: {fileID: 6282290170516749663, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: speed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8505060478303204592, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
@@ -2129,6 +2133,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1204684396706960997, guid: dd70076de2892374bbda91b50daecc28, type: 3}
   m_PrefabInstance: {fileID: 487474913}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &544141932 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6282290170516749660, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
+  m_PrefabInstance: {fileID: 1687965675}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &613011759
 PrefabInstance:
@@ -6200,7 +6209,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6282290170516749659, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: m_Name
-      value: train
+      value: train1
       objectReference: {fileID: 0}
     - target: {fileID: 6282290170516749660, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: m_RootOrder
@@ -6220,7 +6229,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6282290170516749660, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12.52
+      value: 12.48
       objectReference: {fileID: 0}
     - target: {fileID: 6282290170516749660, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6258,6 +6267,14 @@ PrefabInstance:
       propertyPath: speed
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8505060478303204592, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
+      propertyPath: train
+      value: 
+      objectReference: {fileID: 544141932}
+    - target: {fileID: 8505060478303204592, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
+      propertyPath: bulletOrigin
+      value: 
+      objectReference: {fileID: 544141932}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
 --- !u!1001 &1720845389

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Timers;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -20,16 +21,18 @@ public class Shooting : MonoBehaviour
     public GameObject weapon;
     public GameObject bullet;
     public Transform firePoint;
-    public float startTimeBtwShots;
+    public Transform parentBullet;
+    public int test = 2;
 
-    //private float _timeBtwShots;
-    //private float _timeBtwShots = 2.0f * Time.deltaTime;
     private DateTime _timeShot1;
     private DateTime _timeShot2;
+    private Transform train;
+
 
     void Start()
     {
         _timeShot1 = DateTime.Now;
+        train = this.transform.parent;
     }
 
     // Update is called once per frame
@@ -65,11 +68,10 @@ public class Shooting : MonoBehaviour
             if (_timeShot2 - _timeShot1 >= new TimeSpan(0, 0, 0,0,150)) 
             {
                 Shoot(firePoint, bulletSpeed, bullet, weapon);
+
                 _timeShot1 = _timeShot2;
             }
         }
-
-        //DESTRUCTION DES BALLES ???----------------------------------------------------------------------
     }
 
     //calcul de l'angle entre les 2 points
@@ -79,10 +81,12 @@ public class Shooting : MonoBehaviour
     }
 
     //fonction de tir
-    private void Shoot(Transform firePointWeapon, float speed, GameObject projectile, GameObject weaponOrigin)//Fonction appelée lors de l'input de tir
+    public void Shoot(Transform firePointWeapon, float speed, GameObject projectile, GameObject weaponOrigin)//Fonction appelée lors de l'input de tir
     {
-        GameObject bulletInst = Instantiate(projectile, firePointWeapon.position, weaponOrigin.transform.rotation);
+        GameObject bulletInst = Instantiate(projectile, firePointWeapon.transform.position, weaponOrigin.transform.rotation);
+
         Rigidbody2D rb = bulletInst.GetComponent<Rigidbody2D>();
         rb.AddForce(firePointWeapon.right * speed, ForceMode2D.Impulse);
     }
+
 }

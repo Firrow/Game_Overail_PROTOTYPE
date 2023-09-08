@@ -22,7 +22,12 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         _currentHealth -= damage; //a voir pour la valeur des dégats
-        Debug.Log("PV player : " + _currentHealth);
+        //Debug.Log("PV player : " + _currentHealth);
+
         //détruire joueur quand plus de PV
+        if (_currentHealth <= 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

@@ -102,9 +102,9 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.014173031, y: 0}
-  m_Size: {x: 2.531654, y: 2.56}
-  m_Direction: 0
+  m_Offset: {x: 0.9081717, y: -0.21622558}
+  m_Size: {x: 0.77200854, y: 0.53083616}
+  m_Direction: 1
 --- !u!50 &6282290170516749662
 Rigidbody2D:
   serializedVersion: 4
@@ -139,6 +139,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fromDirection: E
+  startPoint: 0
+  cGauche: {fileID: 0}
+  cDroit: {fileID: 0}
   speed: 0
 --- !u!114 &2005920593774377136
 MonoBehaviour:
