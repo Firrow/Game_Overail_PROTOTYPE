@@ -10,4 +10,7 @@ public class tileManager : MonoBehaviour
     {
         return tile.GetComponent(directionOfTile).ToString();
     }
+
+    //Désactiver route avec tag "FirstRoad" lorsque les joueurs sont définitivement rentrés sur le terrain
+    //mettre animation barrière qui se baisse
 }
