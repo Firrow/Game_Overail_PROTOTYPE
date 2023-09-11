@@ -1,16 +1,15 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-//CE SCRIPT UTILE LES TUILES POUR PERMETTRE LE DÉPLACEMENT
-public class MovementOnTile : MonoBehaviour
+public class EnemyMovementOnTile : MonoBehaviour
 {
     private LinkedList<Transform> _road = new LinkedList<Transform>();
     private int _indexRoadToGo;
     //-------------------------
-    
+
     [SerializeField]
     public string _fromDirection;
     public int startPoint;
@@ -22,9 +21,10 @@ public class MovementOnTile : MonoBehaviour
     // private int _NORTH_INVERSION = -1; //a gérer quand il y aura l'input system
     private Transform _nextRoad;
 
+
     //Flèches (circle actuellement)
-    public GameObject cGauche;
-    public GameObject cDroit;
+    /*public GameObject cGauche;
+    public GameObject cDroit;*/
 
     //déplacements mathématique
     private float _tParam;
@@ -37,6 +37,8 @@ public class MovementOnTile : MonoBehaviour
     private Vector3 p2;
     private Vector3 p3;
 
+    private List<int> choices = new List<int>() { -1, 1 };
+
 
     // Start is called before the first frame update
     void Start()
@@ -44,54 +46,32 @@ public class MovementOnTile : MonoBehaviour
         _indexRoadToGo = 0; //pour test
         _tParam = 0f;
         _coroutineAllowed = true;
-        ArrowColor(cGauche.GetComponent<SpriteRenderer>(), cDroit.GetComponent<SpriteRenderer>(), 1);
+
+        //CODER CHOIX IA ENEMY
+        InvokeRepeating("MovementChoice", 0.3f, 0.3f);
+
+        //ArrowColor(cGauche.GetComponent<SpriteRenderer>(), cDroit.GetComponent<SpriteRenderer>(), 1);
     }
     // Update is called once per frame
     void Update()
     {
-        /*x = this.transform.position.x;
-        y = this.transform.position.y;
-        Debug.Log("x = " + x);
-        Debug.Log("y = " + y);*/
-
-
         if (_coroutineAllowed)
         {
             //StartCoroutine(GoByTheRoute(_indexTileCollection));
             StartCoroutine(GoByTheRoute(_indexRoadToGo)); //pour le test
         }
-
-        //Si l'objet possédant le script possède le tag joueur
-        if (this.gameObject.GetComponent<MovementOnTile>().tag == "Player")
-        {
-            //PLAYER INPUT (à retravailler) --> avant prochain aiguillage
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                _choice = 1;
-                ArrowColor(cGauche.GetComponent<SpriteRenderer>(), cDroit.GetComponent<SpriteRenderer>(), _choice);
-            }
-            else if (Input.GetKeyDown(KeyCode.D))
-            {
-                _choice = -1;
-                ArrowColor(cDroit.GetComponent<SpriteRenderer>(), cGauche.GetComponent<SpriteRenderer>(), _choice);
-            }
-        }
-
-        if (this.gameObject.GetComponent<MovementOnTile>().tag == "Enemy")
-        {
-            //CODER CHOIX IA ENEMY
-            _choice = 1;
-        }
-        //Debug.Log("choix :" + _choice);
     }
 
-    
+    //IA ALÉATOIRE A TESTER
+    private int MovementChoice()
+    {
+        int random = UnityEngine.Random.Range(0, 2);
+        return _choice = (random == 0) ? -1 : 1;
+    }
 
     //récupère la tuile sur laquelle le joueur est entrain de naviguer
-    //POURQUOI LE CODE À L'INTÉRIEUR SE JOUE ALORS QUE LA FONCTION N'EST JAMAIS APPELÉE ?
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        //Debug.Log("TUILE ACTUELLE : " + _currentTile);
         //DÉTERMINER LA DIRECTION-----------------------------------------
 
         //Ne pas prendre en compte les balles qui touchent les tuiles
@@ -151,15 +131,11 @@ public class MovementOnTile : MonoBehaviour
         return actualTile.GetComponent<tileManager>().directionOfTile;
     }
 
-
-
     //calcul index de la direction de provenance dans la liste des directions de la tuile
     private int GetIndexDirection(string allDirections, string previousDirection)
     {
         return allDirections.IndexOf(previousDirection);
     }
-
-
 
     //calcul index puis prochaine direction
     private string GetDirection(int index, int playerDirection, /*int INVERSION,*/ string fromD, string allPossibleDirections)

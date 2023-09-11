@@ -30,4 +30,19 @@ public class PlayerHealth : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            //Si le joueur entre en collision avec ennemi
+            Destroy(this.gameObject);
+        }
+        else if (collision.gameObject.tag == "Player")
+        {
+            //Si le joueur entre en collision avec autre joueur
+            Destroy(this.gameObject);
+        }
+    }
+
 }

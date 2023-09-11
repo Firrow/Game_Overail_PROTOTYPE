@@ -24,5 +24,24 @@ public class EnemyHealth : MonoBehaviour
         _currentHealth -= damage; //a voir pour la valeur des dégats
         Debug.Log("PV enemy : " + _currentHealth);
         //Détruire ennemi quand plus de PV
+
+        if (_currentHealth <= 0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            //Si le joueur entre en collision avec ennemi
+            Destroy(this.gameObject);
+        }
+        else if (collision.gameObject.tag == "Player")
+        {
+            //Si le joueur entre en collision avec autre joueur
+            Destroy(this.gameObject);
+        }
     }
 }

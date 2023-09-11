@@ -272,8 +272,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0059134956, y: -0.009626688}
-  m_Size: {x: 3.2415085, y: 0.99963593}
+  m_Offset: {x: -0.24640086, y: -0.009626659}
+  m_Size: {x: 2.7369053, y: 0.99964607}
   m_Direction: 1
 --- !u!50 &6282290170516749662
 Rigidbody2D:
@@ -421,7 +421,8 @@ MonoBehaviour:
   weapon: {fileID: 625254992458161528}
   bullet: {fileID: 7192635792457381554, guid: 2d4597576fe0ee44cb29713efded71f5, type: 3}
   firePoint: {fileID: 6023036909543240796}
-  bulletOrigin: 
+  parentBullet: {fileID: 0}
+  test: 2
 --- !u!4 &2327173669975358120 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6928176294672176317, guid: ef4ec2a9577453444ac4bb41cd116558, type: 3}
