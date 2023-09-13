@@ -5346,6 +5346,42 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1037690033}
     m_Modifications:
+    - target: {fileID: 1204684395045264215, guid: dd70076de2892374bbda91b50daecc28, type: 3}
+      propertyPath: m_Delegates.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1204684395045264215, guid: dd70076de2892374bbda91b50daecc28, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1204684395045264215, guid: dd70076de2892374bbda91b50daecc28, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1204684395045264215, guid: dd70076de2892374bbda91b50daecc28, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11500000, guid: e4c5c848687934f438228c88cd7d4177, type: 3}
+    - target: {fileID: 1204684395045264215, guid: dd70076de2892374bbda91b50daecc28, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1204684395045264215, guid: dd70076de2892374bbda91b50daecc28, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1204684395045264215, guid: dd70076de2892374bbda91b50daecc28, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1204684395045264215, guid: dd70076de2892374bbda91b50daecc28, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: YOLO
+      objectReference: {fileID: 0}
+    - target: {fileID: 1204684395045264215, guid: dd70076de2892374bbda91b50daecc28, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1204684396706960992, guid: dd70076de2892374bbda91b50daecc28, type: 3}
       propertyPath: m_Name
       value: Tile-EO
