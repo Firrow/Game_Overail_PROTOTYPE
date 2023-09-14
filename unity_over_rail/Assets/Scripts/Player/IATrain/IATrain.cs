@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class EnemyMovementOnTile : MonoBehaviour
+public class IATrain : MonoBehaviour
 {
     private LinkedList<Transform> _road = new LinkedList<Transform>();
     private int _indexRoadToGo;

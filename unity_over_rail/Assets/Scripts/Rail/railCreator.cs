@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class railCreator : MonoBehaviour
+public class RailCreator : MonoBehaviour
 {
     [SerializeField]
     private Transform[] _controlPoints;

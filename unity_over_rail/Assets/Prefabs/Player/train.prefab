@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 6282290170516749661}
   - component: {fileID: 6282290170516749649}
   - component: {fileID: 6282290170516749662}
-  - component: {fileID: 6282290170516749663}
+  - component: {fileID: 7414385262241800113}
   - component: {fileID: 2311776466070137488}
   m_Layer: 0
   m_Name: train
@@ -296,7 +296,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &6282290170516749663
+--- !u!114 &7414385262241800113
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -309,10 +309,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fromDirection: O
-  startPoint: 0
+  speed: 1
   cGauche: {fileID: 1311469716273282023}
   cDroit: {fileID: 5738191835909045885}
-  speed: 0.5
 --- !u!114 &2311776466070137488
 MonoBehaviour:
   m_ObjectHideFlags: 0
