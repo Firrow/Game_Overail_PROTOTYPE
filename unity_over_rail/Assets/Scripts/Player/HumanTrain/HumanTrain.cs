@@ -7,8 +7,8 @@ public class HumanTrain : MonoBehaviour
     public string _fromDirection;
     public float speed;
     //Flèches (circle actuellement)
-    public GameObject cGauche;
-    public GameObject cDroit;
+    public GameObject cLeft;
+    public GameObject cRight;
 
     private GameObject _currentTile;
     private int _choice;
@@ -29,7 +29,7 @@ public class HumanTrain : MonoBehaviour
     {
         _tParam = 0f;
         _coroutineAllowed = true;
-        ChangeArrowColor(cGauche.GetComponent<SpriteRenderer>(), cDroit.GetComponent<SpriteRenderer>());
+        ChangeArrowColor(cLeft.GetComponent<SpriteRenderer>(), cRight.GetComponent<SpriteRenderer>());
         _choice = 1;
     }
 
@@ -44,12 +44,12 @@ public class HumanTrain : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             _choice = 1;
-            ChangeArrowColor(cGauche.GetComponent<SpriteRenderer>(), cDroit.GetComponent<SpriteRenderer>());
+            ChangeArrowColor(cLeft.GetComponent<SpriteRenderer>(), cRight.GetComponent<SpriteRenderer>());
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
             _choice = -1;
-            ChangeArrowColor(cDroit.GetComponent<SpriteRenderer>(), cGauche.GetComponent<SpriteRenderer>());
+            ChangeArrowColor(cRight.GetComponent<SpriteRenderer>(), cLeft.GetComponent<SpriteRenderer>());
         }
     }
 

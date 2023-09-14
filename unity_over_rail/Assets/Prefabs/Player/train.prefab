@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8645586530245244753}
   - component: {fileID: 1343822561901170608}
   m_Layer: 0
-  m_Name: DroitCircle
+  m_Name: LeftCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 5759151686847443633}
   - component: {fileID: 8675652313775326967}
   m_Layer: 0
-  m_Name: GaucheCircle
+  m_Name: RightCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -310,8 +310,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fromDirection: O
   speed: 1
-  cGauche: {fileID: 1311469716273282023}
-  cDroit: {fileID: 5738191835909045885}
+  cLeft: {fileID: 1311469716273282023}
+  cRight: {fileID: 5738191835909045885}
 --- !u!114 &2311776466070137488
 MonoBehaviour:
   m_ObjectHideFlags: 0
