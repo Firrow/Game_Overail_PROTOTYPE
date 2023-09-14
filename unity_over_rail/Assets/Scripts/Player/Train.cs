@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 //CE SCRIPT UTILE LES TUILES POUR PERMETTRE LE DÉPLACEMENT
-public class MovementOnTile : MonoBehaviour
+public class Train : MonoBehaviour
 {
     public string _fromDirection;
     public float speed;
@@ -16,7 +16,7 @@ public class MovementOnTile : MonoBehaviour
 
     //déplacements mathématique
     private float _tParam;
-    private Vector3 _objectPosition;
+    private Vector3 trainPosition;
     private bool _coroutineAllowed;
     private bool _reversePoints;
     private Vector3 p0;
@@ -164,7 +164,7 @@ public class MovementOnTile : MonoBehaviour
             _tParam += Time.deltaTime * speed;
 
             //la position de la forme prend la valeur de la courbe
-            _objectPosition = Mathf.Pow(1 - _tParam, 3) * p0 +
+            trainPosition = Mathf.Pow(1 - _tParam, 3) * p0 +
                               3 * Mathf.Pow(1 - _tParam, 2) * _tParam * p1 +
                               3 * (1 - _tParam) * Mathf.Pow(_tParam, 2) * p2 +
                               Mathf.Pow(_tParam, 3) * p3;
@@ -172,13 +172,13 @@ public class MovementOnTile : MonoBehaviour
 
             //Rotation de la forme en fonction de la direction de la courbe
             //création vecteur de déplacement (grâce actuelle et nouvelle position) > création angle > rotation de l'angle en z seulement
-            Vector3 dir = new Vector3(_objectPosition.x - transform.position.x, _objectPosition.y - transform.position.y, 0.0f);
+            Vector3 dir = new Vector3(trainPosition.x - transform.position.x, trainPosition.y - transform.position.y, 0.0f);
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0, 0, angle);
 
 
             //déplacement
-            transform.position = _objectPosition;
+            transform.position = trainPosition;
 
             yield return new WaitForEndOfFrame();
         }

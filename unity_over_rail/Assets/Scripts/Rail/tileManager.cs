@@ -1,16 +1,12 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class tileManager : MonoBehaviour
 {
     public string directionOfTile;
     private GameObject[] tiles;
     public Transform TileTrigger;
-    public MovementOnTile trainMovement;
+    public Train trainMovement;
     public bool onNetwork;
     public List<GameObject> firstRoad = new List<GameObject>();
 
