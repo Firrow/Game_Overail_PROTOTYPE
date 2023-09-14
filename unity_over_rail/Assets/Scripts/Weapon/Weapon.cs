@@ -6,7 +6,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Shooting : MonoBehaviour
+public class Weapon : MonoBehaviour
 {
     /*A CODER :
             - Diriger arme
