@@ -10,8 +10,9 @@ public class MovementOnTile : MonoBehaviour
     private LinkedList<Transform> _road = new LinkedList<Transform>();
     private int _indexRoadToGo;
     //-------------------------
-    
+
     [SerializeField]
+    public bool enterOnNetwork = false;
     public string _fromDirection;
     public int startPoint;
     private GameObject _currentTile;
@@ -36,7 +37,6 @@ public class MovementOnTile : MonoBehaviour
     private Vector3 p1;
     private Vector3 p2;
     private Vector3 p3;
-
 
     // Start is called before the first frame update
     void Start()
@@ -94,7 +94,7 @@ public class MovementOnTile : MonoBehaviour
         //Debug.Log("choix :" + _choice);
     }
 
-    
+
 
     //récupère la tuile sur laquelle le joueur est entrain de naviguer
     private void OnTriggerEnter2D(Collider2D collider)
@@ -107,6 +107,13 @@ public class MovementOnTile : MonoBehaviour
 
         //récupération de la tuile actuelle
         _currentTile = collider.transform.parent.gameObject;
+
+
+        //Vérifie si le train est sur le réseau
+        if (_currentTile.transform.GetChild(1).tag == "Untagged")
+            _currentTile.GetComponent<tileManager>().onNetwork = true;
+
+
 
         _reversePoints = false;
 

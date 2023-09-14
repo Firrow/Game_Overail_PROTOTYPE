@@ -10,6 +10,10 @@ public class tileManager : MonoBehaviour
     public string directionOfTile;
     private GameObject[] tiles;
     public Transform TileTrigger;
+    public MovementOnTile trainMovement;
+    public bool onNetwork;
+    public List<GameObject> firstRoad = new List<GameObject>();
+
 
     void Start()
     {
@@ -17,15 +21,22 @@ public class tileManager : MonoBehaviour
         TileTrigger = this.gameObject.transform.GetChild(0);
     }
 
+    private void Update()
+    {
+        if (onNetwork == true) 
+            closeFirstRoad();
+    }
+
     public string DirectionOfTile(GameObject tile)
     {
         return tile.GetComponent(directionOfTile).ToString();
     }
 
-    //Désactiver route avec tag "FirstRoad" lorsque les joueurs sont définitivement rentrés sur le terrain
-    //mettre animation barrière qui se baisse
-    public void OnPointerEnter(PointerEventData eventData)
+    
+    public void closeFirstRoad()
     {
-
+        //Désactiver route avec tag "FirstRoad" lorsque les joueurs sont définitivement rentrés sur le terrain
+        //mettre animation barrière qui se baisse
+        
     }
 }
