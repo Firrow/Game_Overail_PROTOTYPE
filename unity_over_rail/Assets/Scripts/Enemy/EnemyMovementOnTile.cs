@@ -128,7 +128,7 @@ public class EnemyMovementOnTile : MonoBehaviour
     //récupère les directions possibles
     private string PossibleDirections(GameObject actualTile)
     {
-        return actualTile.GetComponent<tileManager>().directionOfTile;
+        return actualTile.GetComponent<Tile>().directionOfTile;
     }
 
     //calcul index de la direction de provenance dans la liste des directions de la tuile

@@ -69,7 +69,7 @@ public class Train : MonoBehaviour
 
         //Vérifie si le train est sur le réseau
         if (_currentTile.transform.GetChild(1).tag == "Untagged")
-            _currentTile.GetComponent<tileManager>().onNetwork = true;
+            _currentTile.GetComponent<Tile>().onNetwork = true;
 
         _reversePoints = false;
 
@@ -110,7 +110,7 @@ public class Train : MonoBehaviour
     //récupère les directions possibles
     private string PossibleDirections(GameObject actualTile)
     {
-        return actualTile.GetComponent<tileManager>().directionOfTile;
+        return actualTile.GetComponent<Tile>().directionOfTile;
     }
 
 

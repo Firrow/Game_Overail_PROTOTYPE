@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class tileManager : MonoBehaviour
+public class Tile : MonoBehaviour
 {
     public string directionOfTile;
     private GameObject[] tiles;
