@@ -26,13 +26,13 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             //Si la balle entre en collision avec ennemi
-            EnemyHealth enemyHealth = collision.transform.GetComponent<EnemyHealth>();
+            IAHealth enemyHealth = collision.transform.GetComponent<IAHealth>();
             enemyHealth.TakeDamage(damage);
             Destroy(this.gameObject);
         }
         else if (collision.gameObject.tag == "Player")
         {
-            PlayerHealth playerHealth = collision.transform.GetComponent<PlayerHealth>();
+            HumanHealth playerHealth = collision.transform.GetComponent<HumanHealth>();
             playerHealth.TakeDamage(damage);
             Destroy(this.gameObject);
         }
