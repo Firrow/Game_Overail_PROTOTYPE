@@ -24,7 +24,7 @@ public class tileManager : MonoBehaviour
     private void Update()
     {
         if (onNetwork == true) 
-            closeFirstRoad();
+            closeFirstRoads();
     }
 
     public string DirectionOfTile(GameObject tile)
@@ -33,7 +33,7 @@ public class tileManager : MonoBehaviour
     }
 
     
-    public void closeFirstRoad()
+    public void closeFirstRoads()
     {
         //Désactiver route avec tag "FirstRoad" lorsque les joueurs sont définitivement rentrés sur le terrain
         //mettre animation barrière qui se baisse

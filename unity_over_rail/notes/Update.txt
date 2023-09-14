@@ -1,0 +1,39 @@
+Code Update avant Baptiste 
+
+void Update()
+    {
+        if (_coroutineAllowed)
+        {
+            //StartCoroutine(GoByTheRoute(_indexTileCollection));
+            StartCoroutine(GoByTheRoute(_indexRoadToGo)); //pour le test
+        }
+
+        //Si l'objet possédant le script possède le tag joueur
+        //if (this.gameObject.GetComponent<MovementOnTile>().tag == "Player")
+        //{
+        
+        //PLAYER INPUT (à retravailler) --> avant prochain aiguillage
+        //si inversion A RETESTER MAIS NORMALEMENT OK
+        /*if (Input.GetKeyDown(KeyCode.Q) && _fromDirection == "N")
+        {
+            _choice = -1;
+            ArrowColor(cGauche.GetComponent<SpriteRenderer>(), cDroit.GetComponent<SpriteRenderer>(), _choice);
+        }
+        else if (Input.GetKeyDown(KeyCode.D) && _fromDirection == "N")
+        {
+            _choice = 1;
+            ArrowColor(cDroit.GetComponent<SpriteRenderer>(), cGauche.GetComponent<SpriteRenderer>(), _choice);
+        }*/
+
+        //base sans inversion
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            _choice = 1;
+            ArrowColor(cGauche.GetComponent<SpriteRenderer>(), cDroit.GetComponent<SpriteRenderer>(), _choice);
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            _choice = -1;
+            ArrowColor(cDroit.GetComponent<SpriteRenderer>(), cGauche.GetComponent<SpriteRenderer>(), _choice);
+        }
+    }

@@ -1,0 +1,14 @@
+//private int _NORTH_INVERSION = -1; //a gérer quand il y aura l'input system
+
+
+_goDirection = GetDirection(_indexDirection, _choice, /*_NORTH_INVERSION,*/ _fromDirection, _allDirectionsOfATile);
+
+
+    //calcul index puis prochaine direction
+    private string GetDirection(int index, int playerDirection, /*int INVERSION,*/ string fromD, string allPossibleDirections)
+    {
+        //_choice (playerDirection) ne marche pas tout le temps ?
+        //VERSION AVEC 2 TOUCHES
+        int i = index + playerDirection; // * (fromD == "N" ? INVERSION : 1); //--> Origine du problème de direction 
+        return allPossibleDirections.Substring((i + allPossibleDirections.Length) % allPossibleDirections.Length, 1);
+    }

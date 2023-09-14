@@ -1,97 +1,56 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 //CE SCRIPT UTILE LES TUILES POUR PERMETTRE LE DÉPLACEMENT
 public class MovementOnTile : MonoBehaviour
 {
-    private LinkedList<Transform> _road = new LinkedList<Transform>();
-    private int _indexRoadToGo;
-    //-------------------------
-
-    [SerializeField]
-    public bool enterOnNetwork = false;
     public string _fromDirection;
-    public int startPoint;
-    private GameObject _currentTile;
-    private string _allDirectionsOfATile;
-    private int _choice = 1; //ne pas mettre de choix par défaut fixe
-    private string _goDirection = "";
-    private int _indexDirection;
-    //private int _NORTH_INVERSION = -1; //a gérer quand il y aura l'input system
-    private Transform _nextRoad;
-
+    public float speed;
     //Flèches (circle actuellement)
     public GameObject cGauche;
     public GameObject cDroit;
+
+    private GameObject _currentTile;
+    private int _choice;
+    private Transform _nextRoad;
 
     //déplacements mathématique
     private float _tParam;
     private Vector3 _objectPosition;
     private bool _coroutineAllowed;
-    public float speed;
     private bool _reversePoints;
     private Vector3 p0;
     private Vector3 p1;
     private Vector3 p2;
     private Vector3 p3;
 
-    // Start is called before the first frame update
+
     void Start()
     {
-        _indexRoadToGo = 0; //pour test
         _tParam = 0f;
         _coroutineAllowed = true;
-        ArrowColor(cGauche.GetComponent<SpriteRenderer>(), cDroit.GetComponent<SpriteRenderer>(), 1);
+        ChangeArrowColor(cGauche.GetComponent<SpriteRenderer>(), cDroit.GetComponent<SpriteRenderer>());
+        _choice = 1;
     }
-    // Update is called once per frame
+
+
     void Update()
     {
         if (_coroutineAllowed)
         {
-            //StartCoroutine(GoByTheRoute(_indexTileCollection));
-            StartCoroutine(GoByTheRoute(_indexRoadToGo)); //pour le test
+            StartCoroutine(GoByTheRoute());
         }
-
-        //Si l'objet possédant le script possède le tag joueur
-        //if (this.gameObject.GetComponent<MovementOnTile>().tag == "Player")
-        //{
-        
-        //PLAYER INPUT (à retravailler) --> avant prochain aiguillage
-        //si inversion A RETESTER MAIS NORMALEMENT OK
-        /*if (Input.GetKeyDown(KeyCode.Q) && _fromDirection == "N")
-        {
-            _choice = -1;
-            ArrowColor(cGauche.GetComponent<SpriteRenderer>(), cDroit.GetComponent<SpriteRenderer>(), _choice);
-        }
-        else if (Input.GetKeyDown(KeyCode.D) && _fromDirection == "N")
-        {
-            _choice = 1;
-            ArrowColor(cDroit.GetComponent<SpriteRenderer>(), cGauche.GetComponent<SpriteRenderer>(), _choice);
-        }*/
-
         //base sans inversion
         if (Input.GetKeyDown(KeyCode.Q))
         {
             _choice = 1;
-            ArrowColor(cGauche.GetComponent<SpriteRenderer>(), cDroit.GetComponent<SpriteRenderer>(), _choice);
+            ChangeArrowColor(cGauche.GetComponent<SpriteRenderer>(), cDroit.GetComponent<SpriteRenderer>());
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
             _choice = -1;
-            ArrowColor(cDroit.GetComponent<SpriteRenderer>(), cGauche.GetComponent<SpriteRenderer>(), _choice);
+            ChangeArrowColor(cDroit.GetComponent<SpriteRenderer>(), cGauche.GetComponent<SpriteRenderer>());
         }
-
-        //}
-
-        /*if (this.gameObject.GetComponent<MovementOnTile>().tag == "Enemy")
-        {
-            //CODER CHOIX IA ENEMY
-            _choice = 1;
-        }*/
-        //Debug.Log("choix :" + _choice);
     }
 
 
@@ -100,9 +59,8 @@ public class MovementOnTile : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collider)
     {
         //DÉTERMINER LA DIRECTION-----------------------------------------
-
         //Ne pas prendre en compte les balles qui touchent les tuiles
-        if (collider.gameObject.CompareTag("Bullet"))//si la balle entre en collision avec le train
+        if (collider.gameObject.CompareTag("Bullet"))
             return;//tu ne fais rien
 
         //récupération de la tuile actuelle
@@ -113,18 +71,11 @@ public class MovementOnTile : MonoBehaviour
         if (_currentTile.transform.GetChild(1).tag == "Untagged")
             _currentTile.GetComponent<tileManager>().onNetwork = true;
 
-
-
         _reversePoints = false;
 
-        //Debug.Log("TUILE actuelle : " + _currentTile.name);
-        _allDirectionsOfATile = PossibleDirections(_currentTile);
-        //Debug.Log("Directions possibles : " + _allDirectionsOfATile);
-        _indexDirection = GetIndexDirection(_allDirectionsOfATile, _fromDirection);
-        //Debug.Log("ORIGINE : " + _indexDirection);
-        _goDirection = GetDirection(_indexDirection, _choice, /*_NORTH_INVERSION,*/ _fromDirection, _allDirectionsOfATile);
-        //Debug.Log("Prochaine DIRECTION : " + _goDirection);
-        //Debug.Log("--------------------------------------------------------------------------------");
+        string _allDirectionsOfATile = PossibleDirections(_currentTile);
+        int _indexDirection = GetIndexDirection(_allDirectionsOfATile, _fromDirection);
+        string _goDirection = GetDirection(_indexDirection, _choice, _allDirectionsOfATile);
 
         //DÉTERMINER LA BONNE ROUTE-----------------------------------------
         //récupérer la prochaine route en fonction du nom et l'ajoute à la liste
@@ -135,10 +86,8 @@ public class MovementOnTile : MonoBehaviour
             _reversePoints = true;
         }
 
-        //Debug.Log("Nom prochaine ROUTE : " + nameNextRoad);
-
         _nextRoad = _currentTile.transform.Find(nameNextRoad);
-        _road.AddLast(_nextRoad);
+
 
         switch (_goDirection)
         {
@@ -158,7 +107,6 @@ public class MovementOnTile : MonoBehaviour
     }
 
 
-
     //récupère les directions possibles
     private string PossibleDirections(GameObject actualTile)
     {
@@ -176,16 +124,14 @@ public class MovementOnTile : MonoBehaviour
 
 
     //calcul index puis prochaine direction
-    private string GetDirection(int index, int playerDirection, /*int INVERSION,*/ string fromD, string allPossibleDirections)
+    private string GetDirection(int index, int playerDirection, string allPossibleDirections)
     {
-        //_choice (playerDirection) ne marche pas tout le temps ?
-        //VERSION AVEC 2 TOUCHES
-        int i = index + playerDirection; // * (fromD == "N" ? INVERSION : 1); //--> Origine du problème de direction 
+        int i = index + playerDirection;
         return allPossibleDirections.Substring((i + allPossibleDirections.Length) % allPossibleDirections.Length, 1);
     }
 
     //Créer une fonction pour le changement de couleur des flèches
-    private void ArrowColor(SpriteRenderer actualArrow, SpriteRenderer otherArrow, int choice)
+    private void ChangeArrowColor(SpriteRenderer actualArrow, SpriteRenderer otherArrow)
     {
         actualArrow.color = new Color(1, 0, 0, 1);
         otherArrow.color = new Color(1, 0, 0, 0);
@@ -194,25 +140,23 @@ public class MovementOnTile : MonoBehaviour
 
 
     //DÉPLACEMENTS------------------------------------------------------------------------
-    IEnumerator GoByTheRoute(int roadNum)
+    IEnumerator GoByTheRoute()
     {
         _coroutineAllowed = false;
         //récupération des positions des points dans bon sens
         if (_reversePoints == true) //sens inverse
         {
-            //Debug.Log("Route A inverser !");
-            p0 = _road.ElementAt(roadNum).Find("p4").position;
-            p1 = _road.ElementAt(roadNum).Find("p3").position;
-            p2 = _road.ElementAt(roadNum).Find("p2").position;
-            p3 = _road.ElementAt(roadNum).Find("p1").position;
-            //Debug.Log("Route inversée !");
+            p0 = _nextRoad.Find("p4").position;
+            p1 = _nextRoad.Find("p3").position;
+            p2 = _nextRoad.Find("p2").position;
+            p3 = _nextRoad.Find("p1").position;
         }
         else //sens définit dans éditeur
         {
-            p0 = _road.ElementAt(roadNum).Find("p1").position;
-            p1 = _road.ElementAt(roadNum).Find("p2").position;
-            p2 = _road.ElementAt(roadNum).Find("p3").position;
-            p3 = _road.ElementAt(roadNum).Find("p4").position;
+            p0 = _nextRoad.Find("p1").position;
+            p1 = _nextRoad.Find("p2").position;
+            p2 = _nextRoad.Find("p3").position;
+            p3 = _nextRoad.Find("p4").position;
         }
 
         while (_tParam < 1)
@@ -241,7 +185,6 @@ public class MovementOnTile : MonoBehaviour
 
         //MAJ des paramètres après le déplacement
         _tParam = 0;
-        _indexRoadToGo += 1;
 
         _coroutineAllowed = true;
     }
