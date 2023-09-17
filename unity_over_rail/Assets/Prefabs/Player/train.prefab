@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 6282290170516749661}
   - component: {fileID: 6282290170516749649}
   - component: {fileID: 6282290170516749662}
-  - component: {fileID: 7414385262241800113}
+  - component: {fileID: 3581421878009767320}
   - component: {fileID: 2311776466070137488}
   m_Layer: 0
   m_Name: train
@@ -198,7 +198,7 @@ Transform:
   m_GameObject: {fileID: 6282290170516749659}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.181, y: 3.74, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2327173669975358120}
@@ -296,7 +296,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &7414385262241800113
+--- !u!114 &3581421878009767320
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -308,8 +308,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 031e7058133c9974f99e955f82390ee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fromDirection: O
   speed: 1
+  _fromDirection: 
+  choice: 0
   cLeft: {fileID: 1311469716273282023}
   cRight: {fileID: 5738191835909045885}
 --- !u!114 &2311776466070137488

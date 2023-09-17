@@ -96,8 +96,8 @@ GameObject:
   - component: {fileID: 6282290170516749661}
   - component: {fileID: 6282290170516749649}
   - component: {fileID: 6282290170516749662}
-  - component: {fileID: 2005920593774377136}
   - component: {fileID: 7659962799965229724}
+  - component: {fileID: 2005920593774377136}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -114,7 +114,7 @@ Transform:
   m_GameObject: {fileID: 6282290170516749659}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.181, y: 3.74, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2327173669975358120}
@@ -166,7 +166,7 @@ SpriteRenderer:
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 9ba0aa4f509774a46ba39df561ad2861, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
@@ -212,6 +212,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &7659962799965229724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6282290170516749659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77fa4726ed5ef4e40b4d4988bdd7b2ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+  _fromDirection: 
+  choice: 0
 --- !u!114 &2005920593774377136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,21 +240,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 10
---- !u!114 &7659962799965229724
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6282290170516749659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77fa4726ed5ef4e40b4d4988bdd7b2ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _fromDirection: E
-  startPoint: 0
-  speed: 1
 --- !u!1 &8959754914994491372
 GameObject:
   m_ObjectHideFlags: 0
