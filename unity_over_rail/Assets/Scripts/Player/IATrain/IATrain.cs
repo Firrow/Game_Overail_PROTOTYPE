@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+
 public class IATrain : Train
 {
     //Flèches (circle actuellement)

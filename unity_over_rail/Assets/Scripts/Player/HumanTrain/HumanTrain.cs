@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-//CE SCRIPT UTILE LES TUILES POUR PERMETTRE LE DÉPLACEMENT
+
 public class HumanTrain : Train
 {
     //Flèches (circle actuellement)
