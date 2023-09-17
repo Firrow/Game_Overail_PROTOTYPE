@@ -159,6 +159,8 @@ public class IATrain : MonoBehaviour
     IEnumerator GoByTheRoute(int roadNum)
     {
         _coroutineAllowed = false;
+        //Debug.Log("ENEMY Prochaine route : " + _road);
+
         //récupération des positions des points dans bon sens
         if (_reversePoints == true) //sens inverse
         {

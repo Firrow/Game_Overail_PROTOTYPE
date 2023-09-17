@@ -6,7 +6,6 @@ public class Tile : MonoBehaviour
     public string directionOfTile;
     private GameObject[] tiles;
     public Transform TileTrigger;
-    public HumanTrain trainMovement;
     public bool onNetwork;
     public List<GameObject> firstRoad = new List<GameObject>();
 
