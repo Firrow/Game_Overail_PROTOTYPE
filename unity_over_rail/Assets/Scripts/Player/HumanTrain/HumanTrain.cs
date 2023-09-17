@@ -22,14 +22,12 @@ public class HumanTrain : Train
         //base sans inversion
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            //_choice = 1;
-            base.choice = 1;
+            this.choice = 1;
             ChangeArrowColor(cLeft.GetComponent<SpriteRenderer>(), cRight.GetComponent<SpriteRenderer>());
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            //_choice = -1;
-            base.choice = -1;
+            this.choice = -1;
             ChangeArrowColor(cRight.GetComponent<SpriteRenderer>(), cLeft.GetComponent<SpriteRenderer>());
         }
 
