@@ -22,10 +22,10 @@ public class Tile : MonoBehaviour
             closeFirstRoads();
     }
 
-    public string DirectionOfTile(GameObject tile)
+    /*public string DirectionOfTile(GameObject tile)
     {
         return tile.GetComponent(directionOfTile).ToString();
-    }
+    }*/
 
     
     public void closeFirstRoads()

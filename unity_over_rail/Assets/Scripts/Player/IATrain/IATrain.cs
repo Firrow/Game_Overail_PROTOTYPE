@@ -25,7 +25,6 @@ public class IATrain : Train
 
     void Update()
     {
-        //MovementChoice();
         base.Update();
     }
 
