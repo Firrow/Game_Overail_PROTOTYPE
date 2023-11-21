@@ -16,10 +16,6 @@ public class Train : MonoBehaviour
     //déplacements mathématique
     private float _tParam;
     private Vector3 trainPosition;
-    private Vector3 p0;
-    private Vector3 p1;
-    private Vector3 p2;
-    private Vector3 p3;
 
 
     protected void Start()
@@ -113,15 +109,22 @@ public class Train : MonoBehaviour
     //DÉPLACEMENTS------------------------------------------------------------------------
     public IEnumerator GoByTheRoute(GameObject train)
     {
+        Vector3 p0;
+        Vector3 p1;
+        Vector3 p2;
+        Vector3 p3;
+
         _coroutineAllowed = false;
 
         //récupération des positions des points dans bon sens
-        if (_reversePoints == true) //sens inverse
+        //voir pour mettre le tParam en - (simplification de l'algorithme) ATTENTION CA CASSE LE CHOICE DU JOUEUR
+        if (_reversePoints) //sens inverse
         {
             p0 = _nextRoad.Find("p4").position;
             p1 = _nextRoad.Find("p3").position;
             p2 = _nextRoad.Find("p2").position;
             p3 = _nextRoad.Find("p1").position;
+
         }
         else //sens définit dans éditeur
         {
@@ -134,6 +137,7 @@ public class Train : MonoBehaviour
         while (_tParam < 1)
         {
             _tParam += Time.deltaTime * speed;
+            
 
             //la position de la forme prend la valeur de la courbe (utilise uniquement le placement des points des béziers)
             trainPosition = Mathf.Pow(1 - _tParam, 3) * p0 +
