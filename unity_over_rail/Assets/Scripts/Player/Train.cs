@@ -135,7 +135,7 @@ public class Train : MonoBehaviour
         {
             _tParam += Time.deltaTime * speed;
 
-            //la position de la forme prend la valeur de la courbe
+            //la position de la forme prend la valeur de la courbe (utilise uniquement le placement des points des béziers)
             trainPosition = Mathf.Pow(1 - _tParam, 3) * p0 +
                               3 * Mathf.Pow(1 - _tParam, 2) * _tParam * p1 +
                               3 * (1 - _tParam) * Mathf.Pow(_tParam, 2) * p2 +

@@ -9,6 +9,7 @@ public class RailCreator : MonoBehaviour
 
     private Vector3 _gizmosPosition;
 
+    //UTILE UNIQUEMENT POUR AFFICHER LES COURBES LORS DE LEUR PLACEMENT
     private void OnDrawGizmos()
     {
         /*formule pour courbe de Bezier cubique :
@@ -29,6 +30,6 @@ public class RailCreator : MonoBehaviour
             new Vector3(_controlPoints[1].position.x, _controlPoints[1].position.y, _controlPoints[1].position.z));
         Gizmos.DrawLine(new Vector3(_controlPoints[2].position.x, _controlPoints[2].position.y, _controlPoints[2].position.z), 
             new Vector3(_controlPoints[3].position.x, _controlPoints[3].position.y, _controlPoints[3].position.z));
-
+        
     }
 }
