@@ -53,7 +53,7 @@ public class Weapon : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, 0f, rotZ + offset);
 
         // input du joueur
-        if (Input.GetMouseButtonDown(0))
+        /*if (Input.GetMouseButtonDown(0))
         {
             _timeShot2 = DateTime.Now;
 
@@ -63,11 +63,11 @@ public class Weapon : MonoBehaviour
 
                 _timeShot1 = _timeShot2;
             }
-        }
+        }*/
     }
 
     // calcul de l'angle entre les 2 points
-    float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
+    private float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
     {
         return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
     }
@@ -79,6 +79,18 @@ public class Weapon : MonoBehaviour
 
         Rigidbody2D rb = bulletInst.GetComponent<Rigidbody2D>();
         rb.AddForce(firePointWeapon.right * speed, ForceMode2D.Impulse);
+    }
+
+    public void PressTrigger()
+    {
+        _timeShot2 = DateTime.Now;
+
+        if (_timeShot2 - _timeShot1 >= new TimeSpan(0, 0, 0, 0, 150))
+        {
+            Shoot(firePoint, bulletSpeed, bullet, weapon);
+
+            _timeShot1 = _timeShot2;
+        }
     }
 
 }

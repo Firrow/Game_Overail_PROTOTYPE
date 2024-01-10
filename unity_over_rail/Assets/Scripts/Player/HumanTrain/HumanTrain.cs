@@ -30,6 +30,10 @@ public class HumanTrain : Train
             this.choice = -1;
             ChangeArrowColor(cRight.GetComponent<SpriteRenderer>(), cLeft.GetComponent<SpriteRenderer>());
         }
+        else if (Input.GetMouseButtonDown(0))
+        {
+            this.gameObject.GetComponentInChildren<Weapon>().PressTrigger();
+        }
 
         base.Update();
     }
