@@ -3,35 +3,30 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
+    // idee : mettre un trigger sur les 4 tuiles de dï¿½part et quand le train quitte le trigger -> on ferme les routes 
+
     public string directionOfTile;
+    public bool trainOnNetwork; // train
+
+    private List<GameObject> firstRoad = new List<GameObject>();
     private GameObject[] tiles;
-    public Transform TileTrigger;
-    public bool onNetwork;
-    public List<GameObject> firstRoad = new List<GameObject>();
 
 
     void Start()
     {
         tiles = GameObject.FindGameObjectsWithTag("FirstRoad");
-        TileTrigger = this.gameObject.transform.GetChild(0);
     }
 
     private void Update()
     {
-        if (onNetwork == true) 
+        if (trainOnNetwork == true) 
             closeFirstRoads();
     }
 
-    /*public string DirectionOfTile(GameObject tile)
-    {
-        return tile.GetComponent(directionOfTile).ToString();
-    }*/
-
-    
     public void closeFirstRoads()
     {
-        //Désactiver route avec tag "FirstRoad" lorsque les joueurs sont définitivement rentrés sur le terrain
-        //mettre animation barrière qui se baisse
+        // Dï¿½sactiver route avec tag "FirstRoad" lorsque les joueurs sont dï¿½finitivement rentrï¿½s sur le terrain
+        // mettre animation barriï¿½re qui se baisse + dï¿½truire courbe bï¿½
         
     }
 }

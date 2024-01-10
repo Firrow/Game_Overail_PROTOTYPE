@@ -1,15 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 using Random = UnityEngine.Random;
 
 
 public class IATrain : Train
 {
-    //Flèches (circle actuellement)
-    /*public GameObject cGauche;
-    public GameObject cDroit;*/
+    // Flèches (circle actuellement)
+    /*public GameObject leftArrow;
+    public GameObject rightArrow;*/
 
 
     void Start()
@@ -17,7 +13,7 @@ public class IATrain : Train
         base.Start();
         this.choice = 1;
 
-        //CODER CHOIX IA ENEMY
+        // CODER CHOIX IA ENEMY
         InvokeRepeating("MovementChoice", 0.3f, 0.3f);
 
         //ArrowColor(cGauche.GetComponent<SpriteRenderer>(), cDroit.GetComponent<SpriteRenderer>(), 1);
@@ -27,11 +23,16 @@ public class IATrain : Train
     {
         base.Update();
     }
-
-    //IA ALÉATOIRE A TESTER
+    
+    // IA ALÉATOIRE A TESTER
     private void MovementChoice()
     {
         int random = Random.Range(0, 2);
         this.choice = (random == 0) ? -1 : 1;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
     }
 }

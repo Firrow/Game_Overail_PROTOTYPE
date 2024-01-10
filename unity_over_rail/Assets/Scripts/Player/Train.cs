@@ -1,163 +1,186 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Train : MonoBehaviour
 {
-    public float speed;
-    public string _fromDirection;
-    public int choice;
+    public string fromDirection; // permettre de le dï¿½terminer automatiquement
 
-    private GameObject _currentTile;
-    private Transform _nextRoad;
-    private bool _coroutineAllowed;
-    private bool _reversePoints;
+    private float speed;
+    private GameObject currentTile;
+    private Transform nextRoad;
+    private bool coroutineAllowed;
+    private bool reversePoints;
+    protected int choice;
 
-    //déplacements mathématique
-    private float _tParam;
+    // dï¿½placements mathï¿½matique
+    private float tParam;
     private Vector3 trainPosition;
+
+
+    private int maxHealth;
+    private int currentHealth;
 
 
     protected void Start()
     {
-        _tParam = 0f;
-        _coroutineAllowed = true;
+        speed = 1;
+        tParam = 0f;
+        coroutineAllowed = true;
+
+        maxHealth = 10;
+        currentHealth = maxHealth;
     }
 
     protected void Update()
     {
-        if (_coroutineAllowed)
+        if (coroutineAllowed)
         {
             StartCoroutine(GoByTheRoute(this.gameObject));
         }
     }
 
-    //récupère la tuile sur laquelle le joueur est entrain de naviguer
-    private void OnTriggerEnter2D(Collider2D collider)
+
+    // DEPLACEMENT --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    private void OnTriggerEnter2D(Collider2D collider) // rï¿½cupï¿½re la tuile sur laquelle le joueur est entrain de naviguer
     {
-        //DÉTERMINER LA DIRECTION-----------------------------------------
-        //Ne pas prendre en compte les balles qui touchent les tuiles
-        if (collider.gameObject.CompareTag("Bullet"))
-            return;
+        if (collider.gameObject.tag == "Tile")
+        {
+            GetNextRoad(collider);
+        }
+        else if (collider.gameObject.tag == "Enemy" || collider.gameObject.tag == "Player")
+        {
+            Destroy(this.gameObject);
+        }
+        // Dï¿½tection d'objets
+    }
 
-        //récupération de la tuile actuelle
-        _currentTile = collider.transform.parent.gameObject;
+    private void GetNextRoad(Collider2D collider)
+    {
+        // Dï¿½TERMINER LA DIRECTION-----------------------------------------
+        // rï¿½cupï¿½ration de la tuile actuelle
+        currentTile = collider.transform.parent.gameObject;
 
 
-        //Vérifie si le train est sur le réseau
-        if (_currentTile.transform.GetChild(1).tag == "Untagged")
-            _currentTile.GetComponent<Tile>().onNetwork = true;
+        // Vï¿½rifie si le train est sur le rï¿½seau
+        if (currentTile.transform.GetChild(1).tag == "Untagged")
+            currentTile.GetComponent<Tile>().trainOnNetwork = true;
 
-        _reversePoints = false;
+        reversePoints = false;
 
-        string _allDirectionsOfATile = PossibleDirections(_currentTile);
-        int _indexDirection = GetIndexDirection(_allDirectionsOfATile, _fromDirection);
+        string _allDirectionsOfATile = GetPossibleDirections(currentTile);
+        int _indexDirection = GetIndexDirection(_allDirectionsOfATile, fromDirection);
         string _goDirection = GetDirection(_indexDirection, choice, _allDirectionsOfATile);
 
 
-        //DÉTERMINER LA BONNE ROUTE-----------------------------------------
-        //récupérer la prochaine route en fonction du nom et l'ajoute à la liste
-        string nameNextRoad = _fromDirection + _goDirection;
-        if (_currentTile.transform.Find(nameNextRoad) == null)
+        // Dï¿½TERMINER LA BONNE ROUTE-----------------------------------------
+        // rï¿½cupï¿½rer la prochaine route en fonction du nom et l'ajoute ï¿½ la liste
+        string nameNextRoad = fromDirection + _goDirection;
+        if (currentTile.transform.Find(nameNextRoad) == null)
         {
-            nameNextRoad = _goDirection + _fromDirection;
-            _reversePoints = true;
+            nameNextRoad = _goDirection + fromDirection;
+            reversePoints = true;
         }
 
-        _nextRoad = _currentTile.transform.Find(nameNextRoad);
+        nextRoad = currentTile.transform.Find(nameNextRoad);
 
         switch (_goDirection)
         {
             case "N":
-                _fromDirection = "S";
+                fromDirection = "S";
                 break;
             case "E":
-                _fromDirection = "O";
+                fromDirection = "O";
                 break;
             case "S":
-                _fromDirection = "N";
+                fromDirection = "N";
                 break;
             case "O":
-                _fromDirection = "E";
+                fromDirection = "E";
                 break;
         }
     }
 
-
-    //récupère les directions possibles
-    private string PossibleDirections(GameObject actualTile)
+    // rï¿½cupï¿½re les directions possibles
+    private string GetPossibleDirections(GameObject actualTile)
     {
         return actualTile.GetComponent<Tile>().directionOfTile;
     }
 
 
-    //calcul index de la direction de provenance dans la liste des directions de la tuile
+    // calcul index de la direction de provenance du joueur dans la liste des directions de la tuile
     private int GetIndexDirection(string allDirections, string previousDirection)
     {
         return allDirections.IndexOf(previousDirection);
     }
 
 
-    //calcul index puis prochaine direction
-    private string GetDirection(int index, int playerDirection, string allPossibleDirections)
+    // dï¿½termine la prochaine direction
+    private string GetDirection(int indexOriginDirection, int playerDirection, string allPossibleDirections)
     {
-        int i = index + playerDirection;
+        int i = indexOriginDirection + playerDirection;
         return allPossibleDirections.Substring((i + allPossibleDirections.Length) % allPossibleDirections.Length, 1);
     }
 
 
-    //DÉPLACEMENTS------------------------------------------------------------------------
+    // Mouvement
     public IEnumerator GoByTheRoute(GameObject train)
     {
-        Vector3 p0;
-        Vector3 p1;
-        Vector3 p2;
-        Vector3 p3;
+        coroutineAllowed = false;
 
-        _coroutineAllowed = false;
-
-        //récupération des positions des points dans bon sens
-        //voir pour mettre le tParam en - (simplification de l'algorithme) ATTENTION CA CASSE LE CHOICE DU JOUEUR
-        if (_reversePoints) //sens inverse
+        // rï¿½cupï¿½ration des positions des points dans bon sens
+        if (reversePoints == true) // sens inverse
         {
-            p0 = _nextRoad.Find("p4").position;
-            p1 = _nextRoad.Find("p3").position;
-            p2 = _nextRoad.Find("p2").position;
-            p3 = _nextRoad.Find("p1").position;
-
+            p0 = nextRoad.Find("p4").position;
+            p1 = nextRoad.Find("p3").position;
+            p2 = nextRoad.Find("p2").position;
+            p3 = nextRoad.Find("p1").position;
         }
-        else //sens définit dans éditeur
+        else // sens dï¿½finit dans ï¿½diteur
         {
-            p0 = _nextRoad.Find("p1").position;
-            p1 = _nextRoad.Find("p2").position;
-            p2 = _nextRoad.Find("p3").position;
-            p3 = _nextRoad.Find("p4").position;
+            p0 = nextRoad.Find("p1").position;
+            p1 = nextRoad.Find("p2").position;
+            p2 = nextRoad.Find("p3").position;
+            p3 = nextRoad.Find("p4").position;
         }
 
-        while (_tParam < 1)
+        while (tParam < 1)
         {
-            _tParam += Time.deltaTime * speed;
-            
+            tParam += Time.deltaTime * speed;
 
-            //la position de la forme prend la valeur de la courbe (utilise uniquement le placement des points des béziers)
-            trainPosition = Mathf.Pow(1 - _tParam, 3) * p0 +
-                              3 * Mathf.Pow(1 - _tParam, 2) * _tParam * p1 +
-                              3 * (1 - _tParam) * Mathf.Pow(_tParam, 2) * p2 +
-                              Mathf.Pow(_tParam, 3) * p3;
+            // la position de la forme prend la valeur de la courbe
+            trainPosition = Mathf.Pow(1 - tParam, 3) * p0 +
+                              3 * Mathf.Pow(1 - tParam, 2) * tParam * p1 +
+                              3 * (1 - tParam) * Mathf.Pow(tParam, 2) * p2 +
+                              Mathf.Pow(tParam, 3) * p3;
 
-            //Rotation de la forme en fonction de la direction de la courbe
-            //création vecteur de déplacement (grâce actuelle et nouvelle position) > création angle > rotation de l'angle en z seulement
+            // Rotation de la forme en fonction de la direction de la courbe
+            // crï¿½ation vecteur de dï¿½placement (grï¿½ce actuelle et nouvelle position) > crï¿½ation angle > rotation de l'angle en z seulement
             Vector3 dir = new Vector3(trainPosition.x - transform.position.x, trainPosition.y - transform.position.y, 0.0f);
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0, 0, angle);
 
-            //déplacement
+            // changement de position du train
             train.transform.position = trainPosition;
             yield return new WaitForEndOfFrame();
         }
 
-        //MAJ des paramètres après le déplacement
-        _tParam = 0;
-        _coroutineAllowed = true;
+        // MAJ des paramï¿½tres aprï¿½s le dï¿½placement
+        tParam = 0;
+        coroutineAllowed = true;
+    }
+
+
+
+
+
+    // HEALTH --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage; //a voir pour la valeur des dï¿½gats
+
+        if (currentHealth <= 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
