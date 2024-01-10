@@ -182,7 +182,6 @@ public class Train : MonoBehaviour
     {
         currentHealth -= damage; //a voir pour la valeur des dégats
 
-        //détruire joueur quand plus de PV
         if (currentHealth <= 0)
         {
             Destroy(this.gameObject);

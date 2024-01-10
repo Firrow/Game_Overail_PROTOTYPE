@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36314ea85c829054794e38c60fc0b7ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _controlPoints:
+  controlPoints:
   - {fileID: 475415751752315999}
   - {fileID: 5802988613080924775}
   - {fileID: 895142159594027869}

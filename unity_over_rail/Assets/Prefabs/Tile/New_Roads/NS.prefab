@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36314ea85c829054794e38c60fc0b7ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _controlPoints:
+  controlPoints:
   - {fileID: 2313333556572574543}
   - {fileID: 8506107698461205879}
   - {fileID: 3093893275107351629}
