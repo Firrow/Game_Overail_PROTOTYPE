@@ -1,15 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 using Random = UnityEngine.Random;
 
 
 public class IATrain : Train
 {
     // Flèches (circle actuellement)
-    /*public GameObject cGauche;
-    public GameObject cDroit;*/
+    /*public GameObject leftArrow;
+    public GameObject rightArrow;*/
 
 
     void Start()
@@ -25,7 +21,6 @@ public class IATrain : Train
 
     void Update()
     {
-        // MovementChoice();
         base.Update();
     }
     

@@ -1,18 +1,17 @@
-using System.Collections;
 using UnityEngine;
 
 
 public class HumanTrain : Train
 {
     // Flèches (circle actuellement)
-    public GameObject cLeft;
-    public GameObject cRight;
+    public GameObject leftArrow;
+    public GameObject rightArrow;
 
 
     void Start()
     {
         base.Start();
-        ChangeArrowColor(cLeft.GetComponent<SpriteRenderer>(), cRight.GetComponent<SpriteRenderer>());
+        ChangeArrowColor(leftArrow.GetComponent<SpriteRenderer>(), rightArrow.GetComponent<SpriteRenderer>());
         this.choice = 1;
     }
 
@@ -23,16 +22,16 @@ public class HumanTrain : Train
         if (Input.GetKeyDown(KeyCode.Q))
         {
             this.choice = 1;
-            ChangeArrowColor(cLeft.GetComponent<SpriteRenderer>(), cRight.GetComponent<SpriteRenderer>());
+            ChangeArrowColor(leftArrow.GetComponent<SpriteRenderer>(), rightArrow.GetComponent<SpriteRenderer>());
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
             this.choice = -1;
-            ChangeArrowColor(cRight.GetComponent<SpriteRenderer>(), cLeft.GetComponent<SpriteRenderer>());
+            ChangeArrowColor(rightArrow.GetComponent<SpriteRenderer>(), leftArrow.GetComponent<SpriteRenderer>());
         }
         else if (Input.GetMouseButtonDown(0))
         {
-            this.gameObject.GetComponentInChildren<Weapon>().PressTrigger();
+            this.gameObject.GetComponentInChildren<Weapon>().PressShootButton();
         }
 
         base.Update();

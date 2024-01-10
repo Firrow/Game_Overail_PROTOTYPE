@@ -1,23 +1,14 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public int damage;
+    private int damage;
 
     void Start()
     {
-        damage = 1; // à régler si besoin
+        damage = 1; 
         StartCoroutine(EnableCollisionAfterDelay(0.15f));
-    }
-
-    void Update()
-    {
-        
     }
 
 
