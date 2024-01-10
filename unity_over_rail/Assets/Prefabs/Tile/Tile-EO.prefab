@@ -172,6 +172,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionOfTile: EO
+  onNetwork: 0
+  firstRoad: []
 --- !u!1001 &5898668114028173634
 PrefabInstance:
   m_ObjectHideFlags: 0

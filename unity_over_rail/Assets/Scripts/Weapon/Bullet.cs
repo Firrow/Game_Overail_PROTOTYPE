@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
 
     void Start()
     {
-        damage = 1; //à régler si besoin
+        damage = 1; // à régler si besoin
         StartCoroutine(EnableCollisionAfterDelay(0.15f));
     }
 
@@ -20,29 +20,28 @@ public class Bullet : MonoBehaviour
         
     }
 
-    //Se déclenche quand la balle touche quelque chose
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            //Si la balle entre en collision avec ennemi
-            IAHealth enemyHealth = collision.transform.GetComponent<IAHealth>();
-            enemyHealth.TakeDamage(damage);
+            IATrain enemy = collision.gameObject.GetComponent<IATrain>();
+            enemy.TakeDamage(damage); 
             Destroy(this.gameObject);
         }
         else if (collision.gameObject.tag == "Player")
         {
-            HumanHealth playerHealth = collision.transform.GetComponent<HumanHealth>();
-            playerHealth.TakeDamage(damage);
+            HumanTrain player = collision.gameObject.GetComponent<HumanTrain>();
+            player.TakeDamage(damage);
             Destroy(this.gameObject);
         }
         else
         {
-            Destroy(this.gameObject, 1.5f); //1.5f = temps avant destruction (à régler en fonction de la taille de la map)
+            Destroy(this.gameObject, 1.5f); // 1.5f = temps avant destruction (à régler en fonction de la taille de la map)
         }
     }
 
-    //Donne un delay à l'activation collision balle pour ne pas toucher le joueur qui tir
+    // Donne un delay à l'activation collision balle pour ne pas toucher le joueur qui tir
     IEnumerator EnableCollisionAfterDelay(float delay)
     {
         GetComponent<Collider2D>().enabled = false;

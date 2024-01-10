@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 public class IATrain : Train
 {
-    //Flèches (circle actuellement)
+    // Flèches (circle actuellement)
     /*public GameObject cGauche;
     public GameObject cDroit;*/
 
@@ -17,7 +17,7 @@ public class IATrain : Train
         base.Start();
         this.choice = 1;
 
-        //CODER CHOIX IA ENEMY
+        // CODER CHOIX IA ENEMY
         InvokeRepeating("MovementChoice", 0.3f, 0.3f);
 
         //ArrowColor(cGauche.GetComponent<SpriteRenderer>(), cDroit.GetComponent<SpriteRenderer>(), 1);
@@ -25,14 +25,19 @@ public class IATrain : Train
 
     void Update()
     {
-        //MovementChoice();
+        // MovementChoice();
         base.Update();
     }
-
-    //IA ALÉATOIRE A TESTER
+    
+    // IA ALÉATOIRE A TESTER
     private void MovementChoice()
     {
         int random = Random.Range(0, 2);
         this.choice = (random == 0) ? -1 : 1;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
     }
 }

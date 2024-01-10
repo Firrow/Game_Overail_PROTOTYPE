@@ -180,8 +180,7 @@ GameObject:
   - component: {fileID: 6282290170516749661}
   - component: {fileID: 6282290170516749649}
   - component: {fileID: 6282290170516749662}
-  - component: {fileID: 3581421878009767320}
-  - component: {fileID: 2311776466070137488}
+  - component: {fileID: 8527542783905680919}
   m_Layer: 0
   m_Name: train
   m_TagString: Player
@@ -296,7 +295,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &3581421878009767320
+--- !u!114 &8527542783905680919
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -308,24 +307,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 031e7058133c9974f99e955f82390ee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 0.5
   _fromDirection: 
   choice: 0
   cLeft: {fileID: 1311469716273282023}
   cRight: {fileID: 5738191835909045885}
---- !u!114 &2311776466070137488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6282290170516749659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6da4431d83e14fe4680626df1448ac22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 10
 --- !u!1001 &4642678766319070741
 PrefabInstance:
   m_ObjectHideFlags: 0

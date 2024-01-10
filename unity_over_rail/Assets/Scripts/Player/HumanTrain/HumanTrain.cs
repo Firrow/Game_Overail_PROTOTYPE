@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HumanTrain : Train
 {
-    //Flèches (circle actuellement)
+    // Flèches (circle actuellement)
     public GameObject cLeft;
     public GameObject cRight;
 
@@ -19,7 +19,7 @@ public class HumanTrain : Train
 
     void Update()
     {
-        //base sans inversion
+        // base sans inversion
         if (Input.GetKeyDown(KeyCode.Q))
         {
             this.choice = 1;
@@ -35,10 +35,15 @@ public class HumanTrain : Train
     }
 
 
-    //Créer une fonction pour le changement de couleur des flèches
+    // Créer une fonction pour le changement de couleur des flèches
     private void ChangeArrowColor(SpriteRenderer actualArrow, SpriteRenderer otherArrow)
     {
         actualArrow.color = new Color(1, 0, 0, 1);
         otherArrow.color = new Color(1, 0, 0, 0);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
     }
 }
