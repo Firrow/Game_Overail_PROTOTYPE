@@ -7,7 +7,7 @@ public class RailCreator : MonoBehaviour
 
     private Vector3 gizmosPosition;
 
-    //UTILE UNIQUEMENT POUR AFFICHER LES COURBES LORS DE LEUR PLACEMENT
+    //UTILE UNIQUEMENT POUR AFFICHER LES COURBES LORS DE LEUR PLACEMENT SUR LES TUILES
     private void OnDrawGizmos()
     {
         /* formule pour courbe de Bezier cubique :
