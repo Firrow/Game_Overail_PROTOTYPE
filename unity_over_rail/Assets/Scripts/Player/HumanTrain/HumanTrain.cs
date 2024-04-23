@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 public class HumanTrain : Train
@@ -12,24 +13,36 @@ public class HumanTrain : Train
     //Controle tir
     //sprite image
 
+    private Vector2 movementInput; //test
+    [SerializeField]
+    private InputActionReference movement, shoot, pointerPosition;
+    private int lastChoice;
+
 
     void Start()
     {
         base.Start();
         ChangeArrowColor(leftArrow.GetComponent<SpriteRenderer>(), rightArrow.GetComponent<SpriteRenderer>());
         this.choice = 1;
+        lastChoice = 1;
     }
 
 
     void Update()
     {
+        movementInput = movement.action.ReadValue<Vector2>();
+
         // base sans inversion
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (movementInput == Vector2.zero)
+        {
+            this.choice = lastChoice;
+        }
+        else if (movementInput.x < 0) //Input.GetKeyDown(KeyCode.Q)
         {
             this.choice = 1;
             ChangeArrowColor(leftArrow.GetComponent<SpriteRenderer>(), rightArrow.GetComponent<SpriteRenderer>());
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+        else if (movementInput.x > 0) //Input.GetKeyDown(KeyCode.D)
         {
             this.choice = -1;
             ChangeArrowColor(rightArrow.GetComponent<SpriteRenderer>(), leftArrow.GetComponent<SpriteRenderer>());
@@ -39,6 +52,7 @@ public class HumanTrain : Train
             this.gameObject.GetComponentInChildren<Weapon>().PressShootButton();
         }
 
+        lastChoice = this.choice;
         base.Update();
     }
 
