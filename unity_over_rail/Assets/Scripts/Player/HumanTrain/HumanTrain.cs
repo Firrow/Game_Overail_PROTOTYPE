@@ -7,6 +7,11 @@ public class HumanTrain : Train
     public GameObject leftArrow;
     public GameObject rightArrow;
 
+    //Controle gauche
+    //Controle droit
+    //Controle tir
+    //sprite image
+
 
     void Start()
     {
