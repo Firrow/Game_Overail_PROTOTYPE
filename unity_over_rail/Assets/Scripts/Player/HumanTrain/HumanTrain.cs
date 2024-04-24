@@ -18,6 +18,10 @@ public class HumanTrain : Train
     private InputActionReference movement, shoot; //, pointerPosition;
     private int lastChoice;
 
+    private void Awake()
+    {
+        shoot.action.performed += _ => this.gameObject.GetComponentInChildren<Weapon>().PressShootButton();
+    }
 
     void Start()
     {
@@ -47,10 +51,10 @@ public class HumanTrain : Train
             this.choice = -1;
             ChangeArrowColor(rightArrow.GetComponent<SpriteRenderer>(), leftArrow.GetComponent<SpriteRenderer>());
         }
-        else if (Input.GetMouseButtonDown(0))
+        /*else if (Input.GetMouseButtonDown(0)) //
         {
             this.gameObject.GetComponentInChildren<Weapon>().PressShootButton();
-        }
+        }*/
 
         lastChoice = this.choice;
         base.Update();
