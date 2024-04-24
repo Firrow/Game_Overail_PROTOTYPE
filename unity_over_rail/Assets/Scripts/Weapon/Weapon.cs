@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Weapon : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class Weapon : MonoBehaviour
     private float offset;
     private DateTime lastTimeShot;
     private DateTime actualTimeShot;
+
+    [SerializeField]
+    private InputActionReference pointerPosition;
 
 
     void Start()
@@ -31,7 +35,7 @@ public class Weapon : MonoBehaviour
         // prend position objet
         Vector2 positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
         // prend position souris
-        Vector2 mouseOnScreen = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+        Vector2 mouseOnScreen = Camera.main.ScreenToViewportPoint(pointerPosition.action.ReadValue<Vector2>()); //Input.mousePosition
 
         float angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
         // applique la rotation
@@ -39,7 +43,7 @@ public class Weapon : MonoBehaviour
 
 
         // TIR-------------------------------------------------------------------------------------------
-        Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        Vector3 difference = Camera.main.ScreenToWorldPoint(pointerPosition.action.ReadValue<Vector2>()) - transform.position;
         float rotZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, rotZ + offset);
     }

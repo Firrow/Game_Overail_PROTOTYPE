@@ -15,7 +15,7 @@ public class HumanTrain : Train
 
     private Vector2 movementInput; //test
     [SerializeField]
-    private InputActionReference movement, shoot, pointerPosition;
+    private InputActionReference movement, shoot; //, pointerPosition;
     private int lastChoice;
 
 
