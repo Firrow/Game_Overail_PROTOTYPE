@@ -47,6 +47,15 @@ public class HumanTrain : Train
         playerActionMap.FindAction("Move").started += playerChoiceDirection;
         playerActionMap.FindAction("Shoot").started += playerShoot;
         playerActionMap.FindAction("Pointer").performed += playerMoveWeapon;
+        playerActionMap.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerActionMap.FindAction("Move").started -= playerChoiceDirection;
+        playerActionMap.FindAction("Shoot").started -= playerShoot;
+        playerActionMap.FindAction("Pointer").performed -= playerMoveWeapon;
+        playerActionMap.Disable();
     }
 
 
