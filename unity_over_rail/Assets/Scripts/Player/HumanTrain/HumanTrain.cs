@@ -45,7 +45,7 @@ public class HumanTrain : Train
     private void OnEnable()
     {
         playerActionMap.FindAction("Move").started += playerChoiceDirection;
-        //playerActionMap.FindAction("Attack").started += 
+        playerActionMap.FindAction("Shoot").started += playerShoot;
     }
 
 
@@ -73,6 +73,11 @@ public class HumanTrain : Train
             ChangeArrowColor(rightArrow.GetComponent<SpriteRenderer>(), leftArrow.GetComponent<SpriteRenderer>());
         }
         lastChoice = this.choice;
+    }
+
+    private void playerShoot(InputAction.CallbackContext obj)
+    {
+        this.gameObject.GetComponentInChildren<Weapon>().PressShootButton();
     }
 
 
