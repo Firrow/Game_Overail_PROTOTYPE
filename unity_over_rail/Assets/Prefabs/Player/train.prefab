@@ -341,8 +341,6 @@ MonoBehaviour:
   fromDirection: 
   leftArrow: {fileID: 1311469716273282023}
   rightArrow: {fileID: 5738191835909045885}
-  movement: {fileID: 0}
-  shoot: {fileID: 0}
 --- !u!1001 &4642678766319070741
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -350,6 +348,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6282290170516749660}
     m_Modifications:
+    - target: {fileID: 1438965592464185929, guid: ef4ec2a9577453444ac4bb41cd116558, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5512961
+      objectReference: {fileID: 0}
     - target: {fileID: 1438965592464185929, guid: ef4ec2a9577453444ac4bb41cd116558, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.85

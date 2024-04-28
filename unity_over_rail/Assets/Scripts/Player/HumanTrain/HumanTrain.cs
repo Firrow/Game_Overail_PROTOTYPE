@@ -21,7 +21,7 @@ public class HumanTrain : Train
     //NEW
     private InputActionAsset inputAsset;
     private InputActionMap playerActionMap;
-    private InputActionReference movement, shoot;
+    private InputActionReference movement, shoot, pointerPosition;
     private float movementInput;
 
     private int lastChoice;
@@ -46,6 +46,7 @@ public class HumanTrain : Train
     {
         playerActionMap.FindAction("Move").started += playerChoiceDirection;
         playerActionMap.FindAction("Shoot").started += playerShoot;
+        playerActionMap.FindAction("Pointer").performed += playerMoveWeapon;
     }
 
 
@@ -73,6 +74,11 @@ public class HumanTrain : Train
             ChangeArrowColor(rightArrow.GetComponent<SpriteRenderer>(), leftArrow.GetComponent<SpriteRenderer>());
         }
         lastChoice = this.choice;
+    }
+
+    private void playerMoveWeapon(InputAction.CallbackContext obj)
+    {
+        this.gameObject.GetComponentInChildren<Weapon>().moveWeapon(obj.ReadValue<Vector2>());
     }
 
     private void playerShoot(InputAction.CallbackContext obj)

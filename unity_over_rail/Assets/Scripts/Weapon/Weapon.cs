@@ -12,9 +12,6 @@ public class Weapon : MonoBehaviour
     private DateTime lastTimeShot;
     private DateTime actualTimeShot;
 
-    [SerializeField]
-    private InputActionReference pointerPosition;
-
 
     void Start()
     {
@@ -30,20 +27,23 @@ public class Weapon : MonoBehaviour
         {
             return;
         }*/
+    }
 
+    public void moveWeapon(Vector2 moveValue)
+    {
         // ORIENTATION DE L'ARME--------------------------------------------------------------------------
         // prend position objet
         Vector2 positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
         // prend position souris
-        Vector2 mouseOnScreen = Camera.main.ScreenToViewportPoint(pointerPosition.action.ReadValue<Vector2>()); //Input.mousePosition
+        Vector2 mouseOnScreen = Camera.main.ScreenToViewportPoint(moveValue); //Input.mousePosition
 
         float angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
         // applique la rotation
         transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
 
 
-        // TIR-------------------------------------------------------------------------------------------
-        Vector3 difference = Camera.main.ScreenToWorldPoint(pointerPosition.action.ReadValue<Vector2>()) - transform.position;
+        // ORIENTATION DU TIR-------------------------------------------------------------------------------------------
+        Vector3 difference = Camera.main.ScreenToWorldPoint(moveValue) - transform.position;
         float rotZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, rotZ + offset);
     }
