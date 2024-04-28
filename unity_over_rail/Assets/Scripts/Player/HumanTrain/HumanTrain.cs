@@ -31,7 +31,6 @@ public class HumanTrain : Train
     {
         inputAsset = this.GetComponent<PlayerInput>().actions;
         playerActionMap = inputAsset.FindActionMap("PlayerInput");
-        //shoot.action.performed += _ => this.gameObject.GetComponentInChildren<Weapon>().PressShootButton();
     }
 
     void Start()
@@ -63,6 +62,11 @@ public class HumanTrain : Train
     {
         base.Update();
     }
+
+
+
+
+
 
     private void playerChoiceDirection(InputAction.CallbackContext obj)
     {
