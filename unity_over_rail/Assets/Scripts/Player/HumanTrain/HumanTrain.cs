@@ -13,14 +13,25 @@ public class HumanTrain : Train
     //Controle tir
     //sprite image
 
-    private Vector2 movementInput; //test
+    //OLD
+    /*private Vector2 movementInput; //test
     [SerializeField]
-    private InputActionReference movement, shoot; //, pointerPosition;
+    private InputActionReference movement, shoot; //, pointerPosition;*/
+
+    //NEW
+    private InputActionAsset inputAsset;
+    private InputActionMap playerActionMap;
+    private InputActionReference movement, shoot;
+    private float movementInput;
+
     private int lastChoice;
+
 
     private void Awake()
     {
-        shoot.action.performed += _ => this.gameObject.GetComponentInChildren<Weapon>().PressShootButton();
+        inputAsset = this.GetComponent<PlayerInput>().actions;
+        playerActionMap = inputAsset.FindActionMap("PlayerInput");
+        //shoot.action.performed += _ => this.gameObject.GetComponentInChildren<Weapon>().PressShootButton();
     }
 
     void Start()
@@ -31,33 +42,37 @@ public class HumanTrain : Train
         lastChoice = 1;
     }
 
+    private void OnEnable()
+    {
+        playerActionMap.FindAction("Move").started += playerChoiceDirection;
+        //playerActionMap.FindAction("Attack").started += 
+    }
+
 
     void Update()
     {
-        movementInput = movement.action.ReadValue<Vector2>();
+        base.Update();
+    }
 
-        // base sans inversion
-        if (movementInput == Vector2.zero)
+    private void playerChoiceDirection(InputAction.CallbackContext obj)
+    {
+        movementInput = obj.ReadValue<Vector2>().x;
+
+        if (movementInput == 0)
         {
             this.choice = lastChoice;
         }
-        else if (movementInput.x < 0) //Input.GetKeyDown(KeyCode.Q)
+        else if (movementInput == 1) //Input.GetKeyDown(KeyCode.Q)
         {
             this.choice = 1;
             ChangeArrowColor(leftArrow.GetComponent<SpriteRenderer>(), rightArrow.GetComponent<SpriteRenderer>());
         }
-        else if (movementInput.x > 0) //Input.GetKeyDown(KeyCode.D)
+        else if (movementInput == -1) //Input.GetKeyDown(KeyCode.D)
         {
             this.choice = -1;
             ChangeArrowColor(rightArrow.GetComponent<SpriteRenderer>(), leftArrow.GetComponent<SpriteRenderer>());
         }
-        /*else if (Input.GetMouseButtonDown(0)) //
-        {
-            this.gameObject.GetComponentInChildren<Weapon>().PressShootButton();
-        }*/
-
         lastChoice = this.choice;
-        base.Update();
     }
 
 
