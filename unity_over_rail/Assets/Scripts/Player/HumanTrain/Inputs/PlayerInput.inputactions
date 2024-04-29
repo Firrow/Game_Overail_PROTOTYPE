@@ -56,8 +56,30 @@
                 },
                 {
                     "name": "",
+                    "id": "6443146b-903d-4303-bf50-909c0257a9ea",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pointer",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "3b647304-7f2e-4ae5-b2d6-9dceed3f694d",
                     "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1e15c125-39be-4889-8301-f32302af94d7",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -100,12 +122,12 @@
                 },
                 {
                     "name": "",
-                    "id": "17f09fbd-aea5-46c1-ae13-1a60d543ac4a",
-                    "path": "<Keyboard>/anyKey",
+                    "id": "705329af-413d-45de-8709-80973c0a89cc",
+                    "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Join",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

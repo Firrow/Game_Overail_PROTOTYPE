@@ -68,7 +68,7 @@ public class HumanTrain : Train
 
 
 
-    private void playerChoiceDirection(InputAction.CallbackContext obj)
+    public void playerChoiceDirection(InputAction.CallbackContext obj)
     {
         movementInput = obj.ReadValue<Vector2>().x;
 
@@ -89,12 +89,12 @@ public class HumanTrain : Train
         lastChoice = this.choice;
     }
 
-    private void playerMoveWeapon(InputAction.CallbackContext obj)
+    public void playerMoveWeapon(InputAction.CallbackContext obj)
     {
         this.gameObject.GetComponentInChildren<Weapon>().moveWeapon(obj.ReadValue<Vector2>());
     }
 
-    private void playerShoot(InputAction.CallbackContext obj)
+    public void playerShoot(InputAction.CallbackContext obj)
     {
         this.gameObject.GetComponentInChildren<Weapon>().PressShootButton();
     }
