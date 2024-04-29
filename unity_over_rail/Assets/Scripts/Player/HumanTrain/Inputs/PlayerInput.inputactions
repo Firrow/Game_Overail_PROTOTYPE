@@ -56,7 +56,7 @@
                 },
                 {
                     "name": "",
-                    "id": "6443146b-903d-4303-bf50-909c0257a9ea",
+                    "id": "2a343bf9-44f7-4896-82a1-7e115b9a8726",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
                     "processors": "",
@@ -78,7 +78,7 @@
                 },
                 {
                     "name": "",
-                    "id": "1e15c125-39be-4889-8301-f32302af94d7",
+                    "id": "7dca7ed7-9b6a-44c1-82cd-7302997e102a",
                     "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
@@ -121,15 +121,37 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "705329af-413d-45de-8709-80973c0a89cc",
-                    "path": "<Gamepad>/leftStick",
+                    "name": "2D Vector",
+                    "id": "1f0b9bca-85ab-4384-bce7-27c302fc2fd3",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "left",
+                    "id": "9928c628-3a06-4f7d-bc4e-66fbedfb3c7c",
+                    "path": "<Gamepad>/leftStick/left",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Move",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "419b6d47-f23c-45f4-8ce5-3f59c02b796b",
+                    "path": "<XInputController>/leftStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

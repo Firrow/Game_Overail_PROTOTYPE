@@ -56,8 +56,6 @@ public class HumanTrain : Train
         playerActionMap.FindAction("Pointer").performed -= playerMoveWeapon;
         playerActionMap.Disable();
     }
-
-
     void Update()
     {
         base.Update();
