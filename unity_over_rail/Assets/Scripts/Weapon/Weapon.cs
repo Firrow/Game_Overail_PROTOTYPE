@@ -29,23 +29,25 @@ public class Weapon : MonoBehaviour
         }*/
     }
 
-    public void moveWeapon(Vector2 moveValue)
+    public void moveWeapon(Vector2 moveValue, bool isKeyboard)
     {
-        // ORIENTATION DE L'ARME--------------------------------------------------------------------------
-        // prend position objet
-        Vector2 positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
-        // prend position souris
-        Vector2 mouseOnScreen = Camera.main.ScreenToViewportPoint(moveValue); //Input.mousePosition
+        if (isKeyboard)
+        {
+            // ORIENTATION DE L'ARME--------------------------------------------------------------------------
+            // prend position objet
+            Vector2 positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
+            // prend position souris
+            Vector2 mouseOnScreen = Camera.main.ScreenToViewportPoint(moveValue); //Input.mousePosition
 
-        float angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
-        // applique la rotation
-        transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
-
-
-        // ORIENTATION DU TIR-------------------------------------------------------------------------------------------
-        Vector3 difference = Camera.main.ScreenToWorldPoint(moveValue) - transform.position;
-        float rotZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, rotZ + offset);
+            float angle = AngleBetweenTwoPoints(mouseOnScreen, positionOnScreen);
+            // applique la rotation
+            transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
+        }
+        else
+        {
+            float angle = Mathf.Atan2(moveValue.y, moveValue.x) * Mathf.Rad2Deg;
+            this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        }
     }
 
     // calcul de l'angle entre les 2 points

@@ -15,9 +15,18 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Pointer",
+                    "name": "PointerMouse",
                     "type": "Value",
                     "id": "01ef04bf-bf26-47c7-bda4-56f26b00a1bf",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "PointerStick",
+                    "type": "Value",
+                    "id": "0ec7758f-2a83-4ee3-a731-0404a43664a1",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -50,18 +59,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Pointer",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2a343bf9-44f7-4896-82a1-7e115b9a8726",
-                    "path": "<Gamepad>/rightStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pointer",
+                    "action": "PointerMouse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -152,6 +150,17 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "98569f8e-06f6-46d1-b5d4-4379e05e2dc0",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PointerStick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

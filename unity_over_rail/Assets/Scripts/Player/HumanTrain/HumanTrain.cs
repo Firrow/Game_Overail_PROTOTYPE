@@ -45,7 +45,8 @@ public class HumanTrain : Train
     {
         playerActionMap.FindAction("Move").started += playerChoiceDirection;
         playerActionMap.FindAction("Shoot").started += playerShoot;
-        playerActionMap.FindAction("Pointer").performed += playerMoveWeapon;
+        playerActionMap.FindAction("PointerMouse").performed += playerMoveWeapon;
+        playerActionMap.FindAction("PointerStick").performed += playerMoveWeapon;
         playerActionMap.Enable();
     }
 
@@ -53,7 +54,8 @@ public class HumanTrain : Train
     {
         playerActionMap.FindAction("Move").started -= playerChoiceDirection;
         playerActionMap.FindAction("Shoot").started -= playerShoot;
-        playerActionMap.FindAction("Pointer").performed -= playerMoveWeapon;
+        playerActionMap.FindAction("PointerMouse").performed -= playerMoveWeapon;
+        playerActionMap.FindAction("PointerStick").performed -= playerMoveWeapon;
         playerActionMap.Disable();
     }
     void Update()
@@ -89,7 +91,14 @@ public class HumanTrain : Train
 
     public void playerMoveWeapon(InputAction.CallbackContext obj)
     {
-        this.gameObject.GetComponentInChildren<Weapon>().moveWeapon(obj.ReadValue<Vector2>());
+        if (obj.control.device is Gamepad)
+        {
+            this.gameObject.GetComponentInChildren<Weapon>().moveWeapon(obj.ReadValue<Vector2>(), false);
+        }
+        else if (obj.control.device is Mouse)
+        {
+            this.gameObject.GetComponentInChildren<Weapon>().moveWeapon(obj.ReadValue<Vector2>(), true);
+        }
     }
 
     public void playerShoot(InputAction.CallbackContext obj)
