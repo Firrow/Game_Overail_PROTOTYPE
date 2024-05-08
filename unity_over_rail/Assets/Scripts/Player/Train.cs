@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Train : MonoBehaviour
 {
-    public string fromDirection; // permettre de le d�terminer automatiquement
+    public string fromDirection; // permettre de le determiner automatiquement
 
     private float speed;
     private GameObject currentTile;
@@ -12,7 +12,7 @@ public class Train : MonoBehaviour
     private bool reversePoints;
     protected int choice;
 
-    // d�placements math�matique
+    // deplacements mathematique
     private float tParam;
     private Vector3 trainPosition;
 

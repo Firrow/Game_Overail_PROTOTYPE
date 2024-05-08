@@ -19,18 +19,25 @@ public class HumanTrain : Train
     private InputActionReference movement, shoot; //, pointerPosition;*/
 
     //NEW
+    //private PlayerInput playerInput;
+    [SerializeField]
+    private int playerIndex = 0;
+
     private InputActionAsset inputAsset;
     private InputActionMap playerActionMap;
-    private InputActionReference movement, shoot, pointerPosition;
     private float movementInput;
+
 
     private int lastChoice;
 
 
     private void Awake()
     {
-        inputAsset = this.GetComponent<PlayerInput>().actions;
-        playerActionMap = inputAsset.FindActionMap("PlayerInput");
+        //inputAsset = this.GetComponent<PlayerInput>().actions;
+        //playerActionMap = inputAsset.FindActionMap("PlayerInput");
+
+        //playerInput = GetComponent<PlayerInput>();
+        //int index = playerInput.playerIndex;
     }
 
     void Start()
@@ -41,7 +48,7 @@ public class HumanTrain : Train
         lastChoice = 1;
     }
 
-    private void OnEnable()
+    /*private void OnEnable()
     {
         playerActionMap.FindAction("Move").started += playerChoiceDirection;
         playerActionMap.FindAction("Shoot").started += playerShoot;
@@ -57,13 +64,16 @@ public class HumanTrain : Train
         playerActionMap.FindAction("PointerMouse").performed -= playerMoveWeapon;
         playerActionMap.FindAction("PointerStick").performed -= playerMoveWeapon;
         playerActionMap.Disable();
-    }
+    }*/
     void Update()
     {
         base.Update();
     }
 
-
+    public int GetPlayerIndex()
+    {
+        return playerIndex;
+    }
 
 
 

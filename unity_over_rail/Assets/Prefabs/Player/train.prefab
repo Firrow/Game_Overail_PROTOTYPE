@@ -180,7 +180,6 @@ GameObject:
   - component: {fileID: 6282290170516749661}
   - component: {fileID: 6282290170516749649}
   - component: {fileID: 6282290170516749662}
-  - component: {fileID: 864948269873303598}
   - component: {fileID: 8527542783905680919}
   m_Layer: 0
   m_Name: train
@@ -296,88 +295,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &864948269873303598
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6282290170516749659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 5aeb16ab30384584eafe990d1b49cf2d, type: 3}
-  m_NotificationBehavior: 3
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8527542783905680919}
-        m_TargetAssemblyTypeName: HumanTrain, Assembly-CSharp
-        m_MethodName: playerChoiceDirection
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: ff824cf0-01df-40fa-a1da-9582bc9ca7d7
-    m_ActionName: PlayerInput/Move[/Keyboard/a,/Keyboard/d,/XInputControllerWindows/leftStick,/XInputControllerWindows1/leftStick]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8527542783905680919}
-        m_TargetAssemblyTypeName: HumanTrain, Assembly-CSharp
-        m_MethodName: playerMoveWeapon
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 01ef04bf-bf26-47c7-bda4-56f26b00a1bf
-    m_ActionName: PlayerInput/Pointer[/Mouse/position,/XInputControllerWindows/rightStick,/XInputControllerWindows1/rightStick]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8527542783905680919}
-        m_TargetAssemblyTypeName: HumanTrain, Assembly-CSharp
-        m_MethodName: playerShoot
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 725f6d35-b19a-4005-a077-0a4bfb586598
-    m_ActionName: PlayerInput/Shoot[/Mouse/leftButton,/XInputControllerWindows/buttonEast,/XInputControllerWindows1/buttonEast]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: c51bc503-f2aa-4350-ac08-b14c554c6800
-    m_ActionName: PlayerInput/Join
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: PlayerInput
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!114 &8527542783905680919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -393,6 +310,7 @@ MonoBehaviour:
   fromDirection: 
   leftArrow: {fileID: 1311469716273282023}
   rightArrow: {fileID: 5738191835909045885}
+  playerIndex: 0
 --- !u!1001 &4642678766319070741
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -474,6 +392,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6928176294672176317, guid: ef4ec2a9577453444ac4bb41cd116558, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8307456649032210889, guid: ef4ec2a9577453444ac4bb41cd116558, type: 3}
+      propertyPath: m_Simulated
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
