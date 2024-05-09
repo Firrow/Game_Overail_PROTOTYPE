@@ -8,37 +8,12 @@ public class HumanTrain : Train
     public GameObject leftArrow;
     public GameObject rightArrow;
 
-    //Controle gauche
-    //Controle droit
-    //Controle tir
-    //sprite image
 
-    //OLD
-    /*private Vector2 movementInput; //test
-    [SerializeField]
-    private InputActionReference movement, shoot; //, pointerPosition;*/
-
-    //NEW
-    //private PlayerInput playerInput;
     [SerializeField]
     private int playerIndex = 0;
-
-    private InputActionAsset inputAsset;
-    private InputActionMap playerActionMap;
     private float movementInput;
-
-
     private int lastChoice;
 
-
-    private void Awake()
-    {
-        //inputAsset = this.GetComponent<PlayerInput>().actions;
-        //playerActionMap = inputAsset.FindActionMap("PlayerInput");
-
-        //playerInput = GetComponent<PlayerInput>();
-        //int index = playerInput.playerIndex;
-    }
 
     void Start()
     {
@@ -48,23 +23,6 @@ public class HumanTrain : Train
         lastChoice = 1;
     }
 
-    /*private void OnEnable()
-    {
-        playerActionMap.FindAction("Move").started += playerChoiceDirection;
-        playerActionMap.FindAction("Shoot").started += playerShoot;
-        playerActionMap.FindAction("PointerMouse").performed += playerMoveWeapon;
-        playerActionMap.FindAction("PointerStick").performed += playerMoveWeapon;
-        playerActionMap.Enable();
-    }
-
-    private void OnDisable()
-    {
-        playerActionMap.FindAction("Move").started -= playerChoiceDirection;
-        playerActionMap.FindAction("Shoot").started -= playerShoot;
-        playerActionMap.FindAction("PointerMouse").performed -= playerMoveWeapon;
-        playerActionMap.FindAction("PointerStick").performed -= playerMoveWeapon;
-        playerActionMap.Disable();
-    }*/
     void Update()
     {
         base.Update();

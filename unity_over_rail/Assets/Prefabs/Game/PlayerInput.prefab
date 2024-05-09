@@ -127,7 +127,7 @@ MonoBehaviour:
     m_ActionId: c51bc503-f2aa-4350-ac08-b14c554c6800
     m_ActionName: PlayerInput/Join
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Keyboard & Mouse
   m_DefaultActionMap: PlayerInput
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
