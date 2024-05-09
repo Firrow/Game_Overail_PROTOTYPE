@@ -32,4 +32,11 @@ public class PlayerInputHandler : MonoBehaviour
         if (humanTrain != null)
             humanTrain.playerShoot(context);
     }
+
+    //TEMPORAIRE POUR TESTS
+    public void OnQuit(InputAction.CallbackContext context)
+    {
+        if (humanTrain != null)
+            Application.Quit();
+    }
 }
