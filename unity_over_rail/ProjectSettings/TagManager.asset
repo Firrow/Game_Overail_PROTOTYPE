@@ -9,6 +9,7 @@ TagManager:
   - Tile
   - Bullet
   - Collision
+  - PlayerInput
   layers:
   - Default
   - TransparentFX
