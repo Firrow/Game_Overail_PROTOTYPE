@@ -11041,6 +11041,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8527542783905680919, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
+      propertyPath: playerIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8527542783905680919, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: fromDirection
       value: O
       objectReference: {fileID: 0}
@@ -11411,7 +11415,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8527542783905680919, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: playerIndex
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8527542783905680919, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: fromDirection
@@ -13812,7 +13816,7 @@ PrefabInstance:
       objectReference: {fileID: 8651042803179682851, guid: 84a00bac07a593e4cb7f7e8c2515826b, type: 3}
     - target: {fileID: 4779196396100461100, guid: 9353fe5de3162fd4a8a57ce4384e93d4, type: 3}
       propertyPath: m_MaxPlayerCount
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4779196396100461100, guid: 9353fe5de3162fd4a8a57ce4384e93d4, type: 3}
       propertyPath: m_NotificationBehavior
