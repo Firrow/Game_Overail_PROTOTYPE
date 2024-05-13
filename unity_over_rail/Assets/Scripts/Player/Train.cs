@@ -7,6 +7,7 @@ public class Train : MonoBehaviour
 
     protected float speed;
     protected float accelerate = 0f;
+    private float velocity;
     public bool increaseAcceleration = false;
     public bool decreaseAcceleration = false;
     private bool isStopped = false;
@@ -38,23 +39,13 @@ public class Train : MonoBehaviour
 
     protected void Update()
     {
-
-        Debug.Log(speed + accelerate);
-
         if (coroutineAllowed)
         {
             StartCoroutine(GoByTheRoute(this.gameObject));
         }
 
-
-        if (increaseAcceleration)
-        {
-            IncreaseAccelerate();
-        }
-        else if (decreaseAcceleration)
-        {
-            DecreaseAccelerate();
-        }
+        ManageAcceleration();
+        velocity = speed + accelerate;
     }
 
 
@@ -169,7 +160,7 @@ public class Train : MonoBehaviour
 
         while (tParam < 1)
         {
-            tParam += Time.deltaTime * (speed + accelerate);
+            tParam += Time.deltaTime * velocity;
 
             if (!isStopped)
             {
@@ -216,9 +207,21 @@ public class Train : MonoBehaviour
 
 
     // SPEED MANAGER ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    private void ManageAcceleration()
+    {
+        if (increaseAcceleration)
+        {
+            IncreaseAccelerate();
+        }
+        else if (decreaseAcceleration)
+        {
+            DecreaseAccelerate();
+        }
+    }
+
     private void IncreaseAccelerate()
     {
-        if (speed + accelerate < 2.5f)
+        if (velocity < 2.5f)
         {
             if (isStopped)
                 isStopped = false;
@@ -228,7 +231,7 @@ public class Train : MonoBehaviour
     }
     private void DecreaseAccelerate()
     {
-        if (speed + accelerate > 0.01f)
+        if (velocity > 0.01f)
             accelerate -= 0.001f;
         else
             isStopped = true;
