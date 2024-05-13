@@ -21,6 +21,36 @@ public class PlayerInputHandler : MonoBehaviour
             humanTrain.playerChoiceDirection(context);
     }
 
+    public void OnAccelerateTrain(InputAction.CallbackContext context)
+    {
+        if (humanTrain != null)
+        {
+            if (context.started)
+            {
+                humanTrain.increaseAcceleration = true;
+            }
+            else if (context.canceled)
+            {
+                humanTrain.increaseAcceleration = false;
+            }
+        }
+    }
+
+    public void OnDecelerateTrain(InputAction.CallbackContext context)
+    {
+        if (humanTrain != null)
+        {
+            if (context.started)
+            {
+                humanTrain.decreaseAcceleration = true;
+            }
+            else if (context.canceled)
+            {
+                humanTrain.decreaseAcceleration = false;
+            }
+        }
+    }
+
     public void OnMoveWeapon(InputAction.CallbackContext context)
     {
         if (humanTrain != null)

@@ -123,10 +123,6 @@ MonoBehaviour:
     m_ActionId: 725f6d35-b19a-4005-a077-0a4bfb586598
     m_ActionName: PlayerInput/Shoot[/Mouse/leftButton,/XInputControllerWindows/buttonSouth]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: c51bc503-f2aa-4350-ac08-b14c554c6800
-    m_ActionName: PlayerInput/Join
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8651042803179682862}
         m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
@@ -142,6 +138,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: ea37ab64-cdea-4c15-986d-a2f629b45e90
     m_ActionName: PlayerInput/QuitGame(temp)[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8651042803179682862}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
+        m_MethodName: OnAccelerateTrain
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3a19ae06-6531-451d-9be7-bd936d5e8eaa
+    m_ActionName: PlayerInput/Accelerate[/Keyboard/w]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8651042803179682862}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
+        m_MethodName: OnDecelerateTrain
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 1a0cfa42-fb45-47d9-920a-77f4dea1e6b7
+    m_ActionName: PlayerInput/decelerate[/Keyboard/s]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard & Mouse
   m_DefaultActionMap: PlayerInput

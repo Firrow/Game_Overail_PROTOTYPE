@@ -15,6 +15,24 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Accelerate",
+                    "type": "Button",
+                    "id": "3a19ae06-6531-451d-9be7-bd936d5e8eaa",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Decelerate",
+                    "type": "Button",
+                    "id": "1a0cfa42-fb45-47d9-920a-77f4dea1e6b7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "PointerMouse",
                     "type": "Value",
                     "id": "01ef04bf-bf26-47c7-bda4-56f26b00a1bf",
@@ -379,6 +397,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "QuitGame(temp)",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8f4a8f76-0813-49dd-9f8b-51a2664f1dbf",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Accelerate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4942f863-6f6c-4606-96ae-3a494ad2f605",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Decelerate",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

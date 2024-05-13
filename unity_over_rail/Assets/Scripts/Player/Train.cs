@@ -5,7 +5,12 @@ public class Train : MonoBehaviour
 {
     public string fromDirection; // permettre de le determiner automatiquement
 
-    private float speed;
+    protected float speed;
+    protected float accelerate = 0f;
+    public bool increaseAcceleration = false;
+    public bool decreaseAcceleration = false;
+    private bool isStopped = false;
+
     private GameObject currentTile;
     private Transform nextRoad;
     private bool coroutineAllowed;
@@ -33,15 +38,28 @@ public class Train : MonoBehaviour
 
     protected void Update()
     {
+
+        Debug.Log(speed + accelerate);
+
         if (coroutineAllowed)
         {
             StartCoroutine(GoByTheRoute(this.gameObject));
+        }
+
+
+        if (increaseAcceleration)
+        {
+            IncreaseAccelerate();
+        }
+        else if (decreaseAcceleration)
+        {
+            DecreaseAccelerate();
         }
     }
 
 
     // DEPLACEMENT --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    private void OnTriggerEnter2D(Collider2D collider) // r�cup�re la tuile sur laquelle le joueur est entrain de naviguer
+    private void OnTriggerEnter2D(Collider2D collider) // recupere la tuile sur laquelle le joueur est entrain de naviguer
     {
         if (collider.gameObject.tag == "Tile")
         {
@@ -51,17 +69,18 @@ public class Train : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        // D�tection d'objets
+
+        // Detection d'objets
     }
 
     private void GetNextRoad(Collider2D collider)
     {
-        // D�TERMINER LA DIRECTION-----------------------------------------
-        // r�cup�ration de la tuile actuelle
+        // DETERMINER LA DIRECTION-----------------------------------------
+        // recuperation de la tuile actuelle
         currentTile = collider.transform.parent.gameObject;
 
 
-        // V�rifie si le train est sur le r�seau
+        // Verifie si le train est sur le reseau
         if (currentTile.transform.GetChild(1).tag == "Untagged")
             currentTile.GetComponent<Tile>().trainOnNetwork = true;
 
@@ -72,8 +91,8 @@ public class Train : MonoBehaviour
         string _goDirection = GetDirection(_indexDirection, choice, _allDirectionsOfATile);
 
 
-        // D�TERMINER LA BONNE ROUTE-----------------------------------------
-        // r�cup�rer la prochaine route en fonction du nom et l'ajoute � la liste
+        // DETERMINER LA BONNE ROUTE-----------------------------------------
+        // recuperer la prochaine route en fonction du nom et l'ajoute a la liste
         string nameNextRoad = fromDirection + _goDirection;
         if (currentTile.transform.Find(nameNextRoad) == null)
         {
@@ -100,7 +119,7 @@ public class Train : MonoBehaviour
         }
     }
 
-    // r�cup�re les directions possibles
+    // recupere les directions possibles
     private string GetPossibleDirections(GameObject actualTile)
     {
         return actualTile.GetComponent<Tile>().directionOfTile;
@@ -114,7 +133,7 @@ public class Train : MonoBehaviour
     }
 
 
-    // d�termine la prochaine direction
+    // determine la prochaine direction
     private string GetDirection(int indexOriginDirection, int playerDirection, string allPossibleDirections)
     {
         int i = indexOriginDirection + playerDirection;
@@ -132,7 +151,7 @@ public class Train : MonoBehaviour
 
         coroutineAllowed = false;
 
-        // r�cup�ration des positions des points dans bon sens
+        // recuperation des positions des points dans bon sens
         if (reversePoints == true) // sens inverse
         {
             p0 = nextRoad.Find("p4").position;
@@ -140,7 +159,7 @@ public class Train : MonoBehaviour
             p2 = nextRoad.Find("p2").position;
             p3 = nextRoad.Find("p1").position;
         }
-        else // sens d�finit dans �diteur
+        else // sens definit dans editeur
         {
             p0 = nextRoad.Find("p1").position;
             p1 = nextRoad.Find("p2").position;
@@ -150,26 +169,31 @@ public class Train : MonoBehaviour
 
         while (tParam < 1)
         {
-            tParam += Time.deltaTime * speed;
+            tParam += Time.deltaTime * (speed + accelerate);
 
-            // la position de la forme prend la valeur de la courbe
-            trainPosition = Mathf.Pow(1 - tParam, 3) * p0 +
-                              3 * Mathf.Pow(1 - tParam, 2) * tParam * p1 +
-                              3 * (1 - tParam) * Mathf.Pow(tParam, 2) * p2 +
-                              Mathf.Pow(tParam, 3) * p3;
+            if (!isStopped)
+            {
+                // la position de la forme prend la valeur de la courbe
+                trainPosition = Mathf.Pow(1 - tParam, 3) * p0 +
+                                  3 * Mathf.Pow(1 - tParam, 2) * tParam * p1 +
+                                  3 * (1 - tParam) * Mathf.Pow(tParam, 2) * p2 +
+                                  Mathf.Pow(tParam, 3) * p3;
 
-            // Rotation de la forme en fonction de la direction de la courbe
-            // cr�ation vecteur de d�placement (gr�ce actuelle et nouvelle position) > cr�ation angle > rotation de l'angle en z seulement
-            Vector3 dir = new Vector3(trainPosition.x - transform.position.x, trainPosition.y - transform.position.y, 0.0f);
-            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0, 0, angle);
+                // Rotation de la forme en fonction de la direction de la courbe
+                // creation vecteur de deplacement (grace actuelle et nouvelle position) > creation angle > rotation de l'angle en z seulement
+                Vector3 dir = new Vector3(trainPosition.x - transform.position.x, trainPosition.y - transform.position.y, 0.0f);
+                float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.Euler(0, 0, angle);
 
+                
+            }
             // changement de position du train
             train.transform.position = trainPosition;
+
             yield return new WaitForEndOfFrame();
         }
 
-        // MAJ des param�tres apr�s le d�placement
+        // MAJ des parametres apres le deplacement
         tParam = 0;
         coroutineAllowed = true;
     }
@@ -181,11 +205,32 @@ public class Train : MonoBehaviour
     // HEALTH --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     public void TakeDamage(int damage)
     {
-        currentHealth -= damage; //a voir pour la valeur des d�gats
+        currentHealth -= damage; //a voir pour la valeur des degats
 
         if (currentHealth <= 0)
         {
             Destroy(this.gameObject);
         }
+    }
+
+
+
+    // SPEED MANAGER ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    private void IncreaseAccelerate()
+    {
+        if (speed + accelerate < 2.5f)
+        {
+            if (isStopped)
+                isStopped = false;
+
+            accelerate += 0.001f;
+        }
+    }
+    private void DecreaseAccelerate()
+    {
+        if (speed + accelerate > 0.01f)
+            accelerate -= 0.001f;
+        else
+            isStopped = true;
     }
 }
