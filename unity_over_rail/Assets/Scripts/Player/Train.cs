@@ -7,21 +7,21 @@ public class Train : MonoBehaviour
 
     protected float speed;
     protected float accelerate = 0f;
-    private float velocity;
-    public bool increaseAcceleration = false;
-    public bool decreaseAcceleration = false;
-    private bool isStopped = false;
+    protected bool increaseAcceleration = false;
+    protected bool decreaseAcceleration = false;
+    protected int choice;
+
 
     private GameObject currentTile;
     private Transform nextRoad;
     private bool coroutineAllowed;
     private bool reversePoints;
-    protected int choice;
-
+    private float velocity;
+    private bool isStopped = false;
+    
     // deplacements mathematique
     private float tParam;
     private Vector3 trainPosition;
-
 
     private int maxHealth;
     private int currentHealth;

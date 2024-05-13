@@ -27,13 +27,9 @@ public class PlayerInputHandler : MonoBehaviour
         if (humanTrain != null)
         {
             if (context.started)
-            {
-                humanTrain.increaseAcceleration = true;
-            }
+                humanTrain.playerIncreaseVelocity(true);
             else if (context.canceled)
-            {
-                humanTrain.increaseAcceleration = false;
-            }
+                humanTrain.playerIncreaseVelocity(false);
         }
     }
 
@@ -42,15 +38,12 @@ public class PlayerInputHandler : MonoBehaviour
         if (humanTrain != null)
         {
             if (context.started)
-            {
-                humanTrain.decreaseAcceleration = true;
-            }
+                humanTrain.playerDecreaseVelocity(true);
             else if (context.canceled)
-            {
-                humanTrain.decreaseAcceleration = false;
-            }
+                humanTrain.playerDecreaseVelocity(false);
         }
     }
+
 
     public void OnMoveWeapon(InputAction.CallbackContext context)
     {

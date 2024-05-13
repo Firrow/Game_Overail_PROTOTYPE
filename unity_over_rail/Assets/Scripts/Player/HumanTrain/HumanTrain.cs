@@ -58,6 +58,22 @@ public class HumanTrain : Train
         lastChoice = this.choice;
     }
 
+    public void playerIncreaseVelocity(bool isAccelerate)
+    {
+        if (isAccelerate)
+            increaseAcceleration = true;
+        else
+            increaseAcceleration = false;
+    }
+    public void playerDecreaseVelocity(bool isDecelerate)
+    {
+        if (isDecelerate)
+            decreaseAcceleration = true;
+        else
+            decreaseAcceleration = false;
+    }
+
+
     public void playerMoveWeapon(InputAction.CallbackContext obj)
     {
         if (obj.control.device is Gamepad)
