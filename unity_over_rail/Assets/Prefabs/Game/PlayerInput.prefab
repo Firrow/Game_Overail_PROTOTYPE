@@ -126,22 +126,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8651042803179682862}
         m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
-        m_MethodName: OnQuit
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: ea37ab64-cdea-4c15-986d-a2f629b45e90
-    m_ActionName: PlayerInput/QuitGame(temp)[/Keyboard/escape]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8651042803179682862}
-        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
         m_MethodName: OnAccelerateTrain
         m_Mode: 0
         m_Arguments:
@@ -170,6 +154,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 1a0cfa42-fb45-47d9-920a-77f4dea1e6b7
     m_ActionName: PlayerInput/decelerate[/Keyboard/s]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8651042803179682862}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
+        m_MethodName: OnQuit
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ed607c49-453f-48af-988a-54753785f4be
+    m_ActionName: PlayerInput/QuitGame[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard & Mouse
   m_DefaultActionMap: PlayerInput
