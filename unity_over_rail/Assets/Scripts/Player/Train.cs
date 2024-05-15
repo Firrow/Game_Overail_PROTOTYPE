@@ -232,7 +232,7 @@ public class Train : MonoBehaviour
     private void DecreaseAccelerate()
     {
         if (velocity > 0.01f)
-            accelerate -= 0.001f;
+            accelerate -= 0.0015f;
         else
             isStopped = true;
     }

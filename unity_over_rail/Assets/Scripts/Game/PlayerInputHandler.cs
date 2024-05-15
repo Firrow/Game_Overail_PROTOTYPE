@@ -17,7 +17,6 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void OnMoveTrain(InputAction.CallbackContext context)
     {
-        Debug.Log("yolo");
         if (humanTrain != null)
             humanTrain.playerChoiceDirection(context);
     }

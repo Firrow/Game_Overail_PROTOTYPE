@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         damage = 1; 
-        StartCoroutine(EnableCollisionAfterDelay(0.15f));
+        StartCoroutine(EnableCollisionAfterDelay(0.4f)); //0.15f
     }
 
 
