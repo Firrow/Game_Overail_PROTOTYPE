@@ -18,7 +18,9 @@ public class Train : MonoBehaviour
     private bool reversePoints;
     private float velocity;
     private bool isStopped = false;
-    
+    [SerializeField]
+    private GameObject weapon;
+
     // deplacements mathematique
     private float tParam;
     private Vector3 trainPosition;
@@ -173,6 +175,8 @@ public class Train : MonoBehaviour
                 Vector3 dir = new Vector3(trainPosition.x - transform.position.x, trainPosition.y - transform.position.y, 0.0f);
                 float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
                 transform.rotation = Quaternion.Euler(0, 0, angle);
+
+                weapon.GetComponent<Weapon>().UpdateWeaponRotation(angle);
             }
             // changement de position du train
             train.transform.position = trainPosition;

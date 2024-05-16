@@ -311,6 +311,7 @@ MonoBehaviour:
   leftArrow: {fileID: 1311469716273282023}
   rightArrow: {fileID: 5738191835909045885}
   playerIndex: 0
+  weapon: {fileID: 625254992458161528}
 --- !u!1001 &4642678766319070741
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -400,6 +401,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef4ec2a9577453444ac4bb41cd116558, type: 3}
+--- !u!1 &625254992458161528 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5243106577362219885, guid: ef4ec2a9577453444ac4bb41cd116558, type: 3}
+  m_PrefabInstance: {fileID: 4642678766319070741}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2327173669975358120 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6928176294672176317, guid: ef4ec2a9577453444ac4bb41cd116558, type: 3}

@@ -82,14 +82,7 @@ public class HumanTrain : Train
 
     public void playerMoveWeapon(InputAction.CallbackContext obj)
     {
-        if (obj.control.device is Gamepad)
-        {
-            this.gameObject.GetComponentInChildren<Weapon>().moveWeapon(obj.ReadValue<Vector2>(), false);
-        }
-        else if (obj.control.device is Mouse)
-        {
-            this.gameObject.GetComponentInChildren<Weapon>().moveWeapon(obj.ReadValue<Vector2>(), true);
-        }
+        this.gameObject.GetComponentInChildren<Weapon>().moveWeapon(obj.ReadValue<Vector2>(), obj.control.device is Mouse);
     }
 
     public void playerShoot(InputAction.CallbackContext obj)

@@ -56,6 +56,12 @@ public class Weapon : MonoBehaviour
         return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
     }
 
+    public void UpdateWeaponRotation(float angleTrain)
+    {
+        //FIX BUG : weapon rotation isn't independant of train rotation
+        //this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, -angleTrain));
+    }
+
     public void PressShootButton()
     {
         actualTimeShot = DateTime.Now;
