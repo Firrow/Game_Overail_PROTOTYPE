@@ -51,12 +51,12 @@ public class HumanTrain : Train
         {
             this.choice = lastChoice;
         }
-        else if (movementInput == 1) //Input.GetKeyDown(KeyCode.Q)
+        else if (movementInput == -1) //Input.GetKeyDown(KeyCode.Q)
         {
             this.choice = 1;
             ChangeArrowColor(leftArrow.GetComponent<SpriteRenderer>(), rightArrow.GetComponent<SpriteRenderer>());
         }
-        else if (movementInput == -1) //Input.GetKeyDown(KeyCode.D)
+        else if (movementInput == 1) //Input.GetKeyDown(KeyCode.D)
         {
             this.choice = -1;
             ChangeArrowColor(rightArrow.GetComponent<SpriteRenderer>(), leftArrow.GetComponent<SpriteRenderer>());

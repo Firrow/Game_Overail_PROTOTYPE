@@ -183,7 +183,7 @@
                 {
                     "name": "left",
                     "id": "9928c628-3a06-4f7d-bc4e-66fbedfb3c7c",
-                    "path": "<Gamepad>/rightShoulder",
+                    "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -194,7 +194,7 @@
                 {
                     "name": "right",
                     "id": "419b6d47-f23c-45f4-8ce5-3f59c02b796b",
-                    "path": "<Gamepad>/leftShoulder",
+                    "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -216,7 +216,7 @@
                 {
                     "name": "left",
                     "id": "95fa4855-6dd0-4cb9-9374-bd674c0303a5",
-                    "path": "<XInputController>/rightShoulder",
+                    "path": "<XInputController>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -227,7 +227,7 @@
                 {
                     "name": "right",
                     "id": "a10384df-aeb1-46cc-80a4-9ff84cd6798e",
-                    "path": "<XInputController>/leftShoulder",
+                    "path": "<XInputController>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -249,7 +249,7 @@
                 {
                     "name": "left",
                     "id": "82176dc1-5785-400f-96e5-0c0087f835c7",
-                    "path": "<DualShockGamepad>/rightShoulder",
+                    "path": "<DualShockGamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -260,7 +260,7 @@
                 {
                     "name": "right",
                     "id": "3bd993dd-65ac-4b90-acd0-7368ccebc1b6",
-                    "path": "<DualShockGamepad>/leftShoulder",
+                    "path": "<DualShockGamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -282,7 +282,7 @@
                 {
                     "name": "left",
                     "id": "5cedcfb4-d05f-438d-b335-7f11465e3321",
-                    "path": "<SwitchProControllerHID>/rightShoulder",
+                    "path": "<SwitchProControllerHID>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -293,7 +293,7 @@
                 {
                     "name": "right",
                     "id": "2b15461d-63c7-4d7f-839e-a3a14a2f1cdb",
-                    "path": "<SwitchProControllerHID>/leftShoulder",
+                    "path": "<SwitchProControllerHID>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
