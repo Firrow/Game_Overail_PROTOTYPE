@@ -21,7 +21,7 @@ public class HumanTrain : Train
     {
         base.Start();
         ChangeArrowColor(leftArrow.GetComponent<SpriteRenderer>(), rightArrow.GetComponent<SpriteRenderer>());
-        this.choice = -1;
+        this.choice = 1;
         lastChoice = 1;
     }
 
