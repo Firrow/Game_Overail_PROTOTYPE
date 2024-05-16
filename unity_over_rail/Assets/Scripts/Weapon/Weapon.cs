@@ -58,7 +58,7 @@ public class Weapon : MonoBehaviour
 
     public void UpdateWeaponRotation(float deltaAngleTrain)
     {
-        // Permet d'avoir la rotation de l'arme décorélé de la rotation du train
+        // Permet d'avoir la rotation de l'arme décorrélé de la rotation du train
         this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, this.transform.rotation.eulerAngles.z - deltaAngleTrain));
     }
 
