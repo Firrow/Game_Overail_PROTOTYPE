@@ -23,7 +23,12 @@ public class IATrain : Train
     {
         base.Update();
     }
-    
+
+    private void FixedUpdate()
+    {
+        base.FixedUpdate();
+    }
+
     // IA ALÉATOIRE A TESTER
     private void MovementChoice()
     {

@@ -43,7 +43,10 @@ public class Train : MonoBehaviour
         {
             StartCoroutine(GoByTheRoute(this.gameObject));
         }
+    }
 
+    protected void FixedUpdate()
+    {
         ManageAcceleration();
         velocity = speed + accelerate;
     }
@@ -175,8 +178,6 @@ public class Train : MonoBehaviour
                 Vector3 dir = new Vector3(trainPosition.x - transform.position.x, trainPosition.y - transform.position.y, 0.0f);
                 float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
                 transform.rotation = Quaternion.Euler(0, 0, angle);
-
-                
             }
             // changement de position du train
             train.transform.position = trainPosition;
@@ -225,14 +226,14 @@ public class Train : MonoBehaviour
         {
             if (isStopped)
                 isStopped = false;
-
-            accelerate += 0.001f;
+            else
+                accelerate += 0.01f;
         }
     }
     private void DecreaseAccelerate()
     {
-        if (velocity > 0.01f)
-            accelerate -= 0.0015f;
+        if (velocity > 0.015f)
+            accelerate -= 0.015f;
         else
             isStopped = true;
     }

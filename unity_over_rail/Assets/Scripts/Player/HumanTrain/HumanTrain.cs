@@ -9,6 +9,9 @@ public class HumanTrain : Train
     public GameObject leftArrow;
     public GameObject rightArrow;
 
+    //TEMPORAIRE
+    //public int tempChoice;
+
 
     [SerializeField]
     private int playerIndex = 0;
@@ -20,13 +23,19 @@ public class HumanTrain : Train
     {
         base.Start();
         ChangeArrowColor(leftArrow.GetComponent<SpriteRenderer>(), rightArrow.GetComponent<SpriteRenderer>());
-        this.choice = 1;
+        //this.choice = tempChoice;
+        this.choice = -1;
         lastChoice = 1;
     }
 
     void Update()
     {
         base.Update();
+    }
+
+    private void FixedUpdate()
+    {
+        base.FixedUpdate();
     }
 
     public int GetPlayerIndex()
