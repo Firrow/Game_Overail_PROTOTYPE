@@ -9,8 +9,6 @@ public class HumanTrain : Train
     public GameObject leftArrow;
     public GameObject rightArrow;
 
-    //TEMPORAIRE
-    //public int tempChoice;
 
 
     [SerializeField]
@@ -23,7 +21,6 @@ public class HumanTrain : Train
     {
         base.Start();
         ChangeArrowColor(leftArrow.GetComponent<SpriteRenderer>(), rightArrow.GetComponent<SpriteRenderer>());
-        //this.choice = tempChoice;
         this.choice = -1;
         lastChoice = 1;
     }

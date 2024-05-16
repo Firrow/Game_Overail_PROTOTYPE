@@ -73,11 +73,6 @@ public class Train : MonoBehaviour
         // recuperation de la tuile actuelle
         currentTile = collider.transform.parent.gameObject;
 
-
-        // Verifie si le train est sur le reseau
-        if (currentTile.transform.GetChild(1).tag == "Untagged")
-            currentTile.GetComponent<Tile>().trainOnNetwork = true;
-
         reversePoints = false;
 
         string _allDirectionsOfATile = GetPossibleDirections(currentTile);
