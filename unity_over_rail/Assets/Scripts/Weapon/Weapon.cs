@@ -56,10 +56,10 @@ public class Weapon : MonoBehaviour
         return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
     }
 
-    public void UpdateWeaponRotation(float angleTrain)
+    public void UpdateWeaponRotation(float deltaAngleTrain)
     {
-        //FIX BUG : weapon rotation isn't independant of train rotation
-        //this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, -angleTrain));
+        // Permet d'avoir la rotation de l'arme décorélé de la rotation du train
+        this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, this.transform.rotation.eulerAngles.z - deltaAngleTrain));
     }
 
     public void PressShootButton()

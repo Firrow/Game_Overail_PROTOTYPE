@@ -174,9 +174,12 @@ public class Train : MonoBehaviour
                 // creation vecteur de deplacement (grace actuelle et nouvelle position) > creation angle > rotation de l'angle en z seulement
                 Vector3 dir = new Vector3(trainPosition.x - transform.position.x, trainPosition.y - transform.position.y, 0.0f);
                 float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.Euler(0, 0, angle);
 
-                weapon.GetComponent<Weapon>().UpdateWeaponRotation(angle);
+                // Décoréler la rotation de l'arme et du train
+                float delta = (angle - transform.rotation.eulerAngles.z) % 360;
+                weapon.GetComponent<Weapon>().UpdateWeaponRotation(delta);
+
+                transform.rotation = Quaternion.Euler(0, 0, angle);
             }
             // changement de position du train
             train.transform.position = trainPosition;
