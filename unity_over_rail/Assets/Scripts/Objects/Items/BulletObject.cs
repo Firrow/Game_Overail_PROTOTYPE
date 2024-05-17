@@ -8,6 +8,6 @@ public class BulletObject : Objects
 
     private void Start()
     {
-        probabilitySpawn = objectsProbabilities["heart"];
+        probabilitySpawn = objectsProbabilities["bullet"];
     }
 }

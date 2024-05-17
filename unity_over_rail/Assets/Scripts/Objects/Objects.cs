@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class Objects : MonoBehaviour
 {
-    protected Dictionary<string, float> objectsProbabilities = new Dictionary<string, float>();
-    // fonction apparition
-    // fonction disparition
-    // utilisation
-
-    private void Awake()
+    public Dictionary<string, float> objectsProbabilities = new Dictionary<string, float>
     {
-        objectsProbabilities.Add("heart", 0.3f);
-        objectsProbabilities.Add("bullet", 0.5f);
-        objectsProbabilities.Add("shield", 0.2f);
-    }
+        {"heart", 0.3f},
+        {"bullet", 0.5f},
+        {"shield", 0.2f}
+    };
+    public string[] objectList = new string[] { "heart", "bullet", "shield" };
+
 }

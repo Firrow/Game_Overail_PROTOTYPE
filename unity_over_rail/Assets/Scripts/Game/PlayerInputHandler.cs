@@ -18,7 +18,7 @@ public class PlayerInputHandler : MonoBehaviour
     public void OnMoveTrain(InputAction.CallbackContext context)
     {
         if (humanTrain != null)
-            humanTrain.playerChoiceDirection(context);
+            humanTrain.PlayerChoiceDirection(context);
     }
 
     public void OnAccelerateTrain(InputAction.CallbackContext context)
@@ -26,9 +26,9 @@ public class PlayerInputHandler : MonoBehaviour
         if (humanTrain != null)
         {
             if (context.started)
-                humanTrain.playerIncreaseVelocity(true);
+                humanTrain.PlayerIncreaseVelocity(true);
             else if (context.canceled)
-                humanTrain.playerIncreaseVelocity(false);
+                humanTrain.PlayerIncreaseVelocity(false);
         }
     }
 
@@ -37,9 +37,9 @@ public class PlayerInputHandler : MonoBehaviour
         if (humanTrain != null)
         {
             if (context.started)
-                humanTrain.playerDecreaseVelocity(true);
+                humanTrain.PlayerDecreaseVelocity(true);
             else if (context.canceled)
-                humanTrain.playerDecreaseVelocity(false);
+                humanTrain.PlayerDecreaseVelocity(false);
         }
     }
 
@@ -47,13 +47,13 @@ public class PlayerInputHandler : MonoBehaviour
     public void OnMoveWeapon(InputAction.CallbackContext context)
     {
         if (humanTrain != null)
-            humanTrain.playerMoveWeapon(context);
+            humanTrain.PlayerMoveWeapon(context);
     }
 
     public void OnShoot(InputAction.CallbackContext context)
     {
         if (humanTrain != null)
-            humanTrain.playerShoot(context);
+            humanTrain.PlayerShoot(context);
     }
 
 

@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class SpawnObjects : MonoBehaviour
 {
-    // Est ce qu'un objet est déjà présent ?
     private bool containsObject = false;
     private bool coroutineIsAllowed;
     [SerializeField]
-    private Objects[] objects;
+    private GameObject[] items;
+    private GameObject objectToSpawn;
 
     // fonction instancier un objet
     // Détection prise objet par un train
+
 
     public void Start()
     {
@@ -24,38 +25,45 @@ public class SpawnObjects : MonoBehaviour
     {
         while (coroutineIsAllowed)
         {
-            if (!containsObject)
+            Debug.Log("BEFORE SPAWN");
+            if (!containsObject && Random.Range(0, 3) != 0)
             {
-                // faire spawn objet
                 //containsObject = true;
+                objectToSpawn = GetObjectToSpawn();
+                //call spawn function
             }
-            yield return new WaitForSeconds(7f);
+            yield return new WaitForSeconds(5f);
         }
     }
 
-    /*private void getObject()
+    private GameObject GetObjectToSpawn()
     {
-        // Calculate sum probabilities of all elements
-        var total = 0f;
-        foreach (var o in objects)
-        {
-            total += o.
-        }
-
         // Choose a random value inside the total probability
-        var random = UnityEngine.Random.value * total;
+        float random = UnityEngine.Random.value * CalculateSomeProbability();
 
         // Go through the elements again, until the chosen value is in the element's probability range
-        var current = 0f;
-        foreach (var el in collection)
+        float current = 0f;
+        for (int i = 0; i < items.Length; i++)
         {
-            if (current <= random && random < current + el.Probability)
+            if (current <= random && random < current + items[i].GetComponent<Objects>().objectsProbabilities[items[i].GetComponent<Objects>().objectList[i]])
             {
-                return el;
+                return items[i];
             }
-            current += el.Probability;
+            current += items[i].GetComponent<Objects>().objectsProbabilities[items[i].GetComponent<Objects>().objectList[i]];
         }
 
-        return default(T);
-    }*/
+        return null;
+    }
+
+    private float CalculateSomeProbability()
+    {
+        // Calculate sum probabilities of all elements
+        float total = 0f;
+        for (int i = 0; i < items.Length; i++)
+        {
+            total += items[i].GetComponent<Objects>().objectsProbabilities[items[i].GetComponent<Objects>().objectList[i]];
+        }
+
+        return total;
+    }
 }

@@ -8,6 +8,6 @@ public class ShieldObject : Objects
 
     private void Start()
     {
-        probabilitySpawn = objectsProbabilities["heart"];
+        probabilitySpawn = objectsProbabilities["shield"];
     }
 }

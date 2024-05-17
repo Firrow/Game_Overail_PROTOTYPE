@@ -98,10 +98,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f8fa19b87178c9419abbbd808b1e8f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objects:
-  - {fileID: 2904203591940571726, guid: d243fb79fcff13d42a20440b7240b83f, type: 3}
-  - {fileID: 9062938674033388102, guid: 8830bf297a309fe4fab4676de5feecec, type: 3}
-  - {fileID: 7512398025081934254, guid: 3be7371999c4a154dad29c0a0655feae, type: 3}
+  items:
+  - {fileID: 3275857475779553978, guid: d243fb79fcff13d42a20440b7240b83f, type: 3}
+  - {fileID: 3275857475779553978, guid: 8830bf297a309fe4fab4676de5feecec, type: 3}
+  - {fileID: 3275857475779553978, guid: 3be7371999c4a154dad29c0a0655feae, type: 3}
 --- !u!1 &8293535111040988002
 GameObject:
   m_ObjectHideFlags: 0

@@ -43,7 +43,7 @@ public class HumanTrain : Train
 
 
 
-    public void playerChoiceDirection(InputAction.CallbackContext obj)
+    public void PlayerChoiceDirection(InputAction.CallbackContext obj)
     {
         movementInput = obj.ReadValue<Vector2>().x;
 
@@ -64,14 +64,14 @@ public class HumanTrain : Train
         lastChoice = this.choice;
     }
 
-    public void playerIncreaseVelocity(bool isAccelerate)
+    public void PlayerIncreaseVelocity(bool isAccelerate)
     {
         if (isAccelerate)
             increaseAcceleration = true;
         else
             increaseAcceleration = false;
     }
-    public void playerDecreaseVelocity(bool isDecelerate)
+    public void PlayerDecreaseVelocity(bool isDecelerate)
     {
         if (isDecelerate)
             decreaseAcceleration = true;
@@ -80,12 +80,12 @@ public class HumanTrain : Train
     }
 
 
-    public void playerMoveWeapon(InputAction.CallbackContext obj)
+    public void PlayerMoveWeapon(InputAction.CallbackContext obj)
     {
         this.gameObject.GetComponentInChildren<Weapon>().moveWeapon(obj.ReadValue<Vector2>(), obj.control.device is Mouse);
     }
 
-    public void playerShoot(InputAction.CallbackContext obj)
+    public void PlayerShoot(InputAction.CallbackContext obj)
     {
         this.gameObject.GetComponentInChildren<Weapon>().PressShootButton();
     }
