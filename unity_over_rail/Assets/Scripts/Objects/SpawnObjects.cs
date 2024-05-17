@@ -24,7 +24,7 @@ public class SpawnObjects : MonoBehaviour
         {
             if (!containsObject)
             {
-                Debug.Log("yolo");
+                // faire spawn objet
                 //containsObject = true;
             }
             yield return new WaitForSeconds(7f);

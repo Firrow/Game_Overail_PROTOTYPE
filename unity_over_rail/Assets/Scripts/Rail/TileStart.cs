@@ -15,5 +15,6 @@ public class TileStart : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         this.GetComponent<Tile>().directionOfTile = this.GetComponent<Tile>().directionOfTile.Replace(directionToDelete, "");
+        //mettre animation barriere
     }
 }

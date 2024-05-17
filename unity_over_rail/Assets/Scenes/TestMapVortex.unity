@@ -253,7 +253,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1204684396706960992, guid: 8af4bf6bad37ba4439876b3ebb042d3c, type: 3}
       propertyPath: m_TagString
-      value: TileStart
+      value: Tile
       objectReference: {fileID: 0}
     - target: {fileID: 1204684396706960997, guid: 8af4bf6bad37ba4439876b3ebb042d3c, type: 3}
       propertyPath: m_RootOrder
@@ -6587,7 +6587,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1204684396706960992, guid: 60deb1c4f53b9bc47ad9365815ad2f14, type: 3}
       propertyPath: m_TagString
-      value: TileStart
+      value: Tile
       objectReference: {fileID: 0}
     - target: {fileID: 1204684396706960997, guid: 60deb1c4f53b9bc47ad9365815ad2f14, type: 3}
       propertyPath: m_RootOrder
@@ -8474,7 +8474,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1204684396706960992, guid: d7ed73348c1cdf743a5bf56edfcfe157, type: 3}
       propertyPath: m_TagString
-      value: TileStart
+      value: Tile
       objectReference: {fileID: 0}
     - target: {fileID: 1204684396706960997, guid: d7ed73348c1cdf743a5bf56edfcfe157, type: 3}
       propertyPath: m_RootOrder
@@ -8554,7 +8554,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1204684396706960992, guid: a2db57614b29e6847a16d54dec8ca120, type: 3}
       propertyPath: m_TagString
-      value: TileStart
+      value: Tile
       objectReference: {fileID: 0}
     - target: {fileID: 1204684396706960997, guid: a2db57614b29e6847a16d54dec8ca120, type: 3}
       propertyPath: m_RootOrder

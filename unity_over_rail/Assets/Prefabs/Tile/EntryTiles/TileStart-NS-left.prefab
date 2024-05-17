@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 4235253890393458193}
   m_Layer: 0
   m_Name: TileStart-NS-left
-  m_TagString: TileStart
+  m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -175,8 +175,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionOfTile: NSO
-  directionToDelete: O
-  trainOnNetwork: 0
 --- !u!114 &4235253890393458193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,9 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b25364b7757308f4bb45c538f54ef986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  directionOfTile: NSO
   directionToDelete: O
-  trainOnNetwork: 0
 --- !u!1001 &1660792838217309698
 PrefabInstance:
   m_ObjectHideFlags: 0
