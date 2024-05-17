@@ -31,6 +31,7 @@ public class SpawnObjects : MonoBehaviour
                 //containsObject = true;
                 objectToSpawn = GetObjectToSpawn();
                 //call spawn function
+                Instantiate(objectToSpawn, this.transform.position, this.transform.rotation);
             }
             yield return new WaitForSeconds(5f);
         }

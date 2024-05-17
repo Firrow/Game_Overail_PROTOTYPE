@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: fa905a541fc13474fbafa027d41ec0af, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -97,3 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cf4c6d668c0e4c4ca607817fc3b150f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectList:
+  - heart
+  - bullet
+  - shield
