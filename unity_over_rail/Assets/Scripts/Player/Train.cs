@@ -20,7 +20,7 @@ public class Train : MonoBehaviour
     private bool isStopped = false;
     [SerializeField]
     private GameObject weapon;
-    public string actualItemName;
+    public GameObject actualItem;
     private SpawnObjects spawner;
 
     // deplacements mathematique
@@ -65,10 +65,9 @@ public class Train : MonoBehaviour
             // recupere la tuile sur laquelle le joueur est entrain de naviguer
             GetNextRoad(collider);
         }
-        else if (collider.gameObject.layer == LayerMask.NameToLayer("Objects") && actualItemName == "")
+        else if (collider.gameObject.layer == LayerMask.NameToLayer("Objects") && actualItem == null)
         {
-            actualItemName = collider.gameObject.tag;
-            PickObject(actualItemName);
+            actualItem = GameObject.FindGameObjectWithTag(collider.gameObject.tag);
             spawner.ContainsObject = false;
             Destroy(collider.gameObject);
         }
@@ -253,9 +252,12 @@ public class Train : MonoBehaviour
 
     // MANAGE OBJECT -----------------------------------------------------------------------------------------------------------------------
 
-    private void PickObject(string objectName)
+    private void PickObject(GameObject item)
     {
-        Debug.Log(objectName);
+        if (item.TryGetComponent(out IObjects pickedObject))
+        {
+            pickedObject.UseObject();
+        }
     }
 
 }

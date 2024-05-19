@@ -43,6 +43,13 @@ public class PlayerInputHandler : MonoBehaviour
         }
     }
 
+    public void OnUseObject(InputAction.CallbackContext context)
+    {
+        if (humanTrain != null)
+        {
+
+        }
+    }
 
     public void OnMoveWeapon(InputAction.CallbackContext context)
     {
