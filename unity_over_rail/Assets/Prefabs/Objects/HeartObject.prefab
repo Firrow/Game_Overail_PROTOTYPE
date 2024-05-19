@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 6485481077712700269}
   - component: {fileID: 6629658437213268996}
   - component: {fileID: 2904203591940571726}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: HeartObject
-  m_TagString: Object
+  m_TagString: heartObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -152,7 +152,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cf4c6d668c0e4c4ca607817fc3b150f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectList:
-  - heart
-  - bullet
-  - shield
