@@ -25,7 +25,7 @@ public class SpawnObjects : MonoBehaviour
     {
         while (coroutineIsAllowed)
         {
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(8f);
 
             if (!containsObject && Random.Range(0, 3) != 0)
             {
@@ -42,6 +42,10 @@ public class SpawnObjects : MonoBehaviour
         GameObject[] itemsList = gameManager.listOfAllObjectLists.ElementAt(Random.Range(0, gameManager.listOfAllObjectLists.Count()-1));
         return itemsList.ElementAt(Random.Range(0, itemsList.Count()));
     }
+
+
+
+
 
     public bool ContainsObject
     {

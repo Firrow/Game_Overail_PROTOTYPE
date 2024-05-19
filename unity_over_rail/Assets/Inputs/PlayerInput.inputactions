@@ -60,6 +60,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "UseObject",
+                    "type": "Button",
+                    "id": "ad702e52-a9ed-4571-bb19-ed648f446c69",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "QuitGame",
                     "type": "Button",
                     "id": "ed607c49-453f-48af-988a-54753785f4be",
@@ -507,6 +516,17 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "QuitGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e23f7b70-d052-41c6-9ec6-7444b64f9750",
+                    "path": "<Keyboard>/space",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "UseObject",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

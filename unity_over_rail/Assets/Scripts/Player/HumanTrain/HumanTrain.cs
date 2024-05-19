@@ -51,12 +51,12 @@ public class HumanTrain : Train
         {
             this.choice = lastChoice;
         }
-        else if (movementInput == -1) //Input.GetKeyDown(KeyCode.Q)
+        else if (movementInput == -1)
         {
             this.choice = 1;
             ChangeArrowColor(leftArrow.GetComponent<SpriteRenderer>(), rightArrow.GetComponent<SpriteRenderer>());
         }
-        else if (movementInput == 1) //Input.GetKeyDown(KeyCode.D)
+        else if (movementInput == 1)
         {
             this.choice = -1;
             ChangeArrowColor(rightArrow.GetComponent<SpriteRenderer>(), leftArrow.GetComponent<SpriteRenderer>());
@@ -88,6 +88,17 @@ public class HumanTrain : Train
     public void PlayerShoot(InputAction.CallbackContext obj)
     {
         this.gameObject.GetComponentInChildren<Weapon>().PressShootButton();
+    }
+
+
+
+    public void PickObject()
+    {
+        if (actualItem.TryGetComponent(out IObjects pickedObject))
+        {
+            pickedObject.UseObject();
+            actualItem = null;
+        }
     }
 
 

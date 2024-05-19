@@ -10,6 +10,7 @@ public class Train : MonoBehaviour
     protected bool increaseAcceleration = false;
     protected bool decreaseAcceleration = false;
     protected int choice;
+    protected GameObject actualItem;
 
 
     private GameObject currentTile;
@@ -20,7 +21,6 @@ public class Train : MonoBehaviour
     private bool isStopped = false;
     [SerializeField]
     private GameObject weapon;
-    public GameObject actualItem;
     private SpawnObjects spawner;
 
     // deplacements mathematique
@@ -39,7 +39,6 @@ public class Train : MonoBehaviour
 
         maxHealth = 10;
         currentHealth = maxHealth;
-        spawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<SpawnObjects>();
     }
 
     protected void Update()
@@ -68,12 +67,20 @@ public class Train : MonoBehaviour
         else if (collider.gameObject.layer == LayerMask.NameToLayer("Objects") && actualItem == null)
         {
             actualItem = GameObject.FindGameObjectWithTag(collider.gameObject.tag);
-            spawner.ContainsObject = false;
             Destroy(collider.gameObject);
+            spawner.ContainsObject = false;
         }
         else if (collider.gameObject.tag == "Enemy" || collider.gameObject.tag == "Player")
         {
             Destroy(this.gameObject);
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Spawner")
+        {
+            spawner = collision.gameObject.GetComponent<SpawnObjects>();
         }
     }
 
@@ -247,17 +254,4 @@ public class Train : MonoBehaviour
         else
             isStopped = true;
     }
-
-
-
-    // MANAGE OBJECT -----------------------------------------------------------------------------------------------------------------------
-
-    private void PickObject(GameObject item)
-    {
-        if (item.TryGetComponent(out IObjects pickedObject))
-        {
-            pickedObject.UseObject();
-        }
-    }
-
 }

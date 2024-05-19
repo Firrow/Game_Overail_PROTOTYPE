@@ -43,14 +43,6 @@ public class PlayerInputHandler : MonoBehaviour
         }
     }
 
-    public void OnUseObject(InputAction.CallbackContext context)
-    {
-        if (humanTrain != null)
-        {
-
-        }
-    }
-
     public void OnMoveWeapon(InputAction.CallbackContext context)
     {
         if (humanTrain != null)
@@ -63,6 +55,11 @@ public class PlayerInputHandler : MonoBehaviour
             humanTrain.PlayerShoot(context);
     }
 
+    public void OnUseObject(InputAction.CallbackContext context)
+    {
+        if (humanTrain != null && context.action.ReadValue<float>() == 0)
+            humanTrain.PickObject();
+    }
 
 
     public void OnQuit(InputAction.CallbackContext context)
