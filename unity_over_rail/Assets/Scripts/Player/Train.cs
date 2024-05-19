@@ -20,6 +20,8 @@ public class Train : MonoBehaviour
     private bool isStopped = false;
     [SerializeField]
     private GameObject weapon;
+    public GameObject actualItem;
+    private SpawnObjects spawner;
 
     // deplacements mathematique
     private float tParam;
@@ -37,6 +39,7 @@ public class Train : MonoBehaviour
 
         maxHealth = 10;
         currentHealth = maxHealth;
+        spawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<SpawnObjects>();
     }
 
     protected void Update()
@@ -55,18 +58,23 @@ public class Train : MonoBehaviour
 
 
     // DEPLACEMENT --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    private void OnTriggerEnter2D(Collider2D collider) // recupere la tuile sur laquelle le joueur est entrain de naviguer
+    private void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.gameObject.tag == "Tile")
         {
+            // recupere la tuile sur laquelle le joueur est entrain de naviguer
             GetNextRoad(collider);
+        }
+        else if (actualItem == null && collider.gameObject.tag == "Object")
+        {
+            actualItem = collider.gameObject;
+            spawner.ContainsObject = false;
+            Destroy(collider.gameObject);
         }
         else if (collider.gameObject.tag == "Enemy" || collider.gameObject.tag == "Player")
         {
             Destroy(this.gameObject);
         }
-
-        // Detection d'objets
     }
 
     private void GetNextRoad(Collider2D collider)

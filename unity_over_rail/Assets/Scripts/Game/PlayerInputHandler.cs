@@ -58,7 +58,6 @@ public class PlayerInputHandler : MonoBehaviour
 
 
 
-    //TEMPORAIRE POUR TESTS
     public void OnQuit(InputAction.CallbackContext context)
     {
         Application.Quit();

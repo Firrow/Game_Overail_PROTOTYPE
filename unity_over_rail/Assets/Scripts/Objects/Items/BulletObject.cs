@@ -4,10 +4,5 @@ using UnityEngine;
 
 public class BulletObject : Objects
 {
-    private float probabilitySpawn;
 
-    private void Start()
-    {
-        probabilitySpawn = objectsProbabilities["bullet"];
-    }
 }
