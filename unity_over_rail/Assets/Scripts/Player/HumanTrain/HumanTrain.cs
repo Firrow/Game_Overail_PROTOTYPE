@@ -10,7 +10,6 @@ public class HumanTrain : Train
     public GameObject rightArrow;
 
 
-
     [SerializeField]
     private int playerIndex = 0;
     private float movementInput;

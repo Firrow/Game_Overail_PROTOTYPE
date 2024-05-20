@@ -5,7 +5,7 @@ public class Train : MonoBehaviour
 {
     public string fromDirection; // permettre de le determiner automatiquement
 
-    protected float speed;
+    protected float SPEED;
     protected float accelerate = 0f;
     protected bool increaseAcceleration = false;
     protected bool decreaseAcceleration = false;
@@ -27,18 +27,22 @@ public class Train : MonoBehaviour
     private float tParam;
     private Vector3 trainPosition;
 
-    private int maxHealth;
+    private int MAX_HEALTH;
     private int currentHealth;
+    private int MAX_BULLET_QUANTITY;
+    private int currentBulletQuantity;
 
 
     protected void Start()
     {
-        speed = 1;
+        SPEED = 1;
         tParam = 0f;
         coroutineAllowed = true;
 
-        maxHealth = 10;
+        MAX_HEALTH = 10;
         currentHealth = 5; // Mettre maxHealth plus tard
+        MAX_BULLET_QUANTITY = 15;
+        currentBulletQuantity = MAX_BULLET_QUANTITY;
     }
 
     protected void Update()
@@ -52,7 +56,7 @@ public class Train : MonoBehaviour
     protected void FixedUpdate()
     {
         ManageAcceleration();
-        velocity = speed + accelerate;
+        velocity = SPEED + accelerate;
     }
 
 
@@ -277,7 +281,6 @@ public class Train : MonoBehaviour
 
     public int MaxHealth
     {
-        get { return maxHealth; }
-        set { maxHealth = value; }
+        get { return MAX_HEALTH; }
     }
 }
