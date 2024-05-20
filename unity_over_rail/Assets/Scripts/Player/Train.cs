@@ -67,6 +67,7 @@ public class Train : MonoBehaviour
         }
         else if (collider.gameObject.layer == LayerMask.NameToLayer("Bullets"))
         {
+            Debug.Log("TOUCHE joueur ! ");
             TakeDamage(collider.gameObject.GetComponent<Bullet>().Damage) ;
         }
         else if (collider.gameObject.layer == LayerMask.NameToLayer("Objects") && actualItem == null)

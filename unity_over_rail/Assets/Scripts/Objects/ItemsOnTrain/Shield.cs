@@ -19,10 +19,19 @@ public class Shield : MonoBehaviour
         ownerTrain = this.gameObject.transform.parent.gameObject;
     }
 
-    public void TakeDamage()
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Bullets"))
+        {
+            Debug.Log("TOUCHE BOUCLIER ! ");
+            TakeDamage(collision.gameObject.GetComponent<Bullet>().Damage);
+        }
+    }
+
+    public void TakeDamage(int damage)
     {
         Debug.Log("SHIELD BEFORE : " + currentShieldHealth);
-        currentShieldHealth--;
+        currentShieldHealth -= damage;
         Debug.Log("SHIELD AFTER : " + currentShieldHealth);
         Debug.Log("-----------------------------------------------------------------");
 
