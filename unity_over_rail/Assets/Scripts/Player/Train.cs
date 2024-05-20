@@ -29,6 +29,8 @@ public class Train : MonoBehaviour
 
     private int MAX_HEALTH;
     private int currentHealth;
+    private bool shieldIsActivate;
+    private GameObject shield;
 
 
 
@@ -40,6 +42,9 @@ public class Train : MonoBehaviour
 
         MAX_HEALTH = 10;
         currentHealth = 5; // Mettre maxHealth plus tard
+
+        shield = this.gameObject.transform.GetChild(1).gameObject;
+        shieldIsActivate = shield.activeSelf;
     }
 
     protected void Update()
@@ -67,7 +72,7 @@ public class Train : MonoBehaviour
         }
         else if (collider.gameObject.layer == LayerMask.NameToLayer("Bullets"))
         {
-            if (!this.gameObject.transform.GetChild(1).gameObject.activeSelf)
+            if (!this.gameObject.transform.GetChild(1).gameObject.activeSelf) // if shield is disable
             {
                 TakeDamage(collider.gameObject.GetComponent<Bullet>().Damage);
                 Destroy(collider.gameObject);
@@ -75,13 +80,9 @@ public class Train : MonoBehaviour
         }
         else if (collider.gameObject.layer == LayerMask.NameToLayer("Objects") && actualItem == null)
         {
-            actualItem = GameObject.FindGameObjectWithTag(collider.gameObject.tag);
-            Destroy(collider.gameObject);
-
-            if (actualItem.TryGetComponent(out IObjects pickedObject))
-                pickedObject.GetTrain(this.gameObject);
-
+            ManageObjects(collider.gameObject);
             spawner.ContainsObject = false;
+            Destroy(collider.gameObject);
         }
     }
 
@@ -274,6 +275,25 @@ public class Train : MonoBehaviour
 
 
 
+    // MANAGE OBJECTS ---------------------------------------------------------------------------------------------------------------
+    private void ManageObjects(GameObject itemCollided)
+    {
+        if (!(shieldIsActivate && itemCollided.GetComponent<ShieldObject>())) // case of player take shield item when he already have shield on him
+        {
+            actualItem = GameObject.FindGameObjectWithTag(itemCollided.tag);
+
+            if (actualItem.TryGetComponent(out IObjects pickedObject))
+                pickedObject.GetTrain(this.gameObject);
+        }
+        else
+        {
+            shield.GetComponent<Shield>().ResetShield();
+        }
+    }
+
+
+
+
 
 
 
@@ -295,4 +315,12 @@ public class Train : MonoBehaviour
     {
         get { return MAX_HEALTH; }
     }
+
+
+    public bool ShieldIsActivate
+    {
+        get { return shieldIsActivate; }
+        set { shieldIsActivate = value; }
+    }
+
 }

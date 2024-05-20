@@ -17,6 +17,7 @@ public class ShieldObject : MonoBehaviour, IObjects
     public void UseObject()
     {
         shieldOnTrain.SetActive(true);
+        ownerTrain.GetComponent<Train>().ShieldIsActivate = shieldOnTrain.activeSelf;
         ownerTrain.GetComponent<Train>().ActualItem = null;
     }
 }

@@ -9,10 +9,7 @@ public class Shield : MonoBehaviour
     private int currentShieldHealth;
     private GameObject ownerTrain;
 
-    private void Awake()
-    {
-        isActive = this.gameObject.activeSelf;
-    }
+
     private void Start()
     {
         currentShieldHealth = MAX_SHIELD_HEALTH;
@@ -23,7 +20,6 @@ public class Shield : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Bullets"))
         {
-            Debug.Log("TOUCHE BOUCLIER ! ");
             TakeDamage(collision.gameObject.GetComponent<Bullet>().Damage);
             Destroy(collision.gameObject);
         }
@@ -38,6 +34,13 @@ public class Shield : MonoBehaviour
         if (currentShieldHealth == 0)
         {
             gameObject.SetActive(false);
+            ownerTrain.GetComponent<Train>().ShieldIsActivate = gameObject.activeSelf;
         }
+    }
+
+    public void ResetShield()
+    {
+        currentShieldHealth = MAX_SHIELD_HEALTH;
+        // Remettre sprite bouclier tout propre !
     }
 }
