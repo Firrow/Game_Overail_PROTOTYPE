@@ -11,6 +11,7 @@ public class Bullet : MonoBehaviour
         StartCoroutine(EnableCollisionAfterDelay(0.4f)); //0.15f
     }
 
+
     // Donne un delay à l'activation collision balle pour ne pas toucher le joueur qui tir
     IEnumerator EnableCollisionAfterDelay(float delay)
     {

@@ -25,6 +25,7 @@ public class Shield : MonoBehaviour
         {
             Debug.Log("TOUCHE BOUCLIER ! ");
             TakeDamage(collision.gameObject.GetComponent<Bullet>().Damage);
+            Destroy(collision.gameObject);
         }
     }
 
@@ -33,7 +34,6 @@ public class Shield : MonoBehaviour
         Debug.Log("SHIELD BEFORE : " + currentShieldHealth);
         currentShieldHealth -= damage;
         Debug.Log("SHIELD AFTER : " + currentShieldHealth);
-        Debug.Log("-----------------------------------------------------------------");
 
         if (currentShieldHealth == 0)
         {

@@ -67,8 +67,11 @@ public class Train : MonoBehaviour
         }
         else if (collider.gameObject.layer == LayerMask.NameToLayer("Bullets"))
         {
-            Debug.Log("TOUCHE joueur ! ");
-            TakeDamage(collider.gameObject.GetComponent<Bullet>().Damage) ;
+            if (!this.gameObject.transform.GetChild(1).gameObject.activeSelf)
+            {
+                TakeDamage(collider.gameObject.GetComponent<Bullet>().Damage);
+                Destroy(collider.gameObject);
+            }
         }
         else if (collider.gameObject.layer == LayerMask.NameToLayer("Objects") && actualItem == null)
         {
@@ -80,7 +83,11 @@ public class Train : MonoBehaviour
 
             spawner.ContainsObject = false;
         }
-        else if (collider.gameObject.layer == LayerMask.NameToLayer("Trains"))
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Trains"))
         {
             Destroy(this.gameObject);
         }

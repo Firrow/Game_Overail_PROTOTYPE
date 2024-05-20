@@ -21,8 +21,8 @@ public class Weapon : MonoBehaviour
         lastTimeShot = DateTime.Now;
         bulletSpeed = 15;
 
-        MAX_BULLET_QUANTITY = 30;
-        currentBulletQuantity = 15;      // A METTRE PLUS TARD
+        MAX_BULLET_QUANTITY = 3000; //30
+        currentBulletQuantity = 1500;  //15   // = MAX_BULLET_QUANTITY (à mettre plus tard)
     }
 
 
