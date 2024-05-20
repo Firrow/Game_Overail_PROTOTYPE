@@ -38,7 +38,7 @@ public class Train : MonoBehaviour
         coroutineAllowed = true;
 
         maxHealth = 10;
-        currentHealth = maxHealth;
+        currentHealth = 5; // Mettre maxHealth plus tard
     }
 
     protected void Update()
@@ -68,6 +68,10 @@ public class Train : MonoBehaviour
         {
             actualItem = GameObject.FindGameObjectWithTag(collider.gameObject.tag);
             Destroy(collider.gameObject);
+
+            if (actualItem.TryGetComponent(out IObjects pickedObject))
+                pickedObject.GetTrain(this.gameObject);
+
             spawner.ContainsObject = false;
         }
         else if (collider.gameObject.tag == "Enemy" || collider.gameObject.tag == "Player")
@@ -253,5 +257,27 @@ public class Train : MonoBehaviour
             accelerate -= 0.015f;
         else
             isStopped = true;
+    }
+
+
+
+
+
+    public GameObject ActualItem
+    {
+        get { return actualItem; }
+        set { actualItem = value; }
+    }
+
+    public int CurrentHealth
+    {
+        get { return currentHealth; }
+        set { currentHealth = value; }
+    }
+
+    public int MaxHealth
+    {
+        get { return maxHealth; }
+        set { maxHealth = value; }
     }
 }
