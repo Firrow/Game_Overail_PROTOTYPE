@@ -7,6 +7,9 @@ public class Weapon : MonoBehaviour
     public GameObject bullet;
     public Transform firePoint;
 
+    private int MAX_BULLET_QUANTITY;
+    private int currentBulletQuantity;
+
     private float bulletSpeed;
     private float offset;
     private DateTime lastTimeShot;
@@ -17,6 +20,9 @@ public class Weapon : MonoBehaviour
     {
         lastTimeShot = DateTime.Now;
         bulletSpeed = 15;
+
+        MAX_BULLET_QUANTITY = 30;
+        //currentBulletQuantity = MAX_BULLET_QUANTITY;      // A METTRE PLUS TARD
     }
 
 
@@ -66,9 +72,10 @@ public class Weapon : MonoBehaviour
     {
         actualTimeShot = DateTime.Now;
 
-        if (actualTimeShot - lastTimeShot >= new TimeSpan(0, 0, 0, 0, 150))
+        if (currentBulletQuantity > 0 && actualTimeShot - lastTimeShot >= new TimeSpan(0, 0, 0, 0, 150))
         {
             Shoot(firePoint, bulletSpeed, bullet, this.gameObject);
+            currentBulletQuantity--;
             lastTimeShot = actualTimeShot;
         }
     }
@@ -82,4 +89,14 @@ public class Weapon : MonoBehaviour
         rb.AddForce(firePointWeapon.right * speed, ForceMode2D.Impulse);
     }
 
+    public int CurrentBulletQuantity
+    {
+        get { return currentBulletQuantity; }
+        set { currentBulletQuantity = value; }
+    }
+
+    public int MaxBulletQuantity
+    {
+        get { return MAX_BULLET_QUANTITY; }
+    }
 }

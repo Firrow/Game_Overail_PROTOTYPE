@@ -29,8 +29,7 @@ public class Train : MonoBehaviour
 
     private int MAX_HEALTH;
     private int currentHealth;
-    private int MAX_BULLET_QUANTITY;
-    private int currentBulletQuantity;
+
 
 
     protected void Start()
@@ -41,8 +40,6 @@ public class Train : MonoBehaviour
 
         MAX_HEALTH = 10;
         currentHealth = 5; // Mettre maxHealth plus tard
-        MAX_BULLET_QUANTITY = 15;
-        currentBulletQuantity = MAX_BULLET_QUANTITY;
     }
 
     protected void Update()
