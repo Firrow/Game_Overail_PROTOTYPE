@@ -65,6 +65,10 @@ public class Train : MonoBehaviour
             // recupere la tuile sur laquelle le joueur est entrain de naviguer
             GetNextRoad(collider);
         }
+        else if (collider.gameObject.layer == LayerMask.NameToLayer("Bullets"))
+        {
+            TakeDamage(collider.gameObject.GetComponent<Bullet>().Damage) ;
+        }
         else if (collider.gameObject.layer == LayerMask.NameToLayer("Objects") && actualItem == null)
         {
             actualItem = GameObject.FindGameObjectWithTag(collider.gameObject.tag);
@@ -75,7 +79,7 @@ public class Train : MonoBehaviour
 
             spawner.ContainsObject = false;
         }
-        else if (collider.gameObject.tag == "Enemy" || collider.gameObject.tag == "Player")
+        else if (collider.gameObject.layer == LayerMask.NameToLayer("Trains"))
         {
             Destroy(this.gameObject);
         }
@@ -259,6 +263,9 @@ public class Train : MonoBehaviour
         else
             isStopped = true;
     }
+
+
+
 
 
 

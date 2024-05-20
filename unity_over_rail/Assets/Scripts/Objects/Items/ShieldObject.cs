@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class ShieldObject : MonoBehaviour, IObjects
 {
-    private GameObject OwnerTrain;
+    private GameObject ownerTrain;
+    private GameObject shieldOnTrain;
+    
 
     public void GetTrain(GameObject train)
     {
-        OwnerTrain = train;
+        ownerTrain = train;
+        shieldOnTrain = ownerTrain.transform.GetChild(1).gameObject;
     }
 
     public void UseObject()
     {
-        Debug.Log("Use SHIELD");
-        OwnerTrain.GetComponent<Train>().ActualItem = null;
+        shieldOnTrain.SetActive(true);
+        ownerTrain.GetComponent<Train>().ActualItem = null;
     }
 }

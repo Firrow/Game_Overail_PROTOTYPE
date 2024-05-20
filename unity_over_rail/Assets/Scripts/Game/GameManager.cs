@@ -6,13 +6,13 @@ using System.Linq;
 public class GameManager : MonoBehaviour
 {
     public GameObject[] usualObjects;
-    private int PROBABILITY_USUAL_OBJECT = 5;
+    private int PROBABILITY_USUAL_OBJECT = 2; //5
 
     public GameObject[] unusualObjects;
     private int PROBABILITY_UNUSUAL_OBJECT = 3;
 
     public GameObject[] rareObjects;
-    private int PROBABILITY_RARE_OBJECT = 2;
+    private int PROBABILITY_RARE_OBJECT = 5; //2
 
     public List<GameObject[]> listOfAllObjectLists = new List<GameObject[]>();
     public List<string> allObjectNames = new List<string>() { "heartObject", "bulletObject", "shieldObject" };

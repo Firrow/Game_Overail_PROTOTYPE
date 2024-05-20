@@ -4179,15 +4179,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6282290170516749661, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: m_Color.b
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6282290170516749661, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: m_Color.g
-      value: 0.3096056
+      value: 0.764151
       objectReference: {fileID: 0}
     - target: {fileID: 6282290170516749661, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: m_Color.r
-      value: 0
+      value: 0.07808842
       objectReference: {fileID: 0}
     - target: {fileID: 6282290170516749661, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: m_SortingOrder
@@ -11932,6 +11932,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 530904350000685750, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1202121630399035779, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1271481372734013570, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
+      propertyPath: isActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6223790140278928094, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6223790140278928094, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
+      propertyPath: m_TagString
+      value: Shield
+      objectReference: {fileID: 0}
     - target: {fileID: 6282290170516749659, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: m_Name
       value: train1
@@ -11986,7 +12006,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8492266255089162665, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: currentBulletQuantity
-      value: 15
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8527542783905680919, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: tempChoice
@@ -12023,7 +12043,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6282290170516749659, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6282290170516749660, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
       propertyPath: m_RootOrder

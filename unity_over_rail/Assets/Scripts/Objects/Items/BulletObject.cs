@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class BulletObject : MonoBehaviour, IObjects
 {
-    private GameObject OwnerTrain;
+    private GameObject ownerTrain;
     private Weapon Weapon;
     private int RECOVERY_BULLET_VALUE = 15;
 
     public void GetTrain(GameObject train)
     {
-        OwnerTrain = train;
-        Weapon = OwnerTrain.GetComponentInChildren<Weapon>();
+        ownerTrain = train;
+        Weapon = ownerTrain.GetComponentInChildren<Weapon>();
     }
 
     public void UseObject()
@@ -20,6 +20,8 @@ public class BulletObject : MonoBehaviour, IObjects
         Weapon.CurrentBulletQuantity +=
             Mathf.Min(RECOVERY_BULLET_VALUE, Weapon.MaxBulletQuantity - Weapon.CurrentBulletQuantity);
         Debug.Log("BULLET AFTER : " + Weapon.CurrentBulletQuantity);
-        OwnerTrain.GetComponent<Train>().ActualItem = null;
+
+
+        ownerTrain.GetComponent<Train>().ActualItem = null;
     }
 }

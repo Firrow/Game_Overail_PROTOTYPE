@@ -22,7 +22,7 @@ public class Weapon : MonoBehaviour
         bulletSpeed = 15;
 
         MAX_BULLET_QUANTITY = 30;
-        //currentBulletQuantity = MAX_BULLET_QUANTITY;      // A METTRE PLUS TARD
+        currentBulletQuantity = 15;      // A METTRE PLUS TARD
     }
 
 

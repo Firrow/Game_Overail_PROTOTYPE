@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class HeartObject : MonoBehaviour, IObjects
 {
-    private GameObject OwnerTrain;
+    private GameObject ownerTrain;
     private int RECOVERY_HEALTH_VALUE = 5;
 
     public void GetTrain(GameObject train)
     {
-        OwnerTrain = train;
+        ownerTrain = train;
     }
 
     public void UseObject()
     {
-        Debug.Log("PV BEFORE : " + OwnerTrain.GetComponent<Train>().CurrentHealth);
-        OwnerTrain.GetComponent<Train>().CurrentHealth += 
-            Mathf.Min(RECOVERY_HEALTH_VALUE, OwnerTrain.GetComponent<Train>().MaxHealth - OwnerTrain.GetComponent<Train>().CurrentHealth);
-        Debug.Log("PV AFTER : " + OwnerTrain.GetComponent<Train>().CurrentHealth);
+        Debug.Log("PV BEFORE : " + ownerTrain.GetComponent<Train>().CurrentHealth);
+        ownerTrain.GetComponent<Train>().CurrentHealth += 
+            Mathf.Min(RECOVERY_HEALTH_VALUE, ownerTrain.GetComponent<Train>().MaxHealth - ownerTrain.GetComponent<Train>().CurrentHealth);
+        Debug.Log("PV AFTER : " + ownerTrain.GetComponent<Train>().CurrentHealth);
 
-        OwnerTrain.GetComponent<Train>().ActualItem = null;
+        ownerTrain.GetComponent<Train>().ActualItem = null;
     }
 }
