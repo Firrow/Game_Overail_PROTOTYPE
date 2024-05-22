@@ -76,6 +76,7 @@ public class Weapon : MonoBehaviour
         {
             Shoot(firePoint, bulletSpeed, bullet, this.gameObject);
             currentBulletQuantity--;
+            this.GetComponentInParent<HumanTrain>().UpdateBulletBar(currentBulletQuantity);
             lastTimeShot = actualTimeShot;
         }
     }
@@ -88,6 +89,11 @@ public class Weapon : MonoBehaviour
         Rigidbody2D rb = bulletInst.GetComponent<Rigidbody2D>();
         rb.AddForce(firePointWeapon.right * speed, ForceMode2D.Impulse);
     }
+
+
+
+
+
 
     public int CurrentBulletQuantity
     {

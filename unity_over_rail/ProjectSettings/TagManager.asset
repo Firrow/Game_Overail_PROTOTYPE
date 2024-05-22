@@ -17,6 +17,7 @@ TagManager:
   - shieldObject
   - Shield
   - HealthBar
+  - BulletBar
   layers:
   - Default
   - TransparentFX

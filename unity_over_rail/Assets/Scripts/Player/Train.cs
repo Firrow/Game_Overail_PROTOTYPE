@@ -5,6 +5,8 @@ public class Train : MonoBehaviour
 {
     public string fromDirection; // permettre de le determiner automatiquement
 
+    [SerializeField]
+    protected GameObject weapon;
     protected float SPEED;
     protected float accelerate = 0f;
     protected bool increaseAcceleration = false;
@@ -12,6 +14,7 @@ public class Train : MonoBehaviour
     protected int choice;
     public GameObject actualItem;
     protected HealthBar healthBar;
+    protected BulletBar bulletBar;
 
 
     private GameObject currentTile;
@@ -20,8 +23,6 @@ public class Train : MonoBehaviour
     private bool reversePoints;
     private float velocity;
     private bool isStopped = false;
-    [SerializeField]
-    private GameObject weapon;
     private SpawnObjects spawner;
 
     // deplacements mathematique

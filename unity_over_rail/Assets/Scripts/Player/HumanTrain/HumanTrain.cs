@@ -23,6 +23,8 @@ public class HumanTrain : Train
         this.choice = 1;
         lastChoice = 1;
 
+
+        //HEALTHBAR
         foreach (GameObject HB in GameObject.FindGameObjectsWithTag("HealthBar"))
         {
             if (HB.GetComponent<HealthBar>().index == playerIndex)
@@ -32,7 +34,16 @@ public class HumanTrain : Train
         }
         healthBar.SetMaxHealth(MaxHealth);
 
-        Debug.Log("player : " + this.gameObject.name + " HB : " + healthBar.name);
+        //BULLETBAR
+        foreach (GameObject BB in GameObject.FindGameObjectsWithTag("BulletBar"))
+        {
+            if (BB.GetComponent<BulletBar>().index == playerIndex)
+            {
+                this.bulletBar = BB.GetComponent<BulletBar>();
+            }
+        }
+        bulletBar.SetMaxBullet(weapon.GetComponent<Weapon>().MaxBulletQuantity);
+        bulletBar.SetBullet(weapon.GetComponent<Weapon>().CurrentBulletQuantity);
     }
 
     void Update()
@@ -119,6 +130,10 @@ public class HumanTrain : Train
         base.TakeDamage(damage);
     }
 
+    public void UpdateBulletBar(int updateValue)
+    {
+        bulletBar.SetBullet(updateValue);
+    }
 
 
 
