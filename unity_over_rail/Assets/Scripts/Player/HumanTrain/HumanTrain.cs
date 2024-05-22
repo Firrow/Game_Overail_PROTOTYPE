@@ -22,6 +22,17 @@ public class HumanTrain : Train
         ChangeArrowColor(leftArrow.GetComponent<SpriteRenderer>(), rightArrow.GetComponent<SpriteRenderer>());
         this.choice = 1;
         lastChoice = 1;
+
+        foreach (GameObject HB in GameObject.FindGameObjectsWithTag("HealthBar"))
+        {
+            if (HB.GetComponent<HealthBar>().index == playerIndex)
+            {
+                this.healthBar = HB.GetComponent<HealthBar>();
+            }
+        }
+        healthBar.SetMaxHealth(MaxHealth);
+
+        Debug.Log("player : " + this.gameObject.name + " HB : " + healthBar.name);
     }
 
     void Update()
@@ -32,11 +43,6 @@ public class HumanTrain : Train
     private void FixedUpdate()
     {
         base.FixedUpdate();
-    }
-
-    public int GetPlayerIndex()
-    {
-        return playerIndex;
     }
 
 
@@ -111,5 +117,18 @@ public class HumanTrain : Train
     public void TakeDamage(int damage)
     {
         base.TakeDamage(damage);
+    }
+
+
+
+
+
+
+
+
+
+    public int GetPlayerIndex()
+    {
+        return playerIndex;
     }
 }

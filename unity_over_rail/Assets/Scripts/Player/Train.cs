@@ -10,7 +10,8 @@ public class Train : MonoBehaviour
     protected bool increaseAcceleration = false;
     protected bool decreaseAcceleration = false;
     protected int choice;
-    protected GameObject actualItem;
+    public GameObject actualItem;
+    protected HealthBar healthBar;
 
 
     private GameObject currentTile;
@@ -41,7 +42,7 @@ public class Train : MonoBehaviour
         coroutineAllowed = true;
 
         MAX_HEALTH = 10;
-        currentHealth = 5; // Mettre maxHealth plus tard
+        currentHealth = MAX_HEALTH; // Mettre maxHealth plus tard
 
         shield = this.gameObject.transform.GetChild(1).gameObject;
         shieldIsActivate = shield.activeSelf;
@@ -90,7 +91,7 @@ public class Train : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Trains"))
         {
-            Destroy(this.gameObject);
+            TakeDamage(MAX_HEALTH);
         }
     }
 
@@ -238,6 +239,8 @@ public class Train : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        healthBar.GetComponent<HealthBar>().SetHealth(currentHealth);
     }
 
 
