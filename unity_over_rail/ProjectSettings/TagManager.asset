@@ -18,6 +18,7 @@ TagManager:
   - Shield
   - HealthBar
   - BulletBar
+  - ObjectSlot
   layers:
   - Default
   - TransparentFX

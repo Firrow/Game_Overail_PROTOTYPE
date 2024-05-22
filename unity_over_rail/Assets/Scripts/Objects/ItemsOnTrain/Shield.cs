@@ -27,9 +27,7 @@ public class Shield : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        Debug.Log("SHIELD BEFORE : " + currentShieldHealth);
         currentShieldHealth -= damage;
-        Debug.Log("SHIELD AFTER : " + currentShieldHealth);
 
         if (currentShieldHealth == 0)
         {

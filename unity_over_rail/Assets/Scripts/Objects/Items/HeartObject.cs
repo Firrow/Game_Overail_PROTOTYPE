@@ -14,10 +14,8 @@ public class HeartObject : MonoBehaviour, IObjects
 
     public void UseObject()
     {
-        Debug.Log("PV BEFORE : " + ownerTrain.GetComponent<Train>().CurrentHealth);
         ownerTrain.GetComponent<Train>().CurrentHealth += 
             Mathf.Min(RECOVERY_HEALTH_VALUE, ownerTrain.GetComponent<Train>().MaxHealth - ownerTrain.GetComponent<Train>().CurrentHealth);
-        Debug.Log("PV AFTER : " + ownerTrain.GetComponent<Train>().CurrentHealth);
 
         ownerTrain.GetComponent<Train>().ActualItem = null;
     }

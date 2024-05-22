@@ -24,6 +24,7 @@ public class HumanTrain : Train
         lastChoice = 1;
 
 
+        // TODO : faire fonction pour simplifier
         //HEALTHBAR
         foreach (GameObject HB in GameObject.FindGameObjectsWithTag("HealthBar"))
         {
@@ -33,6 +34,7 @@ public class HumanTrain : Train
             }
         }
         healthBar.SetMaxHealth(MaxHealth);
+
 
         //BULLETBAR
         foreach (GameObject BB in GameObject.FindGameObjectsWithTag("BulletBar"))
@@ -44,6 +46,17 @@ public class HumanTrain : Train
         }
         bulletBar.SetMaxBullet(weapon.GetComponent<Weapon>().MaxBulletQuantity);
         bulletBar.SetBullet(weapon.GetComponent<Weapon>().CurrentBulletQuantity);
+
+
+        //OBJECTSLOT
+        foreach (GameObject OS in GameObject.FindGameObjectsWithTag("ObjectSlot"))
+        {
+            if (OS.GetComponent<ObjectSlot>().index == playerIndex)
+            {
+                this.objectSlot = OS.GetComponent<ObjectSlot>();
+            }
+        }
+
     }
 
     void Update()
@@ -108,12 +121,13 @@ public class HumanTrain : Train
 
 
 
-    public void PickObject()
+    public void UsePickObject()
     {
         if (actualItem.TryGetComponent(out IObjects pickedObject))
         {
             pickedObject.UseObject();
             actualItem = null;
+            objectSlot.UndisplayActualObject();
         }
     }
 

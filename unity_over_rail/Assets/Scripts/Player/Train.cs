@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Train : MonoBehaviour
 {
-    public string fromDirection; // permettre de le determiner automatiquement
+    public string fromDirection; // permettre de le determiner automatiquement //public à remplacer par private + SerializeField ?
 
     [SerializeField]
     protected GameObject weapon;
@@ -15,6 +15,7 @@ public class Train : MonoBehaviour
     public GameObject actualItem;
     protected HealthBar healthBar;
     protected BulletBar bulletBar;
+    protected ObjectSlot objectSlot;
 
 
     private GameObject currentTile;
@@ -83,8 +84,7 @@ public class Train : MonoBehaviour
         else if (collider.gameObject.layer == LayerMask.NameToLayer("Objects") && actualItem == null)
         {
             ManageObjects(collider.gameObject);
-            spawner.ContainsObject = false;
-            Destroy(collider.gameObject);
+            //Debug.Log(actualItem.gameObject.GetComponent<SpriteRenderer>().sprite);
         }
     }
 
@@ -293,6 +293,10 @@ public class Train : MonoBehaviour
         {
             shield.GetComponent<Shield>().ResetShield();
         }
+
+        objectSlot.GetComponent<ObjectSlot>().DisplayActualObject(actualItem.GetComponent<SpriteRenderer>().sprite);
+        spawner.ContainsObject = false;
+        Destroy(itemCollided.gameObject);
     }
 
 

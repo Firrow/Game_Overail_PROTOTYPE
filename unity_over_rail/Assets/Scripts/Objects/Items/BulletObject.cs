@@ -16,11 +16,9 @@ public class BulletObject : MonoBehaviour, IObjects
 
     public void UseObject()
     {
-        Debug.Log("BULLET BEFORE : " + weapon.CurrentBulletQuantity);
         weapon.CurrentBulletQuantity +=
             Mathf.Min(RECOVERY_BULLET_VALUE, weapon.MaxBulletQuantity - weapon.CurrentBulletQuantity);
         weapon.GetComponentInParent<HumanTrain>().UpdateBulletBar(weapon.CurrentBulletQuantity);
-        Debug.Log("BULLET AFTER : " + weapon.CurrentBulletQuantity);
 
 
         ownerTrain.GetComponent<Train>().ActualItem = null;
