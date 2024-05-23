@@ -84,7 +84,6 @@ public class Train : MonoBehaviour
         else if (collider.gameObject.layer == LayerMask.NameToLayer("Objects") && actualItem == null)
         {
             ManageObjects(collider.gameObject);
-            //Debug.Log(actualItem.gameObject.GetComponent<SpriteRenderer>().sprite);
         }
     }
 
@@ -296,6 +295,7 @@ public class Train : MonoBehaviour
 
         objectSlot.GetComponent<ObjectSlot>().DisplayActualObject(actualItem.GetComponent<SpriteRenderer>().sprite);
         spawner.ContainsObject = false;
+        spawner.RestartCoroutine();
         Destroy(itemCollided.gameObject);
     }
 

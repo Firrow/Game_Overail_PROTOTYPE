@@ -7,6 +7,7 @@ public class SpawnObjects : MonoBehaviour
 {
     private bool containsObject = false;
     private bool coroutineIsAllowed;
+    IEnumerator waitBeforeSpawn;
     private GameManager gameManager;
     private GameObject objectToSpawn;
 
@@ -17,8 +18,10 @@ public class SpawnObjects : MonoBehaviour
     {
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         coroutineIsAllowed = true;
-        StartCoroutine(SpawnObject());
+        waitBeforeSpawn = SpawnObject();
+        StartCoroutine(waitBeforeSpawn);
     }
+
 
 
     IEnumerator SpawnObject()
@@ -26,7 +29,6 @@ public class SpawnObjects : MonoBehaviour
         while (coroutineIsAllowed)
         {
             yield return new WaitForSeconds(8f);
-
             if (!containsObject && Random.Range(0, 3) != 0)
             {
                 containsObject = true;
@@ -43,8 +45,12 @@ public class SpawnObjects : MonoBehaviour
         return itemsList.ElementAt(Random.Range(0, itemsList.Count()));
     }
 
-
-
+    public void RestartCoroutine()
+    {
+        StopCoroutine(waitBeforeSpawn);
+        waitBeforeSpawn = SpawnObject();
+        StartCoroutine(waitBeforeSpawn);
+    }
 
 
     public bool ContainsObject
