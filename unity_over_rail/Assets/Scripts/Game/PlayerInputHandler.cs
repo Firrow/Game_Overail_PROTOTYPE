@@ -1,6 +1,7 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerInputHandler : MonoBehaviour
 {
@@ -61,6 +62,11 @@ public class PlayerInputHandler : MonoBehaviour
             humanTrain.UsePickObject();
     }
 
+
+    public void RestartGame(InputAction.CallbackContext context)
+    {
+        SceneManager.LoadScene(0);
+    }
 
     public void OnQuit(InputAction.CallbackContext context)
     {

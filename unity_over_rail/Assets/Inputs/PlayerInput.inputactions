@@ -69,9 +69,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "QuitGame",
+                    "name": "RestartGame",
                     "type": "Button",
                     "id": "ed607c49-453f-48af-988a-54753785f4be",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "QuitGame",
+                    "type": "Button",
+                    "id": "3f5cfea1-c619-4aae-9d4a-b353930b1cda",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -467,22 +476,22 @@
                 {
                     "name": "",
                     "id": "4e92e11b-90e4-4ac3-9537-e32de5856db5",
-                    "path": "<Keyboard>/escape",
+                    "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard & Mouse",
-                    "action": "QuitGame",
+                    "action": "RestartGame",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "427160af-e564-4d06-916c-038b214ca299",
-                    "path": "<Gamepad>/select",
+                    "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "QuitGame",
+                    "action": "RestartGame",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -493,29 +502,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "QuitGame",
+                    "action": "RestartGame",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "20fd8dac-139d-479c-abc8-8fcf761df17e",
-                    "path": "<DualShockGamepad>/select",
+                    "path": "<DualShockGamepad>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "QuitGame",
+                    "action": "RestartGame",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "a888f396-95de-4b24-ad80-b482735c2ad2",
-                    "path": "<SwitchProControllerHID>/start",
+                    "path": "<SwitchProControllerHID>/select",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "QuitGame",
+                    "action": "RestartGame",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -571,6 +580,61 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "UseObject",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e8ebe205-8df4-4f25-b468-e204e6b143d5",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "QuitGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b64980c6-e2fd-416a-97a9-33956cbcc8da",
+                    "path": "<Gamepad>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "QuitGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "63a14e7f-f9bf-4ab8-84ba-f4c8819ec83f",
+                    "path": "<XInputController>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "QuitGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "086ff19d-7e1d-450b-b347-7b54cf087a56",
+                    "path": "<DualShockGamepad>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "QuitGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0c90e0dc-0fac-489a-b50b-1982334ebf8a",
+                    "path": "<SwitchProControllerHID>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "QuitGame",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
