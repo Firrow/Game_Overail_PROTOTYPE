@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class BulletBar : MonoBehaviour
 {
-    public int index;
     public Slider slider;
 
 

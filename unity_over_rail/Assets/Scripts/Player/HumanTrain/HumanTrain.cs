@@ -19,14 +19,31 @@ public class HumanTrain : Train
     void Start()
     {
         base.Start();
+
+        foreach (GameObject Element in GameObject.FindGameObjectsWithTag("InterfacePlayer"))
+        {
+            if (Element.GetComponent<InterfacePlayer>().index == playerIndex)
+            {
+                this.healthBar = Element.GetComponent<InterfacePlayer>().healthBarPlayer.GetComponent<HealthBar>();
+                this.bulletBar = Element.GetComponent<InterfacePlayer>().bulletBarPlayer.GetComponent<BulletBar>();
+                this.objectSlot = Element.GetComponent<InterfacePlayer>().objectSlotPlayer.GetComponent<ObjectSlot>();
+            }
+        }
+        bulletBar.SetMaxBullet(weapon.GetComponent<Weapon>().MaxBulletQuantity);
+        bulletBar.SetBullet(weapon.GetComponent<Weapon>().CurrentBulletQuantity);
+        Debug.Log(weapon.GetComponent<Weapon>().CurrentBulletQuantity);
+        healthBar.SetMaxHealth(MaxHealth);
+
+        
+
+
         ChangeArrowColor(leftArrow.GetComponent<SpriteRenderer>(), rightArrow.GetComponent<SpriteRenderer>());
         this.choice = 1;
         lastChoice = 1;
 
 
-        // TODO : faire fonction pour simplifier
         //HEALTHBAR
-        foreach (GameObject HB in GameObject.FindGameObjectsWithTag("HealthBar"))
+        /*foreach (GameObject HB in GameObject.FindGameObjectsWithTag("HealthBar"))
         {
             if (HB.GetComponent<HealthBar>().index == playerIndex)
             {
@@ -55,8 +72,7 @@ public class HumanTrain : Train
             {
                 this.objectSlot = OS.GetComponent<ObjectSlot>();
             }
-        }
-
+        }*/
     }
 
     void Update()

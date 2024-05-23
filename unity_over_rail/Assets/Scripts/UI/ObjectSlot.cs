@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class ObjectSlot : MonoBehaviour
 {
-    public int index;
     public GameObject displayPoint;
 
     private void Awake()

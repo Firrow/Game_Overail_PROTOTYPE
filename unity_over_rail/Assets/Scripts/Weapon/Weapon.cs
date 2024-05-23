@@ -16,13 +16,16 @@ public class Weapon : MonoBehaviour
     private DateTime actualTimeShot;
 
 
+    private void Awake()
+    {
+        MAX_BULLET_QUANTITY = 30;
+        currentBulletQuantity = 15;
+    }
+
     void Start()
     {
         lastTimeShot = DateTime.Now;
         bulletSpeed = 15;
-
-        MAX_BULLET_QUANTITY = 30; 
-        currentBulletQuantity = 15;   // = MAX_BULLET_QUANTITY (à mettre plus tard)
     }
 
 

@@ -44,7 +44,7 @@ public class Train : MonoBehaviour
         coroutineAllowed = true;
 
         MAX_HEALTH = 10;
-        currentHealth = MAX_HEALTH; // Mettre maxHealth plus tard
+        currentHealth = MAX_HEALTH;
 
         shield = this.gameObject.transform.GetChild(1).gameObject;
         shieldIsActivate = shield.activeSelf;

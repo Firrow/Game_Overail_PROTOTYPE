@@ -16,9 +16,7 @@ TagManager:
   - bulletObject
   - shieldObject
   - Shield
-  - HealthBar
-  - BulletBar
-  - ObjectSlot
+  - InterfacePlayer
   layers:
   - Default
   - TransparentFX
