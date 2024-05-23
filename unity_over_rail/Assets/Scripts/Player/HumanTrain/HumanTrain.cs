@@ -34,45 +34,9 @@ public class HumanTrain : Train
         Debug.Log(weapon.GetComponent<Weapon>().CurrentBulletQuantity);
         healthBar.SetMaxHealth(MaxHealth);
 
-        
-
-
         ChangeArrowColor(leftArrow.GetComponent<SpriteRenderer>(), rightArrow.GetComponent<SpriteRenderer>());
         this.choice = 1;
         lastChoice = 1;
-
-
-        //HEALTHBAR
-        /*foreach (GameObject HB in GameObject.FindGameObjectsWithTag("HealthBar"))
-        {
-            if (HB.GetComponent<HealthBar>().index == playerIndex)
-            {
-                this.healthBar = HB.GetComponent<HealthBar>();
-            }
-        }
-        healthBar.SetMaxHealth(MaxHealth);
-
-
-        //BULLETBAR
-        foreach (GameObject BB in GameObject.FindGameObjectsWithTag("BulletBar"))
-        {
-            if (BB.GetComponent<BulletBar>().index == playerIndex)
-            {
-                this.bulletBar = BB.GetComponent<BulletBar>();
-            }
-        }
-        bulletBar.SetMaxBullet(weapon.GetComponent<Weapon>().MaxBulletQuantity);
-        bulletBar.SetBullet(weapon.GetComponent<Weapon>().CurrentBulletQuantity);
-
-
-        //OBJECTSLOT
-        foreach (GameObject OS in GameObject.FindGameObjectsWithTag("ObjectSlot"))
-        {
-            if (OS.GetComponent<ObjectSlot>().index == playerIndex)
-            {
-                this.objectSlot = OS.GetComponent<ObjectSlot>();
-            }
-        }*/
     }
 
     void Update()

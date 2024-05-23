@@ -7,10 +7,6 @@ public class ObjectSlot : MonoBehaviour
 {
     public GameObject displayPoint;
 
-    private void Awake()
-    {
-        //displayPoint = this.GetComponentInChildren<SpriteRenderer>().sprite;
-    }
 
     public void DisplayActualObject(Sprite icon)
     {

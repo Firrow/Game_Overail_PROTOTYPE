@@ -3,13 +3,14 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private int damage;
+    private int damage = 1;
     private float AUTODESTRUCTION_TIME = 1.4f;
+    private float DELAY_COLLISION = 0.4f;
+
 
     void Start()
     {
-        damage = 1; 
-        StartCoroutine(EnableCollisionAfterDelay(0.4f)); //0.15f
+        StartCoroutine(EnableCollisionAfterDelay(DELAY_COLLISION));
         StartCoroutine(DestroyBulletWhenNoCollisions(AUTODESTRUCTION_TIME));
     }
 

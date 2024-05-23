@@ -7,25 +7,17 @@ public class Weapon : MonoBehaviour
     public GameObject bullet;
     public Transform firePoint;
 
-    private int MAX_BULLET_QUANTITY;
-    private int currentBulletQuantity;
+    private int MAX_BULLET_QUANTITY = 30;
+    private int currentBulletQuantity = 15;
 
-    private float bulletSpeed;
-    private float offset;
+    private float bulletSpeed = 15;
     private DateTime lastTimeShot;
     private DateTime actualTimeShot;
 
 
-    private void Awake()
-    {
-        MAX_BULLET_QUANTITY = 30;
-        currentBulletQuantity = 15;
-    }
-
     void Start()
     {
         lastTimeShot = DateTime.Now;
-        bulletSpeed = 15;
     }
 
 

@@ -6,12 +6,10 @@ using UnityEngine;
 public class SpawnObjects : MonoBehaviour
 {
     private bool containsObject = false;
-    private bool coroutineIsAllowed;
+    private bool coroutineIsAllowed = false;
     IEnumerator waitBeforeSpawn;
     private GameManager gameManager;
     private GameObject objectToSpawn;
-
-    // Détection prise objet par un train
 
 
     public void Start()

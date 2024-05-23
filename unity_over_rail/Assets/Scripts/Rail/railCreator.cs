@@ -11,8 +11,8 @@ public class RailCreator : MonoBehaviour
     private void OnDrawGizmos()
     {
         /* formule pour courbe de Bezier cubique :
-        - la formule cr�er une courbe entre les p1 et p4
-        - p2 li� � p1 et p3 li� � p4 permettent de modeler la forme du chemin*/
+        - la formule creer une courbe entre les p1 et p4
+        - p2 liee a p1 et p3 liee a p4 permettent de modeler la forme du chemin*/
         for (float t = 0; t <= 1; t += 0.05f)
         {
             gizmosPosition = Mathf.Pow(1 - t, 3) * controlPoints[0].position + 

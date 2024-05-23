@@ -16,6 +16,8 @@ public class Shield : MonoBehaviour
         ownerTrain = this.gameObject.transform.parent.gameObject;
     }
 
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Bullets"))

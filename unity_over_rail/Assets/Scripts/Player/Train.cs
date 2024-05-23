@@ -7,7 +7,7 @@ public class Train : MonoBehaviour
 
     [SerializeField]
     protected GameObject weapon;
-    protected float SPEED;
+    protected float SPEED = 1;
     protected float accelerate = 0f;
     protected bool increaseAcceleration = false;
     protected bool decreaseAcceleration = false;
@@ -20,17 +20,17 @@ public class Train : MonoBehaviour
 
     private GameObject currentTile;
     private Transform nextRoad;
-    private bool coroutineAllowed;
+    private bool coroutineAllowed = false;
     private bool reversePoints;
     private float velocity;
     private bool isStopped = false;
     private SpawnObjects spawner;
 
     // deplacements mathematique
-    private float tParam;
+    private float tParam = 0f;
     private Vector3 trainPosition;
 
-    private int MAX_HEALTH;
+    private int MAX_HEALTH = 10;
     private int currentHealth;
     private bool shieldIsActivate;
     private GameObject shield;
@@ -39,11 +39,7 @@ public class Train : MonoBehaviour
 
     protected void Start()
     {
-        SPEED = 1;
-        tParam = 0f;
         coroutineAllowed = true;
-
-        MAX_HEALTH = 10;
         currentHealth = MAX_HEALTH;
 
         shield = this.gameObject.transform.GetChild(1).gameObject;
@@ -92,6 +88,10 @@ public class Train : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Trains"))
         {
             TakeDamage(MAX_HEALTH);
+
+            //Undisplay values in interface player
+            bulletBar.GetComponent<BulletBar>().SetBullet(0);
+            objectSlot.GetComponent<ObjectSlot>().UndisplayActualObject();
         }
     }
 
@@ -239,7 +239,6 @@ public class Train : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-
         healthBar.GetComponent<HealthBar>().SetHealth(currentHealth);
     }
 

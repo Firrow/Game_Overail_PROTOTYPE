@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject[]> listOfAllObjectLists = new List<GameObject[]>();
     public List<string> allObjectNames = new List<string>() { "heartObject", "bulletObject", "shieldObject" };
 
+
     private void Start()
     {
         listOfAllObjectLists = listOfAllObjectLists.Concat(Enumerable.Repeat(usualObjects, PROBABILITY_USUAL_OBJECT)).ToList();
