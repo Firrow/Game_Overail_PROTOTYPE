@@ -5,7 +5,7 @@ public class Bullet : MonoBehaviour
 {
     private int damage = 1;
     private float AUTODESTRUCTION_TIME = 1f;
-    private float DELAY_COLLISION = 0.4f;
+    private float DELAY_COLLISION = 0.18f; //0.4f
 
 
     void Start()

@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 6282290170516749660}
   - component: {fileID: 6282290170516749661}
   - component: {fileID: 6282290170516749662}
+  - component: {fileID: 8830009817697172988}
   - component: {fileID: 6282290170516749649}
   - component: {fileID: 8527542783905680919}
   m_Layer: 6
@@ -280,6 +281,51 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!60 &8830009817697172988
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6282290170516749659}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.25, y: 1.56}
+    newSize: {x: 3.25, y: 1.56}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 1.1300195, y: -0.15149084}
+      - {x: 1.1410956, y: 0.018916044}
+      - {x: 1.1244724, y: 0.22707507}
+      - {x: 1.0399721, y: 0.39889973}
+      - {x: 0.919609, y: 0.49607542}
+      - {x: 0.8076475, y: 0.5009544}
+      - {x: 0.5120307, y: 0.5044149}
+      - {x: -1.0340137, y: 0.4939138}
+      - {x: -1.5048819, y: 0.47574252}
+      - {x: -1.5626284, y: 0.44931018}
+      - {x: -1.6065941, y: 0.40159366}
+      - {x: -1.6077594, y: 0.311786}
+      - {x: -1.6167082, y: -0.37778085}
+      - {x: -1.5836158, y: -0.45667282}
+      - {x: -1.5400308, y: -0.4933675}
+      - {x: -1.4633573, y: -0.516694}
+      - {x: 0.073745325, y: -0.51532036}
+      - {x: 0.971528, y: -0.5047062}
+      - {x: 1.0557969, y: -0.41991818}
+      - {x: 1.1097476, y: -0.2884295}
 --- !u!70 &6282290170516749649
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -287,7 +333,7 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6282290170516749659}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -310,6 +356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fromDirection: 
   weapon: {fileID: 625254992458161528}
+  actualItem: {fileID: 0}
   leftArrow: {fileID: 1311469716273282023}
   rightArrow: {fileID: 5738191835909045885}
   playerIndex: 0
