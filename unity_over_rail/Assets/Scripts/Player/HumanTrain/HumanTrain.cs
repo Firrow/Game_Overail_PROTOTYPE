@@ -31,7 +31,6 @@ public class HumanTrain : Train
         }
         bulletBar.SetMaxBullet(weapon.GetComponent<Weapon>().MaxBulletQuantity);
         bulletBar.SetBullet(weapon.GetComponent<Weapon>().CurrentBulletQuantity);
-        Debug.Log(weapon.GetComponent<Weapon>().CurrentBulletQuantity);
         healthBar.SetMaxHealth(MaxHealth);
 
         ChangeArrowColor(leftArrow.GetComponent<SpriteRenderer>(), rightArrow.GetComponent<SpriteRenderer>());
