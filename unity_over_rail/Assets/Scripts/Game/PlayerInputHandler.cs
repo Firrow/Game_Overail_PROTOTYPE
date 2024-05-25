@@ -52,7 +52,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void OnShoot(InputAction.CallbackContext context)
     {
-        if (humanTrain != null)
+        if (humanTrain != null && context.action.ReadValue<float>() == 0)
             humanTrain.PlayerShoot(context);
     }
 
