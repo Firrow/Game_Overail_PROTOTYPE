@@ -90,8 +90,7 @@ public class Train : MonoBehaviour
             TakeDamage(MAX_HEALTH);
 
             //Undisplay values in interface player
-            bulletBar.GetComponent<BulletBar>().SetBullet(0);
-            objectSlot.GetComponent<ObjectSlot>().UndisplayActualObject();
+            ResetInterface();
         }
     }
 
@@ -237,6 +236,7 @@ public class Train : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            ResetInterface();
             Destroy(this.gameObject);
         }
         healthBar.GetComponent<HealthBar>().SetHealth(currentHealth);
@@ -298,7 +298,12 @@ public class Train : MonoBehaviour
         Destroy(itemCollided.gameObject);
     }
 
-
+    // INTERFACE -------------------------------------------------------------------------------------------------------------------------------------
+    private void ResetInterface()
+    {
+        bulletBar.GetComponent<BulletBar>().SetBullet(0);
+        objectSlot.GetComponent<ObjectSlot>().UndisplayActualObject();
+    }
 
 
 
