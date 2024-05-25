@@ -10,7 +10,7 @@ public class Weapon : MonoBehaviour
     private int MAX_BULLET_QUANTITY = 30;
     private int currentBulletQuantity = 15;
 
-    private float bulletSpeed = 15;
+    private float bulletSpeed = 20;
     private DateTime lastTimeShot;
     private DateTime actualTimeShot;
 
