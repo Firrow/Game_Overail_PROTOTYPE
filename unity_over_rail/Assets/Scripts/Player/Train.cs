@@ -209,7 +209,7 @@ public class Train : MonoBehaviour
                 Vector3 dir = new Vector3(trainPosition.x - transform.position.x, trainPosition.y - transform.position.y, 0.0f);
                 float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
-                // Décorréler la rotation de l'arme et du train
+                // Decorreler la rotation de l'arme et du train
                 float delta = (angle - transform.rotation.eulerAngles.z) % 360;
                 weapon.GetComponent<Weapon>().UpdateWeaponRotation(delta);
 

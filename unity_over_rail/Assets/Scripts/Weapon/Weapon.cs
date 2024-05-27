@@ -13,7 +13,7 @@ public class Weapon : MonoBehaviour
     private float bulletSpeed = 20;
     private DateTime lastTimeShot;
     private DateTime actualTimeShot;
-
+    private float angleMemory = 0f;
 
     void Start()
     {
@@ -38,7 +38,7 @@ public class Weapon : MonoBehaviour
             // prend position objet
             Vector2 positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
             // prend position souris
-            Vector2 mouseOnScreen = Camera.main.ScreenToViewportPoint(moveValue); //Input.mousePosition
+            Vector2 mouseOnScreen = Camera.main.ScreenToViewportPoint(moveValue);
 
             float angle = AngleBetweenTwoPoints(mouseOnScreen, positionOnScreen);
             // applique la rotation
@@ -47,7 +47,15 @@ public class Weapon : MonoBehaviour
         else
         {
             float angle = Mathf.Atan2(moveValue.y, moveValue.x) * Mathf.Rad2Deg;
-            this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+            if (angle == 0f || moveValue.magnitude != 1) // angle != 0f && moveValue.magnitude == 1
+            {
+                transform.rotation = Quaternion.Euler(new Vector3(0, 0, angleMemory));
+            }
+            else
+            {
+                angleMemory = angle;
+                transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+            }
         }
     }
 
@@ -59,8 +67,8 @@ public class Weapon : MonoBehaviour
 
     public void UpdateWeaponRotation(float deltaAngleTrain)
     {
-        // Permet d'avoir la rotation de l'arme décorrélé de la rotation du train
-        this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, this.transform.rotation.eulerAngles.z - deltaAngleTrain));
+        // Permet d'avoir la rotation de l'arme decorrelee de la rotation du train
+        transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, this.transform.rotation.eulerAngles.z - deltaAngleTrain));
     }
 
     public void PressShootButton()
