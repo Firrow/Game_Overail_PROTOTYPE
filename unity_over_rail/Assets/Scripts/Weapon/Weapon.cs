@@ -8,7 +8,7 @@ public class Weapon : MonoBehaviour
     public Transform firePoint;
 
     private int MAX_BULLET_QUANTITY = 30;
-    private int currentBulletQuantity = 15;
+    private int currentBulletQuantity = 15; //change statue
     private float BULLET_SPEED = 20;
     private float WEAPON_SPEED = 360; 
     private DateTime lastTimeShot;

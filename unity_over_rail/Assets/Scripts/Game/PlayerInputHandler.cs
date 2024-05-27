@@ -58,7 +58,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void OnUseObject(InputAction.CallbackContext context)
     {
-        if (humanTrain != null && context.action.ReadValue<float>() == 0)
+        if (humanTrain != null && humanTrain.GetComponent<HumanTrain>().CurrentItem != null && context.action.ReadValue<float>() == 0)
             humanTrain.UsePickObject();
     }
 
