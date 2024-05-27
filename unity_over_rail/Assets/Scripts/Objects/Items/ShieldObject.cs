@@ -18,6 +18,6 @@ public class ShieldObject : MonoBehaviour, IObjects
     {
         shieldOnTrain.SetActive(true);
         ownerTrain.GetComponent<Train>().ShieldIsActivate = shieldOnTrain.activeSelf;
-        ownerTrain.GetComponent<Train>().ActualItem = null;
+        ownerTrain.GetComponent<Train>().CurrentItem = null;
     }
 }

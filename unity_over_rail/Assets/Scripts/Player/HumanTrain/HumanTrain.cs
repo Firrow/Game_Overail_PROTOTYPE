@@ -102,10 +102,10 @@ public class HumanTrain : Train
 
     public void UsePickObject()
     {
-        if (actualItem.TryGetComponent(out IObjects pickedObject))
+        if (currentItem.TryGetComponent(out IObjects pickedObject))
         {
             pickedObject.UseObject();
-            actualItem = null;
+            currentItem = null;
             objectSlot.UndisplayActualObject();
         }
     }

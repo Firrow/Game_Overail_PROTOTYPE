@@ -21,6 +21,6 @@ public class BulletObject : MonoBehaviour, IObjects
         weapon.GetComponentInParent<HumanTrain>().UpdateBulletBar(weapon.CurrentBulletQuantity);
 
 
-        ownerTrain.GetComponent<Train>().ActualItem = null;
+        ownerTrain.GetComponent<Train>().CurrentItem = null;
     }
 }

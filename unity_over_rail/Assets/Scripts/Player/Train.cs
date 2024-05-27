@@ -12,7 +12,7 @@ public class Train : MonoBehaviour
     protected bool increaseAcceleration = false;
     protected bool decreaseAcceleration = false;
     protected int choice;
-    public GameObject actualItem;
+    public GameObject currentItem;
     protected HealthBar healthBar;
     protected BulletBar bulletBar;
     protected ObjectSlot objectSlot;
@@ -78,7 +78,7 @@ public class Train : MonoBehaviour
                 Destroy(collider.gameObject);
             }
         }
-        else if (collider.gameObject.layer == LayerMask.NameToLayer("Objects") && actualItem == null)
+        else if (collider.gameObject.layer == LayerMask.NameToLayer("Objects") && currentItem == null)
         {
             ManageObjects(collider.gameObject);
         }
@@ -283,9 +283,9 @@ public class Train : MonoBehaviour
     {
         if (!(shieldIsActivate && itemCollided.GetComponent<ShieldObject>())) // case of player take shield item when he already have shield on him
         {
-            actualItem = GameObject.FindGameObjectWithTag(itemCollided.tag);
+            currentItem = GameObject.FindGameObjectWithTag(itemCollided.tag);
 
-            if (actualItem.TryGetComponent(out IObjects pickedObject))
+            if (currentItem.TryGetComponent(out IObjects pickedObject))
                 pickedObject.GetTrain(this.gameObject);
         }
         else
@@ -293,7 +293,7 @@ public class Train : MonoBehaviour
             shield.GetComponent<Shield>().ResetShield();
         }
 
-        objectSlot.GetComponent<ObjectSlot>().DisplayActualObject(actualItem.GetComponent<SpriteRenderer>().sprite);
+        objectSlot.GetComponent<ObjectSlot>().DisplayActualObject(currentItem.GetComponent<SpriteRenderer>().sprite);
         spawner.ContainsObject = false;
         spawner.RestartCoroutine();
         Destroy(itemCollided.gameObject);
@@ -318,10 +318,10 @@ public class Train : MonoBehaviour
 
 
 
-    public GameObject ActualItem
+    public GameObject CurrentItem
     {
-        get { return actualItem; }
-        set { actualItem = value; }
+        get { return currentItem; }
+        set { currentItem = value; }
     }
 
     public int CurrentHealth

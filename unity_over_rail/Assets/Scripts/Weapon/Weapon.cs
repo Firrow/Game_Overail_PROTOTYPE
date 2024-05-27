@@ -9,11 +9,13 @@ public class Weapon : MonoBehaviour
 
     private int MAX_BULLET_QUANTITY = 30;
     private int currentBulletQuantity = 15;
-
-    private float bulletSpeed = 20;
+    private float BULLET_SPEED = 20;
+    private float WEAPON_SPEED = 360; 
     private DateTime lastTimeShot;
     private DateTime actualTimeShot;
+
     private float angleMemory = 0f;
+    private Vector2 smoothedMoveValue;
 
     void Start()
     {
@@ -46,16 +48,18 @@ public class Weapon : MonoBehaviour
         }
         else
         {
-            float angle = Mathf.Atan2(moveValue.y, moveValue.x) * Mathf.Rad2Deg;
-            if (angle == 0f || moveValue.magnitude != 1)
+            // Appliquer un facteur de lissage aux valeurs du joystick
+            smoothedMoveValue = Vector2.Lerp(smoothedMoveValue, moveValue, Time.deltaTime * 360f);
+
+            // Si je joueur maintient son joystick
+            if (smoothedMoveValue.magnitude >= 0.1f)
             {
-                transform.rotation = Quaternion.Euler(new Vector3(0, 0, angleMemory));
+                float targetAngle = Mathf.Atan2(smoothedMoveValue.y, smoothedMoveValue.x) * Mathf.Rad2Deg;
+                angleMemory = targetAngle;
             }
-            else
-            {
-                angleMemory = angle;
-                transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-            }
+
+            Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, angleMemory));
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * WEAPON_SPEED);
         }
     }
 
@@ -77,7 +81,7 @@ public class Weapon : MonoBehaviour
 
         if (currentBulletQuantity > 0 && actualTimeShot - lastTimeShot >= new TimeSpan(0, 0, 0, 0, 150))
         {
-            Shoot(firePoint, bulletSpeed, bullet, this.gameObject);
+            Shoot(firePoint, BULLET_SPEED, bullet, this.gameObject);
             currentBulletQuantity--;
             this.GetComponentInParent<HumanTrain>().UpdateBulletBar(currentBulletQuantity);
             lastTimeShot = actualTimeShot;

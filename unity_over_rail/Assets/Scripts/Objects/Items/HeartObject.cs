@@ -17,6 +17,6 @@ public class HeartObject : MonoBehaviour, IObjects
         ownerTrain.GetComponent<Train>().CurrentHealth += 
             Mathf.Min(RECOVERY_HEALTH_VALUE, ownerTrain.GetComponent<Train>().MaxHealth - ownerTrain.GetComponent<Train>().CurrentHealth);
 
-        ownerTrain.GetComponent<Train>().ActualItem = null;
+        ownerTrain.GetComponent<Train>().CurrentItem = null;
     }
 }
