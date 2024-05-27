@@ -287,13 +287,14 @@ public class Train : MonoBehaviour
 
             if (currentItem.TryGetComponent(out IObjects pickedObject))
                 pickedObject.GetTrain(this.gameObject);
+
+            objectSlot.GetComponent<ObjectSlot>().DisplayActualObject(currentItem.GetComponent<SpriteRenderer>().sprite);
         }
         else
         {
             shield.GetComponent<Shield>().ResetShield();
         }
 
-        objectSlot.GetComponent<ObjectSlot>().DisplayActualObject(currentItem.GetComponent<SpriteRenderer>().sprite);
         spawner.ContainsObject = false;
         spawner.RestartCoroutine();
         Destroy(itemCollided.gameObject);
