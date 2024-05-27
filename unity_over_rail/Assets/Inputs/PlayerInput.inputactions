@@ -608,7 +608,7 @@
                 {
                     "name": "",
                     "id": "63a14e7f-f9bf-4ab8-84ba-f4c8819ec83f",
-                    "path": "<XInputController>/start",
+                    "path": "<XInputController>/select",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",

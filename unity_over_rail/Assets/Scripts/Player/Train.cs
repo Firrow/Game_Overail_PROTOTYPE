@@ -39,7 +39,8 @@ public class Train : MonoBehaviour
 
     protected void Start()
     {
-        coroutineAllowed = true;
+        //coroutineAllowed = true;
+        StartCoroutine(StartGame()); // temporaire
         currentHealth = MAX_HEALTH;
 
         shield = this.gameObject.transform.GetChild(1).gameObject;
@@ -306,7 +307,13 @@ public class Train : MonoBehaviour
     }
 
 
-
+    // TEMPORAIRE START PARTIE ---------------------------------------------------------------------------------------------------------------
+    // temporaire car fonction décompte quand jeu plus avancé
+    private IEnumerator StartGame()
+    {
+        yield return new WaitForSeconds(0.1f);
+        coroutineAllowed = true;
+    }
 
 
 
