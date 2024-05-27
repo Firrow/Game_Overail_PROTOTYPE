@@ -47,7 +47,7 @@ public class Weapon : MonoBehaviour
         else
         {
             float angle = Mathf.Atan2(moveValue.y, moveValue.x) * Mathf.Rad2Deg;
-            if (angle == 0f || moveValue.magnitude != 1) // angle != 0f && moveValue.magnitude == 1
+            if (angle == 0f || moveValue.magnitude != 1)
             {
                 transform.rotation = Quaternion.Euler(new Vector3(0, 0, angleMemory));
             }
