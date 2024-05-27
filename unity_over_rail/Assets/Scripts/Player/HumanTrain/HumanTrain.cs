@@ -118,7 +118,7 @@ public class HumanTrain : Train
         otherArrow.color = new Color(1, 0, 0, 0);
     }
 
-    public void TakeDamage(int damage)
+    public new void TakeDamage(int damage)
     {
         base.TakeDamage(damage);
     }
