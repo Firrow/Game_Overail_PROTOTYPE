@@ -180,7 +180,6 @@ GameObject:
   - component: {fileID: 6282290170516749661}
   - component: {fileID: 6282290170516749662}
   - component: {fileID: 8830009817697172988}
-  - component: {fileID: 6282290170516749649}
   - component: {fileID: 8527542783905680919}
   m_Layer: 6
   m_Name: train
@@ -326,22 +325,6 @@ PolygonCollider2D:
       - {x: 0.971528, y: -0.5047062}
       - {x: 1.0557969, y: -0.41991818}
       - {x: 1.1097476, y: -0.2884295}
---- !u!70 &6282290170516749649
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6282290170516749659}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.3257134, y: -0.009626659}
-  m_Size: {x: 2.5783374, y: 0.9996577}
-  m_Direction: 1
 --- !u!114 &8527542783905680919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,7 +339,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fromDirection: 
   weapon: {fileID: 625254992458161528}
-  actualItem: {fileID: 0}
+  tempRotation: {fileID: 0}
   leftArrow: {fileID: 1311469716273282023}
   rightArrow: {fileID: 5738191835909045885}
   playerIndex: 0

@@ -35,8 +35,6 @@ public class Train : MonoBehaviour
     private bool shieldIsActivate;
     private GameObject shield;
 
-
-
     protected void Start()
     {
         //coroutineAllowed = true;
@@ -213,7 +211,7 @@ public class Train : MonoBehaviour
                 float delta = (angle - transform.rotation.eulerAngles.z) % 360;
                 weapon.GetComponent<Weapon>().UpdateWeaponRotation(delta);
 
-                transform.rotation = Quaternion.Euler(0, 0, angle);
+                transform.rotation = Quaternion.Euler(0, 0, Mathf.Round(angle));
             }
             // changement de position du train
             train.transform.position = trainPosition;
