@@ -60,7 +60,6 @@ public class Train : MonoBehaviour
     {
         ManageAcceleration();
         velocity = SPEED + accelerate;
-        tempRotation.GetComponent<TempRotation>().ShowRotationValue(this.transform.rotation);
     }
 
 
