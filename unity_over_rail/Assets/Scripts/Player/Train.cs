@@ -29,13 +29,14 @@ public class Train : MonoBehaviour
     // deplacements mathematique
     private float tParam = 0f;
     private Vector3 trainPosition;
+    private Quaternion rotationMemory;
 
     private int MAX_HEALTH = 10;
     private int currentHealth;
     private bool shieldIsActivate;
     private GameObject shield;
 
-    private Quaternion rotationMemory;
+    public TempRotation tempRotation;
 
 
     protected void Start()
@@ -50,14 +51,19 @@ public class Train : MonoBehaviour
 
     protected void Update()
     {
-        if (coroutineAllowed)
+        /*if (coroutineAllowed)
         {
             StartCoroutine(GoByTheRoute(this.gameObject));
-        }
+        }*/
+        tempRotation.GetComponent<TempRotation>().ShowRotationValue(this.gameObject.transform.rotation);
     }
 
     protected void FixedUpdate()
     {
+        if (coroutineAllowed)
+        {
+            StartCoroutine(GoByTheRoute(this.gameObject));
+        }
         ManageAcceleration();
         velocity = SPEED + accelerate;
     }
@@ -215,25 +221,17 @@ public class Train : MonoBehaviour
                 float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
                 // Stockage de la rotation correcte
-                rotationMemory = Quaternion.Euler(0, 0, angle);
+                rotationMemory = Quaternion.Euler(0, 0, Mathf.Round(angle));
 
                 // Décorreler la rotation de l'arme et du train
                 float delta = (angle - transform.rotation.eulerAngles.z) % 360;
                 weapon.GetComponent<Weapon>().UpdateWeaponRotation(delta);
-
-                // Appliquer la rotation au train
-                transform.rotation = rotationMemory;
-            }
-            else
-            {
-                // Appliquer la rotation stockée lorsque le train est arrêté
-                transform.rotation = rotationMemory;
             }
 
             // changement de position du train
-            train.transform.position = trainPosition;
-
-
+            transform.position = trainPosition;
+            // Appliquer la rotation au train
+            transform.rotation = rotationMemory;
 
             yield return new WaitForEndOfFrame();
         }
