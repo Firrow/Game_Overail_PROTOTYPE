@@ -35,6 +35,10 @@ public class Train : MonoBehaviour
     private bool shieldIsActivate;
     private GameObject shield;
 
+    public TempRotation tempRotation;
+    private Quaternion rotationMemory;
+
+
     protected void Start()
     {
         //coroutineAllowed = true;
@@ -57,6 +61,7 @@ public class Train : MonoBehaviour
     {
         ManageAcceleration();
         velocity = SPEED + accelerate;
+        tempRotation.GetComponent<TempRotation>().ShowRotationValue(this.transform.rotation);
     }
 
 
@@ -196,25 +201,41 @@ public class Train : MonoBehaviour
 
             if (!isStopped)
             {
+                rotationMemory = this.transform.rotation;
+
                 // la position de la forme prend la valeur de la courbe
                 trainPosition = Mathf.Pow(1 - tParam, 3) * p0 +
                                   3 * Mathf.Pow(1 - tParam, 2) * tParam * p1 +
                                   3 * (1 - tParam) * Mathf.Pow(tParam, 2) * p2 +
                                   Mathf.Pow(tParam, 3) * p3;
 
+
+
                 // Rotation de la forme en fonction de la direction de la courbe
                 // creation vecteur de deplacement (grace actuelle et nouvelle position) > creation angle > rotation de l'angle en z seulement
                 Vector3 dir = new Vector3(trainPosition.x - transform.position.x, trainPosition.y - transform.position.y, 0.0f);
                 float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
-                // Decorreler la rotation de l'arme et du train
+                // Stockage de la rotation correcte
+                rotationMemory = Quaternion.Euler(0, 0, angle);
+
+                // Décorreler la rotation de l'arme et du train
                 float delta = (angle - transform.rotation.eulerAngles.z) % 360;
                 weapon.GetComponent<Weapon>().UpdateWeaponRotation(delta);
 
-                transform.rotation = Quaternion.Euler(0, 0, Mathf.Round(angle));
+                // Appliquer la rotation au train
+                transform.rotation = rotationMemory;
             }
+            else
+            {
+                // Appliquer la rotation stockée lorsque le train est arrêté
+                transform.rotation = rotationMemory;
+            }
+
             // changement de position du train
             train.transform.position = trainPosition;
+
+
 
             yield return new WaitForEndOfFrame();
         }
@@ -268,11 +289,13 @@ public class Train : MonoBehaviour
     }
     private void DecreaseAccelerate()
     {
-        if (velocity > 0.015f)
+        if (velocity > 0.02f)
             accelerate -= 0.015f;
         else
             isStopped = true;
     }
+
+    // ROTATION MANAGER -------------------------------------------------------------------------------------------------------------
 
 
 
