@@ -12,7 +12,7 @@ public class Train : MonoBehaviour
     protected bool increaseAcceleration = false;
     protected bool decreaseAcceleration = false;
     protected int choice;
-    protected GameObject currentItem; //change statue
+    protected GameObject currentItem;
     protected HealthBar healthBar;
     protected BulletBar bulletBar;
     protected ObjectSlot objectSlot;
@@ -35,7 +35,6 @@ public class Train : MonoBehaviour
     private bool shieldIsActivate;
     private GameObject shield;
 
-    public TempRotation tempRotation;
     private Quaternion rotationMemory;
 
 
