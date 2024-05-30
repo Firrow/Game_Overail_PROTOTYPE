@@ -36,8 +36,6 @@ public class Train : MonoBehaviour
     private bool shieldIsActivate;
     private GameObject shield;
 
-    public TempRotation tempRotation;
-
 
     protected void Start()
     {
@@ -51,11 +49,7 @@ public class Train : MonoBehaviour
 
     protected void Update()
     {
-        /*if (coroutineAllowed)
-        {
-            StartCoroutine(GoByTheRoute(this.gameObject));
-        }*/
-        tempRotation.GetComponent<TempRotation>().ShowRotationValue(this.gameObject.transform.rotation);
+
     }
 
     protected void FixedUpdate()
