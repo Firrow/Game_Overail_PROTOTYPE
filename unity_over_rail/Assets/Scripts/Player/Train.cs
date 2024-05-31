@@ -16,6 +16,7 @@ public class Train : MonoBehaviour
     protected HealthBar healthBar;
     protected BulletBar bulletBar;
     protected ObjectSlot objectSlot;
+    protected float angle = 0f;
 
 
     private GameObject currentTile;
@@ -212,7 +213,7 @@ public class Train : MonoBehaviour
                 // Rotation de la forme en fonction de la direction de la courbe
                 // creation vecteur de deplacement (grace actuelle et nouvelle position) > creation angle > rotation de l'angle en z seulement
                 Vector3 dir = new Vector3(trainPosition.x - transform.position.x, trainPosition.y - transform.position.y, 0.0f);
-                float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+                angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
                 // Stockage de la rotation correcte
                 rotationMemory = Quaternion.Euler(0, 0, Mathf.Round(angle));

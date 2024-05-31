@@ -8,6 +8,7 @@ public class HumanTrain : Train
     // Flèches (circle actuellement)
     public GameObject leftArrow;
     public GameObject rightArrow;
+    public float trainAngle;
 
 
     [SerializeField]
@@ -41,6 +42,7 @@ public class HumanTrain : Train
     void Update()
     {
         base.Update();
+        trainAngle = angle;
     }
 
     private void FixedUpdate()
