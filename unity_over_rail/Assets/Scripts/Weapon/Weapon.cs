@@ -10,17 +10,17 @@ public class Weapon : MonoBehaviour
     private int MAX_BULLET_QUANTITY = 30;
     private int currentBulletQuantity = 15;
     private float BULLET_SPEED = 20;
-    private float WEAPON_SPEED = 2000; //330
+    private float WEAPON_SPEED = 2000;
+    private TimeSpan FIRE_RATE = new TimeSpan(0, 0, 0, 0, 150);
     private DateTime lastTimeShot;
-    private DateTime actualTimeShot;
-    private Vector2 mouseOnScreen = new Vector2();
-    private Vector2 positionOnScreen = new Vector2();
 
-    private float targetAngle = 0f;
     private bool inputIsKeyboard = false;
 
+    private Vector2 positionMouseOnScreen = new Vector2();
+    private Vector2 positionWeaponOnScreen = new Vector2();
+    private float targetAngle = 0f;
     private float angleMemory = 0f;
-    private Vector2 smoothedMoveValue;
+    private Quaternion targetRotation;
 
 
     void Start()
@@ -41,12 +41,13 @@ public class Weapon : MonoBehaviour
     {
         if (inputIsKeyboard)
         {
-            UpdateWeaponRotationWithMouse();
+            CalculWeaponRotationWithMouse();
         }
         else
         {
-            UpdateWeaponRotationWithJoystick();
+            CalculWeaponRotationWithJoystick();
         }
+        UpdateWeaponRotation(targetRotation);
     }
 
     public void moveWeapon(Vector2 moveValue, bool isKeyboard)
@@ -59,12 +60,12 @@ public class Weapon : MonoBehaviour
             }
             // ORIENTATION DE L'ARME--------------------------------------------------------------------------
             // prend position souris
-            mouseOnScreen = Camera.main.ScreenToViewportPoint(moveValue);
+            positionMouseOnScreen = Camera.main.ScreenToViewportPoint(moveValue);
         }
         else
         {
             // Appliquer un facteur de lissage aux valeurs du joystick
-            smoothedMoveValue = Vector2.Lerp(smoothedMoveValue, moveValue, Time.deltaTime * 360f);
+            Vector2 smoothedMoveValue = Vector2.Lerp(new Vector2(transform.rotation.x, transform.rotation.y), moveValue, Time.deltaTime * 360f);
 
             // Si je joueur maintient son joystick
             if (smoothedMoveValue.magnitude >= 0.1f)
@@ -81,48 +82,49 @@ public class Weapon : MonoBehaviour
         return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
     }
 
-    public void UpdateWeaponRotation(float deltaAngleTrain)
+    public void CalculWeaponRotationWithMouse()
+    {
+        // prend position objet
+        positionWeaponOnScreen = Camera.main.WorldToViewportPoint(transform.position);
+
+        targetAngle = AngleBetweenTwoPoints(positionMouseOnScreen, positionWeaponOnScreen);
+        targetRotation = Quaternion.Euler(new Vector3(0f, 0f, targetAngle));
+    }
+
+    public void CalculWeaponRotationWithJoystick()
+    {
+        targetRotation = Quaternion.Euler(new Vector3(0, 0, angleMemory));
+    }
+
+    public void UpdateWeaponRotation(Quaternion targetRotationValue)
+    {
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotationValue, Time.deltaTime * WEAPON_SPEED);
+    }
+
+    public void FixWeaponRotation(float deltaAngleTrain)
     {
         // Permet d'avoir la rotation de l'arme decorrelee de la rotation du train
         transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, this.transform.rotation.eulerAngles.z - deltaAngleTrain));
     }
 
-    public void UpdateWeaponRotationWithMouse()
-    {
-        // prend position objet
-        positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
-
-        targetAngle = AngleBetweenTwoPoints(mouseOnScreen, positionOnScreen);
-        // Permet d'avoir la rotation de l'arme decorrelee de la rotation du train
-        //transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, targetAngle));
-        Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, targetAngle));
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * WEAPON_SPEED);
-    }
-    public void UpdateWeaponRotationWithJoystick()
-    {
-        Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, angleMemory));
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * WEAPON_SPEED);
-    }
 
     public void PressShootButton()
     {
-        actualTimeShot = DateTime.Now;
-
-        if (currentBulletQuantity > 0 && actualTimeShot - lastTimeShot >= new TimeSpan(0, 0, 0, 0, 150))
+        if (currentBulletQuantity > 0 && DateTime.Now - lastTimeShot >= FIRE_RATE)
         {
             Shoot(firePoint, BULLET_SPEED, bullet, this.gameObject);
             currentBulletQuantity--;
             this.GetComponentInParent<HumanTrain>().UpdateBulletBar(currentBulletQuantity);
-            lastTimeShot = actualTimeShot;
         }
     }
 
     public void Shoot(Transform firePointWeapon, float speed, GameObject projectile, GameObject weaponOrigin) // Fonction appelée lors de l'input de tir
     {
         GameObject bulletInst = Instantiate(projectile, firePointWeapon.transform.position, weaponOrigin.transform.rotation);
-
         Rigidbody2D rb = bulletInst.GetComponent<Rigidbody2D>();
         rb.AddForce(firePointWeapon.right * speed, ForceMode2D.Impulse);
+
+        lastTimeShot = DateTime.Now;
     }
 
 

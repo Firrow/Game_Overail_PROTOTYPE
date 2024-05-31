@@ -57,7 +57,7 @@ public class Train : MonoBehaviour
     {
         if (coroutineAllowed)
         {
-            StartCoroutine(GoByTheRoute(this.gameObject));
+            StartCoroutine(GoByTheRoute());
         }
         ManageAcceleration();
         velocity = SPEED + accelerate;
@@ -69,7 +69,6 @@ public class Train : MonoBehaviour
     {
         if (collider.gameObject.tag == "Tile")
         {
-            // recupere la tuile sur laquelle le joueur est entrain de naviguer
             GetNextRoad(collider);
         }
         else if (collider.gameObject.layer == LayerMask.NameToLayer("Bullets"))
@@ -168,8 +167,11 @@ public class Train : MonoBehaviour
     }
 
 
-    // Mouvement
-    public IEnumerator GoByTheRoute(GameObject train)
+    /// <summary>
+    /// Coroutine permettant au train de naviguer sur la courbe de bezier
+    /// </summary>
+    /// <returns>Delay avant le prochain appel de la coroutine</returns>
+    public IEnumerator GoByTheRoute()
     {
         Vector3 p0;
         Vector3 p1;
@@ -220,7 +222,7 @@ public class Train : MonoBehaviour
 
                 // Décorreler la rotation de l'arme et du train
                 float delta = (angle - transform.rotation.eulerAngles.z) % 360;
-                weapon.GetComponent<Weapon>().UpdateWeaponRotation(delta);
+                weapon.GetComponent<Weapon>().FixWeaponRotation(delta);
             }
 
             // changement de position du train
@@ -286,7 +288,6 @@ public class Train : MonoBehaviour
             isStopped = true;
     }
 
-    // ROTATION MANAGER -------------------------------------------------------------------------------------------------------------
 
 
 
