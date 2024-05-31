@@ -10,7 +10,7 @@ public class Weapon : MonoBehaviour
     private int MAX_BULLET_QUANTITY = 30;
     private int currentBulletQuantity = 15;
     private float BULLET_SPEED = 20;
-    private float WEAPON_SPEED = 340;
+    private float WEAPON_SPEED = 2000; //330
     private DateTime lastTimeShot;
     private DateTime actualTimeShot;
     private Vector2 mouseOnScreen = new Vector2();
@@ -43,6 +43,10 @@ public class Weapon : MonoBehaviour
         {
             UpdateWeaponRotationWithMouse();
         }
+        else
+        {
+            UpdateWeaponRotationWithJoystick();
+        }
     }
 
     public void moveWeapon(Vector2 moveValue, bool isKeyboard)
@@ -54,14 +58,8 @@ public class Weapon : MonoBehaviour
                 inputIsKeyboard = true;
             }
             // ORIENTATION DE L'ARME--------------------------------------------------------------------------
-            // prend position objet
-            //positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
             // prend position souris
             mouseOnScreen = Camera.main.ScreenToViewportPoint(moveValue);
-
-            //targetAngle = AngleBetweenTwoPoints(mouseOnScreen, positionOnScreen);
-            // applique la rotation
-            //transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
         }
         else
         {
@@ -74,9 +72,6 @@ public class Weapon : MonoBehaviour
                 targetAngle = Mathf.Atan2(smoothedMoveValue.y, smoothedMoveValue.x) * Mathf.Rad2Deg;
                 angleMemory = targetAngle;
             }
-
-            Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, angleMemory));
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * WEAPON_SPEED);
         }
     }
 
@@ -94,17 +89,20 @@ public class Weapon : MonoBehaviour
 
     public void UpdateWeaponRotationWithMouse()
     {
+        // prend position objet
         positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
 
         targetAngle = AngleBetweenTwoPoints(mouseOnScreen, positionOnScreen);
         // Permet d'avoir la rotation de l'arme decorrelee de la rotation du train
-        transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, targetAngle));
+        //transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, targetAngle));
+        Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, targetAngle));
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * WEAPON_SPEED);
     }
-    /*public void UpdateWeaponRotationWithJoystick()
+    public void UpdateWeaponRotationWithJoystick()
     {
         Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, angleMemory));
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * WEAPON_SPEED);
-    }*/
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * WEAPON_SPEED);
+    }
 
     public void PressShootButton()
     {
