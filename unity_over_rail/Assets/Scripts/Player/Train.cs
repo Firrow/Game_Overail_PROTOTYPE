@@ -12,6 +12,7 @@ public class Train : MonoBehaviour
     protected bool increaseAcceleration = false;
     protected bool decreaseAcceleration = false;
     protected int choice;
+    protected int currentHealth;
     protected GameObject currentItem;
     protected HealthBar healthBar;
     protected BulletBar bulletBar;
@@ -26,16 +27,14 @@ public class Train : MonoBehaviour
     private float velocity;
     private bool isStopped = false;
     private SpawnObjects spawner;
+    private int MAX_HEALTH = 10;
+    private bool shieldIsActivate;
+    private GameObject shield;
 
     // deplacements mathematique
     private float tParam = 0f;
     private Vector3 trainPosition;
     private Quaternion rotationMemory;
-
-    private int MAX_HEALTH = 10;
-    private int currentHealth;
-    private bool shieldIsActivate;
-    private GameObject shield;
 
 
     protected void Start()
