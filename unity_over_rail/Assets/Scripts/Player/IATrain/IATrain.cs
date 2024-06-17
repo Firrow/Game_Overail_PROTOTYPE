@@ -6,8 +6,8 @@ using Random = UnityEngine.Random;
 public class IATrain : Train
 {
     // Flèches (circle actuellement)
-    /*public GameObject leftArrow;
-    public GameObject rightArrow;*/
+    public GameObject leftArrow;
+    public GameObject rightArrow;
 
 
     [SerializeField]
@@ -38,7 +38,7 @@ public class IATrain : Train
         lastChoice = 1;
 
         // CODER CHOIX IA ENEMY
-        InvokeRepeating("MovementChoice", 0.3f, 0.3f);
+        //InvokeRepeating("MovementChoice", 0.3f, 0.3f);
 
         //ArrowColor(cGauche.GetComponent<SpriteRenderer>(), cDroit.GetComponent<SpriteRenderer>(), 1);
     }
@@ -46,7 +46,6 @@ public class IATrain : Train
     void Update()
     {
         base.Update();
-        Debug.Log(currentHealth);
     }
 
     private void FixedUpdate()
@@ -57,8 +56,77 @@ public class IATrain : Train
 
 
 
+    public void PlayerChoiceDirection(int movementInput) //0 ; 1 ; -1
+    {
+        if (movementInput == 0)
+        {
+            this.choice = lastChoice;
+        }
+        else if (movementInput == -1)
+        {
+            this.choice = 1;
+            ChangeArrowColor(leftArrow.GetComponent<SpriteRenderer>(), rightArrow.GetComponent<SpriteRenderer>());
+        }
+        else if (movementInput == 1)
+        {
+            this.choice = -1;
+            ChangeArrowColor(rightArrow.GetComponent<SpriteRenderer>(), leftArrow.GetComponent<SpriteRenderer>());
+        }
+        lastChoice = this.choice;
+    }
+
+    public void PlayerIncreaseVelocity(bool isAccelerate) // true ; false
+    {
+        if (isAccelerate)
+            increaseAcceleration = true;
+        else
+            increaseAcceleration = false;
+    }
+    public void PlayerDecreaseVelocity(bool isDecelerate) // true ; false
+    {
+        if (isDecelerate)
+            decreaseAcceleration = true;
+        else
+            decreaseAcceleration = false;
+    }
+
+
+    public void PlayerMoveWeapon(Vector2 target) // position de la cible à atteindre
+    {
+        // calculer position target finale (prendre en compte la vitesse de la cible)
+        this.gameObject.GetComponentInChildren<Weapon>().AIMoveWeapon(target);
+    }
+
+    public void PlayerShoot()
+    {
+        this.gameObject.GetComponentInChildren<Weapon>().PressShootButton();
+    }
+
+    public void UsePickObject()
+    {
+        if (currentItem.TryGetComponent(out IObjects pickedObject))
+        {
+            pickedObject.UseObject();
+            currentItem = null;
+            objectSlot.UndisplayActualObject();
+        }
+    }
+
+
+
+
+
+
+
+    private void ChangeArrowColor(SpriteRenderer actualArrow, SpriteRenderer otherArrow)
+    {
+        actualArrow.color = new Color(1, 0, 0, 1);
+        otherArrow.color = new Color(1, 0, 0, 0);
+    }
+
+
     // IA ALÉATOIRE A TESTER
-    private void MovementChoice()
+    /*private void MovementChoice()
     {
         int random = Random.Range(0, 2);
         this.choice = (random == 0) ? -1 : 1;
@@ -67,5 +135,5 @@ public class IATrain : Train
     public new void TakeDamage(int damage)
     {
         base.TakeDamage(damage);
-    }
+    }*/
 }

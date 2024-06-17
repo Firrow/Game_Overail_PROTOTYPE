@@ -342,6 +342,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fromDirection: 
   weapon: {fileID: 625254992458161528}
+  leftArrow: {fileID: 1311469716273282023}
+  rightArrow: {fileID: 5738191835909045885}
   playerIndex: 0
 --- !u!1001 &4642678766319070741
 PrefabInstance:

@@ -16,16 +16,26 @@ public class SpawnObjects : MonoBehaviour
     {
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         coroutineIsAllowed = true;
+
+        objectToSpawn = new GameObject();
+        objectToSpawn = null;
+
         waitBeforeSpawn = SpawnObject();
         StartCoroutine(waitBeforeSpawn);
     }
 
-
+    private void Update()
+    {
+        Debug.Log(objectToSpawn);
+    }
 
     IEnumerator SpawnObject()
     {
         while (coroutineIsAllowed)
         {
+            if (!containsObject)
+                objectToSpawn = null;
+
             yield return new WaitForSeconds(8f);
             if (!containsObject && Random.Range(0, 3) != 0)
             {
@@ -51,10 +61,11 @@ public class SpawnObjects : MonoBehaviour
     }
 
 
+
+
     public bool ContainsObject
     {
         get { return containsObject; }
         set { containsObject = value; }
     }
-
 }

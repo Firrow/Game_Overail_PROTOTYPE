@@ -14,9 +14,10 @@ public class Weapon : MonoBehaviour
     private TimeSpan FIRE_RATE = new TimeSpan(0, 0, 0, 0, 150);
     private DateTime lastTimeShot;
 
+    private bool isHumanPlayer = true;
     private bool inputIsKeyboard = false;
 
-    private Vector2 positionMouseOnScreen = new Vector2();
+    private Vector2 positionTargetOnScreen = new Vector2();
     private Vector2 positionWeaponOnScreen = new Vector2();
     private float targetAngle = 0f;
     private float angleMemory = 0f;
@@ -39,13 +40,16 @@ public class Weapon : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (inputIsKeyboard)
+        if (isHumanPlayer)
         {
-            CalculWeaponRotationWithMouse();
-        }
-        else
-        {
-            CalculWeaponRotationWithJoystick();
+            if (inputIsKeyboard)
+            {
+                CalculWeaponRotationWithMouse();
+            }
+            else
+            {
+                CalculWeaponRotationWithJoystick();
+            }
         }
         UpdateWeaponRotation(targetRotation);
     }
@@ -60,7 +64,7 @@ public class Weapon : MonoBehaviour
             }
             // ORIENTATION DE L'ARME--------------------------------------------------------------------------
             // prend position souris
-            positionMouseOnScreen = Camera.main.ScreenToViewportPoint(moveValue);
+            positionTargetOnScreen = Camera.main.ScreenToViewportPoint(moveValue);
         }
         else
         {
@@ -76,6 +80,15 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    public void AIMoveWeapon(Vector2 targetPosition)
+    {
+        if (isHumanPlayer)
+            isHumanPlayer = false;
+
+        positionTargetOnScreen = Camera.main.ScreenToViewportPoint(targetPosition); // JE NE SAIS PAS SI ÇA MARCHE
+
+    }
+
     // calcul de l'angle entre les 2 points
     private float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
     {
@@ -87,7 +100,7 @@ public class Weapon : MonoBehaviour
         // prend position objet
         positionWeaponOnScreen = Camera.main.WorldToViewportPoint(transform.position);
 
-        targetAngle = AngleBetweenTwoPoints(positionMouseOnScreen, positionWeaponOnScreen);
+        targetAngle = AngleBetweenTwoPoints(positionTargetOnScreen, positionWeaponOnScreen);
         targetRotation = Quaternion.Euler(new Vector3(0f, 0f, targetAngle));
     }
 

@@ -8,13 +8,14 @@ public class HumanTrain : Train
     // Flèches (circle actuellement)
     public GameObject leftArrow;
     public GameObject rightArrow;
-    public float trainAngle;
+
 
 
     [SerializeField]
     private int playerIndex = 0;
     private float movementInput;
     private int lastChoice;
+    private float trainAngle;
 
 
     void Start()
@@ -120,10 +121,10 @@ public class HumanTrain : Train
         otherArrow.color = new Color(1, 0, 0, 0);
     }
 
-    public new void TakeDamage(int damage)
+    /*public new void TakeDamage(int damage)
     {
         base.TakeDamage(damage);
-    }
+    }*/
 
     public void UpdateBulletBar(int updateValue)
     {
