@@ -24,11 +24,6 @@ public class SpawnObjects : MonoBehaviour
         StartCoroutine(waitBeforeSpawn);
     }
 
-    private void Update()
-    {
-        Debug.Log(objectToSpawn);
-    }
-
     IEnumerator SpawnObject()
     {
         while (coroutineIsAllowed)
