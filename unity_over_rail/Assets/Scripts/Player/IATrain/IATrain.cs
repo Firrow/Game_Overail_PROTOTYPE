@@ -37,6 +37,9 @@ public class IATrain : Train
         this.choice = 1;
         lastChoice = 1;
 
+
+        trainIndex = playerIndex;
+
         // CODER CHOIX IA ENEMY
         //InvokeRepeating("MovementChoice", 0.3f, 0.3f);
 

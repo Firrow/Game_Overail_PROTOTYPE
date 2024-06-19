@@ -38,6 +38,7 @@ public class HumanTrain : Train
         ChangeArrowColor(leftArrow.GetComponent<SpriteRenderer>(), rightArrow.GetComponent<SpriteRenderer>());
         this.choice = 1;
         lastChoice = 1;
+        trainIndex = playerIndex;
     }
 
     void Update()

@@ -1,12 +1,14 @@
 using System.Collections;
 using UnityEngine;
 
+
 public class Train : MonoBehaviour
 {
     public string fromDirection; // permettre de le determiner automatiquement //public à remplacer par private + SerializeField ?
 
     [SerializeField]
     protected GameObject weapon;
+    protected int trainIndex;
     protected float SPEED = 1;
     protected float accelerate = 0f;
     protected bool increaseAcceleration = false;
@@ -330,6 +332,21 @@ public class Train : MonoBehaviour
 
 
 
+    public int TrainIndex
+    {
+        get { return trainIndex; }
+    }
+
+    public Vector3 TrainPosition
+    {
+        get { return trainPosition; }
+    }
+
+    public float Velocity
+    {
+        get { return velocity; }
+    }
+
 
     public GameObject CurrentItem
     {
@@ -347,7 +364,6 @@ public class Train : MonoBehaviour
     {
         get { return MAX_HEALTH; }
     }
-
 
     public bool ShieldIsActivate
     {
