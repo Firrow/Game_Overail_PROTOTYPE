@@ -8,9 +8,34 @@ public class DataTile : MonoBehaviour
     public bool containsSpawner;
 
     private Vector3 tilePosition;
+    private GameObject tile;
 
-    private void Start()
+
+    public DataTile(GameObject tile, Vector3 tilePosition, string directionOfTile, bool containsSpawner)
+    {
+        this.tile = tile;
+        this.tilePosition = tilePosition;
+        this.directionOfTile = directionOfTile;
+        this.containsSpawner = containsSpawner;
+    }
+
+    private void Awake()
     {
         tilePosition = this.transform.position;
     }
+
+
+
+    public Vector3 TilePosition
+    {
+        get { return tilePosition; }
+        set { tilePosition = value; }
+    }
+
+    public GameObject Tile
+    {
+        get { return tile; }
+        set { tile = value; }
+    }
+
 }

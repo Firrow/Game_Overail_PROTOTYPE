@@ -6,21 +6,19 @@ using overail.DataTain;
 
 public class DataContainer : MonoBehaviour
 {
-    private GameObject[] trains;
     private List<DataTrain> dataTrains = new List<DataTrain>();
     private GameObject myTrain;
     private DataTrain myDataTrain;
 
     private void Start()
     {
-        trains = GameObject.FindGameObjectsWithTag("Player");
         StartCoroutine(GetAllTrainInStartingGame());
     }
 
 
     private void GetAllTrains()
     {
-        foreach (var train in trains)
+        foreach (var train in GameObject.FindGameObjectsWithTag("Player"))
         {
             DataTrain dataTrain = new DataTrain(
                 train.gameObject,

@@ -4,27 +4,35 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 
-public class DataMap : MonoBehaviour
+namespace overail.DataMap
 {
-    private List<Tile> tiles = new List<Tile>();
-    private List<GameObject> tilesObject = new List<GameObject>();
-    private List<DataSpawner> spawners = new List<DataSpawner>();
-
-
-    private void Start()
+    public class DataMap : MonoBehaviour
     {
-        /*Tilemap tilemap = GetComponent<Tilemap>();
+        private List<GameObject> tilesObject = new List<GameObject>();
+        private List<DataTile> dataTiles = new List<DataTile>();
+        private List<DataSpawner> spawners = new List<DataSpawner>();
 
-        BoundsInt bounds = tilemap.cellBounds;
-        TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
 
-        Debug.Log(tilemap);
-        Debug.Log(allTiles.Length);*/
 
-        foreach (var tile in GameObject.FindGameObjectsWithTag("Tile"))
+        private void GetAllTiles()
         {
-            tiles.Add(tile.GetComponent<Tile>());
-            tilesObject.Add(tile);
+            foreach (var tile in GameObject.FindGameObjectsWithTag("Tile"))
+            {
+                DataTile dataTile = new DataTile(
+                        tile.gameObject,
+                        tile.GetComponent<DataTile>().TilePosition,
+                        tile.GetComponent<DataTile>().directionOfTile,
+                        tile.GetComponent<DataTile>().containsSpawner
+                    );
+
+                dataTiles.Add(dataTile);
+            }
+        }
+
+        private void GetAllSpawners()
+        {
+
         }
     }
 }
+
