@@ -6,6 +6,11 @@ using UnityEngine.Tilemaps;
 
 public class DataMap : MonoBehaviour
 {
+    private List<Tile> tiles = new List<Tile>();
+    private List<GameObject> tilesObject = new List<GameObject>();
+    private List<DataSpawner> spawners = new List<DataSpawner>();
+
+
     private void Start()
     {
         /*Tilemap tilemap = GetComponent<Tilemap>();
@@ -15,5 +20,11 @@ public class DataMap : MonoBehaviour
 
         Debug.Log(tilemap);
         Debug.Log(allTiles.Length);*/
+
+        foreach (var tile in GameObject.FindGameObjectsWithTag("Tile"))
+        {
+            tiles.Add(tile.GetComponent<Tile>());
+            tilesObject.Add(tile);
+        }
     }
 }
