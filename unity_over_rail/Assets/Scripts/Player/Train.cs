@@ -149,7 +149,7 @@ public class Train : MonoBehaviour
     // recupere les directions possibles
     private string GetPossibleDirections(GameObject actualTile)
     {
-        return actualTile.GetComponent<Tile>().directionOfTile;
+        return actualTile.GetComponent<DataTile>().directionOfTile;
     }
 
 

@@ -14,7 +14,7 @@ public class TileStart : MonoBehaviour
     IEnumerator closeFirstRoads()
     {
         yield return new WaitForSeconds(2f);
-        this.GetComponent<Tile>().directionOfTile = this.GetComponent<Tile>().directionOfTile.Replace(directionToDelete, "");
+        this.GetComponent<DataTile>().directionOfTile = this.GetComponent<DataTile>().directionOfTile.Replace(directionToDelete, "");
         //mettre animation barriere
     }
 }
