@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace overail.DataSpawner
 {
-    public class DataSpawner : MonoBehaviour
+    public class DataSpawner
     {
         private GameObject spawner;
         private GameObject tileParent;
