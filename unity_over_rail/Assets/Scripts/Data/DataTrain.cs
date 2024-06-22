@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace overail.DataTain
 {
-    public class DataTrain : MonoBehaviour
+    public class DataTrain
     {
         public GameObject train;
         public int index;

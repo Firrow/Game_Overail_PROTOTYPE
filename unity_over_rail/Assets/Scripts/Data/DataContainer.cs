@@ -13,14 +13,13 @@ public class DataContainer : MonoBehaviour
 
     private void Start()
     {
-        trains = GameObject.FindGameObjectsWithTag("Player");
         StartCoroutine(GetAllTrainInStartingGame());
     }
 
 
     private void GetAllTrains()
     {
-        foreach (var train in trains)
+        foreach (var train in GameObject.FindGameObjectsWithTag("Player"))
         {
             DataTrain dataTrain = new DataTrain(
                 train.gameObject,
@@ -44,21 +43,21 @@ public class DataContainer : MonoBehaviour
     }
 
 
-    /*public void ShowList()
+    public void ShowList()
     {
         foreach (var dataTrain in dataTrains)
         {
             Debug.Log("Train Index: " + dataTrain.index + ", Velocity: " + dataTrain.speed);
         }
         Debug.Log("-----------------------------------------");
-    }*/
+    }
 
     IEnumerator GetAllTrainInStartingGame()
     {
         while (true)
         {
             GetAllTrains();
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f); //voir pour régler soucis précision position
         }
     }
 }
