@@ -18,18 +18,27 @@ public class DataContainer : MonoBehaviour
     private List<DataSpawner> dataSpawners = new List<DataSpawner>();
 
     private GameObject[] tiles;
+    private DataTile[ , ] tileMatrix;
 
     private void Start()
     {
         StartCoroutine(GetAllTrainInStartingGame());
 
         tiles = GameObject.FindGameObjectsWithTag("Tile");
+
+        CreateTileMatrix();
         GetAllTiles();
-        //GetAllSpawners();
-        //ShowList1();
+        GetAllSpawners();
+        ShowList1();
         //ShowList2();
     }
 
+
+
+
+    // --------------------------------------------------------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------- TRAINS -----------------------------------------------------------------------------
+    // --------------------------------------------------------------------------------------------------------------------------------------------------
 
     private void GetAllTrains()
     {
@@ -44,7 +53,7 @@ public class DataContainer : MonoBehaviour
                 train.GetComponent<Train>().Velocity,
                 train.GetComponent<Train>().CurrentHealth,
                 train.GetComponentInChildren<Weapon>().CurrentBulletQuantity
-                );
+            );
 
             dataTrains.Add(dataTrain);
 
@@ -56,11 +65,13 @@ public class DataContainer : MonoBehaviour
         }
     }
 
-    // CHECK IT --> DONT WORK
-    // Les tiles doivent connaitre leurs voisins ?
+
+
+    // --------------------------------------------------------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------- MAP --------------------------------------------------------------------------------
+    // --------------------------------------------------------------------------------------------------------------------------------------------------
     private void GetAllTiles()
     {
-        Debug.Log(tiles.Length);
         foreach (var tile in tiles)
         {
             DataTile dataTile = new DataTile(
@@ -72,6 +83,16 @@ public class DataContainer : MonoBehaviour
 
             dataTiles.Add(dataTile);
         }
+    }
+
+    private void CreateTileMatrix()
+    {
+        Debug.Log(tiles.Length);
+        Debug.Log("number of line : " + GameObject.Find("TilemapRails").transform.childCount); //nombre de ligne
+        Debug.Log("number of column : " + GameObject.Find("TilemapRails").transform.GetChild(1).transform.childCount); //nombre de colonne //on ne prend pas la première ligne car 2 cases en plus
+        tileMatrix = new DataTile[GameObject.Find("TilemapRails").transform.childCount, GameObject.Find("TilemapRails").transform.GetChild(1).transform.childCount];
+
+
     }
 
     // CHECK IT !
@@ -109,7 +130,8 @@ public class DataContainer : MonoBehaviour
     {
         foreach (var dataTile in dataTiles)
         {
-            Debug.Log("Tile name: " + dataTile.Tile.name + ", Position: " + dataTile.TilePosition);
+            //Debug.Log("Tile name: " + dataTile.Tile.name + ", Position: " + dataTile.TilePosition);
+            Debug.Log("Tile name: " + dataTile.Tile.name + ", directions: " + dataTile.directionOfTile);
         }
         Debug.Log("-----------------------------------------");
     }
