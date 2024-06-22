@@ -14,7 +14,6 @@ public class DataContainer : MonoBehaviour
     private GameObject myTrain;
     private DataTrain myDataTrain;
 
-    private List<GameObject> tilesObject = new List<GameObject>();
     private List<DataTile> dataTiles = new List<DataTile>();
     private List<DataSpawner> dataSpawners = new List<DataSpawner>();
 
@@ -27,7 +26,7 @@ public class DataContainer : MonoBehaviour
         tiles = GameObject.FindGameObjectsWithTag("Tile");
         GetAllTiles();
         //GetAllSpawners();
-        ShowList1();
+        //ShowList1();
         //ShowList2();
     }
 
@@ -67,8 +66,8 @@ public class DataContainer : MonoBehaviour
             DataTile dataTile = new DataTile(
                     tile.gameObject,
                     tile.transform.position,
-                    tile.GetComponent<DataTile>().directionOfTile,
-                    tile.GetComponent<DataTile>().containsSpawner
+                    tile.GetComponent<Tile>().directionOfTile,
+                    tile.GetComponent<Tile>().containsSpawner
                 );
 
             dataTiles.Add(dataTile);

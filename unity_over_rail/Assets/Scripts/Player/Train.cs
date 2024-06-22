@@ -68,7 +68,7 @@ public class Train : MonoBehaviour
     // DEPLACEMENT --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "Tile")
+        if (collider.gameObject.tag == "TileTrigger")
         {
             GetNextRoad(collider);
         }
