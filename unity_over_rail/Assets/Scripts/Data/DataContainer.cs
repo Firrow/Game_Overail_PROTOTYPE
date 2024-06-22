@@ -26,10 +26,12 @@ public class DataContainer : MonoBehaviour
 
         tiles = GameObject.FindGameObjectsWithTag("Tile");
 
-        CreateTileMatrix();
+
         GetAllTiles();
-        GetAllSpawners();
-        ShowList1();
+        CreateTileMatrix();
+
+        //GetAllSpawners();
+        //ShowList1();
         //ShowList2();
     }
 
@@ -87,12 +89,26 @@ public class DataContainer : MonoBehaviour
 
     private void CreateTileMatrix()
     {
-        Debug.Log(tiles.Length);
-        Debug.Log("number of line : " + GameObject.Find("TilemapRails").transform.childCount); //nombre de ligne
-        Debug.Log("number of column : " + GameObject.Find("TilemapRails").transform.GetChild(1).transform.childCount); //nombre de colonne //on ne prend pas la première ligne car 2 cases en plus
-        tileMatrix = new DataTile[GameObject.Find("TilemapRails").transform.childCount, GameObject.Find("TilemapRails").transform.GetChild(1).transform.childCount];
+        int lineCount = GameObject.Find("TilemapRails").transform.childCount;
+        int columnCount = GameObject.Find("TilemapRails").transform.GetChild(1).transform.childCount;
+        tileMatrix = new DataTile[lineCount, columnCount];
 
 
+        //Debug.Log("tile count : " + tiles.Length);
+        //Debug.Log("dataTile count : " + dataTiles.Count);
+        //Debug.Log("number of line : " + lineCount); //nombre de ligne
+        //Debug.Log("number of column : " + columnCount); //nombre de colonne //on ne prend pas la première ligne car 2 cases en plus
+
+
+        int element = 0;
+        for (int i = 0; i < lineCount; i++)
+        {
+            for (int j = 0; j < columnCount; j++)
+            {
+                tileMatrix[i, j] = dataTiles[element];
+                element++;
+            }
+        }
     }
 
     // CHECK IT !
