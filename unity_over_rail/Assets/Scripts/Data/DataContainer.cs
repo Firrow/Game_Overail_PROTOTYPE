@@ -9,7 +9,6 @@ using overail.DataTile;
 
 public class DataContainer : MonoBehaviour
 {
-    private GameObject[] trains;
     private List<DataTrain> dataTrains = new List<DataTrain>();
     private GameObject myTrain;
     private DataTrain myDataTrain;
@@ -27,7 +26,7 @@ public class DataContainer : MonoBehaviour
         tiles = GameObject.FindGameObjectsWithTag("Tile");
 
 
-        GetAllTiles();
+        //GetAllTiles();
         CreateTileMatrix();
 
         //GetAllSpawners();
@@ -72,7 +71,7 @@ public class DataContainer : MonoBehaviour
     // --------------------------------------------------------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------- MAP --------------------------------------------------------------------------------
     // --------------------------------------------------------------------------------------------------------------------------------------------------
-    private void GetAllTiles()
+    /*private void GetAllTiles()
     {
         foreach (var tile in tiles)
         {
@@ -84,8 +83,7 @@ public class DataContainer : MonoBehaviour
                 );
 
             dataTiles.Add(dataTile);
-        }
-    }
+        }*/
 
     private void CreateTileMatrix()
     {
@@ -105,11 +103,43 @@ public class DataContainer : MonoBehaviour
         {
             for (int j = 0; j < columnCount; j++)
             {
-                tileMatrix[i, j] = dataTiles[element];
+                //tileMatrix[i, j] = dataTiles[element];
+                tileMatrix[i, j] = new DataTile(
+                    tiles[element].gameObject,
+                    tiles[element].transform.position,
+                    tiles[element].GetComponent<Tile>().directionOfTile,
+                    tiles[element].GetComponent<Tile>().containsSpawner,
+                    new DataTile.PositionInMatrix { x = i, y = j }
+                );
+
+                GetNeighbors(tileMatrix[i, j]);
+
                 element++;
             }
         }
     }
+
+    private List<DataTile> GetNeighbors(DataTile dataTile)
+    {
+        if (dataTile.Neighbors.Count == 0)
+        {
+            // chercher voisins :
+            // 1) récupérer les directions d'une tuile
+            // 2) tuile au nord(x, y-1) - sud(x, y+1) - ouest(x-1, y) - est(x+1, y)
+
+            foreach (var direction in dataTile.directionOfTile)
+            {
+                // Debug.Log(direction);
+                //Ajouter au voisin
+            }
+            
+        }
+
+        return dataTile.Neighbors;
+    }
+
+
+
 
     // CHECK IT !
     private void GetAllSpawners()

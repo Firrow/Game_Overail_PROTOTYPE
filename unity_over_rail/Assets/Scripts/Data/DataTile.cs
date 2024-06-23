@@ -13,13 +13,25 @@ namespace overail.DataTile
         private Vector3 tilePosition;
         private GameObject tile;
 
+        public struct PositionInMatrix
+        {
+            public int x;
+            public int y;
+        }
+        private PositionInMatrix coordinates;
 
-        public DataTile(GameObject tile, Vector3 tilePosition, string directionOfTile, bool containsSpawner)
+        private List<DataTile> neighbors = new List<DataTile>();
+
+
+
+
+        public DataTile(GameObject tile, Vector3 tilePosition, string directionOfTile, bool containsSpawner, PositionInMatrix coordinates)
         {
             this.tile = tile;
             this.tilePosition = tilePosition;
             this.directionOfTile = directionOfTile;
             this.containsSpawner = containsSpawner;
+            this.coordinates = coordinates;
         }
 
 
@@ -34,6 +46,16 @@ namespace overail.DataTile
         {
             get { return tile; }
             set { tile = value; }
+        }
+
+
+        /// <summary>
+        /// Lazy evaluation : need to use DataContainer.GetNeighbors() to get and set the Neighbors value
+        /// </summary>
+        public List<DataTile> Neighbors
+        {
+            get { return neighbors; }
+            set { neighbors = value; }
         }
     }
 
