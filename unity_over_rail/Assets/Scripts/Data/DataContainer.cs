@@ -27,7 +27,6 @@ public class DataContainer : MonoBehaviour
         CreateTileMatrix();
 
         //GetAllSpawners();
-        //ShowList1();
         //ShowList2();
     }
 
@@ -72,22 +71,14 @@ public class DataContainer : MonoBehaviour
     private void CreateTileMatrix()
     {
         int lineCount = GameObject.Find("TilemapRails").transform.childCount;
-        int columnCount = GameObject.Find("TilemapRails").transform.GetChild(1).transform.childCount;
+        int columnCount = GameObject.Find("TilemapRails").transform.GetChild(1).transform.childCount; //on ne prend pas la première ligne pour le GetChild() car 2 cases en plus
         tileMatrix = new DataTile[lineCount, columnCount];
-
-
-        //Debug.Log("tile count : " + tiles.Length);
-        //Debug.Log("dataTile count : " + dataTiles.Count);
-        //Debug.Log("number of line : " + lineCount); //nombre de ligne
-        //Debug.Log("number of column : " + columnCount); //nombre de colonne //on ne prend pas la première ligne car 2 cases en plus
-
 
         int element = 0;
         for (int i = 0; i < lineCount; i++)
         {
             for (int j = 0; j < columnCount; j++)
             {
-                //tileMatrix[i, j] = dataTiles[element];
                 tileMatrix[i, j] = new DataTile(
                     tiles[element].gameObject,
                     tiles[element].transform.position,
@@ -99,17 +90,10 @@ public class DataContainer : MonoBehaviour
             }
         }
 
+        // Récupération des voisins de chaque tuiles
         foreach (var tile in tileMatrix)
         {
             GetNeighbors(tile);
-
-            Debug.Log("Voisin de : " + tile.Tile.name);
-            for (int i = 0; i < tile.Neighbors.Count; i++)
-            {
-                Debug.Log(tile.Neighbors[i].Tile.name);
-            }
-            Debug.Log("-------------------------------------------------");
-
         }
     }
 
@@ -117,13 +101,8 @@ public class DataContainer : MonoBehaviour
     {
         if (dataTile.Neighbors.Count == 0)
         {
-            //Debug.Log("Directions of tile : " + dataTile.directionOfTile);
-            //Debug.Log("x : " + dataTile.Coordinates.x + " - y : " + dataTile.Coordinates.y);
             foreach (var direction in dataTile.directionOfTile)
             {
-                //Debug.Log("Direction : " + direction);
-
-
                 switch (direction)
                 {
                     case 'N':
@@ -156,9 +135,6 @@ public class DataContainer : MonoBehaviour
                         break;
                 }
             }
-
-            //Debug.Log("Nombre de voisin : " + dataTile.Neighbors.Count);
-            //Debug.Log("-------------------------------------------------");
         }
         return dataTile.Neighbors;
     }
@@ -197,15 +173,7 @@ public class DataContainer : MonoBehaviour
         }
         Debug.Log("-----------------------------------------");
     }
-    /*public void ShowList1()
-    {
-        foreach (var dataTile in dataTiles)
-        {
-            //Debug.Log("Tile name: " + dataTile.Tile.name + ", Position: " + dataTile.TilePosition);
-            Debug.Log("Tile name: " + dataTile.Tile.name + ", directions: " + dataTile.directionOfTile);
-        }
-        Debug.Log("-----------------------------------------");
-    }*/
+
     public void ShowList2()
     {
         foreach (var dataSpawner in dataSpawners)
