@@ -13,23 +13,32 @@ public class DataContainer : MonoBehaviour
     private GameObject myTrain;
     private DataTrain myDataTrain;
 
-    //private List<DataTile> dataTiles = new List<DataTile>();
     private List<DataSpawner> dataSpawners = new List<DataSpawner>();
 
     private GameObject[] tiles;
+    private GameObject[] spawners;
     private DataTile[ , ] tileMatrix;
+
+
+
 
     private void Start()
     {
-        StartCoroutine(GetAllTrainInStartingGame());
+        //StartCoroutine(GetAllTrainInStartingGame());
+        GetAllTrains();
 
         tiles = GameObject.FindGameObjectsWithTag("Tile");
         CreateTileMatrix();
 
-        //GetAllSpawners();
-        //ShowList2();
+        spawners = GameObject.FindGameObjectsWithTag("Spawner");
+        GetAllSpawners();
+        ShowListSpawner();
     }
 
+    private void Update()
+    {
+        ShowListSpawner();
+    }
 
 
 
@@ -141,11 +150,9 @@ public class DataContainer : MonoBehaviour
 
 
 
-
-    // CHECK IT !
     private void GetAllSpawners()
     {
-        foreach (var spawner in GameObject.FindGameObjectsWithTag("Spawner"))
+        foreach (var spawner in spawners)
         {
             DataSpawner dataSpawner = new DataSpawner(
                     spawner.gameObject,
@@ -165,6 +172,28 @@ public class DataContainer : MonoBehaviour
 
 
 
+    /*IEnumerator GetAllTrainInStartingGame()
+    {
+        while (true)
+        {
+            GetAllTrains();
+            yield return new WaitForSeconds(0.5f); //voir pour régler soucis précision position
+            // Il faut que la position et uniquement la position soit récupérée à chaque instant
+        }
+    }*/
+
+
+
+
+
+
+
+
+
+
+
+    // ------------------------------- AFFICHAGE DEBUG --------------------------------------------------------------------------------------
+
     public void ShowList()
     {
         foreach (var dataTrain in dataTrains)
@@ -174,30 +203,12 @@ public class DataContainer : MonoBehaviour
         Debug.Log("-----------------------------------------");
     }
 
-    public void ShowList2()
+    public void ShowListSpawner()
     {
         foreach (var dataSpawner in dataSpawners)
         {
             Debug.Log("Spawner name: " + dataSpawner.Spawner.name + ", contains object?: " + dataSpawner.SpawnerContainsObject);
         }
         Debug.Log("-----------------------------------------");
-    }
-
-
-
-
-
-
-
-
-
-    IEnumerator GetAllTrainInStartingGame()
-    {
-        while (true)
-        {
-            GetAllTrains();
-            yield return new WaitForSeconds(0.5f); //voir pour régler soucis précision position
-            // Il faut que la position et uniquement la position soit récupérée à chaque instant
-        }
     }
 }

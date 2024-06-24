@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class SpawnObjects : MonoBehaviour
 {
+    // NOTE : Est ce qu'il ne faudrait pas supprimer containsObject et juste check si objectToSpawn est null ou pas ?
     private bool containsObject = false;
     private bool coroutineIsAllowed = false;
     IEnumerator waitBeforeSpawn;
@@ -63,4 +64,11 @@ public class SpawnObjects : MonoBehaviour
         get { return containsObject; }
         set { containsObject = value; }
     }
+
+    public GameObject OjectToSpawn
+    {
+        get { return objectToSpawn; }
+        set { objectToSpawn = value; }
+    }
+
 }

@@ -10,7 +10,10 @@ namespace overail.DataSpawner
         private GameObject tileParent;
         private Vector3 spawnerPosition;
         private bool spawnerContainsObject;
-        // private GameObject objectOnSpawner;
+        private GameObject objectOnSpawner;
+
+
+
 
         public DataSpawner(GameObject spawner, GameObject tileParent, Vector3 spawnerPosition, bool spawnerContainsObject)
         {
@@ -42,8 +45,7 @@ namespace overail.DataSpawner
 
         public bool SpawnerContainsObject
         {
-            get { return spawnerContainsObject; }
-            set { spawnerContainsObject = value; }
+            get { return this.Spawner.GetComponent<SpawnObjects>().OjectToSpawn; }
         }
     }
 }
