@@ -102,36 +102,28 @@ public class DataContainer : MonoBehaviour
         {
             foreach (var direction in dataTile.directionOfTile)
             {
-                switch (direction)
+                // Permet d'éviter que les tileStart posent des soucis avec leur 3ème direction supprimée par la suite
+                try
                 {
-                    case 'N':
-                        dataTile.Neighbors.Add(tileMatrix[dataTile.Coordinates.x - 1, dataTile.Coordinates.y]);
-                        break;
-                    case 'E':
-                        // Permet d'éviter que les tileStart posent des soucis avec leur 3ème direction supprimée par la suite
-                        try
-                        {
+                    switch (direction)
+                    {
+                        case 'N':
+                            dataTile.Neighbors.Add(tileMatrix[dataTile.Coordinates.x - 1, dataTile.Coordinates.y]);
+                            break;
+                        case 'E':
                             dataTile.Neighbors.Add(tileMatrix[dataTile.Coordinates.x, dataTile.Coordinates.y + 1]);
-                        }
-                        catch (IndexOutOfRangeException e)
-                        {
                             break;
-                        }
-                        break;
-                    case 'S':
-                        dataTile.Neighbors.Add(tileMatrix[dataTile.Coordinates.x + 1, dataTile.Coordinates.y]);
-                        break;
-                    case 'O':
-                        // Permet d'éviter que les tileStart posent des soucis avec leur 3ème direction supprimée par la suite
-                        try
-                        {
+                        case 'S':
+                            dataTile.Neighbors.Add(tileMatrix[dataTile.Coordinates.x + 1, dataTile.Coordinates.y]);
+                            break;
+                        case 'O':
                             dataTile.Neighbors.Add(tileMatrix[dataTile.Coordinates.x, dataTile.Coordinates.y - 1]);
-                        }
-                        catch (IndexOutOfRangeException e)
-                        {
                             break;
-                        }
-                        break;
+                    }
+                }
+                catch (IndexOutOfRangeException e)
+                {
+                    break;
                 }
             }
         }
@@ -152,30 +144,5 @@ public class DataContainer : MonoBehaviour
 
             dataSpawners.Add(dataSpawner);
         }
-    }
-
-
-
-
-
-
-    // ------------------------------- AFFICHAGE DEBUG --------------------------------------------------------------------------------------
-
-    public void ShowListTrain()
-    {
-        foreach (var dataTrain in dataTrains)
-        {
-            Debug.Log("Train Index: " + dataTrain.index + ", Velocity: " + dataTrain.Position);
-        }
-        Debug.Log("-----------------------------------------");
-    }
-
-    public void ShowListSpawner()
-    {
-        foreach (var dataSpawner in dataSpawners)
-        {
-            Debug.Log("Spawner name: " + dataSpawner.Spawner.name + ", contains object?: " + dataSpawner.SpawnerContainsObject);
-        }
-        Debug.Log("-----------------------------------------");
     }
 }

@@ -117,11 +117,6 @@ public class HumanTrain : Train
         otherArrow.color = new Color(1, 0, 0, 0);
     }
 
-    /*public new void TakeDamage(int damage)
-    {
-        base.TakeDamage(damage);
-    }*/
-
     public void UpdateBulletBar(int updateValue)
     {
         bulletBar.SetBullet(updateValue);
