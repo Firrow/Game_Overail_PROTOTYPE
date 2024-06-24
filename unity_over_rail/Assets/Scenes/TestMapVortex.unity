@@ -2398,7 +2398,6 @@ GameObject:
   - component: {fileID: 680011372}
   - component: {fileID: 680011374}
   - component: {fileID: 680011373}
-  - component: {fileID: 680011375}
   m_Layer: 0
   m_Name: TilemapRails
   m_TagString: Untagged
@@ -2516,18 +2515,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!114 &680011375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 680011371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 218291c53d57a0b4f917ee3acc1fe217, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &681089810
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ public class DataContainer : MonoBehaviour
     private GameObject myTrain;
     private DataTrain myDataTrain;
 
-    private List<DataTile> dataTiles = new List<DataTile>();
+    //private List<DataTile> dataTiles = new List<DataTile>();
     private List<DataSpawner> dataSpawners = new List<DataSpawner>();
 
     private GameObject[] tiles;
@@ -24,20 +24,7 @@ public class DataContainer : MonoBehaviour
         StartCoroutine(GetAllTrainInStartingGame());
 
         tiles = GameObject.FindGameObjectsWithTag("Tile");
-
-
-        //GetAllTiles();
         CreateTileMatrix();
-
-
-        /*foreach (var dt in dataTiles)
-        {
-            Debug.Log("Tile : " + dt.Tile.name);
-            foreach (var n in dt.Neighbors)
-            {
-                Debug.Log("voisin : " + n.Tile.name);
-            }
-        }*/
 
         //GetAllSpawners();
         //ShowList1();
@@ -81,19 +68,6 @@ public class DataContainer : MonoBehaviour
     // --------------------------------------------------------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------- MAP --------------------------------------------------------------------------------
     // --------------------------------------------------------------------------------------------------------------------------------------------------
-    /*private void GetAllTiles()
-    {
-        foreach (var tile in tiles)
-        {
-            DataTile dataTile = new DataTile(
-                    tile.gameObject,
-                    tile.transform.position,
-                    tile.GetComponent<Tile>().directionOfTile,
-                    tile.GetComponent<Tile>().containsSpawner
-                );
-
-            dataTiles.Add(dataTile);
-        }*/
 
     private void CreateTileMatrix()
     {
@@ -121,10 +95,21 @@ public class DataContainer : MonoBehaviour
                     tiles[element].GetComponent<Tile>().containsSpawner,
                     new DataTile.PositionInMatrix { x = i, y = j }
                 );
-                GetNeighbors(tileMatrix[i, j]);
-
                 element++;
             }
+        }
+
+        foreach (var tile in tileMatrix)
+        {
+            GetNeighbors(tile);
+
+            Debug.Log("Voisin de : " + tile.Tile.name);
+            for (int i = 0; i < tile.Neighbors.Count; i++)
+            {
+                Debug.Log(tile.Neighbors[i].Tile.name);
+            }
+            Debug.Log("-------------------------------------------------");
+
         }
     }
 
@@ -212,7 +197,7 @@ public class DataContainer : MonoBehaviour
         }
         Debug.Log("-----------------------------------------");
     }
-    public void ShowList1()
+    /*public void ShowList1()
     {
         foreach (var dataTile in dataTiles)
         {
@@ -220,7 +205,7 @@ public class DataContainer : MonoBehaviour
             Debug.Log("Tile name: " + dataTile.Tile.name + ", directions: " + dataTile.directionOfTile);
         }
         Debug.Log("-----------------------------------------");
-    }
+    }*/
     public void ShowList2()
     {
         foreach (var dataSpawner in dataSpawners)
@@ -244,6 +229,7 @@ public class DataContainer : MonoBehaviour
         {
             GetAllTrains();
             yield return new WaitForSeconds(0.5f); //voir pour régler soucis précision position
+            // Il faut que la position et uniquement la position soit récupérée à chaque instant
         }
     }
 }
