@@ -36,6 +36,8 @@ namespace overail.DataTile
 
 
 
+
+
         public Vector3 TilePosition
         {
             get { return tilePosition; }
@@ -46,6 +48,12 @@ namespace overail.DataTile
         {
             get { return tile; }
             set { tile = value; }
+        }
+
+        public PositionInMatrix Coordinates
+        {
+            get { return coordinates; }
+            set { coordinates = value; }
         }
 
 
