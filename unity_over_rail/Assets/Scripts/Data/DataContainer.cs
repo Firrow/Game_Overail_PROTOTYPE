@@ -7,6 +7,8 @@ using overail.DataSpawner;
 using overail.DataTile;
 using System;
 
+
+
 public class DataContainer : MonoBehaviour
 {
     private List<DataTrain> dataTrains = new List<DataTrain>();
@@ -24,21 +26,14 @@ public class DataContainer : MonoBehaviour
 
     private void Start()
     {
-        //StartCoroutine(GetAllTrainInStartingGame());
         GetAllTrains();
 
-        tiles = GameObject.FindGameObjectsWithTag("Tile");
         CreateTileMatrix();
 
         spawners = GameObject.FindGameObjectsWithTag("Spawner");
         GetAllSpawners();
-        ShowListSpawner();
     }
 
-    private void Update()
-    {
-        ShowListSpawner();
-    }
 
 
 
@@ -46,19 +41,13 @@ public class DataContainer : MonoBehaviour
     // ------------------------------------------------------------- TRAINS -----------------------------------------------------------------------------
     // --------------------------------------------------------------------------------------------------------------------------------------------------
 
-    private void GetAllTrains()
+    public void GetAllTrains()
     {
         foreach (var train in GameObject.FindGameObjectsWithTag("Player"))
         {
             DataTrain dataTrain = new DataTrain(
                 train.gameObject,
-                train.GetComponent<Train>().TrainIndex,
-                train.GetComponent<Train>().TrainPosition,
-                train.GetComponent<Train>().ShieldIsActivate,
-                train.GetComponent<Train>().CurrentItem,
-                train.GetComponent<Train>().Velocity,
-                train.GetComponent<Train>().CurrentHealth,
-                train.GetComponentInChildren<Weapon>().CurrentBulletQuantity
+                train.GetComponent<Train>().TrainIndex
             );
 
             dataTrains.Add(dataTrain);
@@ -79,6 +68,7 @@ public class DataContainer : MonoBehaviour
 
     private void CreateTileMatrix()
     {
+        tiles = GameObject.FindGameObjectsWithTag("Tile");
         int lineCount = GameObject.Find("TilemapRails").transform.childCount;
         int columnCount = GameObject.Find("TilemapRails").transform.GetChild(1).transform.childCount; //on ne prend pas la première ligne pour le GetChild() car 2 cases en plus
         tileMatrix = new DataTile[lineCount, columnCount];
@@ -157,8 +147,7 @@ public class DataContainer : MonoBehaviour
             DataSpawner dataSpawner = new DataSpawner(
                     spawner.gameObject,
                     spawner.transform.parent.gameObject,
-                    spawner.transform.position,
-                    spawner.GetComponent<SpawnObjects>().ContainsObject
+                    spawner.transform.position
                 );
 
             dataSpawners.Add(dataSpawner);
@@ -170,35 +159,13 @@ public class DataContainer : MonoBehaviour
 
 
 
-
-
-    /*IEnumerator GetAllTrainInStartingGame()
-    {
-        while (true)
-        {
-            GetAllTrains();
-            yield return new WaitForSeconds(0.5f); //voir pour régler soucis précision position
-            // Il faut que la position et uniquement la position soit récupérée à chaque instant
-        }
-    }*/
-
-
-
-
-
-
-
-
-
-
-
     // ------------------------------- AFFICHAGE DEBUG --------------------------------------------------------------------------------------
 
-    public void ShowList()
+    public void ShowListTrain()
     {
         foreach (var dataTrain in dataTrains)
         {
-            Debug.Log("Train Index: " + dataTrain.index + ", Velocity: " + dataTrain.speed);
+            Debug.Log("Train Index: " + dataTrain.index + ", Velocity: " + dataTrain.Position);
         }
         Debug.Log("-----------------------------------------");
     }

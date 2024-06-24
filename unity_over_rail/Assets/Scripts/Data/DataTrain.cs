@@ -8,25 +8,45 @@ namespace overail.DataTain
     {
         public GameObject train;
         public int index;
-        public Vector2 position;
-        public bool shieldIsActivate;
-        public GameObject currentObject;
-        public float speed;
-        public int health;
-        public int bulletQuantity;
 
 
 
-        public DataTrain(GameObject train, int index, Vector2 position, bool shieldIsActivate, GameObject currentObject, float speed, int health, int bulletQuantity)
+        public DataTrain(GameObject train, int index)
         {
             this.train = train;
             this.index = index;
-            this.position = position;
-            this.shieldIsActivate = shieldIsActivate;
-            this.currentObject = currentObject;
-            this.speed = speed;
-            this.health = health;
-            this.bulletQuantity = bulletQuantity;
         }
+
+
+
+
+        public Vector2 Position
+        {
+            get { return this.train.GetComponent<Train>().TrainPosition; }
+        }
+
+        public bool ShieldIsActivate
+        {
+            get { return this.train.GetComponent<Train>().ShieldIsActivate; }
+        }
+
+        public GameObject CurrentObject
+        {
+            get { return this.train.GetComponent<Train>().CurrentItem; }
+        }
+
+        public float Speed
+        {
+            get { return this.train.GetComponent<Train>().Velocity; }
+        }
+        public int Health
+        {
+            get { return this.train.GetComponent<Train>().CurrentHealth; }
+        }
+        public int BulletQuantity
+        {
+            get { return this.train.GetComponentInChildren<Weapon>().CurrentBulletQuantity; }
+        }
+
     }
 }

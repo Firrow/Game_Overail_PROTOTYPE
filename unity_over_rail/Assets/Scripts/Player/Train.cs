@@ -65,6 +65,8 @@ public class Train : MonoBehaviour
     }
 
 
+
+
     // DEPLACEMENT --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     private void OnTriggerEnter2D(Collider2D collider)
     {
@@ -251,6 +253,7 @@ public class Train : MonoBehaviour
         if (currentHealth <= 0)
         {
             ResetInterface();
+            CallGetAllTrains();
             Destroy(this.gameObject);
         }
         healthBar.GetComponent<HealthBar>().SetHealth(currentHealth);
@@ -328,6 +331,17 @@ public class Train : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         coroutineAllowed = true;
+    }
+
+    // APPEL MAJ Datatrain quand train détruit ----------------------------------------------------------------------------------------------------------------------------
+    private void CallGetAllTrains()
+    {
+        this.tag = "Untagged";
+
+        foreach (DataContainer dataContainer in FindObjectsOfType(typeof(DataContainer)))
+        {
+            dataContainer.GetAllTrains();
+        }
     }
 
 

@@ -47,11 +47,6 @@ public class HumanTrain : Train
         trainAngle = angle;
     }
 
-    private void FixedUpdate()
-    {
-        base.FixedUpdate();
-    }
-
 
 
 

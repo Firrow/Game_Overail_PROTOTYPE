@@ -9,18 +9,16 @@ namespace overail.DataSpawner
         private GameObject spawner;
         private GameObject tileParent;
         private Vector3 spawnerPosition;
-        private bool spawnerContainsObject;
         private GameObject objectOnSpawner;
 
 
 
 
-        public DataSpawner(GameObject spawner, GameObject tileParent, Vector3 spawnerPosition, bool spawnerContainsObject)
+        public DataSpawner(GameObject spawner, GameObject tileParent, Vector3 spawnerPosition)
         {
             this.spawner = spawner;
             this.tileParent = tileParent;
             this.spawnerPosition = spawnerPosition;
-            this.spawnerContainsObject = spawnerContainsObject;
         }
 
 
