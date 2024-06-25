@@ -1,3 +1,3 @@
 # over_rail
-Un jeu de train qui s'affrontent en Battle Royal !
+Un jeu de trains qui s'affrontent en Battle Royal !
 
