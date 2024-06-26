@@ -5,5 +5,5 @@ using UnityEngine;
 
 public interface IStateObject
 {
-    public void Execution();
+    public void MainExecution();
 }
