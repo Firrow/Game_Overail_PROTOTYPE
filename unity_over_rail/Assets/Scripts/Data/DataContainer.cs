@@ -1,11 +1,10 @@
+using overail.DataSpawner;
+using overail.DataTain;
+using overail.DataTile;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-using overail.DataTain;
-using overail.DataSpawner;
-using overail.DataTile;
-using System;
 
 
 
@@ -19,19 +18,20 @@ public class DataContainer : MonoBehaviour
 
     private GameObject[] tiles;
     private GameObject[] spawners;
-    private DataTile[ , ] tileMatrix;
+    private DataTile[,] tileMatrix;
 
 
 
 
     private void Start()
     {
-        GetAllTrains();
-
         CreateTileMatrix();
 
         spawners = GameObject.FindGameObjectsWithTag("Spawner");
         GetAllSpawners();
+
+        //StartCoroutine(CallGetAllTrains());
+        GetAllTrains();
     }
 
 
@@ -51,8 +51,9 @@ public class DataContainer : MonoBehaviour
             );
 
             dataTrains.Add(dataTrain);
-
-            if (myTrain == null && train.GetComponent<Train>().TrainIndex == this.GetComponent<IATrain>().TrainIndex)
+            Debug.Log("TrainIndex : " + train.GetComponent<Train>().TrainIndex);
+            Debug.Log("IATrain : " + this.GetComponent<IATrain>().PlayerIndex);
+            if (myTrain == null && train.GetComponent<Train>().TrainIndex == this.GetComponent<IATrain>().PlayerIndex)
             {
                 myTrain = train.gameObject;
                 myDataTrain = dataTrain;
@@ -145,4 +146,11 @@ public class DataContainer : MonoBehaviour
             dataSpawners.Add(dataSpawner);
         }
     }
+
+
+    public DataTrain MyDataTrain
+    {
+        get { return myDataTrain; }
+    }
+
 }

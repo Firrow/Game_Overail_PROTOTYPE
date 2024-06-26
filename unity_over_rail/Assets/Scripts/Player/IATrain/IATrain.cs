@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using overail.DataTain;
 using Random = UnityEngine.Random;
 
 
@@ -9,12 +10,31 @@ public class IATrain : Train
     public GameObject leftArrow;
     public GameObject rightArrow;
 
-
     [SerializeField]
     private int playerIndex = 0;
     private int lastChoice;
     private float trainAngle;
 
+    private DataTrain myData;
+    private enum State1
+    {
+        Attack,
+        Defense,
+    }
+    private enum State2
+    {
+        HaveObject,
+        DontHaveObject
+    }
+    private State1 currentState1 = State1.Attack;
+    private State2 currentState2 = State2.DontHaveObject;
+    private int HEALTH_LIMIT_DIVIDED = 2;
+    private int BULLET_LIMIT_DIVIDED = 6;
+
+    private void Awake()
+    {
+        trainIndex = playerIndex;
+    }
 
     void Start()
     {
@@ -37,8 +57,7 @@ public class IATrain : Train
         this.choice = 1;
         lastChoice = 1;
 
-
-        trainIndex = playerIndex;
+        StartCoroutine(GetMyData());
 
         // CODER CHOIX IA ENEMY
         //InvokeRepeating("MovementChoice", 0.3f, 0.3f);
@@ -54,14 +73,54 @@ public class IATrain : Train
     private void FixedUpdate()
     {
         base.FixedUpdate();
+        //StartCoroutine(CheckState1());
+        //StartCoroutine(CheckState2());
+        //Debug.Log("State 1 : " + currentState1);
+        //Debug.Log("State 2 : " + currentState2);
+    }
+
+    IEnumerator GetMyData()
+    {
+        yield return new WaitForSeconds(0.2f);
+        myData = this.GetComponent<DataContainer>().MyDataTrain;
+    }
+
+
+    IEnumerator CheckState1()
+    {
+        if (myData.Health >= MaxHealth / HEALTH_LIMIT_DIVIDED && myData.BulletQuantity >= this.GetComponentInChildren<Weapon>().MaxBulletQuantity/BULLET_LIMIT_DIVIDED)
+        {
+            currentState1 = State1.Attack;
+        }
+        else
+        {
+            currentState1 = State1.Defense;
+        }
+        yield return new WaitForSeconds(1f);
+    }
+    IEnumerator CheckState2()
+    {
+        if (myData.CurrentObject == null)
+        {
+            currentState2 = State2.DontHaveObject;
+        }
+        else
+        {
+            currentState2 = State2.HaveObject;
+        }
+        yield return new WaitForSeconds(1f);
     }
 
 
 
 
+
+    // --------------------------------------------------------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------- ACTION IN GAME (traitement du choix) --------------------------------------------------------------------------------
+    // --------------------------------------------------------------------------------------------------------------------------------------------------
     public void PlayerChoiceDirection(int movementInput) //0 ; 1 ; -1
     {
-        if (movementInput == 0)
+        /*if (movementInput == 0)
         {
             this.choice = lastChoice;
         }
@@ -75,44 +134,52 @@ public class IATrain : Train
             this.choice = -1;
             ChangeArrowColor(rightArrow.GetComponent<SpriteRenderer>(), leftArrow.GetComponent<SpriteRenderer>());
         }
-        lastChoice = this.choice;
+        lastChoice = this.choice;*/
+
+        Debug.Log("CHOIX DIRECTION");
     }
+
 
     public void PlayerIncreaseVelocity(bool isAccelerate) // true ; false
     {
-        if (isAccelerate)
+        /*if (isAccelerate)
             increaseAcceleration = true;
         else
-            increaseAcceleration = false;
+            increaseAcceleration = false;*/
+        Debug.Log("AUGMENTE VELOCITY");
     }
     public void PlayerDecreaseVelocity(bool isDecelerate) // true ; false
     {
-        if (isDecelerate)
+        /*if (isDecelerate)
             decreaseAcceleration = true;
         else
-            decreaseAcceleration = false;
+            decreaseAcceleration = false;*/
+        Debug.Log("DIMINUE VELOCITY");
     }
 
 
     public void PlayerMoveWeapon(Vector2 target) // position de la cible à atteindre
     {
-        // calculer position target finale (prendre en compte la vitesse de la cible)
-        this.gameObject.GetComponentInChildren<Weapon>().AIMoveWeapon(target);
+        /*// calculer position target finale (prendre en compte la vitesse de la cible)
+        this.gameObject.GetComponentInChildren<Weapon>().AIMoveWeapon(target);*/
+        Debug.Log("BOUGE L'ARME");
     }
 
     public void PlayerShoot()
     {
-        this.gameObject.GetComponentInChildren<Weapon>().PressShootButton();
+        //this.gameObject.GetComponentInChildren<Weapon>().PressShootButton();
+        Debug.Log("TIR");
     }
 
     public void UsePickObject()
     {
-        if (currentItem.TryGetComponent(out IObjects pickedObject))
+        /*if (currentItem.TryGetComponent(out IObjects pickedObject))
         {
             pickedObject.UseObject();
             currentItem = null;
             objectSlot.UndisplayActualObject();
-        }
+        }*/
+        Debug.Log("UTILISE OBJET");
     }
 
 
@@ -139,4 +206,11 @@ public class IATrain : Train
     {
         base.TakeDamage(damage);
     }*/
+
+
+    public int PlayerIndex
+    {
+        get { return playerIndex; }
+    }
+
 }

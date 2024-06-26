@@ -18,6 +18,12 @@ public class HumanTrain : Train
     private float trainAngle;
 
 
+
+    private void Awake()
+    {
+        trainIndex = playerIndex;
+    }
+
     void Start()
     {
         base.Start();
@@ -38,7 +44,6 @@ public class HumanTrain : Train
         ChangeArrowColor(leftArrow.GetComponent<SpriteRenderer>(), rightArrow.GetComponent<SpriteRenderer>());
         this.choice = 1;
         lastChoice = 1;
-        trainIndex = playerIndex;
     }
 
     void Update()
