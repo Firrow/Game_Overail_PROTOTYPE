@@ -73,10 +73,10 @@ public class IATrain : Train
     private void FixedUpdate()
     {
         base.FixedUpdate();
-        //StartCoroutine(CheckState1());
-        //StartCoroutine(CheckState2());
-        //Debug.Log("State 1 : " + currentState1);
-        //Debug.Log("State 2 : " + currentState2);
+        StartCoroutine(CheckState1());
+        StartCoroutine(CheckState2());
+        Debug.Log("State 1 : " + currentState1);
+        Debug.Log("State 2 : " + currentState2);
     }
 
     IEnumerator GetMyData()

@@ -30,7 +30,6 @@ public class DataContainer : MonoBehaviour
         spawners = GameObject.FindGameObjectsWithTag("Spawner");
         GetAllSpawners();
 
-        //StartCoroutine(CallGetAllTrains());
         GetAllTrains();
     }
 
@@ -51,8 +50,7 @@ public class DataContainer : MonoBehaviour
             );
 
             dataTrains.Add(dataTrain);
-            Debug.Log("TrainIndex : " + train.GetComponent<Train>().TrainIndex);
-            Debug.Log("IATrain : " + this.GetComponent<IATrain>().PlayerIndex);
+
             if (myTrain == null && train.GetComponent<Train>().TrainIndex == this.GetComponent<IATrain>().PlayerIndex)
             {
                 myTrain = train.gameObject;
@@ -146,6 +144,9 @@ public class DataContainer : MonoBehaviour
             dataSpawners.Add(dataSpawner);
         }
     }
+
+
+
 
 
     public DataTrain MyDataTrain
