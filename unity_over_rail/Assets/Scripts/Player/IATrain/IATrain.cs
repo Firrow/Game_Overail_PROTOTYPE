@@ -24,9 +24,6 @@ public class IATrain : Train
     private IStateTrain currentState1;
     private IStateObject currentState2;
 
-    private int HEALTH_LIMIT_DIVIDED = 2;
-    private int BULLET_LIMIT_DIVIDED = 6;
-
 
 
 
@@ -58,6 +55,7 @@ public class IATrain : Train
 
 
         myData = this.GetComponent<DataContainer>().MyDataTrain;
+        currentState1 = new Attack(this); // État par défaut
         currentState2 = new DontHaveObject(this); // État par défaut
 
         // CODER CHOIX IA ENEMY
@@ -77,8 +75,8 @@ public class IATrain : Train
     {
         base.FixedUpdate();
 
+        currentState1.MainExecution();
         currentState2.MainExecution();
-        Debug.Log(currentState2);
     }
 
     public void ChangeState1(IStateTrain newState)

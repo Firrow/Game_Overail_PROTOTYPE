@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class IStateTrain
+public interface IStateTrain
 {
-    // Deplacement
-
-    //Tir
+    public void MainExecution();
 }
