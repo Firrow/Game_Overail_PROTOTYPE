@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
 public class DataContainer : MonoBehaviour
 {
     private List<DataTrain> dataTrains = new List<DataTrain>();

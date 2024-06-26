@@ -1,7 +1,8 @@
 using System.Collections;
 using UnityEngine;
+//using Random = UnityEngine.Random;
 using overail.DataTain;
-using Random = UnityEngine.Random;
+
 
 
 public class IATrain : Train
@@ -15,21 +16,19 @@ public class IATrain : Train
     private int lastChoice;
     private float trainAngle;
 
-    private DataTrain myData;
-    private enum State1
-    {
-        Attack,
-        Defense,
-    }
-    private enum State2
-    {
-        HaveObject,
-        DontHaveObject
-    }
-    private State1 currentState1 = State1.Attack;
-    private State2 currentState2 = State2.DontHaveObject;
+
+
+    public DataTrain myData;
+    //HaveObject haveObject = new HaveObject();
+    //DontHaveObject dontHaveObject = new DontHaveObject();
+    private IStateTrain currentState1;
+    private IStateObject currentState2;
+
     private int HEALTH_LIMIT_DIVIDED = 2;
     private int BULLET_LIMIT_DIVIDED = 6;
+
+
+
 
     private void Awake()
     {
@@ -57,12 +56,16 @@ public class IATrain : Train
         this.choice = 1;
         lastChoice = 1;
 
+
         myData = this.GetComponent<DataContainer>().MyDataTrain;
+        currentState2 = new DontHaveObject(this); // État par défaut
 
         // CODER CHOIX IA ENEMY
         //InvokeRepeating("MovementChoice", 0.3f, 0.3f);
 
         //ArrowColor(cGauche.GetComponent<SpriteRenderer>(), cDroit.GetComponent<SpriteRenderer>(), 1);
+
+
     }
 
     void Update()
@@ -73,37 +76,20 @@ public class IATrain : Train
     private void FixedUpdate()
     {
         base.FixedUpdate();
-        StartCoroutine(CheckState1());
-        StartCoroutine(CheckState2());
-        Debug.Log("State 1 : " + currentState1);
-        Debug.Log("State 2 : " + currentState2);
+
+        currentState2.MainExecution();
+        Debug.Log(currentState2);
     }
 
+    public void ChangeState1(IStateTrain newState)
+    {
+        currentState1 = newState;
+    }
+    public void ChangeState2(IStateObject newState)
+    {
+        currentState2 = newState;
+    }
 
-    IEnumerator CheckState1()
-    {
-        yield return new WaitForSeconds(0.5f);
-        if (myData.Health >= MaxHealth / HEALTH_LIMIT_DIVIDED && myData.BulletQuantity >= this.GetComponentInChildren<Weapon>().MaxBulletQuantity/BULLET_LIMIT_DIVIDED)
-        {
-            currentState1 = State1.Attack;
-        }
-        else
-        {
-            currentState1 = State1.Defense;
-        }
-    }
-    IEnumerator CheckState2()
-    {
-        yield return new WaitForSeconds(0.5f);
-        if (myData.CurrentObject == null)
-        {
-            currentState2 = State2.DontHaveObject;
-        }
-        else
-        {
-            currentState2 = State2.HaveObject;
-        }
-    }
 
 
 
@@ -208,3 +194,4 @@ public class IATrain : Train
     }
 
 }
+
