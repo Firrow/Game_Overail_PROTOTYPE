@@ -19,8 +19,6 @@ public class IATrain : Train
 
 
     public DataTrain myData;
-    //HaveObject haveObject = new HaveObject();
-    //DontHaveObject dontHaveObject = new DontHaveObject();
     private IStateTrain currentState1;
     private IStateObject currentState2;
 
@@ -190,6 +188,13 @@ public class IATrain : Train
     {
         get { return playerIndex; }
     }
-
+    public IStateTrain CurrentState1
+    {
+        get { return currentState1; }
+    }
+    public IStateObject CurrentState2
+    {
+        get { return currentState2; }
+    }
 }
 

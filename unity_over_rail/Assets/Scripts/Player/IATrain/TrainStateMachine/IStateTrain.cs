@@ -5,4 +5,5 @@ using UnityEngine;
 public interface IStateTrain
 {
     public void MainExecution();
+    public void UpdateState();
 }

@@ -41,9 +41,9 @@ namespace overail.DataSpawner
             set { spawnerPosition = value; }
         }
 
-        public bool SpawnerContainsObject
+        public GameObject ObjectOnSpawner
         {
-            get { return this.Spawner.GetComponent<SpawnObjects>().OjectToSpawn; }
+            get { return this.Spawner.GetComponent<SpawnObjects>().ObjectToSpawn; }
         }
     }
 }

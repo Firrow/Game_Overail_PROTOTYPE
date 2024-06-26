@@ -7,16 +7,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+
 public class DataContainer : MonoBehaviour
 {
     private List<DataTrain> dataTrains = new List<DataTrain>();
     private GameObject myTrain;
     private DataTrain myDataTrain;
 
+    private GameObject[] spawners;
     private List<DataSpawner> dataSpawners = new List<DataSpawner>();
 
     private GameObject[] tiles;
-    private GameObject[] spawners;
     private DataTile[,] tileMatrix;
 
 
@@ -32,6 +33,13 @@ public class DataContainer : MonoBehaviour
         GetAllTrains();
     }
 
+    private void Update()
+    {
+        /*foreach (var dt in dataSpawners)
+        {
+            //Debug.Log(dt.ObjectOnSpawner.name);
+        }*/
+    }
 
 
 
@@ -151,6 +159,18 @@ public class DataContainer : MonoBehaviour
     public DataTrain MyDataTrain
     {
         get { return myDataTrain; }
+    }
+    public List<DataTrain> DataTrains
+    {
+        get { return dataTrains; }
+    }
+    public List<DataSpawner> DataSpawners
+    {
+        get { return dataSpawners; }
+    }
+    public DataTile[,] DataTileMatrix
+    {
+        get { return tileMatrix; }
     }
 
 }

@@ -16,6 +16,11 @@ public class Attack : IStateTrain
 
     public void MainExecution()
     {
+        UpdateState();
+    }
+
+    public void UpdateState()
+    {
         if (train.myData.Health < train.MaxHealth / HEALTH_LIMIT_DIVIDED)
         {
             train.ChangeState1(new Defense(train));

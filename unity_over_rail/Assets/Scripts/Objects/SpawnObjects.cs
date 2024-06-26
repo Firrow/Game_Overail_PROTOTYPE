@@ -65,10 +65,9 @@ public class SpawnObjects : MonoBehaviour
         set { containsObject = value; }
     }
 
-    public GameObject OjectToSpawn
+    public GameObject ObjectToSpawn
     {
         get { return objectToSpawn; }
-        set { objectToSpawn = value; }
     }
 
 }

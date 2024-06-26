@@ -13,13 +13,12 @@ public class HaveObject : IStateObject
         train = IATrain;
     }
 
-    /*// Start is called before the first frame update
-    void Start()
-    {
-        
-    }*/
-
     public void MainExecution()
+    {
+        UpdateState();
+    }
+
+    public void UpdateState()
     {
         if (!train.myData.CurrentObject)
         {

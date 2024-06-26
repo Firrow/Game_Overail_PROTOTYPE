@@ -6,4 +6,5 @@ using UnityEngine;
 public interface IStateObject
 {
     public void MainExecution();
+    public void UpdateState();
 }
