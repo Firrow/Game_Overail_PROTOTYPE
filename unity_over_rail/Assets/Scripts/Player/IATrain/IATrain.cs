@@ -57,7 +57,7 @@ public class IATrain : Train
         this.choice = 1;
         lastChoice = 1;
 
-        StartCoroutine(GetMyData());
+        myData = this.GetComponent<DataContainer>().MyDataTrain;
 
         // CODER CHOIX IA ENEMY
         //InvokeRepeating("MovementChoice", 0.3f, 0.3f);
@@ -79,15 +79,10 @@ public class IATrain : Train
         Debug.Log("State 2 : " + currentState2);
     }
 
-    IEnumerator GetMyData()
-    {
-        yield return new WaitForSeconds(0.2f);
-        myData = this.GetComponent<DataContainer>().MyDataTrain;
-    }
-
 
     IEnumerator CheckState1()
     {
+        yield return new WaitForSeconds(0.5f);
         if (myData.Health >= MaxHealth / HEALTH_LIMIT_DIVIDED && myData.BulletQuantity >= this.GetComponentInChildren<Weapon>().MaxBulletQuantity/BULLET_LIMIT_DIVIDED)
         {
             currentState1 = State1.Attack;
@@ -96,10 +91,10 @@ public class IATrain : Train
         {
             currentState1 = State1.Defense;
         }
-        yield return new WaitForSeconds(1f);
     }
     IEnumerator CheckState2()
     {
+        yield return new WaitForSeconds(0.5f);
         if (myData.CurrentObject == null)
         {
             currentState2 = State2.DontHaveObject;
@@ -108,7 +103,6 @@ public class IATrain : Train
         {
             currentState2 = State2.HaveObject;
         }
-        yield return new WaitForSeconds(1f);
     }
 
 
