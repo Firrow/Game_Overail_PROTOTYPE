@@ -58,11 +58,14 @@ public class DontHaveObject : IStateObject
         {
             positionToTarget = FindNearestObjectInList(objects);
             Debug.Log(positionToTarget);
+            Debug.Log(objectTarget.name);
         }
         else if (objects.Count == 1)
         {
             positionToTarget = objects[0].SpawnerPosition;
+            objectTarget = objects[0].ObjectOnSpawner;
             Debug.Log(positionToTarget);
+            Debug.Log(objectTarget.name);
         }
     }
 
@@ -70,6 +73,7 @@ public class DontHaveObject : IStateObject
     {
         float distance;
         float tempDistance = 1000000000;
+        GameObject tempObject = null;
         Vector3 position = new Vector3(0, 0, 0);
         //int i = 0;
 
@@ -81,11 +85,13 @@ public class DontHaveObject : IStateObject
             if (distance < tempDistance)
             {
                 tempDistance = distance;
+                tempObject = item.ObjectOnSpawner;
                 position = item.SpawnerPosition;
             }
             //i++;
         }
 
+        objectTarget = tempObject;
         return position;
     }
 }
