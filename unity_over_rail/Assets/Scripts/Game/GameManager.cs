@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     private int PROBABILITY_RARE_OBJECT = 2; //2
 
     public List<GameObject[]> listOfAllObjectLists = new List<GameObject[]>();
-    public List<string> allObjectNames = new List<string>() { "heartObject", "bulletObject", "shieldObject" };
+    public List<string> allObjectNames = new List<string>() { "HeartObject", "BulletObject", "ShieldObject" };
 
 
     private void Start()

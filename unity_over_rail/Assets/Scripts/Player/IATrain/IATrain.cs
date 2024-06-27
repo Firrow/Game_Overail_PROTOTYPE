@@ -21,6 +21,7 @@ public class IATrain : Train
     public DataTrain myData;
     private IStateTrain currentState1;
     private IStateObject currentState2;
+    private GameManager gameManager;
 
 
 
@@ -33,6 +34,8 @@ public class IATrain : Train
     void Start()
     {
         base.Start();
+
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
 
         foreach (GameObject Element in GameObject.FindGameObjectsWithTag("InterfacePlayer"))
         {
@@ -188,6 +191,12 @@ public class IATrain : Train
     {
         get { return playerIndex; }
     }
+
+    public GameManager GameManager
+    {
+        get { return gameManager; }
+    }
+
     public IStateTrain CurrentState1
     {
         get { return currentState1; }

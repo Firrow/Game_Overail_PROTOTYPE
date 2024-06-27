@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using overail.DataSpawner;
 using System;
+using Random = UnityEngine.Random;
 
 public class DontHaveObject : IStateObject
 {
     private IATrain train;
-    private int BULLET_LIMIT_DIVIDED = 6;
+    private int BULLET_LIMIT_DIVIDED = 3;
     private Vector3 positionToTarget;
     private GameObject objectTarget;
 
-    
+    private int chanceToWantToGetObject = 7; // niveau "normal"
+    private string objectToGet = "";
+
+
     public DontHaveObject(IATrain IATrain)
     {
         train = IATrain;
     }
-
 
     public void MainExecution()
     {
@@ -29,6 +32,7 @@ public class DontHaveObject : IStateObject
     {
         if (train.myData.CurrentObject)
         {
+            objectToGet = "";
             train.ChangeState2(new HaveObject(train));
         }
     }
@@ -44,14 +48,22 @@ public class DontHaveObject : IStateObject
     {
         if (train.CurrentState1 is Defense)
         {
-            FindObject("HeartObject"); // Trouve la position de l'objet demandé le plus proche
+            objectToGet = "HeartObject";
         }
         else if (train.myData.BulletQuantity <= (train.GetComponentInChildren<Weapon>().MaxBulletQuantity / BULLET_LIMIT_DIVIDED))
         {
-            FindObject("BulletObject");
+            objectToGet = "BulletObject";
         }
-        // TODO : faire avec les autres situations
-        // IDÉE : Ajouter un type aux objets (défense ou attaque) et chercher un objet de ce type en fonction état de l'IA
+        else // Avoir une certaine chance d'aller chercher un objet au hasard (?)
+        {
+            if (objectToGet == "" && Random.Range(0, chanceToWantToGetObject) == 0)
+            {
+                int indexElement = Random.Range(0, train.GameManager.allObjectNames.Count);
+                objectToGet = train.GameManager.allObjectNames[indexElement];
+            }
+        }
+
+        FindObject(objectToGet);
     }
 
     private void FindObject(string nameObject)
@@ -69,19 +81,11 @@ public class DontHaveObject : IStateObject
         if (objects.Count > 1)
         {
             positionToTarget = FindNearestObjectInList(objects);
-            Debug.Log(positionToTarget);
-            Debug.Log(objectTarget.name);
         }
         else if (objects.Count == 1)
         {
             positionToTarget = objects[0].SpawnerPosition;
             objectTarget = objects[0].ObjectOnSpawner;
-            Debug.Log(positionToTarget);
-            Debug.Log(objectTarget.name);
-        }
-        else
-        {
-            Debug.Log("G RIEN TROUVÉ GNÉ");
         }
     }
 
@@ -91,23 +95,31 @@ public class DontHaveObject : IStateObject
         float tempDistance = 1000000000;
         GameObject tempObject = null;
         Vector3 position = new Vector3(0, 0, 0);
-        //int i = 0;
 
         foreach (var item in objects)
         {
             distance = Vector3.Distance(train.TrainPosition, item.SpawnerPosition);
-            // Debug.Log("Item " + i + " position : " + item.SpawnerPosition);
-            // Debug.Log("Item " + i + " distance : " + distance);
             if (distance < tempDistance)
             {
                 tempDistance = distance;
                 tempObject = item.ObjectOnSpawner;
                 position = item.SpawnerPosition;
             }
-            //i++;
         }
 
         objectTarget = tempObject;
         return position;
     }
+
+
+
+
+
+
+    public int ChanceToWantToGetObject
+    {
+        get { return chanceToWantToGetObject; }
+        set { chanceToWantToGetObject = value; }
+    }
+
 }
