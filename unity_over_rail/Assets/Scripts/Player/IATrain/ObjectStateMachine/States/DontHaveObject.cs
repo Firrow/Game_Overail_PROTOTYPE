@@ -57,15 +57,15 @@ public class DontHaveObject : IStateObject
         if (objects.Count > 1)
         {
             positionToTarget = FindNearestObjectInList(objects);
-            Debug.Log(positionToTarget);
-            Debug.Log(objectTarget.name);
+            //Debug.Log(positionToTarget);
+            //Debug.Log(objectTarget.name);
         }
         else if (objects.Count == 1)
         {
             positionToTarget = objects[0].SpawnerPosition;
             objectTarget = objects[0].ObjectOnSpawner;
-            Debug.Log(positionToTarget);
-            Debug.Log(objectTarget.name);
+            //Debug.Log(positionToTarget);
+            //Debug.Log(objectTarget.name);
         }
     }
 
