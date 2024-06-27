@@ -23,6 +23,7 @@ namespace overail.DataSpawner
 
 
 
+
         public GameObject Spawner
         {
             get { return spawner; }
@@ -45,5 +46,11 @@ namespace overail.DataSpawner
         {
             get { return this.Spawner.GetComponent<SpawnObjects>().ObjectToSpawn; }
         }
+
+        public string ObjectOnSpawnerName
+        {
+            get { return ObjectOnSpawner ? ObjectOnSpawner.name : "";}
+        }
+
     }
 }

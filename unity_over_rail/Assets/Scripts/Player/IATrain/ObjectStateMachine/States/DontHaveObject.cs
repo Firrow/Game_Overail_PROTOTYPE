@@ -2,16 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using overail.DataSpawner;
-
+using System;
 
 public class DontHaveObject : IStateObject
 {
     private IATrain train;
-    private string objectToGet;
     private Vector3 positionToTarget;
+    private GameObject objectTarget;
 
-
-
+    
     public DontHaveObject(IATrain IATrain)
     {
         train = IATrain;
@@ -22,10 +21,7 @@ public class DontHaveObject : IStateObject
     {
         UpdateState();
 
-        if (objectToGet == null)
-        {
-            FindObjectThatIANeed();
-        }
+        FindObjectThatIANeed();
     }
 
     public void UpdateState()
@@ -49,11 +45,10 @@ public class DontHaveObject : IStateObject
     private void FindObject(string nameObject)
     {
         List<DataSpawner> objects = new List<DataSpawner>();
-        
+
         foreach (var spawner in train.GetComponent<DataContainer>().DataSpawners)
         {
-            //TROUVER SI L'OBJET EST PRÉSENT ET SI OUI LEQUEL EST LE PLUS PROCHE SI PLS OBJETS
-            if (spawner.ObjectOnSpawner.name == nameObject)
+            if (spawner.ObjectOnSpawnerName == nameObject)
             {
                 objects.Add(spawner);
             }
@@ -66,11 +61,9 @@ public class DontHaveObject : IStateObject
         }
         else if (objects.Count == 1)
         {
-            //CHECK IT
             positionToTarget = objects[0].SpawnerPosition;
             Debug.Log(positionToTarget);
         }
-        // TODO : FAIRE QUELQUE CHOSE QUAND 0 OBJETS TROUVÉ POUR ÉVITER ERREURS CONSOLE
     }
 
     private Vector3 FindNearestObjectInList(List<DataSpawner> objects)
