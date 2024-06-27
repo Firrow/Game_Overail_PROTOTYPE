@@ -7,6 +7,7 @@ using System;
 public class DontHaveObject : IStateObject
 {
     private IATrain train;
+    private int BULLET_LIMIT_DIVIDED = 6;
     private Vector3 positionToTarget;
     private GameObject objectTarget;
 
@@ -32,11 +33,22 @@ public class DontHaveObject : IStateObject
         }
     }
 
+
+
+
+
+
+
+
     private void FindObjectThatIANeed()
     {
         if (train.CurrentState1 is Defense)
         {
             FindObject("HeartObject"); // Trouve la position de l'objet demandé le plus proche
+        }
+        else if (train.myData.BulletQuantity <= (train.GetComponentInChildren<Weapon>().MaxBulletQuantity / BULLET_LIMIT_DIVIDED))
+        {
+            FindObject("BulletObject");
         }
         // TODO : faire avec les autres situations
         // IDÉE : Ajouter un type aux objets (défense ou attaque) et chercher un objet de ce type en fonction état de l'IA
@@ -57,15 +69,19 @@ public class DontHaveObject : IStateObject
         if (objects.Count > 1)
         {
             positionToTarget = FindNearestObjectInList(objects);
-            //Debug.Log(positionToTarget);
-            //Debug.Log(objectTarget.name);
+            Debug.Log(positionToTarget);
+            Debug.Log(objectTarget.name);
         }
         else if (objects.Count == 1)
         {
             positionToTarget = objects[0].SpawnerPosition;
             objectTarget = objects[0].ObjectOnSpawner;
-            //Debug.Log(positionToTarget);
-            //Debug.Log(objectTarget.name);
+            Debug.Log(positionToTarget);
+            Debug.Log(objectTarget.name);
+        }
+        else
+        {
+            Debug.Log("G RIEN TROUVÉ GNÉ");
         }
     }
 

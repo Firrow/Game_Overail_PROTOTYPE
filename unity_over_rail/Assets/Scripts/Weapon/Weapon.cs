@@ -8,7 +8,7 @@ public class Weapon : MonoBehaviour
     public Transform firePoint;
 
     private int MAX_BULLET_QUANTITY = 30;
-    private int currentBulletQuantity = 15;
+    private int currentBulletQuantity = 15; //15
     private float BULLET_SPEED = 20;
     private float WEAPON_SPEED = 2000;
     private TimeSpan FIRE_RATE = new TimeSpan(0, 0, 0, 0, 150);
