@@ -12,8 +12,11 @@ public class DontHaveObject : IStateObject
     private Vector3 positionToTarget;
     private GameObject objectTarget;
 
-    private int chanceToWantToGetObject = 7; // niveau "normal"
+    private int chanceToWantToGetObject = 6; // niveau "normal"
     private string objectToGet = "";
+
+    private TimeSpan SEARCH_RATE = new TimeSpan(0, 0, 0, 4, 0);
+    private DateTime lastTimeSearch = DateTime.Now;
 
 
     public DontHaveObject(IATrain IATrain)
@@ -56,11 +59,17 @@ public class DontHaveObject : IStateObject
         }
         else // Avoir une certaine chance d'aller chercher un objet au hasard (?)
         {
-            if (objectToGet == "" && Random.Range(0, chanceToWantToGetObject) == 0)
+            // Cherche un objet aléatoire tous les x temps aléatoire aussi --> TROUVER MIEUX
+            /*if (objectToGet == "" && (DateTime.Now - lastTimeSearch >= SEARCH_RATE))
             {
-                int indexElement = Random.Range(0, train.GameManager.allObjectNames.Count);
-                objectToGet = train.GameManager.allObjectNames[indexElement];
-            }
+                lastTimeSearch = DateTime.Now;
+                if (Random.Range(0, chanceToWantToGetObject) == 0)
+                {
+                    int indexElement = Random.Range(0, train.GameManager.allObjectNames.Count);
+                    objectToGet = train.GameManager.allObjectNames[indexElement];
+                    Debug.Log(objectToGet);
+                }
+            }*/
         }
 
         FindObject(objectToGet);
@@ -111,7 +120,8 @@ public class DontHaveObject : IStateObject
         return position;
     }
 
-
+    //------------------------------------------------------------------------------------------------------------------
+    
 
 
 
