@@ -9,6 +9,7 @@ namespace overail.DataTile
     {
         public string directionOfTile;
         public bool containsSpawner;
+        public bool isSwitch;
 
         private Vector3 tilePosition;
         private GameObject tile;
@@ -25,12 +26,13 @@ namespace overail.DataTile
 
 
 
-        public DataTile(GameObject tile, Vector3 tilePosition, string directionOfTile, bool containsSpawner, PositionInMatrix coordinates)
+        public DataTile(GameObject tile, Vector3 tilePosition, string directionOfTile, bool containsSpawner, bool isSwitch, PositionInMatrix coordinates)
         {
             this.tile = tile;
             this.tilePosition = tilePosition;
             this.directionOfTile = directionOfTile;
             this.containsSpawner = containsSpawner;
+            this.isSwitch = containsSpawner;
             this.coordinates = coordinates;
         }
 

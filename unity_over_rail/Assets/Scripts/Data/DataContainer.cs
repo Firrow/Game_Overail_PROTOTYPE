@@ -94,6 +94,7 @@ public class DataContainer : MonoBehaviour
                     tiles[element].transform.position,
                     tiles[element].GetComponent<Tile>().directionOfTile,
                     tiles[element].GetComponent<Tile>().containsSpawner,
+                    tiles[element].GetComponent<Tile>().isSwitch,
                     new DataTile.PositionInMatrix { x = i, y = j }
                 );
                 element++;

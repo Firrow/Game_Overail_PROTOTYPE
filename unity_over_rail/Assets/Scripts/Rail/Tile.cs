@@ -6,4 +6,5 @@ public class Tile : MonoBehaviour
 {
     public string directionOfTile;
     public bool containsSpawner;
+    public bool isSwitch;
 }

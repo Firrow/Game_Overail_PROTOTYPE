@@ -175,6 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   directionOfTile: ESO
   containsSpawner: 0
+  isSwitch: 1
 --- !u!1001 &1303075065425993705
 PrefabInstance:
   m_ObjectHideFlags: 0

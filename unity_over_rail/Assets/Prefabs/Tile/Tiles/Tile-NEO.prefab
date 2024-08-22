@@ -175,6 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   directionOfTile: NEO
   containsSpawner: 0
+  isSwitch: 1
 --- !u!1001 &4886137985105067879
 PrefabInstance:
   m_ObjectHideFlags: 0

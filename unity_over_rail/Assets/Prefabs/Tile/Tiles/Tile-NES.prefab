@@ -175,6 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   directionOfTile: NES
   containsSpawner: 0
+  isSwitch: 1
 --- !u!1001 &1363273177237886757
 PrefabInstance:
   m_ObjectHideFlags: 0
