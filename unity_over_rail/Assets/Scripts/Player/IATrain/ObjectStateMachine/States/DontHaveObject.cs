@@ -4,6 +4,7 @@ using UnityEngine;
 using overail.DataSpawner;
 using System;
 using Random = UnityEngine.Random;
+using overail.IAPath;
 
 public class DontHaveObject : IStateObject
 {
@@ -52,10 +53,12 @@ public class DontHaveObject : IStateObject
         if (train.CurrentState1 is Defense)
         {
             objectToGet = "HeartObject";
+            //Debug.Log("coeur position : " + positionToTarget);
         }
         else if (train.myData.BulletQuantity <= (train.GetComponentInChildren<Weapon>().MaxBulletQuantity / BULLET_LIMIT_DIVIDED))
         {
             objectToGet = "BulletObject";
+            //Debug.Log("balle position : " + positionToTarget);
         }
         else // Avoir une certaine chance d'aller chercher un objet au hasard (?)
         {
@@ -121,8 +124,6 @@ public class DontHaveObject : IStateObject
     }
 
     //------------------------------------------------------------------------------------------------------------------
-    
-
 
 
 

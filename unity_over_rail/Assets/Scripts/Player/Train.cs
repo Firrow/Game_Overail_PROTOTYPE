@@ -43,7 +43,8 @@ public class Train : MonoBehaviour
     {
         //coroutineAllowed = true;
         StartCoroutine(StartGame()); // temporaire
-        currentHealth = MAX_HEALTH;
+        //currentHealth = MAX_HEALTH;
+        currentHealth = 3;
 
         shield = this.gameObject.transform.GetChild(1).gameObject;
         shieldIsActivate = shield.activeSelf;

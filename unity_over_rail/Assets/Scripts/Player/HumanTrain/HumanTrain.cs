@@ -40,6 +40,7 @@ public class HumanTrain : Train
         bulletBar.SetMaxBullet(weapon.GetComponent<Weapon>().MaxBulletQuantity);
         bulletBar.SetBullet(weapon.GetComponent<Weapon>().CurrentBulletQuantity);
         healthBar.SetMaxHealth(MaxHealth);
+        //healthBar.SetHealth(currentHealth); //Lequel choisir ??? (garder SetMaxHealth pour les tests)
 
         ChangeArrowColor(leftArrow.GetComponent<SpriteRenderer>(), rightArrow.GetComponent<SpriteRenderer>());
         this.choice = 1;

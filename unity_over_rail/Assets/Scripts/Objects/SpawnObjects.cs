@@ -32,7 +32,7 @@ public class SpawnObjects : MonoBehaviour
             if (!containsObject)
                 objectToSpawn = null;
 
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(2f); //normalement 8f
             if (!containsObject && Random.Range(0, 3) != 0)
             {
                 containsObject = true;
