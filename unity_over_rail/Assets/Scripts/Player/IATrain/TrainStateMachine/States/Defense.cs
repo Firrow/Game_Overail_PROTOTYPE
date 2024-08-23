@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using overail.IAResearchObject;
+
 
 public class Defense : IStateTrain
 {
@@ -26,4 +28,6 @@ public class Defense : IStateTrain
             train.ChangeState1(new Attack(train));
         }
     }
+
+    //Find Object Heart, Shield
 }

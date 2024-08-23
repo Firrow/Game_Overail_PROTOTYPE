@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace overail.DataTain
+namespace overail.DataTain_
 {
     public class DataTrain
     {

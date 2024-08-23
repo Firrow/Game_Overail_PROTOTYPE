@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 //using Random = UnityEngine.Random;
-using overail.DataTain;
+using overail.DataTain_;
 
 
 
@@ -24,7 +24,7 @@ public class IATrain : Train
 
     public DataTrain myData;
     private IStateTrain currentState1;
-    private IStateObject currentState2;
+    //private IStateObject currentState2;
     private GameManager gameManager;
 
 
@@ -62,7 +62,7 @@ public class IATrain : Train
 
         myData = this.GetComponent<DataContainer>().MyDataTrain;
         currentState1 = new Attack(this); // État par défaut
-        currentState2 = new DontHaveObject(this); // État par défaut
+        //currentState2 = new DontHaveObject(this); // État par défaut
 
         // CODER CHOIX IA ENEMY
         //InvokeRepeating("MovementChoice", 0.3f, 0.3f);
@@ -82,7 +82,9 @@ public class IATrain : Train
         base.FixedUpdate();
 
         currentState1.MainExecution();
-        currentState2.MainExecution();
+        //currentState2.MainExecution();
+
+        Debug.Log(currentState1);
 
         Debug.Log("position objectif : " + TargetPosition);
     }
@@ -97,10 +99,10 @@ public class IATrain : Train
     {
         currentState1 = newState;
     }
-    public void ChangeState2(IStateObject newState)
+    /*public void ChangeState2(IStateObject newState)
     {
         currentState2 = newState;
-    }
+    }*/
 
     public void UpdateTarget(Vector3 newPosition)
     {
@@ -112,8 +114,11 @@ public class IATrain : Train
     {
         if (targetChanged || enterOnSwitch)
         {
+            //DANS PATH : 
             // recalculer la prochaine direction à prendre
             // récupérer le prochain aiguillage + ajouter sécurité au cas ou il n'y a pas d'aiguillage
+
+            //Appeler la fonction dans le fichier path.cs
 
             // remet les flags à false
             targetChanged = false;
@@ -238,10 +243,10 @@ public class IATrain : Train
     {
         get { return currentState1; }
     }
-    public IStateObject CurrentState2
+    /*public IStateObject CurrentState2
     {
         get { return currentState2; }
-    }
+    }*/
 
     public Vector3 TargetPosition
     {

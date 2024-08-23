@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace overail.DataSpawner
+
+namespace overail.DataSpawner_
 {
     public class DataSpawner
     {

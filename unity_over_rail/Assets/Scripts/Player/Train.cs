@@ -43,8 +43,8 @@ public class Train : MonoBehaviour
     {
         //coroutineAllowed = true;
         StartCoroutine(StartGame()); // temporaire
-        //currentHealth = MAX_HEALTH;
-        currentHealth = 3;
+        currentHealth = MAX_HEALTH;
+        //currentHealth = 3;
 
         shield = this.gameObject.transform.GetChild(1).gameObject;
         shieldIsActivate = shield.activeSelf;
@@ -75,7 +75,7 @@ public class Train : MonoBehaviour
         {
             GetNextRoad(collider);
 
-            if (currentTile.GetComponent<Tile>().isSwitch)
+            if (currentTile.GetComponent<Tile>().isSwitch) //donne l'info à l'IA que le train est arrivé à un aiguillage
             {
                 this.OnSwitchEnter();
             }

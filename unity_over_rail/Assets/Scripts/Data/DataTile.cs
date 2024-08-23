@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace overail.DataTile
+namespace overail.DataTile_
 {
     public class DataTile
     {

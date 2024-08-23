@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using overail.DataSpawner;
+using overail.DataSpawner_;
 using System;
 using Random = UnityEngine.Random;
-using overail.IAPath;
 
-public class DontHaveObject : IStateObject
+
+public class DontHaveObject
 {
     private IATrain train;
     private int BULLET_LIMIT_DIVIDED = 3;
@@ -27,19 +27,19 @@ public class DontHaveObject : IStateObject
 
     public void MainExecution()
     {
-        UpdateState();
+        //UpdateState();
 
         FindObjectThatIANeed();
     }
 
-    public void UpdateState()
+    /*public void UpdateState()
     {
         if (train.myData.CurrentObject)
         {
             objectToGet = "";
             train.ChangeState2(new HaveObject(train));
         }
-    }
+    }*/
 
 
 
