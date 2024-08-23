@@ -74,6 +74,11 @@ public class Train : MonoBehaviour
         if (collider.gameObject.tag == "TileTrigger")
         {
             GetNextRoad(collider);
+
+            if (currentTile.GetComponent<Tile>().isSwitch)
+            {
+                this.OnSwitchEnter();
+            }
         }
         else if (collider.gameObject.layer == LayerMask.NameToLayer("Bullets"))
         {
@@ -344,6 +349,11 @@ public class Train : MonoBehaviour
             dataContainer.GetAllTrains();
         }
     }
+
+    // ENTRER SUR UN AIGUILLAGE (par l'IA) ----------------------------------------------------------------------------------------------------------------------
+    public virtual void OnSwitchEnter() { }
+
+
 
 
 

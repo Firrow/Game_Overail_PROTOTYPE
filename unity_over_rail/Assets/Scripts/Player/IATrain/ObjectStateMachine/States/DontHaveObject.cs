@@ -92,11 +92,15 @@ public class DontHaveObject : IStateObject
 
         if (objects.Count > 1)
         {
-            positionToTarget = FindNearestObjectInList(objects);
+            //positionToTarget = FindNearestObjectInList(objects);
+
+            train.UpdateTarget(FindNearestObjectInList(objects));
         }
         else if (objects.Count == 1)
         {
-            positionToTarget = objects[0].SpawnerPosition;
+            //positionToTarget = objects[0].SpawnerPosition;
+            train.UpdateTarget(objects[0].SpawnerPosition);
+
             objectTarget = objects[0].ObjectOnSpawner;
         }
     }
@@ -123,6 +127,9 @@ public class DontHaveObject : IStateObject
         return position;
     }
 
+
+
+
     //------------------------------------------------------------------------------------------------------------------
 
 
@@ -132,5 +139,4 @@ public class DontHaveObject : IStateObject
         get { return chanceToWantToGetObject; }
         set { chanceToWantToGetObject = value; }
     }
-
 }

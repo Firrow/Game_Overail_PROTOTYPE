@@ -16,6 +16,10 @@ public class IATrain : Train
     private int lastChoice;
     private float trainAngle;
 
+    private Vector3 targetPosition;
+    private bool targetChanged = false;
+    private bool enterOnSwitch = false;
+
 
 
     public DataTrain myData;
@@ -79,7 +83,15 @@ public class IATrain : Train
 
         currentState1.MainExecution();
         currentState2.MainExecution();
+
+        Debug.Log("position objectif : " + TargetPosition);
     }
+
+
+
+
+
+
 
     public void ChangeState1(IStateTrain newState)
     {
@@ -90,7 +102,24 @@ public class IATrain : Train
         currentState2 = newState;
     }
 
+    public void UpdateTarget(Vector3 newPosition)
+    {
+        targetChanged = true;
+        targetPosition = newPosition;
+    }
 
+    public void NeedToChangeDirectionToTarget()
+    {
+        if (targetChanged || enterOnSwitch)
+        {
+            // recalculer la prochaine direction à prendre
+            // récupérer le prochain aiguillage + ajouter sécurité au cas ou il n'y a pas d'aiguillage
+
+            // remet les flags à false
+            targetChanged = false;
+            enterOnSwitch = false;
+        }
+    }
 
 
 
@@ -168,6 +197,13 @@ public class IATrain : Train
 
 
 
+
+
+    public override void OnSwitchEnter()
+    {
+        enterOnSwitch = true;
+    }
+
     private void ChangeArrowColor(SpriteRenderer actualArrow, SpriteRenderer otherArrow)
     {
         actualArrow.color = new Color(1, 0, 0, 1);
@@ -205,6 +241,12 @@ public class IATrain : Train
     public IStateObject CurrentState2
     {
         get { return currentState2; }
+    }
+
+    public Vector3 TargetPosition
+    {
+        get { return targetPosition; }
+        set { targetPosition = value; }
     }
 }
 
