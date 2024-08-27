@@ -18,6 +18,7 @@ public class IATrain : Train
     private float trainAngle;
 
     private DataSpawner targetSpawner = null;
+    private ITargetToMove targetToMove = null;
     private Vector3 targetPosition;
     private bool targetChanged = false;
     private bool enterOnSwitch = false;
@@ -103,11 +104,11 @@ public class IATrain : Train
         currentState2 = newState;
     }*/
 
-    public void UpdateTarget(DataSpawner dataSpawner)
+    public void UpdateTarget(ITargetToMove target)
     {
         targetChanged = true;
-        targetSpawner = dataSpawner;
-        targetPosition = dataSpawner.SpawnerPosition;
+        targetToMove = target;
+        targetPosition = target.Position;
         Debug.Log("CHANGE CIBLE");
     }
 

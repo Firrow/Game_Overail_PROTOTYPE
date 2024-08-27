@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace overail.DataSpawner_
 {
-    public class DataSpawner
+    public class DataSpawner : ITargetToMove
     {
         private GameObject spawner;
         private GameObject tileParent;
@@ -37,11 +37,13 @@ namespace overail.DataSpawner_
             set { tileParent = value; }
         }
 
-        public Vector3 SpawnerPosition
+
+        public Vector3 Position
         {
             get { return spawnerPosition; }
             set { spawnerPosition = value; }
         }
+
 
         public GameObject ObjectOnSpawner
         {
@@ -50,7 +52,7 @@ namespace overail.DataSpawner_
 
         public string ObjectOnSpawnerName
         {
-            get { return ObjectOnSpawner ? ObjectOnSpawner.name : "";}
+            get { return ObjectOnSpawner ? ObjectOnSpawner.name : ""; }
         }
 
     }

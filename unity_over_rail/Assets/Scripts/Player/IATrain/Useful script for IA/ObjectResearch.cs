@@ -9,9 +9,6 @@ namespace overail.IAResearchObject
 {
     public class ObjectResearch : MonoBehaviour
     {
-        private static GameObject objectTarget;
-
-
         public static List<DataSpawner> ListObjectsInMap(IATrain train, string nameObject)
         {
             List<DataSpawner> objects = new List<DataSpawner>();
@@ -31,13 +28,11 @@ namespace overail.IAResearchObject
         {
             if (objects.Count > 1)
             {
-                //train.UpdateTarget(FindNearestObjectInList(train, objects));
                 train.UpdateTarget(FindNearestObjectInList(train, objects));
                 return true;
             }
             else if (objects.Count == 1)
             {
-                //train.UpdateTarget(objects[0].SpawnerPosition);
                 train.UpdateTarget(objects[0]);
                 return true;
                 //objectTarget = objects[0].ObjectOnSpawner;
@@ -48,30 +43,6 @@ namespace overail.IAResearchObject
             }
         }
 
-        /*private static Vector3 FindNearestObjectInList(IATrain train, List<DataSpawner> objects)
-        {
-            float distance;
-            float tempDistance = 1000000000;
-            GameObject tempObject = null;
-            Vector3 position = new Vector3(0, 0, 0);
-
-            foreach (var item in objects)
-            {
-                distance = Vector3.Distance(train.TrainPosition, item.SpawnerPosition);
-                if (distance < tempDistance)
-                {
-                    tempDistance = distance;
-                    tempObject = item.ObjectOnSpawner;
-                    position = item.SpawnerPosition;
-                }
-            }
-
-            objectTarget = tempObject;
-
-            Debug.Log(objectTarget.name);
-
-            return position;
-        }*/
 
         private static DataSpawner FindNearestObjectInList(IATrain train, List<DataSpawner> objects)
         {
@@ -83,19 +54,14 @@ namespace overail.IAResearchObject
 
             foreach (var item in objects)
             {
-                distance = Vector3.Distance(train.TrainPosition, item.SpawnerPosition);
+                distance = Vector3.Distance(train.TrainPosition, item.Position);
                 if (distance < tempDistance)
                 {
                     tempDistance = distance;
-                    tempObject = item.ObjectOnSpawner;
                     tempspawner = item;
-                    position = item.SpawnerPosition;
+                    position = item.Position;
                 }
             }
-
-            objectTarget = tempObject; //utile ?
-
-            Debug.Log(tempspawner.ObjectOnSpawnerName);
 
             return tempspawner;
         }

@@ -31,11 +31,6 @@ public class DataContainer : MonoBehaviour
         GetAllSpawners();
 
         GetAllTrains();
-
-        /*foreach (var dt in dataSpawners)
-        {
-            Debug.Log(dt.SpawnerPosition); 
-        }*/
     }
 
     private void Update()
