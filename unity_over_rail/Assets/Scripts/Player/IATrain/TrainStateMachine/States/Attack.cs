@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using overail.IAResearchObject;
+using overail.DataSpawner_;
 
 
 public class Attack : IStateTrain
@@ -10,6 +11,7 @@ public class Attack : IStateTrain
     private int HEALTH_LIMIT_DIVIDED = 2;
     private int BULLET_LIMIT_DIVIDED = 6;
     private bool objectIsFind = false;
+    List<DataSpawner> objects;
 
 
     public Attack(IATrain IATrain)
@@ -21,7 +23,10 @@ public class Attack : IStateTrain
     {
         UpdateState();
 
-        RequiredObject();
+        if (train.CurrentItem is null)
+        {
+            RequiredObject();
+        }
     }
 
     public void UpdateState()
@@ -34,13 +39,14 @@ public class Attack : IStateTrain
 
     private void RequiredObject()
     {
-        if (!objectIsFind)
+        if (train.myData.BulletQuantity <= (train.GetComponentInChildren<Weapon>().MaxBulletQuantity / BULLET_LIMIT_DIVIDED))
         {
-            if (train.myData.BulletQuantity <= (train.GetComponentInChildren<Weapon>().MaxBulletQuantity / BULLET_LIMIT_DIVIDED))
-            {
-                Debug.Log("J'AI BESOIN DE BULLETS");
-                objectIsFind = ObjectResearch.FindObject(train, "BulletObject");
-            }
+            //objects = new List<DataSpawner>();
+            Debug.Log("J'AI BESOIN DE BULLETS");
+
+            objects = ObjectResearch.ListObjectsInMap(train, "BulletObject");
+
+            objectIsFind = ObjectResearch.FindTargetInObjects(objects, train);
         }
 
     }

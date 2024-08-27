@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 //using Random = UnityEngine.Random;
 using overail.DataTain_;
+using overail.DataSpawner_;
 
 
 
@@ -16,6 +17,7 @@ public class IATrain : Train
     private int lastChoice;
     private float trainAngle;
 
+    private DataSpawner targetSpawner = null;
     private Vector3 targetPosition;
     private bool targetChanged = false;
     private bool enterOnSwitch = false;
@@ -83,9 +85,6 @@ public class IATrain : Train
 
         currentState1.MainExecution();
         //currentState2.MainExecution();
-
-        Debug.Log(currentState1);
-
         Debug.Log("position objectif : " + TargetPosition);
     }
 
@@ -104,10 +103,12 @@ public class IATrain : Train
         currentState2 = newState;
     }*/
 
-    public void UpdateTarget(Vector3 newPosition)
+    public void UpdateTarget(DataSpawner dataSpawner)
     {
         targetChanged = true;
-        targetPosition = newPosition;
+        targetSpawner = dataSpawner;
+        targetPosition = dataSpawner.SpawnerPosition;
+        Debug.Log("CHANGE CIBLE");
     }
 
     public void NeedToChangeDirectionToTarget()

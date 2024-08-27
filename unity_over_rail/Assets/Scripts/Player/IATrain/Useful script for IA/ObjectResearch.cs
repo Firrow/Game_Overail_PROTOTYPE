@@ -12,7 +12,7 @@ namespace overail.IAResearchObject
         private static GameObject objectTarget;
 
 
-        public static bool FindObject(IATrain train, string nameObject)
+        public static List<DataSpawner> ListObjectsInMap(IATrain train, string nameObject)
         {
             List<DataSpawner> objects = new List<DataSpawner>();
 
@@ -24,14 +24,21 @@ namespace overail.IAResearchObject
                 }
             }
 
+            return objects;
+        }
+
+        public static bool FindTargetInObjects(List<DataSpawner> objects, IATrain train)
+        {
             if (objects.Count > 1)
             {
+                //train.UpdateTarget(FindNearestObjectInList(train, objects));
                 train.UpdateTarget(FindNearestObjectInList(train, objects));
                 return true;
             }
             else if (objects.Count == 1)
             {
-                train.UpdateTarget(objects[0].SpawnerPosition);
+                //train.UpdateTarget(objects[0].SpawnerPosition);
+                train.UpdateTarget(objects[0]);
                 return true;
                 //objectTarget = objects[0].ObjectOnSpawner;
             }
@@ -41,7 +48,7 @@ namespace overail.IAResearchObject
             }
         }
 
-        private static Vector3 FindNearestObjectInList(IATrain train, List<DataSpawner> objects)
+        /*private static Vector3 FindNearestObjectInList(IATrain train, List<DataSpawner> objects)
         {
             float distance;
             float tempDistance = 1000000000;
@@ -59,11 +66,38 @@ namespace overail.IAResearchObject
                 }
             }
 
-            //objectTarget = tempObject;
+            objectTarget = tempObject;
 
             Debug.Log(objectTarget.name);
 
             return position;
+        }*/
+
+        private static DataSpawner FindNearestObjectInList(IATrain train, List<DataSpawner> objects)
+        {
+            float distance;
+            float tempDistance = 1000000000;
+            GameObject tempObject = null;
+            DataSpawner tempspawner = null;
+            Vector3 position = new Vector3(0, 0, 0);
+
+            foreach (var item in objects)
+            {
+                distance = Vector3.Distance(train.TrainPosition, item.SpawnerPosition);
+                if (distance < tempDistance)
+                {
+                    tempDistance = distance;
+                    tempObject = item.ObjectOnSpawner;
+                    tempspawner = item;
+                    position = item.SpawnerPosition;
+                }
+            }
+
+            objectTarget = tempObject; //utile ?
+
+            Debug.Log(tempspawner.ObjectOnSpawnerName);
+
+            return tempspawner;
         }
 
     }
