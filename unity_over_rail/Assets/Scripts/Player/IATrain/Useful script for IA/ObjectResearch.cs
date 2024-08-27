@@ -35,7 +35,6 @@ namespace overail.IAResearchObject
             {
                 train.UpdateTarget(objects[0]);
                 return true;
-                //objectTarget = objects[0].ObjectOnSpawner;
             }
             else
             {

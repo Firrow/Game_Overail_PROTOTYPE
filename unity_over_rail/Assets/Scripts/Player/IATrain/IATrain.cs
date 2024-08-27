@@ -17,8 +17,7 @@ public class IATrain : Train
     private int lastChoice;
     private float trainAngle;
 
-    private DataSpawner targetSpawner = null;
-    private ITargetToMove targetToMove = null;
+    public ITargetToMove targetToMove = null;
     private Vector3 targetPosition;
     private bool targetChanged = false;
     private bool enterOnSwitch = false;
@@ -27,7 +26,6 @@ public class IATrain : Train
 
     public DataTrain myData;
     private IStateTrain currentState1;
-    //private IStateObject currentState2;
     private GameManager gameManager;
 
 
@@ -57,6 +55,7 @@ public class IATrain : Train
         bulletBar.SetBullet(weapon.GetComponent<Weapon>().CurrentBulletQuantity);
         healthBar.SetMaxHealth(MaxHealth);
         // healthBar.SetHealth(currentHealth); //Lequel choisir ??? (garder SetMaxHealth pour les tests)
+        // TODO : voir pour mettre à jour automatiquement la barre de vie lorsque la valeur est changée dans IATrain
 
         //ChangeArrowColor(leftArrow.GetComponent<SpriteRenderer>(), rightArrow.GetComponent<SpriteRenderer>());
         this.choice = 1;
@@ -85,8 +84,6 @@ public class IATrain : Train
         base.FixedUpdate();
 
         currentState1.MainExecution();
-        //currentState2.MainExecution();
-        Debug.Log("position objectif : " + TargetPosition);
     }
 
 
@@ -99,10 +96,7 @@ public class IATrain : Train
     {
         currentState1 = newState;
     }
-    /*public void ChangeState2(IStateObject newState)
-    {
-        currentState2 = newState;
-    }*/
+
 
     public void UpdateTarget(ITargetToMove target)
     {

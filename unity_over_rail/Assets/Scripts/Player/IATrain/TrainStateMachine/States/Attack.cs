@@ -41,15 +41,16 @@ public class Attack : IStateTrain
     {
         if (train.myData.BulletQuantity <= (train.GetComponentInChildren<Weapon>().MaxBulletQuantity / BULLET_LIMIT_DIVIDED))
         {
-            //objects = new List<DataSpawner>();
             Debug.Log("J'AI BESOIN DE BULLETS");
 
-            objects = ObjectResearch.ListObjectsInMap(train, "BulletObject");
+            DataSpawner targetDataSpawner = train.targetToMove as DataSpawner;
 
-            objectIsFind = ObjectResearch.FindTargetInObjects(objects, train);
+            // Dans le cas où l'on recalcule la balle la plus proche car la précédente à disparue
+            if (targetDataSpawner == null || targetDataSpawner.ObjectOnSpawnerName != "BulletObject")
+            {
+                objects = ObjectResearch.ListObjectsInMap(train, "BulletObject");
+                objectIsFind = ObjectResearch.FindTargetInObjects(objects, train);
+            }
         }
-
     }
-
-    //Find Object Bullet si nombre de balle (train.GetComponentInChildren<Weapon>().MaxBulletQuantity / BULLET_LIMIT_DIVIDED) avec private int BULLET_LIMIT_DIVIDED = 3;
 }
