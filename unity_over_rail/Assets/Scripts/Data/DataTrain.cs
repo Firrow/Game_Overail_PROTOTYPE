@@ -24,7 +24,15 @@ namespace overail.DataTain_
         {
             get { return this.train.GetComponent<Train>().TrainPosition; }
         }
-
+        // public DataTile CurrentTile // TODO: Convert this Tile into DataTile
+        public Tile CurrentTile
+        {
+            get { return this.train.GetComponent<Train>().CurrentTile.GetComponent<Tile>(); }
+        }
+        public string FromDirection
+        {
+            get { return this.train.GetComponent<Train>().fromDirection; }
+        }
         public bool ShieldIsActivate
         {
             get { return this.train.GetComponent<Train>().ShieldIsActivate; }
@@ -47,6 +55,7 @@ namespace overail.DataTain_
         {
             get { return this.train.GetComponentInChildren<Weapon>().CurrentBulletQuantity; }
         }
+
 
     }
 }

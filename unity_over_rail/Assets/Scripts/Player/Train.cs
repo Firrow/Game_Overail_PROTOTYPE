@@ -366,6 +366,11 @@ public class Train : MonoBehaviour
     {
         get { return trainPosition; }
     }
+    public GameObject CurrentTile
+    {
+        get { return currentTile; }
+        set { currentTile = value; }
+    }
 
     public float Velocity
     {

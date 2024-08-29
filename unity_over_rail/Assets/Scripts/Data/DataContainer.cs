@@ -7,7 +7,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
+/// <summary>
+/// Represents a data layer for AI, like Models in a MVC framework.
+/// This layer allow AI to access all the information it might need, regardless of how it accesses it.
+/// DataContainer is the main entry point of data for IATrain
+/// </summary>
 public class DataContainer : MonoBehaviour
 {
     private List<DataTrain> dataTrains = new List<DataTrain>();
@@ -35,10 +39,7 @@ public class DataContainer : MonoBehaviour
 
     private void Update()
     {
-        /*foreach (var dt in dataSpawners)
-        {
-            //Debug.Log(dt.ObjectOnSpawner.name);
-        }*/
+
     }
 
 
@@ -74,6 +75,7 @@ public class DataContainer : MonoBehaviour
 
     private void CreateTileMatrix()
     {
+        GridLayout grid = GameObject.FindObjectOfType<GridLayout>();
         tiles = GameObject.FindGameObjectsWithTag("Tile");
         int lineCount = GameObject.Find("TilemapRails").transform.childCount;
         int columnCount = GameObject.Find("TilemapRails").transform.GetChild(1).transform.childCount; //on ne prend pas la première ligne pour le GetChild() car 2 cases en plus
@@ -86,7 +88,7 @@ public class DataContainer : MonoBehaviour
             {
                 tileMatrix[i, j] = new DataTile(
                     tiles[element].gameObject,
-                    tiles[element].transform.position,
+                    grid.CellToWorld(grid.WorldToCell(tiles[element].transform.position)),
                     tiles[element].GetComponent<Tile>().directionOfTile,
                     tiles[element].GetComponent<Tile>().containsSpawner,
                     tiles[element].GetComponent<Tile>().isSwitch,

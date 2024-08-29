@@ -41,8 +41,6 @@ public class Attack : IStateTrain
     {
         if (train.myData.BulletQuantity <= (train.GetComponentInChildren<Weapon>().MaxBulletQuantity / BULLET_LIMIT_DIVIDED))
         {
-            Debug.Log("J'AI BESOIN DE BULLETS");
-
             DataSpawner targetDataSpawner = train.targetToMove as DataSpawner;
 
             // Dans le cas où l'on recalcule la balle la plus proche car la précédente à disparue

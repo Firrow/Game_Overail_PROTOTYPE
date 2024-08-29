@@ -18,6 +18,7 @@ TagManager:
   - Shield
   - InterfacePlayer
   - TileTrigger
+  - Grid
   layers:
   - Default
   - TransparentFX

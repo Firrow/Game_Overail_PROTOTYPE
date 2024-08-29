@@ -1,8 +1,9 @@
 using System.Collections;
 using UnityEngine;
-//using Random = UnityEngine.Random;
 using overail.DataTain_;
+using overail.DataTile_;
 using overail.DataSpawner_;
+using overail.IAPathResearch;
 
 
 
@@ -64,7 +65,6 @@ public class IATrain : Train
 
         myData = this.GetComponent<DataContainer>().MyDataTrain;
         currentState1 = new Attack(this); // État par défaut
-        //currentState2 = new DontHaveObject(this); // État par défaut
 
         // CODER CHOIX IA ENEMY
         //InvokeRepeating("MovementChoice", 0.3f, 0.3f);
@@ -84,6 +84,9 @@ public class IATrain : Train
         base.FixedUpdate();
 
         currentState1.MainExecution();
+        NeedToChangeDirectionToTarget();
+
+        GetNextSwitchOnMap();
     }
 
 
@@ -104,6 +107,7 @@ public class IATrain : Train
         targetToMove = target;
         targetPosition = target.Position;
         Debug.Log("CHANGE CIBLE");
+        Debug.Log(targetPosition);
     }
 
     public void NeedToChangeDirectionToTarget()
@@ -114,7 +118,7 @@ public class IATrain : Train
             // recalculer la prochaine direction à prendre
             // récupérer le prochain aiguillage + ajouter sécurité au cas ou il n'y a pas d'aiguillage
 
-            //Appeler la fonction dans le fichier path.cs
+            //PathResearch.GetNextDirection(this); //return numéro de la direction
 
             // remet les flags à false
             targetChanged = false;
@@ -124,6 +128,38 @@ public class IATrain : Train
 
 
 
+    // -------------------------------------------
+    public static void GetNextDirection()
+    {
+        Debug.Log("NEXTDIRECTION");
+
+        //GetNextDirectionRecursive(train);
+    }
+
+    private void GetNextDirectionRecursive()
+    {
+
+    }
+
+    private void GetNextSwitchOnMap()
+    {
+        GridLayout grid = GameObject.FindObjectOfType<GridLayout>();
+        Vector3 tmp = grid.CellToWorld(grid.WorldToCell(this.myData.Position));
+        Debug.Log("Positions : " + tmp);
+        /*Tile currentTile = this.myData.CurrentTile;
+        Tile nextTile;
+        string fromDirectionTrain = this.myData.FromDirection;
+
+        if (currentTile.isSwitch) //utile ?
+        {
+            return currentTile;
+        }
+        else
+        {
+            currentTile
+        }*/
+
+    }
 
     // --------------------------------------------------------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------- ACTION IN GAME (traitement du choix) --------------------------------------------------------------------------------
