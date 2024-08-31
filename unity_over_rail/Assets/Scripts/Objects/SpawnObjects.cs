@@ -2,15 +2,18 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// Script managing the appearance of objects on spawners
+/// </summary>
 
 public class SpawnObjects : MonoBehaviour
 {
-    // NOTE : Est ce qu'il ne faudrait pas supprimer containsObject et juste check si objectToSpawn est null ou pas ?
-    private bool containsObject = false;
-    private bool coroutineIsAllowed = false;
     IEnumerator waitBeforeSpawn;
+    private bool containsObject = false; // TODO : Est ce qu'il ne faudrait pas supprimer containsObject et juste check si objectToSpawn est null ou pas ?
+    private bool coroutineIsAllowed = false;
     private GameManager gameManager;
     private GameObject objectToSpawn;
+
 
 
     public void Start()
@@ -24,6 +27,8 @@ public class SpawnObjects : MonoBehaviour
         waitBeforeSpawn = SpawnObject();
         StartCoroutine(waitBeforeSpawn);
     }
+
+
 
     IEnumerator SpawnObject()
     {
@@ -58,7 +63,6 @@ public class SpawnObjects : MonoBehaviour
 
 
 
-
     public bool ContainsObject
     {
         get { return containsObject; }
@@ -69,5 +73,4 @@ public class SpawnObjects : MonoBehaviour
     {
         get { return objectToSpawn; }
     }
-
 }

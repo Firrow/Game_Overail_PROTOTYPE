@@ -1,15 +1,21 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Main script to managing trains (players and IA)
+/// TODO : ranger le script et ses deux enfants !
+/// </summary>
 
 public class Train : MonoBehaviour
 {
-    public string fromDirection; // permettre de le determiner automatiquement //public à remplacer par private + SerializeField ?
+    protected float SPEED = 1;
+    private int MAX_HEALTH = 10;
+
+    public string fromDirection; // TODO : permettre de le determiner automatiquement //TODO : public à remplacer par private + SerializeField ?
 
     [SerializeField]
     protected GameObject weapon;
     protected int trainIndex;
-    protected float SPEED = 1;
     protected float accelerate = 0f;
     protected bool increaseAcceleration = false;
     protected bool decreaseAcceleration = false;
@@ -21,7 +27,6 @@ public class Train : MonoBehaviour
     protected ObjectSlot objectSlot;
     protected float angle = 0f;
 
-
     private GameObject currentTile;
     private Transform nextRoad;
     private bool coroutineAllowed = false;
@@ -29,14 +34,13 @@ public class Train : MonoBehaviour
     private float velocity;
     private bool isStopped = false;
     private SpawnObjects spawner;
-    private int MAX_HEALTH = 10;
     private bool shieldIsActivate;
     private GameObject shield;
-
     // deplacements mathematique
     private float tParam = 0f;
     private Vector3 trainPosition;
     private Quaternion rotationMemory;
+
 
 
     protected void Start()
@@ -67,8 +71,10 @@ public class Train : MonoBehaviour
 
 
 
+    // --------------------------------------------------------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------- DEPLACEMENTS -----------------------------------------------------------------------
+    // --------------------------------------------------------------------------------------------------------------------------------------------------
 
-    // DEPLACEMENT --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.gameObject.tag == "TileTrigger")
@@ -100,7 +106,7 @@ public class Train : MonoBehaviour
         {
             TakeDamage(MAX_HEALTH);
 
-            //Undisplay values in interface player
+            // Undisplay values in interface player
             ResetInterface();
         }
     }
@@ -116,7 +122,6 @@ public class Train : MonoBehaviour
     private void GetNextRoad(Collider2D collider)
     {
         // DETERMINER LA DIRECTION-----------------------------------------
-        // recuperation de la tuile actuelle
         currentTile = collider.transform.parent.gameObject;
 
         reversePoints = false;
@@ -127,7 +132,7 @@ public class Train : MonoBehaviour
 
 
         // DETERMINER LA BONNE ROUTE-----------------------------------------
-        // recuperer la prochaine route en fonction du nom et l'ajoute a la liste
+        // get next route by name and add it to list
         string nameNextRoad = fromDirection + _goDirection;
         if (currentTile.transform.Find(nameNextRoad) == null)
         {
@@ -137,6 +142,7 @@ public class Train : MonoBehaviour
 
         nextRoad = currentTile.transform.Find(nameNextRoad);
 
+        // set fromDirection
         switch (_goDirection)
         {
             case "N":
@@ -154,32 +160,44 @@ public class Train : MonoBehaviour
         }
     }
 
-    // recupere les directions possibles
+    /// <summary>
+    /// Get possible directions
+    /// </summary>
+    /// <param name="actualTile"></param>
+    /// <returns> directions of current tile </returns>
     private string GetPossibleDirections(GameObject actualTile)
     {
         return actualTile.GetComponent<Tile>().directionOfTile;
     }
 
-
-    // calcul index de la direction de provenance du joueur dans la liste des directions de la tuile
+    /// <summary>
+    /// Index calculation of the player's direction of origin in the list of tile directions
+    /// </summary>
+    /// <param name="allDirections"></param>
+    /// <param name="previousDirection"></param>
+    /// <returns> Index of fromDirection </returns>
     private int GetIndexDirection(string allDirections, string previousDirection)
     {
         return allDirections.IndexOf(previousDirection);
     }
 
-
-    // determine la prochaine direction
+    /// <summary>
+    /// Determine the next direction
+    /// </summary>
+    /// <param name="indexOriginDirection"></param>
+    /// <param name="playerDirection"></param>
+    /// <param name="allPossibleDirections"></param>
+    /// <returns> Directions the train can take to get out of the tile </returns>
     private string GetDirection(int indexOriginDirection, int playerDirection, string allPossibleDirections)
     {
         int i = indexOriginDirection + playerDirection;
         return allPossibleDirections.Substring((i + allPossibleDirections.Length) % allPossibleDirections.Length, 1);
     }
 
-
     /// <summary>
-    /// Coroutine permettant au train de naviguer sur la courbe de bezier
+    /// Coroutine allowing the train to navigate on the bezier curve
     /// </summary>
-    /// <returns>Delay avant le prochain appel de la coroutine</returns>
+    /// <returns> Delay before the next coroutine call </returns>
     public IEnumerator GoByTheRoute()
     {
         Vector3 p0;
@@ -189,15 +207,15 @@ public class Train : MonoBehaviour
 
         coroutineAllowed = false;
 
-        // recuperation des positions des points dans bon sens
-        if (reversePoints == true) // sens inverse
+        // recovery of point positions in the right direction
+        if (reversePoints == true) // reverse direction
         {
             p0 = nextRoad.Find("p4").position;
             p1 = nextRoad.Find("p3").position;
             p2 = nextRoad.Find("p2").position;
             p3 = nextRoad.Find("p1").position;
         }
-        else // sens definit dans editeur
+        else // meaning defined in editor
         {
             p0 = nextRoad.Find("p1").position;
             p1 = nextRoad.Find("p2").position;
@@ -213,48 +231,42 @@ public class Train : MonoBehaviour
             {
                 rotationMemory = this.transform.rotation;
 
-                // la position de la forme prend la valeur de la courbe
+                // the train position takes the value of the curve
                 trainPosition = Mathf.Pow(1 - tParam, 3) * p0 +
                                   3 * Mathf.Pow(1 - tParam, 2) * tParam * p1 +
                                   3 * (1 - tParam) * Mathf.Pow(tParam, 2) * p2 +
                                   Mathf.Pow(tParam, 3) * p3;
 
-
-
-                // Rotation de la forme en fonction de la direction de la courbe
-                // creation vecteur de deplacement (grace actuelle et nouvelle position) > creation angle > rotation de l'angle en z seulement
+                // Shape rotation according to curve direction : create displacement vector(current and new position) > create angle
                 Vector3 dir = new Vector3(trainPosition.x - transform.position.x, trainPosition.y - transform.position.y, 0.0f);
-                angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+                angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg; 
 
                 // Stockage de la rotation correcte
-                rotationMemory = Quaternion.Euler(0, 0, Mathf.Round(angle));
+                rotationMemory = Quaternion.Euler(0, 0, Mathf.Round(angle)); // rotate angle in z only
 
-                // Décorreler la rotation de l'arme et du train
+                // Decorrect gun and train rotation
                 float delta = (angle - transform.rotation.eulerAngles.z) % 360;
                 weapon.GetComponent<Weapon>().FixWeaponRotation(delta);
             }
 
-            // changement de position du train
+            // Update train position and rotation
             transform.position = trainPosition;
-            // Appliquer la rotation au train
             transform.rotation = rotationMemory;
 
             yield return new WaitForEndOfFrame();
         }
 
-        // MAJ des parametres apres le deplacement
         tParam = 0;
         coroutineAllowed = true;
     }
 
+    // --------------------------------------------------------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------- HEALTH -----------------------------------------------------------------------------
+    // --------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-
-
-    // HEALTH --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     public void TakeDamage(int damage)
     {
-        currentHealth -= damage; //a voir pour la valeur des degats
+        currentHealth -= damage;
 
         if (currentHealth <= 0)
         {
@@ -262,12 +274,14 @@ public class Train : MonoBehaviour
             CallGetAllTrains();
             Destroy(this.gameObject);
         }
+
         healthBar.GetComponent<HealthBar>().SetHealth(currentHealth);
     }
 
+    // --------------------------------------------------------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------- SPEED MANAGER ----------------------------------------------------------------------
+    // --------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-    // SPEED MANAGER ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     private void ManageAcceleration()
     {
         if (increaseAcceleration)
@@ -290,6 +304,7 @@ public class Train : MonoBehaviour
                 accelerate += 0.01f;
         }
     }
+
     private void DecreaseAccelerate()
     {
         if (velocity > 0.02f)
@@ -298,10 +313,10 @@ public class Train : MonoBehaviour
             isStopped = true;
     }
 
+    // --------------------------------------------------------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------- MANAGE OBJECTS ---------------------------------------------------------------------
+    // --------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-
-    // MANAGE OBJECTS ---------------------------------------------------------------------------------------------------------------
     private void ManageObjects(GameObject itemCollided)
     {
         if (!(shieldIsActivate && itemCollided.GetComponent<ShieldObject>())) // case of player take shield item when he already have shield on him
@@ -323,8 +338,11 @@ public class Train : MonoBehaviour
         Destroy(itemCollided.gameObject);
     }
 
-    // INTERFACE -------------------------------------------------------------------------------------------------------------------------------------
-    private void ResetInterface()
+    // --------------------------------------------------------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------- INTERFACE --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------------------------------------------------------------------------------
+    
+    private void ResetInterface() //TODO : Besoin de reset la healthbar ???
     {
         bulletBar.GetComponent<BulletBar>().SetBullet(0);
         objectSlot.GetComponent<ObjectSlot>().UndisplayActualObject();
@@ -332,14 +350,15 @@ public class Train : MonoBehaviour
 
 
     // TEMPORAIRE START PARTIE ---------------------------------------------------------------------------------------------------------------
-    // temporaire car fonction décompte quand jeu plus avancé
-    private IEnumerator StartGame()
+    private IEnumerator StartGame() //TODO : temporary because countdown function when game is more advanced
     {
         yield return new WaitForSeconds(0.1f);
         coroutineAllowed = true;
     }
 
-    // APPEL MAJ Datatrain quand train détruit ----------------------------------------------------------------------------------------------------------------------------
+    /// <summary>
+    /// Call function in DataContainer to relist all trains
+    /// </summary>
     private void CallGetAllTrains()
     {
         this.tag = "Untagged";
@@ -350,10 +369,10 @@ public class Train : MonoBehaviour
         }
     }
 
-    // ENTRER SUR UN AIGUILLAGE (par l'IA) ----------------------------------------------------------------------------------------------------------------------
+    /// <summary>
+    /// Entering on a switch (by IA)
+    /// </summary>
     public virtual void OnSwitchEnter() { }
-
-
 
 
 
@@ -366,6 +385,7 @@ public class Train : MonoBehaviour
     {
         get { return trainPosition; }
     }
+
     public GameObject CurrentTile
     {
         get { return currentTile; }
@@ -376,7 +396,6 @@ public class Train : MonoBehaviour
     {
         get { return velocity; }
     }
-
 
     public GameObject CurrentItem
     {
@@ -400,5 +419,4 @@ public class Train : MonoBehaviour
         get { return shieldIsActivate; }
         set { shieldIsActivate = value; }
     }
-
 }

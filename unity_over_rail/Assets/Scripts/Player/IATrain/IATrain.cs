@@ -3,32 +3,28 @@ using UnityEngine;
 using overail.DataTain_;
 using overail.DataTile_;
 using overail.DataSpawner_;
-using overail.IAPathResearch;
+using overail.IAPathResearch_;
 
-
+/// <summary>
+/// Script with all function for IA players only.
+/// </summary>
 
 public class IATrain : Train
 {
-    // Flèches (circle actuellement)
+    public ITargetToMove targetToMove = null;
     public GameObject leftArrow;
     public GameObject rightArrow;
+    public DataTrain myData;
 
+    private IStateTrain currentState;
     [SerializeField]
     private int playerIndex = 0;
     private int lastChoice;
     private float trainAngle;
-
-    public ITargetToMove targetToMove = null;
     private Vector3 targetPosition;
     private bool targetChanged = false;
     private bool enterOnSwitch = false;
-
-
-
-    public DataTrain myData;
-    private IStateTrain currentState1;
     private GameManager gameManager;
-
 
 
 
@@ -42,7 +38,10 @@ public class IATrain : Train
         base.Start();
 
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        myData = this.GetComponent<DataContainer>().MyDataTrain;
+        currentState = new Attack(this);
 
+        // Get the right interface
         foreach (GameObject Element in GameObject.FindGameObjectsWithTag("InterfacePlayer"))
         {
             if (Element.GetComponent<InterfacePlayer>().index == playerIndex)
@@ -52,26 +51,18 @@ public class IATrain : Train
                 this.objectSlot = Element.GetComponent<InterfacePlayer>().objectSlotPlayer.GetComponent<ObjectSlot>();
             }
         }
+
+        // Set this interface
         bulletBar.SetMaxBullet(weapon.GetComponent<Weapon>().MaxBulletQuantity);
         bulletBar.SetBullet(weapon.GetComponent<Weapon>().CurrentBulletQuantity);
         healthBar.SetMaxHealth(MaxHealth);
         // healthBar.SetHealth(currentHealth); //Lequel choisir ??? (garder SetMaxHealth pour les tests)
         // TODO : voir pour mettre à jour automatiquement la barre de vie lorsque la valeur est changée dans IATrain
 
+        // Set the default arrow
         //ChangeArrowColor(leftArrow.GetComponent<SpriteRenderer>(), rightArrow.GetComponent<SpriteRenderer>());
         this.choice = 1;
         lastChoice = 1;
-
-
-        myData = this.GetComponent<DataContainer>().MyDataTrain;
-        currentState1 = new Attack(this); // État par défaut
-
-        // CODER CHOIX IA ENEMY
-        //InvokeRepeating("MovementChoice", 0.3f, 0.3f);
-
-        //ArrowColor(cGauche.GetComponent<SpriteRenderer>(), cDroit.GetComponent<SpriteRenderer>(), 1);
-
-
     }
 
     void Update()
@@ -83,7 +74,7 @@ public class IATrain : Train
     {
         base.FixedUpdate();
 
-        currentState1.MainExecution();
+        currentState.MainExecution();
         NeedToChangeDirectionToTarget();
 
         GetNextSwitchOnMap();
@@ -91,15 +82,10 @@ public class IATrain : Train
 
 
 
-
-
-
-
-    public void ChangeState1(IStateTrain newState)
+    public void ChangeState(IStateTrain newState)
     {
-        currentState1 = newState;
+        currentState = newState;
     }
-
 
     public void UpdateTarget(ITargetToMove target)
     {
@@ -126,13 +112,9 @@ public class IATrain : Train
         }
     }
 
-
-
-    // -------------------------------------------
     public static void GetNextDirection()
     {
         Debug.Log("NEXTDIRECTION");
-
         //GetNextDirectionRecursive(train);
     }
 
@@ -164,6 +146,7 @@ public class IATrain : Train
     // --------------------------------------------------------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------- ACTION IN GAME (traitement du choix) --------------------------------------------------------------------------------
     // --------------------------------------------------------------------------------------------------------------------------------------------------
+    
     public void PlayerChoiceDirection(int movementInput) //0 ; 1 ; -1
     {
         /*if (movementInput == 0)
@@ -185,7 +168,6 @@ public class IATrain : Train
         Debug.Log("CHOIX DIRECTION");
     }
 
-
     public void PlayerIncreaseVelocity(bool isAccelerate) // true ; false
     {
         /*if (isAccelerate)
@@ -194,6 +176,7 @@ public class IATrain : Train
             increaseAcceleration = false;*/
         Debug.Log("AUGMENTE VELOCITY");
     }
+
     public void PlayerDecreaseVelocity(bool isDecelerate) // true ; false
     {
         /*if (isDecelerate)
@@ -202,7 +185,6 @@ public class IATrain : Train
             decreaseAcceleration = false;*/
         Debug.Log("DIMINUE VELOCITY");
     }
-
 
     public void PlayerMoveWeapon(Vector2 target) // position de la cible à atteindre
     {
@@ -228,14 +210,6 @@ public class IATrain : Train
         Debug.Log("UTILISE OBJET");
     }
 
-
-
-
-
-
-
-
-
     public override void OnSwitchEnter()
     {
         enterOnSwitch = true;
@@ -247,18 +221,11 @@ public class IATrain : Train
         otherArrow.color = new Color(1, 0, 0, 0);
     }
 
-
-    // IA ALÉATOIRE A TESTER
-    /*private void MovementChoice()
-    {
-        int random = Random.Range(0, 2);
-        this.choice = (random == 0) ? -1 : 1;
-    }
-
-    public new void TakeDamage(int damage)
+    /*public new void TakeDamage(int damage)
     {
         base.TakeDamage(damage);
     }*/
+
 
 
     public int PlayerIndex
@@ -273,12 +240,8 @@ public class IATrain : Train
 
     public IStateTrain CurrentState1
     {
-        get { return currentState1; }
+        get { return currentState; }
     }
-    /*public IStateObject CurrentState2
-    {
-        get { return currentState2; }
-    }*/
 
     public Vector3 TargetPosition
     {

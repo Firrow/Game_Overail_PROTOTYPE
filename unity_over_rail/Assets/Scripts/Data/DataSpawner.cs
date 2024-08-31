@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+/// <summary>
+/// All Datas about Spawners on map useful for IA
+/// </summary>
+
 namespace overail.DataSpawner_
 {
     public class DataSpawner : ITargetToMove
@@ -10,8 +14,7 @@ namespace overail.DataSpawner_
         private GameObject spawner;
         private GameObject tileParent;
         private Vector3 spawnerPosition;
-        private GameObject objectOnSpawner;
-
+        private GameObject objectOnSpawner; //TODO : utile ?
 
 
 
@@ -21,7 +24,6 @@ namespace overail.DataSpawner_
             this.tileParent = tileParent;
             this.spawnerPosition = spawnerPosition;
         }
-
 
 
 
@@ -37,13 +39,11 @@ namespace overail.DataSpawner_
             set { tileParent = value; }
         }
 
-
         public Vector3 Position
         {
             get { return spawnerPosition; }
             set { spawnerPosition = value; }
         }
-
 
         public GameObject ObjectOnSpawner
         {
@@ -54,6 +54,5 @@ namespace overail.DataSpawner_
         {
             get { return ObjectOnSpawner ? ObjectOnSpawner.name : ""; }
         }
-
     }
 }

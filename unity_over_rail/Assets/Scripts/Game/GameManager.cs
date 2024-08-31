@@ -3,8 +3,15 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Linq;
 
+/// <summary>
+/// All Datas and functions useful for the game managing
+/// </summary>
+
 public class GameManager : MonoBehaviour
 {
+    public List<GameObject[]> listOfAllObjectLists = new List<GameObject[]>();
+    public List<string> allObjectNames = new List<string>() { "HeartObject", "BulletObject", "ShieldObject" };
+
     public GameObject[] usualObjects;
     private int PROBABILITY_USUAL_OBJECT = 5; //5
 
@@ -14,8 +21,6 @@ public class GameManager : MonoBehaviour
     public GameObject[] rareObjects;
     private int PROBABILITY_RARE_OBJECT = 2; //2
 
-    public List<GameObject[]> listOfAllObjectLists = new List<GameObject[]>();
-    public List<string> allObjectNames = new List<string>() { "HeartObject", "BulletObject", "ShieldObject" };
 
 
     private void Start()
@@ -24,6 +29,4 @@ public class GameManager : MonoBehaviour
         listOfAllObjectLists = listOfAllObjectLists.Concat(Enumerable.Repeat(unusualObjects, PROBABILITY_UNUSUAL_OBJECT)).ToList();
         listOfAllObjectLists = listOfAllObjectLists.Concat(Enumerable.Repeat(rareObjects, PROBABILITY_RARE_OBJECT)).ToList();
     }
-
-
 }

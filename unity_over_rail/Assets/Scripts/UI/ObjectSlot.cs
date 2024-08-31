@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Interface for object get by player
+/// </summary>
+
 public class ObjectSlot : MonoBehaviour
 {
     public GameObject displayPoint;
+
 
 
     public void DisplayActualObject(Sprite icon)

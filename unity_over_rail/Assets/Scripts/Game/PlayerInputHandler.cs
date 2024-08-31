@@ -3,10 +3,16 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Functions about player's actions in game
+/// </summary>
+
 public class PlayerInputHandler : MonoBehaviour
 {
     private PlayerInput playerInput;
     private HumanTrain humanTrain;
+
+
 
     private void Awake()
     {
@@ -61,7 +67,6 @@ public class PlayerInputHandler : MonoBehaviour
         if (humanTrain != null && humanTrain.GetComponent<HumanTrain>().CurrentItem != null && context.action.ReadValue<float>() == 0)
             humanTrain.UsePickObject();
     }
-
 
     public void RestartGame(InputAction.CallbackContext context)
     {

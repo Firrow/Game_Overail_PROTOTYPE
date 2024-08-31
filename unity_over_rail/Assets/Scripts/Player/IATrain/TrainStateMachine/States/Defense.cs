@@ -1,15 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using overail.IAResearchObject;
+using overail.IAResearchObject_;
 
+/// <summary>
+/// Functions useful when IA is in Defense State
+/// </summary>
 
 public class Defense : IStateTrain
 {
-    private IATrain train;
-    // TODO : Voir pour éviter la redondance
     private int HEALTH_LIMIT_DIVIDED = 2;
     private int BULLET_LIMIT_DIVIDED = 6;
+
+    private IATrain train;
+    // TODO : Voir pour éviter la redondance
+
+
 
     public Defense(IATrain IATrain)
     {
@@ -25,7 +31,7 @@ public class Defense : IStateTrain
     {
         if (train.myData.Health >= train.MaxHealth / HEALTH_LIMIT_DIVIDED)
         {
-            train.ChangeState1(new Attack(train));
+            train.ChangeState(new Attack(train));
         }
     }
 

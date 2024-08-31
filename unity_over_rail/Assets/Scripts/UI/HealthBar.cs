@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Interface for health quantity
+/// </summary>
 
 public class HealthBar : MonoBehaviour
 {
     public Slider slider;
 
 
-    public void SetMaxHealth(int maxHealth) //utile ?
+    public void SetMaxHealth(int maxHealth) //TODO : utile ?
     {
         slider.maxValue = maxHealth;
         slider.value = maxHealth;

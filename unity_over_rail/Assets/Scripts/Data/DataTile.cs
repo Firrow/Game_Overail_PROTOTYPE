@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// All Datas about Tiles on map useful for IA
+/// </summary>
 
 namespace overail.DataTile_
 {
@@ -10,19 +13,16 @@ namespace overail.DataTile_
         public string directionOfTile;
         public bool containsSpawner;
         public bool isSwitch;
-
-        private Vector3 tilePosition;
-        private GameObject tile;
-
         public struct PositionInMatrix
         {
             public int x;
             public int y;
         }
+
         private PositionInMatrix coordinates;
-
+        private Vector3 tilePosition;
+        private GameObject tile;
         private List<DataTile> neighbors = new List<DataTile>();
-
 
 
 
@@ -35,8 +35,6 @@ namespace overail.DataTile_
             this.isSwitch = containsSpawner;
             this.coordinates = coordinates;
         }
-
-
 
 
 
@@ -57,7 +55,6 @@ namespace overail.DataTile_
             get { return coordinates; }
             set { coordinates = value; }
         }
-
 
         /// <summary>
         /// Lazy evaluation : need to use DataContainer.GetNeighbors() to get and set the Neighbors value

@@ -4,8 +4,11 @@ using UnityEngine;
 using overail.DataSpawner_;
 using System;
 
+/// <summary>
+/// Functions for researching objects in map and find the nearest object to IA
+/// </summary>
 
-namespace overail.IAResearchObject
+namespace overail.IAResearchObject_
 {
     public class ObjectResearch : MonoBehaviour
     {
@@ -42,7 +45,6 @@ namespace overail.IAResearchObject
             }
         }
 
-
         private static DataSpawner FindNearestObjectInList(IATrain train, List<DataSpawner> objects)
         {
             float distance;
@@ -64,7 +66,6 @@ namespace overail.IAResearchObject
 
             return tempspawner;
         }
-
     }
 }
 

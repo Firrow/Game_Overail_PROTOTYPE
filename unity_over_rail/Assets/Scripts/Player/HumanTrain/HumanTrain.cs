@@ -2,14 +2,14 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Script with all function for human players only.
+/// </summary>
 
 public class HumanTrain : Train
 {
-    // Flèches (circle actuellement)
     public GameObject leftArrow;
     public GameObject rightArrow;
-
-
 
     [SerializeField]
     private int playerIndex = 0;
@@ -28,6 +28,7 @@ public class HumanTrain : Train
     {
         base.Start();
 
+        // Get the right interface
         foreach (GameObject Element in GameObject.FindGameObjectsWithTag("InterfacePlayer"))
         {
             if (Element.GetComponent<InterfacePlayer>().index == playerIndex)
@@ -37,11 +38,15 @@ public class HumanTrain : Train
                 this.objectSlot = Element.GetComponent<InterfacePlayer>().objectSlotPlayer.GetComponent<ObjectSlot>();
             }
         }
+
+        // Set this interface
         bulletBar.SetMaxBullet(weapon.GetComponent<Weapon>().MaxBulletQuantity);
         bulletBar.SetBullet(weapon.GetComponent<Weapon>().CurrentBulletQuantity);
         healthBar.SetMaxHealth(MaxHealth);
         //healthBar.SetHealth(currentHealth); //Lequel choisir ??? (garder SetMaxHealth pour les tests)
+        // TODO : voir pour mettre à jour automatiquement la barre de vie lorsque la valeur est changée dans IATrain
 
+        // Set the default arrow
         ChangeArrowColor(leftArrow.GetComponent<SpriteRenderer>(), rightArrow.GetComponent<SpriteRenderer>());
         this.choice = 1;
         lastChoice = 1;
@@ -52,7 +57,6 @@ public class HumanTrain : Train
         base.Update();
         trainAngle = angle;
     }
-
 
 
 
@@ -84,6 +88,7 @@ public class HumanTrain : Train
         else
             increaseAcceleration = false;
     }
+
     public void PlayerDecreaseVelocity(bool isDecelerate)
     {
         if (isDecelerate)
@@ -91,7 +96,6 @@ public class HumanTrain : Train
         else
             decreaseAcceleration = false;
     }
-
 
     public void PlayerMoveWeapon(InputAction.CallbackContext obj)
     {
@@ -103,9 +107,7 @@ public class HumanTrain : Train
         this.gameObject.GetComponentInChildren<Weapon>().PressShootButton();
     }
 
-
-
-    public void UsePickObject()
+    public void UsePickObject() //TODO : In Train.cs (?)
     {
         if (currentItem.TryGetComponent(out IObjects pickedObject))
         {
@@ -115,8 +117,6 @@ public class HumanTrain : Train
         }
     }
 
-
-    // Créer une fonction pour le changement de couleur des flèches
     private void ChangeArrowColor(SpriteRenderer actualArrow, SpriteRenderer otherArrow)
     {
         actualArrow.color = new Color(1, 0, 0, 1);
@@ -127,11 +127,6 @@ public class HumanTrain : Train
     {
         bulletBar.SetBullet(updateValue);
     }
-
-
-
-
-
 
 
 

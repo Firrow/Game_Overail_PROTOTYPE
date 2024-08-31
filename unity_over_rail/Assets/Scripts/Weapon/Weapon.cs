@@ -2,26 +2,30 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// All functions of players' weapon
+/// </summary>
+
 public class Weapon : MonoBehaviour
 {
-    public GameObject bullet;
-    public Transform firePoint;
-
     private int MAX_BULLET_QUANTITY = 30;
     private int currentBulletQuantity = 2; //15
     private float BULLET_SPEED = 20;
     private float WEAPON_SPEED = 2000;
     private TimeSpan FIRE_RATE = new TimeSpan(0, 0, 0, 0, 150);
-    private DateTime lastTimeShot;
 
+    public GameObject bullet;
+    public Transform firePoint;
+
+    private DateTime lastTimeShot;
     private bool isHumanPlayer = true;
     private bool inputIsKeyboard = false;
-
     private Vector2 positionTargetOnScreen = new Vector2();
     private Vector2 positionWeaponOnScreen = new Vector2();
     private float targetAngle = 0f;
     private float angleMemory = 0f;
     private Quaternion targetRotation;
+
 
 
     void Start()
@@ -51,9 +55,17 @@ public class Weapon : MonoBehaviour
                 CalculWeaponRotationWithJoystick();
             }
         }
+
         UpdateWeaponRotation(targetRotation);
     }
 
+
+
+    /// <summary>
+    /// Move the weapon. Function is divided depending on the player's device.
+    /// </summary>
+    /// <param name="moveValue"></param>
+    /// <param name="isKeyboard"></param>
     public void moveWeapon(Vector2 moveValue, bool isKeyboard)
     {
         if (isKeyboard)
@@ -62,16 +74,15 @@ public class Weapon : MonoBehaviour
             {
                 inputIsKeyboard = true;
             }
-            // ORIENTATION DE L'ARME--------------------------------------------------------------------------
-            // prend position souris
+
             positionTargetOnScreen = Camera.main.ScreenToViewportPoint(moveValue);
         }
         else
         {
-            // Appliquer un facteur de lissage aux valeurs du joystick
+            // Apply a smoothing factor to joystick values
             Vector2 smoothedMoveValue = Vector2.Lerp(new Vector2(transform.rotation.x, transform.rotation.y), moveValue, Time.deltaTime * 360f);
 
-            // Si je joueur maintient son joystick
+            // If the player holds his joystick
             if (smoothedMoveValue.magnitude >= 0.1f)
             {
                 targetAngle = Mathf.Atan2(smoothedMoveValue.y, smoothedMoveValue.x) * Mathf.Rad2Deg;
@@ -80,16 +91,25 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Function using by IA to move weapon
+    /// </summary>
+    /// <param name="targetPosition"></param>
     public void AIMoveWeapon(Vector2 targetPosition)
     {
         if (isHumanPlayer)
             isHumanPlayer = false;
 
-        positionTargetOnScreen = Camera.main.ScreenToViewportPoint(targetPosition); // JE NE SAIS PAS SI ÇA MARCHE
+        positionTargetOnScreen = Camera.main.ScreenToViewportPoint(targetPosition); //TODO : JE NE SAIS PAS SI ÇA MARCHE
 
     }
 
-    // calcul de l'angle entre les 2 points
+    /// <summary>
+    /// Calculate angle between two points : Vector a - Vector b
+    /// </summary>
+    /// <param name="a"></param>
+    /// <param name="b"></param>
+    /// <returns></returns>
     private float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
     {
         return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
@@ -97,7 +117,6 @@ public class Weapon : MonoBehaviour
 
     public void CalculWeaponRotationWithMouse()
     {
-        // prend position objet
         positionWeaponOnScreen = Camera.main.WorldToViewportPoint(transform.position);
 
         targetAngle = AngleBetweenTwoPoints(positionTargetOnScreen, positionWeaponOnScreen);
@@ -114,13 +133,18 @@ public class Weapon : MonoBehaviour
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotationValue, Time.deltaTime * WEAPON_SPEED);
     }
 
+    /// <summary>
+    /// Update weapon rotation during train's moving : Allows weapon rotation to be decoupled from gear rotation
+    /// </summary>
+    /// <param name="deltaAngleTrain"></param>
     public void FixWeaponRotation(float deltaAngleTrain)
     {
-        // Permet d'avoir la rotation de l'arme decorrelee de la rotation du train
         transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, this.transform.rotation.eulerAngles.z - deltaAngleTrain));
     }
 
-
+    /// <summary>
+    /// authorize player to shoot depending on time last shoot and bullet quantity
+    /// </summary>
     public void PressShootButton()
     {
         if (currentBulletQuantity > 0 && DateTime.Now - lastTimeShot >= FIRE_RATE)
@@ -131,6 +155,13 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Create a bullet and add forces to throw it
+    /// </summary>
+    /// <param name="firePointWeapon"></param>
+    /// <param name="speed"></param>
+    /// <param name="projectile"></param>
+    /// <param name="weaponOrigin"></param>
     public void Shoot(Transform firePointWeapon, float speed, GameObject projectile, GameObject weaponOrigin) // Fonction appelée lors de l'input de tir
     {
         GameObject bulletInst = Instantiate(projectile, firePointWeapon.transform.position, weaponOrigin.transform.rotation);
@@ -139,9 +170,6 @@ public class Weapon : MonoBehaviour
 
         lastTimeShot = DateTime.Now;
     }
-
-
-
 
 
 

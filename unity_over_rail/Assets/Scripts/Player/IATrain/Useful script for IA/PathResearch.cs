@@ -2,7 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace overail.IAPathResearch
+/// <summary>
+/// Functions for finding the next direction 
+/// </summary>
+
+namespace overail.IAPathResearch_
 {
     public class PathResearch : MonoBehaviour
     {

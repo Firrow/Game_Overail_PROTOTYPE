@@ -1,18 +1,25 @@
 using UnityEngine;
 
+/// <summary>
+/// Script to design rails on tiles
+/// Using by prefab of simple roads
+/// </summary>
+
 public class RailCreator : MonoBehaviour
 {
     [SerializeField]
     private Transform[] controlPoints;
-
     private Vector3 gizmosPosition;
 
-    //UTILE UNIQUEMENT POUR AFFICHER LES COURBES LORS DE LEUR PLACEMENT SUR LES TUILES
+
+
+    /// <summary>
+    /// formula for cubic Bezier curve :
+    ///    - the formula creates a curve between p1 and p4
+    ///    - p2 linked to p1 and p3 linked to p4 to shape the path
+    /// </summary>
     private void OnDrawGizmos()
     {
-        /* formule pour courbe de Bezier cubique :
-        - la formule creer une courbe entre les p1 et p4
-        - p2 liee a p1 et p3 liee a p4 permettent de modeler la forme du chemin*/
         for (float t = 0; t <= 1; t += 0.05f)
         {
             gizmosPosition = Mathf.Pow(1 - t, 3) * controlPoints[0].position + 
@@ -23,7 +30,7 @@ public class RailCreator : MonoBehaviour
             Gizmos.DrawSphere(gizmosPosition, 0.25f);
         }
         
-        // dessin de la courbe
+        // draw the curve
         Gizmos.DrawLine(new Vector3(controlPoints[0].position.x, controlPoints[0].position.y, controlPoints[0].position.z), 
             new Vector3(controlPoints[1].position.x, controlPoints[1].position.y, controlPoints[1].position.z));
         Gizmos.DrawLine(new Vector3(controlPoints[2].position.x, controlPoints[2].position.y, controlPoints[2].position.z), 

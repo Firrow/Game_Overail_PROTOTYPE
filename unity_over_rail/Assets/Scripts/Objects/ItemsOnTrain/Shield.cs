@@ -2,12 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Manage Shield on players
+/// </summary>
+
 public class Shield : MonoBehaviour
 {
     public bool isActive;
+
     private int MAX_SHIELD_HEALTH = 5;
     private int currentShieldHealth;
     private GameObject ownerTrain;
+
 
 
     private void Start()

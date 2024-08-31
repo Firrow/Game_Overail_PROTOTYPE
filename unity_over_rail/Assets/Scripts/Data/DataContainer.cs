@@ -6,24 +6,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 /// <summary>
 /// Represents a data layer for AI, like Models in a MVC framework.
 /// This layer allow AI to access all the information it might need, regardless of how it accesses it.
 /// DataContainer is the main entry point of data for IATrain
 /// </summary>
+
 public class DataContainer : MonoBehaviour
 {
     private List<DataTrain> dataTrains = new List<DataTrain>();
     private GameObject myTrain;
     private DataTrain myDataTrain;
-
     private GameObject[] spawners;
     private List<DataSpawner> dataSpawners = new List<DataSpawner>();
-
     private GameObject[] tiles;
     private DataTile[,] tileMatrix;
-
 
 
 
@@ -35,11 +32,6 @@ public class DataContainer : MonoBehaviour
         GetAllSpawners();
 
         GetAllTrains();
-    }
-
-    private void Update()
-    {
-
     }
 
 
@@ -66,8 +58,6 @@ public class DataContainer : MonoBehaviour
             }
         }
     }
-
-
 
     // --------------------------------------------------------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------- MAP --------------------------------------------------------------------------------
@@ -98,20 +88,19 @@ public class DataContainer : MonoBehaviour
             }
         }
 
-        // Récupération des voisins de chaque tuiles
         foreach (var tile in tileMatrix)
         {
             GetNeighbors(tile);
         }
     }
 
-    private List<DataTile> GetNeighbors(DataTile dataTile)
+    private List<DataTile> GetNeighbors(DataTile dataTile) //TODO : ranger la fonction pour plus de clareté
     {
         if (dataTile.Neighbors.Count == 0)
         {
             foreach (var direction in dataTile.directionOfTile)
             {
-                // Permet d'éviter que les tileStart posent des soucis avec leur 3ème direction supprimée par la suite
+                // Prevents tileStarts from causing problems with their 3rd direction, which is subsequently deleted
                 try
                 {
                     switch (direction)
@@ -139,8 +128,6 @@ public class DataContainer : MonoBehaviour
         return dataTile.Neighbors;
     }
 
-
-
     private void GetAllSpawners()
     {
         foreach (var spawner in spawners)
@@ -154,8 +141,6 @@ public class DataContainer : MonoBehaviour
             dataSpawners.Add(dataSpawner);
         }
     }
-
-
 
 
 
@@ -175,5 +160,4 @@ public class DataContainer : MonoBehaviour
     {
         get { return tileMatrix; }
     }
-
 }
