@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
+/// API
 /// Represents a data layer for AI, like Models in a MVC framework.
 /// This layer allow AI to access all the information it might need, regardless of how it accesses it.
 /// DataContainer is the main entry point of data for IATrain

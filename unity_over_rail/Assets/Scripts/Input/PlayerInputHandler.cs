@@ -17,15 +17,15 @@ public class PlayerInputHandler : MonoBehaviour
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
-        var humanTrains = FindObjectsOfType<HumanTrain>();
+        var humanTrains = FindObjectsOfType<HumanTrain>(); // dans input
         int index = playerInput.playerIndex;
-        humanTrain = humanTrains.FirstOrDefault(h => h.GetPlayerIndex() == index);
+        humanTrain = humanTrains.FirstOrDefault(h => h.GetPlayerIndex() == index); // dans input
     }
 
     public void OnMoveTrain(InputAction.CallbackContext context)
     {
         if (humanTrain != null)
-            humanTrain.PlayerChoiceDirection(context);
+            humanTrain.PlayerChoiceDirection(context); // va donner l'index et .ReadValue<Vector2>().x à la partie input
     }
 
     public void OnAccelerateTrain(InputAction.CallbackContext context)
