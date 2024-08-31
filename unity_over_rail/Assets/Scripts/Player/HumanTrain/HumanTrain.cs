@@ -8,13 +8,9 @@ using UnityEngine.InputSystem;
 
 public class HumanTrain : Train
 {
-    public GameObject leftArrow;
-    public GameObject rightArrow;
-
     [SerializeField]
     private int playerIndex = 0;
     private float movementInput;
-    private int lastChoice;
     private float trainAngle;
 
 
@@ -47,9 +43,7 @@ public class HumanTrain : Train
         // TODO : voir pour mettre à jour automatiquement la barre de vie lorsque la valeur est changée dans IATrain
 
         // Set the default arrow
-        ChangeArrowColor(leftArrow.GetComponent<SpriteRenderer>(), rightArrow.GetComponent<SpriteRenderer>());
-        this.choice = 1;
-        lastChoice = 1;
+        //ChangeArrowColor(leftArrow.GetComponent<SpriteRenderer>(), rightArrow.GetComponent<SpriteRenderer>());
     }
 
     void Update()
@@ -59,49 +53,6 @@ public class HumanTrain : Train
     }
 
 
-
-    public void PlayerChoiceDirection(InputAction.CallbackContext obj)
-    {
-        movementInput = obj.ReadValue<Vector2>().x;
-
-        if (movementInput == 0)
-        {
-            this.choice = lastChoice;
-        }
-        else if (movementInput == -1)
-        {
-            this.choice = 1;
-            ChangeArrowColor(leftArrow.GetComponent<SpriteRenderer>(), rightArrow.GetComponent<SpriteRenderer>());
-        }
-        else if (movementInput == 1)
-        {
-            this.choice = -1;
-            ChangeArrowColor(rightArrow.GetComponent<SpriteRenderer>(), leftArrow.GetComponent<SpriteRenderer>());
-        }
-
-        lastChoice = this.choice;
-    }
-
-    public void PlayerIncreaseVelocity(bool isAccelerate)
-    {
-        if (isAccelerate)
-            increaseAcceleration = true;
-        else
-            increaseAcceleration = false;
-    }
-
-    public void PlayerDecreaseVelocity(bool isDecelerate)
-    {
-        if (isDecelerate)
-            decreaseAcceleration = true;
-        else
-            decreaseAcceleration = false;
-    }
-
-    public void PlayerMoveWeapon(InputAction.CallbackContext obj)
-    {
-        this.gameObject.GetComponentInChildren<Weapon>().moveWeapon(obj.ReadValue<Vector2>(), obj.control.device is Mouse);
-    }
 
     public void PlayerShoot(InputAction.CallbackContext obj)
     {
@@ -118,21 +69,8 @@ public class HumanTrain : Train
         }
     }
 
-    private void ChangeArrowColor(SpriteRenderer actualArrow, SpriteRenderer otherArrow)
-    {
-        actualArrow.color = new Color(1, 0, 0, 1);
-        otherArrow.color = new Color(1, 0, 0, 0);
-    }
-
     public void UpdateBulletBar(int updateValue)
     {
         bulletBar.SetBullet(updateValue);
-    }
-
-
-
-    public int GetPlayerIndex()
-    {
-        return playerIndex;
     }
 }

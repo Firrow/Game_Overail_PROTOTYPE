@@ -66,7 +66,7 @@ public class Weapon : MonoBehaviour
     /// </summary>
     /// <param name="moveValue"></param>
     /// <param name="isKeyboard"></param>
-    public void moveWeapon(Vector2 moveValue, bool isKeyboard)
+    public void moveWeapon(Vector2 moveValue, bool isKeyboard) //TODO : trouver le moyen d'avoir une fonction générique et avoir la prise en compte des devices dans PlayerInputHandler
     {
         if (isKeyboard)
         {

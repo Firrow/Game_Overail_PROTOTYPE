@@ -12,6 +12,8 @@ public class Train : MonoBehaviour
     private int MAX_HEALTH = 10;
 
     public string fromDirection; // TODO : permettre de le determiner automatiquement //TODO : public à remplacer par private + SerializeField ?
+    public GameObject leftArrow;
+    public GameObject rightArrow;
 
     [SerializeField]
     protected GameObject weapon;
@@ -36,6 +38,7 @@ public class Train : MonoBehaviour
     private SpawnObjects spawner;
     private bool shieldIsActivate;
     private GameObject shield;
+    private int lastChoiceDirection;
     // deplacements mathematique
     private float tParam = 0f;
     private Vector3 trainPosition;
@@ -49,6 +52,11 @@ public class Train : MonoBehaviour
         StartCoroutine(StartGame()); // temporaire
         currentHealth = MAX_HEALTH;
         //currentHealth = 3;
+
+        this.choice = 1;
+        lastChoiceDirection = 1;
+        // Set the default arrow
+        ChangeArrowColor(leftArrow.GetComponent<SpriteRenderer>(), rightArrow.GetComponent<SpriteRenderer>());
 
         shield = this.gameObject.transform.GetChild(1).gameObject;
         shieldIsActivate = shield.activeSelf;
@@ -69,7 +77,50 @@ public class Train : MonoBehaviour
         velocity = SPEED + accelerate;
     }
 
+    // --------------------------------------------------------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------- ACTIONS -----------------------------------------------------------------------
+    // --------------------------------------------------------------------------------------------------------------------------------------------------
 
+    public void PlayerChoiceDirection(int directionValue)
+    {
+        if (directionValue == 0)
+        {
+            this.choice = lastChoiceDirection;
+        }
+        else if (directionValue == -1)
+        {
+            this.choice = 1;
+            ChangeArrowColor(leftArrow.GetComponent<SpriteRenderer>(), rightArrow.GetComponent<SpriteRenderer>());
+        }
+        else if (directionValue == 1)
+        {
+            this.choice = -1;
+            ChangeArrowColor(rightArrow.GetComponent<SpriteRenderer>(), leftArrow.GetComponent<SpriteRenderer>());
+        }
+
+        lastChoiceDirection = this.choice;
+    }
+
+    public void PlayerIncreaseVelocity(bool isAccelerate)
+    {
+        if (isAccelerate)
+            increaseAcceleration = true;
+        else
+            increaseAcceleration = false;
+    }
+
+    public void PlayerDecreaseVelocity(bool isDecelerate)
+    {
+        if (isDecelerate)
+            decreaseAcceleration = true;
+        else
+            decreaseAcceleration = false;
+    }
+
+    public void PlayerMoveWeapon(Vector2 valueMovement, bool isKeyboard)
+    {
+        this.gameObject.GetComponentInChildren<Weapon>().moveWeapon(valueMovement, isKeyboard);
+    }
 
     // --------------------------------------------------------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------- DEPLACEMENTS -----------------------------------------------------------------------
@@ -348,6 +399,11 @@ public class Train : MonoBehaviour
         objectSlot.GetComponent<ObjectSlot>().UndisplayActualObject();
     }
 
+    private void ChangeArrowColor(SpriteRenderer actualArrow, SpriteRenderer otherArrow)
+    {
+        actualArrow.color = new Color(1, 0, 0, 1);
+        otherArrow.color = new Color(1, 0, 0, 0);
+    }
 
     // TEMPORAIRE START PARTIE ---------------------------------------------------------------------------------------------------------------
     private IEnumerator StartGame() //TODO : temporary because countdown function when game is more advanced

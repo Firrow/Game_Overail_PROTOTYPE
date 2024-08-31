@@ -2,6 +2,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using overail.TrainActions_;
 
 /// <summary>
 /// Functions about player's actions in game
@@ -11,49 +12,40 @@ public class PlayerInputHandler : MonoBehaviour
 {
     private PlayerInput playerInput;
     private HumanTrain humanTrain;
+    private int index;
 
 
 
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
-        var humanTrains = FindObjectsOfType<HumanTrain>(); // dans input
         int index = playerInput.playerIndex;
-        humanTrain = humanTrains.FirstOrDefault(h => h.GetPlayerIndex() == index); // dans input
     }
 
-    public void OnMoveTrain(InputAction.CallbackContext context)
+    public void OnMoveTrain(InputAction.CallbackContext context) //TODO changer le nom en ChangeDirection
     {
-        if (humanTrain != null)
-            humanTrain.PlayerChoiceDirection(context); // va donner l'index et .ReadValue<Vector2>().x à la partie input
+        TrainActions.APIChangeDirection(index, (int)context.ReadValue<Vector2>().x);
     }
 
     public void OnAccelerateTrain(InputAction.CallbackContext context)
     {
-        if (humanTrain != null)
-        {
-            if (context.started)
-                humanTrain.PlayerIncreaseVelocity(true);
-            else if (context.canceled)
-                humanTrain.PlayerIncreaseVelocity(false);
-        }
+        if (context.started)
+            TrainActions.APIOnAccelerateTrain(index, true);
+        else if (context.canceled)
+            TrainActions.APIOnAccelerateTrain(index, false);
     }
 
     public void OnDecelerateTrain(InputAction.CallbackContext context)
     {
-        if (humanTrain != null)
-        {
-            if (context.started)
-                humanTrain.PlayerDecreaseVelocity(true);
-            else if (context.canceled)
-                humanTrain.PlayerDecreaseVelocity(false);
-        }
+        if (context.started)
+            TrainActions.APIOnDecelerateTrain(index, true);
+        else if (context.canceled)
+            TrainActions.APIOnDecelerateTrain(index, false);
     }
 
     public void OnMoveWeapon(InputAction.CallbackContext context)
     {
-        if (humanTrain != null)
-            humanTrain.PlayerMoveWeapon(context);
+        TrainActions.APIOnMoveWeapon(index, context.ReadValue<Vector2>(), context.control.device is Mouse);
     }
 
     public void OnShoot(InputAction.CallbackContext context)

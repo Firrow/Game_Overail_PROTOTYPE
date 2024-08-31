@@ -12,8 +12,6 @@ using overail.IAPathResearch_;
 public class IATrain : Train
 {
     public ITargetToMove targetToMove = null;
-    public GameObject leftArrow;
-    public GameObject rightArrow;
     public DataTrain myData;
 
     private IStateTrain currentState;
