@@ -78,6 +78,7 @@ public class HumanTrain : Train
             this.choice = -1;
             ChangeArrowColor(rightArrow.GetComponent<SpriteRenderer>(), leftArrow.GetComponent<SpriteRenderer>());
         }
+
         lastChoice = this.choice;
     }
 
