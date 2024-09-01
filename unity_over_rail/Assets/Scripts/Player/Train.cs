@@ -17,7 +17,8 @@ public class Train : MonoBehaviour
 
     [SerializeField]
     protected GameObject weapon;
-    protected int trainIndex;
+    [SerializeField]
+    protected int playerIndex;
     protected float accelerate = 0f;
     protected bool increaseAcceleration = false;
     protected bool decreaseAcceleration = false;
@@ -447,9 +448,9 @@ public class Train : MonoBehaviour
 
 
 
-    public int TrainIndex
+    public int PlayerIndex
     {
-        get { return trainIndex; }
+        get { return playerIndex; }
     }
 
     public Vector3 TrainPosition

@@ -74,7 +74,7 @@ namespace overail.TrainActions_
 
         private static Train GetTrainFromIndex(int index)
         {
-            return Trains.FirstOrDefault(t => t.TrainIndex == index);
+            return Trains.FirstOrDefault(t => t.PlayerIndex == index);
         }
 
 

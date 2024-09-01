@@ -8,17 +8,10 @@ using UnityEngine.InputSystem;
 
 public class HumanTrain : Train
 {
-    [SerializeField]
-    private int playerIndex = 0;
     private float movementInput;
     private float trainAngle;
 
 
-
-    private void Awake()
-    {
-        trainIndex = playerIndex;
-    }
 
     void Start()
     {

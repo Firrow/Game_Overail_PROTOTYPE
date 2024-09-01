@@ -48,12 +48,12 @@ public class DataContainer : MonoBehaviour
         {
             DataTrain dataTrain = new DataTrain(
                 train.gameObject,
-                train.GetComponent<Train>().TrainIndex
+                train.GetComponent<Train>().PlayerIndex
             );
 
             dataTrains.Add(dataTrain);
 
-            if (myTrain == null && train.GetComponent<Train>().TrainIndex == this.GetComponent<IATrain>().PlayerIndex)
+            if (myTrain == null && train.GetComponent<Train>().PlayerIndex == this.GetComponent<IATrain>().PlayerIndex)
             {
                 myTrain = train.gameObject;
                 myDataTrain = dataTrain;

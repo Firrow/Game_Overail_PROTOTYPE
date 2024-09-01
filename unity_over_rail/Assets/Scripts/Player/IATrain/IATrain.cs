@@ -15,8 +15,6 @@ public class IATrain : Train
     public DataTrain myData;
 
     private IStateTrain currentState;
-    [SerializeField]
-    private int playerIndex = 0;
     private int lastChoice;
     private float trainAngle;
     private Vector3 targetPosition;
@@ -25,11 +23,6 @@ public class IATrain : Train
     private GameManager gameManager;
 
 
-
-    private void Awake()
-    {
-        trainIndex = playerIndex;
-    }
 
     void Start()
     {
