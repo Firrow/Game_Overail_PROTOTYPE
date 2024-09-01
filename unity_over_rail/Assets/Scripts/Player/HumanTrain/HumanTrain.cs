@@ -54,21 +54,6 @@ public class HumanTrain : Train
 
 
 
-    public void PlayerShoot(InputAction.CallbackContext obj)
-    {
-        this.gameObject.GetComponentInChildren<Weapon>().PressShootButton();
-    }
-
-    public void UsePickObject() //TODO : In Train.cs (?)
-    {
-        if (currentItem.TryGetComponent(out IObjects pickedObject))
-        {
-            pickedObject.UseObject();
-            currentItem = null;
-            objectSlot.UndisplayActualObject();
-        }
-    }
-
     public void UpdateBulletBar(int updateValue)
     {
         bulletBar.SetBullet(updateValue);

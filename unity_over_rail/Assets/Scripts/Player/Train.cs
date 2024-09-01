@@ -122,6 +122,21 @@ public class Train : MonoBehaviour
         this.gameObject.GetComponentInChildren<Weapon>().moveWeapon(valueMovement, isKeyboard);
     }
 
+    public void PlayerShoot()
+    {
+        this.gameObject.GetComponentInChildren<Weapon>().PressShootButton();
+    }
+
+    public void UsePickObject()
+    {
+        if (currentItem != null && currentItem.TryGetComponent(out IObjects pickedObject))
+        {
+            pickedObject.UseObject();
+            currentItem = null;
+            objectSlot.UndisplayActualObject();
+        }
+    }
+
     // --------------------------------------------------------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------- DEPLACEMENTS -----------------------------------------------------------------------
     // --------------------------------------------------------------------------------------------------------------------------------------------------

@@ -7,7 +7,24 @@ using UnityEngine;
 /// Script that contains all actions that can be done by everyone
 /// </summary>
 
-public class GlobalActions : MonoBehaviour
+namespace overail.GlobalAction_
 {
-    //Action Pause
+    public static class GlobalActions
+    {
+        public static void APIRestartGame()
+        {
+            GameManager.RestartGame();
+        }
+        public static void APIQuitGame()
+        {
+            GameManager.QuitGame();
+        }
+
+
+        public static GameManager GameManager
+        {
+            get { return GameObject.FindObjectOfType<GameManager>(); }
+        }
+    }
 }
+

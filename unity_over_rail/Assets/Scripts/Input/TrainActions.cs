@@ -52,6 +52,26 @@ namespace overail.TrainActions_
             }
         }
 
+        public static void APIOnShoot(int index, float valueShoot)
+        {
+            Train train = GetTrainFromIndex(index);
+
+            if (train is not null && valueShoot == 0)
+            {
+                train.PlayerShoot();
+            }
+        }
+
+        public static void APIUsePickObject(int index, float valueUseObject)
+        {
+            Train train = GetTrainFromIndex(index);
+
+            if (train is not null && valueUseObject == 0)
+            {
+                train.UsePickObject();
+            }
+        }
+
         private static Train GetTrainFromIndex(int index)
         {
             return Trains.FirstOrDefault(t => t.TrainIndex == index);

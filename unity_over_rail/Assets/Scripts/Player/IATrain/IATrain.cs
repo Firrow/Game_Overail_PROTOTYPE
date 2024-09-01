@@ -141,88 +141,10 @@ public class IATrain : Train
 
     }
 
-    // --------------------------------------------------------------------------------------------------------------------------------------------------
-    // ------------------------------------------------------------- ACTION IN GAME (traitement du choix) --------------------------------------------------------------------------------
-    // --------------------------------------------------------------------------------------------------------------------------------------------------
-    
-    public void PlayerChoiceDirection(int movementInput) //0 ; 1 ; -1
-    {
-        /*if (movementInput == 0)
-        {
-            this.choice = lastChoice;
-        }
-        else if (movementInput == -1)
-        {
-            this.choice = 1;
-            ChangeArrowColor(leftArrow.GetComponent<SpriteRenderer>(), rightArrow.GetComponent<SpriteRenderer>());
-        }
-        else if (movementInput == 1)
-        {
-            this.choice = -1;
-            ChangeArrowColor(rightArrow.GetComponent<SpriteRenderer>(), leftArrow.GetComponent<SpriteRenderer>());
-        }
-        lastChoice = this.choice;*/
-
-        Debug.Log("CHOIX DIRECTION");
-    }
-
-    public void PlayerIncreaseVelocity(bool isAccelerate) // true ; false
-    {
-        /*if (isAccelerate)
-            increaseAcceleration = true;
-        else
-            increaseAcceleration = false;*/
-        Debug.Log("AUGMENTE VELOCITY");
-    }
-
-    public void PlayerDecreaseVelocity(bool isDecelerate) // true ; false
-    {
-        /*if (isDecelerate)
-            decreaseAcceleration = true;
-        else
-            decreaseAcceleration = false;*/
-        Debug.Log("DIMINUE VELOCITY");
-    }
-
-    public void PlayerMoveWeapon(Vector2 target) // position de la cible à atteindre
-    {
-        /*// calculer position target finale (prendre en compte la vitesse de la cible)
-        this.gameObject.GetComponentInChildren<Weapon>().AIMoveWeapon(target);*/
-        Debug.Log("BOUGE L'ARME");
-    }
-
-    public void PlayerShoot()
-    {
-        //this.gameObject.GetComponentInChildren<Weapon>().PressShootButton();
-        Debug.Log("TIR");
-    }
-
-    public void UsePickObject()
-    {
-        /*if (currentItem.TryGetComponent(out IObjects pickedObject))
-        {
-            pickedObject.UseObject();
-            currentItem = null;
-            objectSlot.UndisplayActualObject();
-        }*/
-        Debug.Log("UTILISE OBJET");
-    }
-
     public override void OnSwitchEnter()
     {
         enterOnSwitch = true;
     }
-
-    private void ChangeArrowColor(SpriteRenderer actualArrow, SpriteRenderer otherArrow)
-    {
-        actualArrow.color = new Color(1, 0, 0, 1);
-        otherArrow.color = new Color(1, 0, 0, 0);
-    }
-
-    /*public new void TakeDamage(int damage)
-    {
-        base.TakeDamage(damage);
-    }*/
 
 
 

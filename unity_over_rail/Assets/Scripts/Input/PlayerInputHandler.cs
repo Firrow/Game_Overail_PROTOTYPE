@@ -1,8 +1,8 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 using overail.TrainActions_;
+using overail.GlobalAction_;
 
 /// <summary>
 /// Functions about player's actions in game
@@ -50,23 +50,21 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void OnShoot(InputAction.CallbackContext context)
     {
-        if (humanTrain != null && context.action.ReadValue<float>() == 0)
-            humanTrain.PlayerShoot(context);
+        TrainActions.APIOnShoot(index, context.action.ReadValue<float>());
     }
 
     public void OnUseObject(InputAction.CallbackContext context)
     {
-        if (humanTrain != null && humanTrain.GetComponent<HumanTrain>().CurrentItem != null && context.action.ReadValue<float>() == 0)
-            humanTrain.UsePickObject();
+       TrainActions.APIUsePickObject(index, context.action.ReadValue<float>());
     }
 
     public void RestartGame(InputAction.CallbackContext context)
     {
-        SceneManager.LoadScene(0);
+        GlobalActions.APIRestartGame();
     }
 
     public void OnQuit(InputAction.CallbackContext context)
     {
-        Application.Quit();
+        GlobalActions.APIQuitGame();
     }
 }
