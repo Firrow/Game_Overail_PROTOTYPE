@@ -28,9 +28,8 @@ namespace overail.DataTain_
         {
             get { return this.train.GetComponent<Train>().TrainPosition; }
         }
-        // public DataTile CurrentTile // TODO: Convert this Tile into DataTile
 
-        public Tile CurrentTile
+        public Tile CurrentTile // public DataTile CurrentTile // TODO: Convert this Tile into DataTile
         {
             get { return this.train.GetComponent<Train>().CurrentTile.GetComponent<Tile>(); }
         }
@@ -43,11 +42,6 @@ namespace overail.DataTain_
         public bool ShieldIsActivate
         {
             get { return this.train.GetComponent<Train>().ShieldIsActivate; }
-        }
-
-        public GameObject CurrentObject
-        {
-            get { return this.train.GetComponent<Train>().CurrentItem; }
         }
 
         public float Speed
@@ -63,6 +57,11 @@ namespace overail.DataTain_
         public int BulletQuantity
         {
             get { return this.train.GetComponentInChildren<Weapon>().CurrentBulletQuantity; }
+        }
+
+        public GameObject CurrentObject
+        {
+            get { return this.train.GetComponent<Train>().CurrentItem; }
         }
     }
 }

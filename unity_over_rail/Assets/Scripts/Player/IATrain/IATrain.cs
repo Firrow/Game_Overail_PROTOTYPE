@@ -32,28 +32,11 @@ public class IATrain : Train
         myData = this.GetComponent<DataContainer>().MyDataTrain;
         currentState = new Attack(this);
 
-        // Get the right interface
-        foreach (GameObject Element in GameObject.FindGameObjectsWithTag("InterfacePlayer"))
-        {
-            if (Element.GetComponent<InterfacePlayer>().index == playerIndex)
-            {
-                this.healthBar = Element.GetComponent<InterfacePlayer>().healthBarPlayer.GetComponent<HealthBar>();
-                this.bulletBar = Element.GetComponent<InterfacePlayer>().bulletBarPlayer.GetComponent<BulletBar>();
-                this.objectSlot = Element.GetComponent<InterfacePlayer>().objectSlotPlayer.GetComponent<ObjectSlot>();
-            }
-        }
-
-        // Set this interface
-        bulletBar.SetMaxBullet(weapon.GetComponent<Weapon>().MaxBulletQuantity);
-        bulletBar.SetBullet(weapon.GetComponent<Weapon>().CurrentBulletQuantity);
-        healthBar.SetMaxHealth(MaxHealth);
         // healthBar.SetHealth(currentHealth); //Lequel choisir ??? (garder SetMaxHealth pour les tests)
         // TODO : voir pour mettre à jour automatiquement la barre de vie lorsque la valeur est changée dans IATrain
 
         // Set the default arrow
         //ChangeArrowColor(leftArrow.GetComponent<SpriteRenderer>(), rightArrow.GetComponent<SpriteRenderer>());
-        this.choice = 1;
-        lastChoice = 1;
     }
 
     void Update()

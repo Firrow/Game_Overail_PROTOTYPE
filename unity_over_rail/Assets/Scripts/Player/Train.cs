@@ -61,6 +61,9 @@ public class Train : MonoBehaviour
 
         shield = this.gameObject.transform.GetChild(1).gameObject;
         shieldIsActivate = shield.activeSelf;
+
+        GetInterface();
+        SetInterface();
     }
 
     protected void Update()
@@ -409,6 +412,28 @@ public class Train : MonoBehaviour
     // ------------------------------------------------------------- INTERFACE --------------------------------------------------------------------------
     // --------------------------------------------------------------------------------------------------------------------------------------------------
     
+    private void GetInterface()
+    {
+        // Get the right interface
+        foreach (GameObject Element in GameObject.FindGameObjectsWithTag("InterfacePlayer"))
+        {
+            if (Element.GetComponent<InterfacePlayer>().index == playerIndex)
+            {
+                this.healthBar = Element.GetComponent<InterfacePlayer>().healthBarPlayer.GetComponent<HealthBar>();
+                this.bulletBar = Element.GetComponent<InterfacePlayer>().bulletBarPlayer.GetComponent<BulletBar>();
+                this.objectSlot = Element.GetComponent<InterfacePlayer>().objectSlotPlayer.GetComponent<ObjectSlot>();
+            }
+        }
+    }
+
+    private void SetInterface()
+    {
+        // Set this interface
+        bulletBar.SetMaxBullet(weapon.GetComponent<Weapon>().MaxBulletQuantity);
+        bulletBar.SetBullet(weapon.GetComponent<Weapon>().CurrentBulletQuantity);
+        healthBar.SetMaxHealth(MaxHealth);
+    }
+
     private void ResetInterface() //TODO : Besoin de reset la healthbar ???
     {
         bulletBar.GetComponent<BulletBar>().SetBullet(0);
