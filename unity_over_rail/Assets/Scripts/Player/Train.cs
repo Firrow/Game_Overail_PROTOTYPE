@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using overail.DataContainer_;
 
 /// <summary>
 /// Main script to managing trains (players and IA)
@@ -460,10 +461,8 @@ public class Train : MonoBehaviour
     {
         this.tag = "Untagged";
 
-        foreach (DataContainer dataContainer in FindObjectsOfType(typeof(DataContainer)))
-        {
-            dataContainer.GetAllTrains();
-        }
+        GameObject.FindGameObjectWithTag("TEMPDataContainer").GetComponent<DataContainer>().GetAllTrains() ; //ligne temporaire car DataContainer pas static
+        //TODO: quand DataContainer static, utiliser le using DataContainer pour appeler la fonction
     }
 
     /// <summary>

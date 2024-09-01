@@ -342,9 +342,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fromDirection: 
-  weapon: {fileID: 625254992458161528}
   leftArrow: {fileID: 1311469716273282023}
   rightArrow: {fileID: 5738191835909045885}
+  weapon: {fileID: 625254992458161528}
   playerIndex: 0
 --- !u!114 &4812217487069402428
 MonoBehaviour:
@@ -353,13 +353,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6282290170516749659}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 483fca1728473364ab91417c15c6f96c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataTrains: []
-  myTrain: {fileID: 0}
 --- !u!1001 &4642678766319070741
 PrefabInstance:
   m_ObjectHideFlags: 0

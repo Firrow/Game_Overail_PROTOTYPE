@@ -4,6 +4,7 @@ using overail.DataTain_;
 using overail.DataTile_;
 using overail.DataSpawner_;
 using overail.IAPathResearch_;
+using overail.DataContainer_;
 
 /// <summary>
 /// Script with all function for IA players only.
@@ -29,14 +30,9 @@ public class IATrain : Train
         base.Start();
 
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        myData = this.GetComponent<DataContainer>().MyDataTrain;
+        myData = GameObject.FindGameObjectWithTag("TEMPDataContainer").GetComponent<DataContainer>().GetTheTrain(PlayerIndex); //ligne temporaire car DataContainer pas static
+        //TODO: quand DataContainer static, utiliser le using DataContainer pour appeler la fonction
         currentState = new Attack(this);
-
-        // healthBar.SetHealth(currentHealth); //Lequel choisir ??? (garder SetMaxHealth pour les tests)
-        // TODO : voir pour mettre à jour automatiquement la barre de vie lorsque la valeur est changée dans IATrain
-
-        // Set the default arrow
-        //ChangeArrowColor(leftArrow.GetComponent<SpriteRenderer>(), rightArrow.GetComponent<SpriteRenderer>());
     }
 
     void Update()

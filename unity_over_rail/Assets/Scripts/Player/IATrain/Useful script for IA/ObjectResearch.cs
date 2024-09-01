@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using overail.DataSpawner_;
+using overail.DataContainer_;
 using System;
 
 /// <summary>
@@ -16,7 +17,7 @@ namespace overail.IAResearchObject_
         {
             List<DataSpawner> objects = new List<DataSpawner>();
 
-            foreach (var spawner in train.GetComponent<DataContainer>().DataSpawners)
+            foreach (var spawner in GameObject.FindGameObjectWithTag("TEMPDataContainer").GetComponent<DataContainer>().DataSpawners) //train.GetComponent<DataContainer>().DataSpawners //TODO: quand DataContainer static, utiliser le using DataContainer pour appeler la fonction
             {
                 if (spawner.ObjectOnSpawnerName == nameObject)
                 {

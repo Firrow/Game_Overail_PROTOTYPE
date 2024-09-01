@@ -19,6 +19,7 @@ TagManager:
   - InterfacePlayer
   - TileTrigger
   - Grid
+  - TEMPDataContainer
   layers:
   - Default
   - TransparentFX

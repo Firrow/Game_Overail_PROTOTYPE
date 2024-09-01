@@ -14,152 +14,162 @@ using UnityEngine;
 /// TODO : faire de DataContainer une classe static
 /// </summary>
 
-public class DataContainer : MonoBehaviour
+namespace overail.DataContainer_
 {
-    private List<DataTrain> dataTrains = new List<DataTrain>();
-    private GameObject myTrain;
-    private DataTrain myDataTrain;
-    private GameObject[] spawners;
-    private List<DataSpawner> dataSpawners = new List<DataSpawner>();
-    private GameObject[] tiles;
-    private DataTile[,] tileMatrix;
-
-
-
-    private void Start()
+    public class DataContainer : MonoBehaviour
     {
-        CreateTileMatrix();
-
-        spawners = GameObject.FindGameObjectsWithTag("Spawner");
-        GetAllSpawners();
-
-        GetAllTrains();
-    }
-
+        private List<DataTrain> dataTrains = new List<DataTrain>();
+        private DataTrain myDataTrain;
+        private GameObject[] spawners;
+        private List<DataSpawner> dataSpawners = new List<DataSpawner>();
+        private GameObject[] tiles;
+        private DataTile[,] tileMatrix;
 
 
-    // --------------------------------------------------------------------------------------------------------------------------------------------------
-    // ------------------------------------------------------------- TRAINS -----------------------------------------------------------------------------
-    // --------------------------------------------------------------------------------------------------------------------------------------------------
 
-    public void GetAllTrains()
-    {
-        foreach (var train in GameObject.FindGameObjectsWithTag("Player"))
+        private void Start()
         {
-            DataTrain dataTrain = new DataTrain(
-                train.gameObject,
-                train.GetComponent<Train>().PlayerIndex
-            );
+            CreateTileMatrix();
 
-            dataTrains.Add(dataTrain);
+            spawners = GameObject.FindGameObjectsWithTag("Spawner");
+            GetAllSpawners();
 
-            if (myTrain == null && train.GetComponent<Train>().PlayerIndex == this.GetComponent<IATrain>().PlayerIndex)
-            {
-                myTrain = train.gameObject;
-                myDataTrain = dataTrain;
-            }
+            GetAllTrains();
         }
-    }
 
-    // --------------------------------------------------------------------------------------------------------------------------------------------------
-    // ------------------------------------------------------------- MAP --------------------------------------------------------------------------------
-    // --------------------------------------------------------------------------------------------------------------------------------------------------
 
-    private void CreateTileMatrix()
-    {
-        GridLayout grid = GameObject.FindObjectOfType<GridLayout>();
-        tiles = GameObject.FindGameObjectsWithTag("Tile");
-        int lineCount = GameObject.Find("TilemapRails").transform.childCount;
-        int columnCount = GameObject.Find("TilemapRails").transform.GetChild(1).transform.childCount; //on ne prend pas la première ligne pour le GetChild() car 2 cases en plus
-        tileMatrix = new DataTile[lineCount, columnCount];
 
-        int element = 0;
-        for (int i = 0; i < lineCount; i++)
+        // --------------------------------------------------------------------------------------------------------------------------------------------------
+        // ------------------------------------------------------------- TRAINS -----------------------------------------------------------------------------
+        // --------------------------------------------------------------------------------------------------------------------------------------------------
+
+        public void GetAllTrains()
         {
-            for (int j = 0; j < columnCount; j++)
+            foreach (var train in GameObject.FindGameObjectsWithTag("Player"))
             {
-                tileMatrix[i, j] = new DataTile(
-                    tiles[element].gameObject,
-                    grid.CellToWorld(grid.WorldToCell(tiles[element].transform.position)),
-                    tiles[element].GetComponent<Tile>().directionOfTile,
-                    tiles[element].GetComponent<Tile>().containsSpawner,
-                    tiles[element].GetComponent<Tile>().isSwitch,
-                    new DataTile.PositionInMatrix { x = i, y = j }
+                DataTrain dataTrain = new DataTrain(
+                    train
                 );
-                element++;
+
+                dataTrains.Add(dataTrain);
+
+                //GetTheTrain();
             }
         }
 
-        foreach (var tile in tileMatrix)
+        public DataTrain GetTheTrain(int trainIndex)
         {
-            GetNeighbors(tile);
-        }
-    }
-
-    private List<DataTile> GetNeighbors(DataTile dataTile) //TODO : ranger la fonction pour plus de clareté
-    {
-        if (dataTile.Neighbors.Count == 0)
-        {
-            foreach (var direction in dataTile.directionOfTile)
+            foreach (var dataTrain in dataTrains)
             {
-                // Prevents tileStarts from causing problems with their 3rd direction, which is subsequently deleted
-                try
+                if (trainIndex == dataTrain.Index)
                 {
-                    switch (direction)
+                    myDataTrain = dataTrain;
+                }
+            }
+
+            return myDataTrain;
+        }
+
+        // --------------------------------------------------------------------------------------------------------------------------------------------------
+        // ------------------------------------------------------------- MAP --------------------------------------------------------------------------------
+        // --------------------------------------------------------------------------------------------------------------------------------------------------
+
+        private void CreateTileMatrix()
+        {
+            GridLayout grid = GameObject.FindObjectOfType<GridLayout>();
+            tiles = GameObject.FindGameObjectsWithTag("Tile");
+            int lineCount = GameObject.Find("TilemapRails").transform.childCount;
+            int columnCount = GameObject.Find("TilemapRails").transform.GetChild(1).transform.childCount; //on ne prend pas la première ligne pour le GetChild() car 2 cases en plus
+            tileMatrix = new DataTile[lineCount, columnCount];
+
+            int element = 0;
+            for (int i = 0; i < lineCount; i++)
+            {
+                for (int j = 0; j < columnCount; j++)
+                {
+                    tileMatrix[i, j] = new DataTile(
+                        tiles[element].gameObject,
+                        grid.CellToWorld(grid.WorldToCell(tiles[element].transform.position)),
+                        tiles[element].GetComponent<Tile>().directionOfTile,
+                        tiles[element].GetComponent<Tile>().containsSpawner,
+                        tiles[element].GetComponent<Tile>().isSwitch,
+                        new DataTile.PositionInMatrix { x = i, y = j }
+                    );
+                    element++;
+                }
+            }
+
+            foreach (var tile in tileMatrix)
+            {
+                GetNeighbors(tile);
+            }
+        }
+
+        private List<DataTile> GetNeighbors(DataTile dataTile) //TODO : ranger la fonction pour plus de clareté
+        {
+            if (dataTile.Neighbors.Count == 0)
+            {
+                foreach (var direction in dataTile.directionOfTile)
+                {
+                    // Prevents tileStarts from causing problems with their 3rd direction, which is subsequently deleted
+                    try
                     {
-                        case 'N':
-                            dataTile.Neighbors.Add(tileMatrix[dataTile.Coordinates.x - 1, dataTile.Coordinates.y]);
-                            break;
-                        case 'E':
-                            dataTile.Neighbors.Add(tileMatrix[dataTile.Coordinates.x, dataTile.Coordinates.y + 1]);
-                            break;
-                        case 'S':
-                            dataTile.Neighbors.Add(tileMatrix[dataTile.Coordinates.x + 1, dataTile.Coordinates.y]);
-                            break;
-                        case 'O':
-                            dataTile.Neighbors.Add(tileMatrix[dataTile.Coordinates.x, dataTile.Coordinates.y - 1]);
-                            break;
+                        switch (direction)
+                        {
+                            case 'N':
+                                dataTile.Neighbors.Add(tileMatrix[dataTile.Coordinates.x - 1, dataTile.Coordinates.y]);
+                                break;
+                            case 'E':
+                                dataTile.Neighbors.Add(tileMatrix[dataTile.Coordinates.x, dataTile.Coordinates.y + 1]);
+                                break;
+                            case 'S':
+                                dataTile.Neighbors.Add(tileMatrix[dataTile.Coordinates.x + 1, dataTile.Coordinates.y]);
+                                break;
+                            case 'O':
+                                dataTile.Neighbors.Add(tileMatrix[dataTile.Coordinates.x, dataTile.Coordinates.y - 1]);
+                                break;
+                        }
+                    }
+                    catch (IndexOutOfRangeException e)
+                    {
+                        break;
                     }
                 }
-                catch (IndexOutOfRangeException e)
-                {
-                    break;
-                }
+            }
+            return dataTile.Neighbors;
+        }
+
+        private void GetAllSpawners()
+        {
+            foreach (var spawner in spawners)
+            {
+                DataSpawner dataSpawner = new DataSpawner(
+                        spawner.gameObject,
+                        spawner.transform.parent.gameObject,
+                        spawner.transform.position
+                    );
+
+                dataSpawners.Add(dataSpawner);
             }
         }
-        return dataTile.Neighbors;
-    }
 
-    private void GetAllSpawners()
-    {
-        foreach (var spawner in spawners)
+
+
+        public DataTrain MyDataTrain
         {
-            DataSpawner dataSpawner = new DataSpawner(
-                    spawner.gameObject,
-                    spawner.transform.parent.gameObject,
-                    spawner.transform.position
-                );
-
-            dataSpawners.Add(dataSpawner);
+            get { return myDataTrain; }
         }
-    }
-
-
-
-    public DataTrain MyDataTrain
-    {
-        get { return myDataTrain; }
-    }
-    public List<DataTrain> DataTrains
-    {
-        get { return dataTrains; }
-    }
-    public List<DataSpawner> DataSpawners
-    {
-        get { return dataSpawners; }
-    }
-    public DataTile[,] DataTileMatrix
-    {
-        get { return tileMatrix; }
+        public List<DataTrain> DataTrains
+        {
+            get { return dataTrains; }
+        }
+        public List<DataSpawner> DataSpawners
+        {
+            get { return dataSpawners; }
+        }
+        public DataTile[,] DataTileMatrix
+        {
+            get { return tileMatrix; }
+        }
     }
 }

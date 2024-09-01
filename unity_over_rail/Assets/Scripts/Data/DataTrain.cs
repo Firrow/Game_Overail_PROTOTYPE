@@ -12,17 +12,20 @@ namespace overail.DataTain_
     public class DataTrain
     {
         public GameObject train;
-        public int index;
 
 
 
-        public DataTrain(GameObject train, int index)
+        public DataTrain(GameObject train)
         {
             this.train = train;
-            this.index = index;
         }
 
 
+
+        public int Index
+        {
+            get { return this.train.GetComponent<Train>().PlayerIndex; }
+        }
 
         public Vector2 Position
         {
