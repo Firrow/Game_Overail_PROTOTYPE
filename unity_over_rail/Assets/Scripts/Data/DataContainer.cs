@@ -26,6 +26,10 @@ namespace overail.DataContainer_
         private DataTile[,] tileMatrix;
 
 
+        private void Awake() //temporaire (delete quand DataContainer sera une classe static
+        {
+            GetAllTrains();
+        }
 
         private void Start()
         {
@@ -33,8 +37,6 @@ namespace overail.DataContainer_
 
             spawners = GameObject.FindGameObjectsWithTag("Spawner");
             GetAllSpawners();
-
-            GetAllTrains();
         }
 
 
@@ -52,8 +54,6 @@ namespace overail.DataContainer_
                 );
 
                 dataTrains.Add(dataTrain);
-
-                //GetTheTrain();
             }
         }
 

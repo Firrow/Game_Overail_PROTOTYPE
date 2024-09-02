@@ -23,6 +23,16 @@ public class GameManager : MonoBehaviour
     private int PROBABILITY_RARE_OBJECT = 2; //2
 
 
+    private void Awake()
+    {
+        //Appeler toutes les fonctions utiles dans DataContainer :
+        /*CreateTileMatrix();
+
+        spawners = GameObject.FindGameObjectsWithTag("Spawner");
+        GetAllSpawners();
+
+        GetAllTrains();*/
+    }
 
     private void Start()
     {
