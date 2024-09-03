@@ -1,13 +1,17 @@
 using System.Collections;
 using UnityEngine;
 using overail.DataContainer_;
+using overail.DataTrain_;
+
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 /// <summary>
 /// Main script to managing trains (players and IA)
 /// TODO : ranger le script et ses deux enfants !
 /// </summary>
 
-public class Train : MonoBehaviour
+public class Train : MonoBehaviour, INotifyPropertyChanged
 {
     protected float SPEED = 1;
     private int MAX_HEALTH = 10;
@@ -26,7 +30,7 @@ public class Train : MonoBehaviour
     protected int choice;
     protected int currentHealth;
     protected GameObject currentItem;
-    protected HealthBar healthBar;
+    public HealthBar healthBar; //TEMPORAIRE 
     protected BulletBar bulletBar;
     protected ObjectSlot objectSlot;
     protected float angle = 0f;
@@ -46,7 +50,7 @@ public class Train : MonoBehaviour
     private Vector3 trainPosition;
     private Quaternion rotationMemory;
 
-
+    public event PropertyChangedEventHandler PropertyChanged;
 
     protected void Start()
     {
@@ -65,6 +69,9 @@ public class Train : MonoBehaviour
 
         GetInterface();
         SetInterface();
+
+        // Mets à l'écoute DataTrain
+        DataTrain.RegisterTrain(this);
     }
 
     protected void Update()
@@ -337,16 +344,14 @@ public class Train : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        currentHealth -= damage;
+        CurrentHealth -= damage;
 
-        if (currentHealth <= 0)
+        if (CurrentHealth <= 0) //TODOInterface : Voir pour mettre cette vérif ailleurs
         {
             ResetInterface();
             CallGetAllTrains();
             Destroy(this.gameObject);
         }
-
-        healthBar.GetComponent<HealthBar>().SetHealth(currentHealth);
     }
 
     // --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -465,6 +470,16 @@ public class Train : MonoBehaviour
         //TODO: quand DataContainer static, utiliser le using DataContainer pour appeler la fonction
     }
 
+
+
+    protected void OnPropertyChanged([CallerMemberName] string name = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+    }
+
+
+
+
     /// <summary>
     /// Entering on a switch (by IA)
     /// </summary>
@@ -502,7 +517,10 @@ public class Train : MonoBehaviour
     public int CurrentHealth
     {
         get { return currentHealth; }
-        set { currentHealth = value; }
+        set { 
+            currentHealth = value;
+            OnPropertyChanged("CurrentHealth");
+        }
     }
 
     public int MaxHealth

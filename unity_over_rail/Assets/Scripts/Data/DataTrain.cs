@@ -21,6 +21,17 @@ namespace overail.DataTrain_
         }
 
 
+        public static void RegisterTrain(Train train)
+        {
+            train.PropertyChanged += (sender, e) =>
+            {
+                if (e.PropertyName == nameof(train.CurrentHealth))
+                {
+                    train.GetComponent<Train>().healthBar.GetComponent<HealthBar>().SetHealth(train.CurrentHealth);
+                }
+            };
+        }
+
 
         public int Index
         {

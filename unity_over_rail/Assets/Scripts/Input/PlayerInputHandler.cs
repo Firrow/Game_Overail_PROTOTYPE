@@ -24,7 +24,6 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void OnMoveTrain(InputAction.CallbackContext context) //TODO changer le nom en ChangeDirection
     {
-        Debug.Log("INDEX : " + index);
         TrainActions.APIChangeDirection(index, (int)context.ReadValue<Vector2>().x);
     }
 
