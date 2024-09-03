@@ -7,7 +7,7 @@ using UnityEngine;
 /// All Datas about Spawners on map useful for IA
 /// </summary>
 
-namespace overail.DataTain_
+namespace overail.DataTrain_
 {
     public class DataTrain
     {

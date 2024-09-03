@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-using overail.DataTain_;
+using overail.DataTrain_;
 using overail.DataTile_;
 using overail.DataSpawner_;
 using overail.IAPathResearch_;
