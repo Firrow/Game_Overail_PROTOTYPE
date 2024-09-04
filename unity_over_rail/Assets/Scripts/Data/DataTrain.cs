@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace overail.DataTrain_
 {
-    public class DataTrain
+    public class DataTrain : ISubject
     {
         public GameObject train;
 
@@ -19,6 +19,7 @@ namespace overail.DataTrain_
         {
             this.train = train;
         }
+
 
 
         public static void RegisterTrain(Train train)
@@ -32,6 +33,20 @@ namespace overail.DataTrain_
             };
         }
 
+        public void Attach(IObserver observer)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Detach(IObserver observer)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Notify()
+        {
+            throw new System.NotImplementedException();
+        }
 
         public int Index
         {
