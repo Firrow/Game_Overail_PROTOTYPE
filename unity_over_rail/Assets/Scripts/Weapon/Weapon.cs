@@ -2,21 +2,24 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
 /// <summary>
 /// All functions of players' weapon
 /// </summary>
 
-public class Weapon : MonoBehaviour
+public class Weapon : MonoBehaviour, INotifyPropertyChanged
 {
+    public GameObject bullet;
+    public Transform firePoint;
+    public event PropertyChangedEventHandler PropertyChanged;
+
     private int MAX_BULLET_QUANTITY = 30;
     private int currentBulletQuantity = 2; //15
     private float BULLET_SPEED = 20;
     private float WEAPON_SPEED = 2000;
     private TimeSpan FIRE_RATE = new TimeSpan(0, 0, 0, 0, 150);
-
-    public GameObject bullet;
-    public Transform firePoint;
-
     private DateTime lastTimeShot;
     private bool isHumanPlayer = true;
     private bool inputIsKeyboard = false;
@@ -150,8 +153,8 @@ public class Weapon : MonoBehaviour
         if (currentBulletQuantity > 0 && DateTime.Now - lastTimeShot >= FIRE_RATE)
         {
             Shoot(firePoint, BULLET_SPEED, bullet, this.gameObject);
-            currentBulletQuantity--;
-            this.GetComponentInParent<HumanTrain>().UpdateBulletBar(currentBulletQuantity);
+            CurrentBulletQuantity--;
+            this.GetComponentInParent<HumanTrain>().UpdateBulletBar(CurrentBulletQuantity);
         }
     }
 
@@ -173,10 +176,24 @@ public class Weapon : MonoBehaviour
 
 
 
+
+
+    protected void OnPropertyChanged([CallerMemberName] string name = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+    }
+
+
+
+
+
     public int CurrentBulletQuantity
     {
         get { return currentBulletQuantity; }
-        set { currentBulletQuantity = value; }
+        set { 
+            currentBulletQuantity = value;
+            OnPropertyChanged("CurrentBulletQuantity");
+        }
     }
 
     public int MaxBulletQuantity

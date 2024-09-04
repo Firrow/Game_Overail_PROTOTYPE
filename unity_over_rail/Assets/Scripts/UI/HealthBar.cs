@@ -7,16 +7,16 @@ using UnityEngine.UI;
 /// Interface for health quantity
 /// </summary>
 
-public class HealthBar : MonoBehaviour, IObserver
+public class HealthBar : MonoBehaviour//, IObserver
 {
     public Slider slider;
 
 
 
-    public void Update(ISubject subject)
+    /*public void Update(ISubject subject)
     {
         throw new System.NotImplementedException();
-    }
+    }*/
 
     public void SetMaxHealth(int maxHealth) //TODO : utile ?
     {

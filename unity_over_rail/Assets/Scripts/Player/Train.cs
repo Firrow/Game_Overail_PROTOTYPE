@@ -71,7 +71,7 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
         SetInterface();
 
         // Mets à l'écoute DataTrain
-        DataTrain.RegisterTrain(this);
+        //DataTrain.RegisterTrain(this);
     }
 
     protected void Update()
@@ -324,7 +324,7 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
 
                 // Decorrect gun and train rotation
                 float delta = (angle - transform.rotation.eulerAngles.z) % 360;
-                weapon.GetComponent<Weapon>().FixWeaponRotation(delta);
+                Weapon.FixWeaponRotation(delta);
             }
 
             // Update train position and rotation
@@ -397,9 +397,9 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
     {
         if (!(shieldIsActivate && itemCollided.GetComponent<ShieldObject>())) // case of player take shield item when he already have shield on him
         {
-            currentItem = GameObject.FindGameObjectWithTag(itemCollided.tag);
+            CurrentItem = GameObject.FindGameObjectWithTag(itemCollided.tag);
 
-            if (currentItem.TryGetComponent(out IObjects pickedObject))
+            if (CurrentItem.TryGetComponent(out IObjects pickedObject))
                 pickedObject.GetTrain(this.gameObject);
 
             objectSlot.GetComponent<ObjectSlot>().DisplayActualObject(currentItem.GetComponent<SpriteRenderer>().sprite);
@@ -435,8 +435,8 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
     private void SetInterface()
     {
         // Set this interface
-        bulletBar.SetMaxBullet(weapon.GetComponent<Weapon>().MaxBulletQuantity);
-        bulletBar.SetBullet(weapon.GetComponent<Weapon>().CurrentBulletQuantity);
+        bulletBar.SetMaxBullet(Weapon.MaxBulletQuantity);
+        bulletBar.SetBullet(Weapon.CurrentBulletQuantity);
         healthBar.SetMaxHealth(MaxHealth);
     }
 
@@ -492,6 +492,11 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
         get { return playerIndex; }
     }
 
+    public Weapon Weapon
+    {
+        get { return weapon.GetComponent<Weapon>(); }
+    }
+
     public Vector3 TrainPosition
     {
         get { return trainPosition; }
@@ -508,18 +513,21 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
         get { return velocity; }
     }
 
-    public GameObject CurrentItem
-    {
-        get { return currentItem; }
-        set { currentItem = value; }
-    }
-
     public int CurrentHealth
     {
         get { return currentHealth; }
         set { 
             currentHealth = value;
             OnPropertyChanged("CurrentHealth");
+        }
+    }
+
+    public GameObject CurrentItem
+    {
+        get { return currentItem; }
+        set { 
+            currentItem = value;
+            OnPropertyChanged("CurrentItem");
         }
     }
 

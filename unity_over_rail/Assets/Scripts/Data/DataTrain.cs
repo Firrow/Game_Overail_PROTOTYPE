@@ -9,15 +9,18 @@ using UnityEngine;
 
 namespace overail.DataTrain_
 {
-    public class DataTrain : ISubject
+    public class DataTrain //: ISubject
     {
         public GameObject train;
+        public Weapon trainWeapon;
 
 
 
         public DataTrain(GameObject train)
         {
             this.train = train;
+            RegisterTrain(train.GetComponent<Train>());
+            //trainWeapon = train.GetComponent<Train>().weapon.GetComponent<Weapon>();
         }
 
 
@@ -28,25 +31,23 @@ namespace overail.DataTrain_
             {
                 if (e.PropertyName == nameof(train.CurrentHealth))
                 {
-                    train.GetComponent<Train>().healthBar.GetComponent<HealthBar>().SetHealth(train.CurrentHealth);
+                    Debug.Log("DATATRAIN santé");
+                    //train.GetComponent<Train>().healthBar.GetComponent<HealthBar>().SetHealth(train.CurrentHealth);
+                }
+                else if (e.PropertyName == nameof(train.CurrentItem))
+                {
+                    Debug.Log("DATATRAIN object");
+                }
+            };
+            train.Weapon.PropertyChanged += (sender, e) =>
+            {
+                if (e.PropertyName == nameof(train.Weapon.CurrentBulletQuantity))
+                {
+                    Debug.Log("DATATRAIN bullet");
                 }
             };
         }
 
-        public void Attach(IObserver observer)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Detach(IObserver observer)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Notify()
-        {
-            throw new System.NotImplementedException();
-        }
 
         public int Index
         {
