@@ -35,6 +35,7 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
     protected ObjectSlot objectSlot;
     protected float angle = 0f;
 
+    private bool isDead = false;
     private GameObject currentTile;
     private Transform nextRoad;
     private bool coroutineAllowed = false;
@@ -68,7 +69,6 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
         shieldIsActivate = shield.activeSelf;
 
         GetInterface();
-        SetInterface();
     }
 
     protected void Update()
@@ -179,9 +179,7 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
         if (collision.gameObject.layer == LayerMask.NameToLayer("Trains"))
         {
             TakeDamage(MAX_HEALTH);
-
-            // Undisplay values in interface player
-            ResetInterface();
+            isDead = true;
         }
     }
 
@@ -344,8 +342,8 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
 
         if (CurrentHealth <= 0) //TODOInterface : Voir pour mettre cette vérif ailleurs
         {
-            ResetInterface();
-            CallGetAllTrains();
+            IsDead = true;
+            //CallGetAllTrains();
             Destroy(this.gameObject);
         }
     }
@@ -428,20 +426,6 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
         }
     }
 
-    private void SetInterface() //TODO : faire du propre
-    {
-        // Set this interface
-        bulletBar.SetMaxBullet(Weapon.MaxBulletQuantity);
-        bulletBar.SetBullet(Weapon.CurrentBulletQuantity);
-        healthBar.SetMaxHealth(MaxHealth);
-    }
-
-    private void ResetInterface() //TODO : Besoin de reset la healthbar ???
-    {
-        bulletBar.GetComponent<BulletBar>().SetBullet(0);
-        objectSlot.GetComponent<ObjectSlot>().UndisplayActualObject();
-    }
-
     private void ChangeArrowColor(SpriteRenderer actualArrow, SpriteRenderer otherArrow)
     {
         actualArrow.color = new Color(1, 0, 0, 1);
@@ -458,13 +442,13 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
     /// <summary>
     /// Call function in DataContainer to relist all trains
     /// </summary>
-    private void CallGetAllTrains()
+    /*private void CallGetAllTrains()
     {
         this.tag = "Untagged";
 
         GameObject.FindGameObjectWithTag("TEMPDataContainer").GetComponent<DataContainer>().GetAllTrains() ;
         //TODO: NE PAS UTILISER GETALLTRAINS ! Déclencher un event, abonner DataContainer à cet event pour supprimer le train de la liste des trains
-    }
+    }*/
 
 
 
@@ -487,6 +471,16 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
     {
         get { return playerIndex; }
     }
+
+    public bool IsDead
+    {
+        get { return isDead; }
+        set { 
+            isDead = value;
+            OnPropertyChanged("IsDead");
+        }
+    }
+
 
     public Weapon Weapon
     {

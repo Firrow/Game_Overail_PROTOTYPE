@@ -28,7 +28,7 @@ public class InterfacePlayer : MonoBehaviour
         dataTrain = dataContainer.GetTheTrain(index);
         RegisterTrain();
 
-
+        SetInterface();
     }
 
 
@@ -58,7 +58,25 @@ public class InterfacePlayer : MonoBehaviour
                         objectSlotPlayer.GetComponent<ObjectSlot>().DisplayActualObject(dataTrain.CurrentObject.GetComponent<SpriteRenderer>().sprite);
                     }
                 }
+                else if (e.PropertyName == "IsDead") 
+                {
+                    ResetInterface();
+                }
             };
         }
+    }
+
+    private void SetInterface()
+    {
+        bulletBarPlayer.GetComponent<BulletBar>().SetMaxBullet(dataTrain.MaxBulletQuantity);
+        bulletBarPlayer.GetComponent<BulletBar>().SetBullet(dataTrain.BulletQuantity);
+        healthBarPlayer.GetComponent<HealthBar>().SetMaxHealth(dataTrain.MaxHealth);
+    }
+
+    private void ResetInterface()
+    {
+        bulletBarPlayer.GetComponent<BulletBar>().SetBullet(0);
+        healthBarPlayer.GetComponent<HealthBar>().SetHealth(0);
+        objectSlotPlayer.GetComponent<ObjectSlot>().UndisplayActualObject();
     }
 }

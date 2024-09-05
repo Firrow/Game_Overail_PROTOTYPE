@@ -11,14 +11,16 @@ using System.Runtime.CompilerServices;
 
 public class Weapon : MonoBehaviour, INotifyPropertyChanged
 {
+    private int MAX_BULLET_QUANTITY = 30;
+    
+    private float BULLET_SPEED = 20;
+    private float WEAPON_SPEED = 2000;
+
     public GameObject bullet;
     public Transform firePoint;
     public event PropertyChangedEventHandler PropertyChanged;
 
-    private int MAX_BULLET_QUANTITY = 30;
     private int currentBulletQuantity = 2; //15
-    private float BULLET_SPEED = 20;
-    private float WEAPON_SPEED = 2000;
     private TimeSpan FIRE_RATE = new TimeSpan(0, 0, 0, 0, 150);
     private DateTime lastTimeShot;
     private bool isHumanPlayer = true;

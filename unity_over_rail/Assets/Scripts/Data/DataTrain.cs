@@ -32,7 +32,6 @@ namespace overail.DataTrain_
         {
             train.PropertyChanged += (sender, e) =>
             {
-                //Debug.Log("Index : " + train.PlayerIndex + " : abonnement DataTrain - PROPERTY : " + e.PropertyName);
                 if (e.PropertyName == nameof(train.CurrentHealth))
                 {
                     OnPropertyChanged(nameof(Health));
@@ -40,6 +39,10 @@ namespace overail.DataTrain_
                 else if (e.PropertyName == nameof(train.CurrentItem))
                 {
                     OnPropertyChanged(nameof(CurrentObject));
+                }
+                else if (e.PropertyName == nameof(train.IsDead))
+                {
+                    OnPropertyChanged(nameof(IsDead));
                 }
             };
             train.Weapon.PropertyChanged += (sender, e) =>
@@ -61,6 +64,11 @@ namespace overail.DataTrain_
         public int Index
         {
             get { return this.train.GetComponent<Train>().PlayerIndex; }
+        }
+
+        public bool IsDead
+        {
+            get { return this.train.GetComponent<Train>().IsDead; }
         }
 
         public Vector2 Position
@@ -92,10 +100,18 @@ namespace overail.DataTrain_
         {
             get { return this.train.GetComponent<Train>().CurrentHealth; }
         }
+        public int MaxHealth
+        {
+            get { return this.train.GetComponent<Train>().MaxHealth; }
+        }
 
         public int BulletQuantity
         {
             get { return this.train.GetComponentInChildren<Weapon>().CurrentBulletQuantity; }
+        }
+        public int MaxBulletQuantity
+        {
+            get { return this.train.GetComponentInChildren<Weapon>().MaxBulletQuantity; }
         }
 
         public GameObject CurrentObject
