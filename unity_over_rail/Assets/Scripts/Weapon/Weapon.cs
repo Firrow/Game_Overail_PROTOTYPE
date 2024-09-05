@@ -12,7 +12,6 @@ using System.Runtime.CompilerServices;
 public class Weapon : MonoBehaviour, INotifyPropertyChanged
 {
     private int MAX_BULLET_QUANTITY = 30;
-    
     private float BULLET_SPEED = 20;
     private float WEAPON_SPEED = 2000;
 
@@ -20,7 +19,7 @@ public class Weapon : MonoBehaviour, INotifyPropertyChanged
     public Transform firePoint;
     public event PropertyChangedEventHandler PropertyChanged;
 
-    private int currentBulletQuantity = 2; //15
+    private int currentBulletQuantity;
     private TimeSpan FIRE_RATE = new TimeSpan(0, 0, 0, 0, 150);
     private DateTime lastTimeShot;
     private bool isHumanPlayer = true;
@@ -35,6 +34,7 @@ public class Weapon : MonoBehaviour, INotifyPropertyChanged
 
     void Start()
     {
+        CurrentBulletQuantity = 2;
         lastTimeShot = DateTime.Now;
     }
 

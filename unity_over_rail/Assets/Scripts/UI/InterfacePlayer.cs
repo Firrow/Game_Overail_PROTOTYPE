@@ -24,7 +24,7 @@ public class InterfacePlayer : MonoBehaviour
 
     private void Start()
     {
-        dataContainer = GameObject.FindGameObjectWithTag("TEMPDataContainer").GetComponent<DataContainer>();
+        dataContainer = GameObject.FindGameObjectWithTag("TEMPDataContainer").GetComponent<DataContainer>(); //TODO : temporaire
         dataTrain = dataContainer.GetTheTrain(index);
         RegisterTrain();
 
@@ -39,28 +39,29 @@ public class InterfacePlayer : MonoBehaviour
         {
             dataTrain.PropertyChanged += (sender, e) =>
             {
-                if (e.PropertyName == "Health") //TODO : faire un switch
+                switch (e.PropertyName)
                 {
-                    healthBarPlayer.GetComponent<HealthBar>().SetHealth(dataTrain.Health);
-                }
-                else if (e.PropertyName == "BulletQuantity")
-                {
-                    bulletBarPlayer.GetComponent<BulletBar>().SetBullet(dataTrain.BulletQuantity);
-                }
-                else if (e.PropertyName == "CurrentObject")
-                {
-                    if (dataTrain.CurrentObject is null)
-                    {
-                        objectSlotPlayer.GetComponent<ObjectSlot>().UndisplayActualObject();
-                    }
-                    else
-                    {
-                        objectSlotPlayer.GetComponent<ObjectSlot>().DisplayActualObject(dataTrain.CurrentObject.GetComponent<SpriteRenderer>().sprite);
-                    }
-                }
-                else if (e.PropertyName == "IsDead") 
-                {
-                    ResetInterface();
+                    case "Health":
+                        healthBarPlayer.GetComponent<HealthBar>().SetHealth(dataTrain.Health);
+                        break;
+                    case "BulletQuantity":
+                        bulletBarPlayer.GetComponent<BulletBar>().SetBullet(dataTrain.BulletQuantity);
+                        break;
+                    case "CurrentObject":
+                        if (dataTrain.CurrentObject is null)
+                        {
+                            objectSlotPlayer.GetComponent<ObjectSlot>().UndisplayActualObject();
+                        }
+                        else
+                        {
+                            objectSlotPlayer.GetComponent<ObjectSlot>().DisplayActualObject(dataTrain.CurrentObject.GetComponent<SpriteRenderer>().sprite);
+                        }
+                        break;
+                    case "IsDead":
+                        ResetInterface();
+                        break;
+                    default:
+                        break;
                 }
             };
         }
@@ -71,6 +72,7 @@ public class InterfacePlayer : MonoBehaviour
         bulletBarPlayer.GetComponent<BulletBar>().SetMaxBullet(dataTrain.MaxBulletQuantity);
         bulletBarPlayer.GetComponent<BulletBar>().SetBullet(dataTrain.BulletQuantity);
         healthBarPlayer.GetComponent<HealthBar>().SetMaxHealth(dataTrain.MaxHealth);
+        healthBarPlayer.GetComponent<HealthBar>().SetHealth(dataTrain.Health);
     }
 
     private void ResetInterface()

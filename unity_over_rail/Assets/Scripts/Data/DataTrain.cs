@@ -15,7 +15,6 @@ namespace overail.DataTrain_
     public class DataTrain : INotifyPropertyChanged
     {
         public GameObject train;
-        public Weapon trainWeapon;
         public event PropertyChangedEventHandler PropertyChanged;
 
 

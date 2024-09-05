@@ -19,6 +19,7 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
     public string fromDirection; // TODO : permettre de le determiner automatiquement //TODO : public à remplacer par private + SerializeField ?
     public GameObject leftArrow;
     public GameObject rightArrow;
+    public event PropertyChangedEventHandler PropertyChanged;
 
     [SerializeField]
     protected GameObject weapon;
@@ -51,14 +52,12 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
     private Vector3 trainPosition;
     private Quaternion rotationMemory;
 
-    public event PropertyChangedEventHandler PropertyChanged;
+
 
     protected void Start()
     {
-        //coroutineAllowed = true;
+        CurrentHealth = MAX_HEALTH;
         StartCoroutine(StartGame()); // temporaire
-        currentHealth = MAX_HEALTH;
-        //currentHealth = 3;
 
         this.choice = 1;
         lastChoiceDirection = 1;
@@ -443,12 +442,12 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
     /// </summary>
     public virtual void OnSwitchEnter() { }
 
-
-
     protected void OnPropertyChanged([CallerMemberName] string name = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
+
+
 
     public int PlayerIndex
     {
