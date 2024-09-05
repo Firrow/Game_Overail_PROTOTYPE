@@ -54,6 +54,12 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
 
 
 
+    private void Awake()
+    {
+        // StartValue
+        CurrentHealth = MaxHealth;
+    }
+
     protected void Start()
     {
         CurrentHealth = MAX_HEALTH;
@@ -393,8 +399,6 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
 
             if (CurrentItem.TryGetComponent(out IObjects pickedObject))
                 pickedObject.GetTrain(this.gameObject);
-
-            objectSlot.GetComponent<ObjectSlot>().DisplayActualObject(currentItem.GetComponent<SpriteRenderer>().sprite);
         }
         else
         {

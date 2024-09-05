@@ -31,10 +31,14 @@ public class Weapon : MonoBehaviour, INotifyPropertyChanged
     private Quaternion targetRotation;
 
 
+    private void Awake()
+    {
+        // StartValue
+        CurrentBulletQuantity = 15;
+    }
 
     void Start()
     {
-        CurrentBulletQuantity = 2;
         lastTimeShot = DateTime.Now;
     }
 

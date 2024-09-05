@@ -14,13 +14,13 @@ public class GameManager : MonoBehaviour
     public List<string> allObjectNames = new List<string>() { "HeartObject", "BulletObject", "ShieldObject" };
 
     public GameObject[] usualObjects;
-    private int PROBABILITY_USUAL_OBJECT = 5; //5
+    private int PROBABILITY_USUAL_OBJECT = 1; //5
 
     public GameObject[] unusualObjects;
-    private int PROBABILITY_UNUSUAL_OBJECT = 3; //3
+    private int PROBABILITY_UNUSUAL_OBJECT = 1; //3
 
     public GameObject[] rareObjects;
-    private int PROBABILITY_RARE_OBJECT = 2; //2
+    private int PROBABILITY_RARE_OBJECT = 8; //2
 
 
     private void Awake()
