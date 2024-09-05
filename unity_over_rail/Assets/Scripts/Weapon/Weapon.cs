@@ -185,10 +185,6 @@ public class Weapon : MonoBehaviour, INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 
-
-
-
-
     public int CurrentBulletQuantity
     {
         get { return currentBulletQuantity; }

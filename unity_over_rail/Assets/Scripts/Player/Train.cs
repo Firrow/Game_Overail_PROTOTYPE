@@ -30,7 +30,7 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
     protected int choice;
     protected int currentHealth;
     protected GameObject currentItem;
-    public HealthBar healthBar; //TEMPORAIRE 
+    protected HealthBar healthBar;
     protected BulletBar bulletBar;
     protected ObjectSlot objectSlot;
     protected float angle = 0f;
@@ -340,10 +340,9 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
     {
         CurrentHealth -= damage;
 
-        if (CurrentHealth <= 0) //TODOInterface : Voir pour mettre cette vérif ailleurs
+        if (CurrentHealth <= 0)
         {
             IsDead = true;
-            //CallGetAllTrains();
             Destroy(this.gameObject);
         }
     }
@@ -440,15 +439,9 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Call function in DataContainer to relist all trains
+    /// Entering on a switch (by IA)
     /// </summary>
-    /*private void CallGetAllTrains()
-    {
-        this.tag = "Untagged";
-
-        GameObject.FindGameObjectWithTag("TEMPDataContainer").GetComponent<DataContainer>().GetAllTrains() ;
-        //TODO: NE PAS UTILISER GETALLTRAINS ! Déclencher un event, abonner DataContainer à cet event pour supprimer le train de la liste des trains
-    }*/
+    public virtual void OnSwitchEnter() { }
 
 
 
@@ -456,16 +449,6 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
-
-
-
-
-    /// <summary>
-    /// Entering on a switch (by IA)
-    /// </summary>
-    public virtual void OnSwitchEnter() { }
-
-
 
     public int PlayerIndex
     {
@@ -480,7 +463,6 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
             OnPropertyChanged("IsDead");
         }
     }
-
 
     public Weapon Weapon
     {
