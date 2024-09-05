@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
 /// <summary>
 /// API
 /// All Datas about Spawners on map useful for IA
@@ -9,10 +12,11 @@ using UnityEngine;
 
 namespace overail.DataTrain_
 {
-    public class DataTrain //: ISubject
+    public class DataTrain : INotifyPropertyChanged
     {
         public GameObject train;
         public Weapon trainWeapon;
+        public event PropertyChangedEventHandler PropertyChanged;
 
 
 
@@ -20,33 +24,38 @@ namespace overail.DataTrain_
         {
             this.train = train;
             RegisterTrain(train.GetComponent<Train>());
-            //trainWeapon = train.GetComponent<Train>().weapon.GetComponent<Weapon>();
         }
 
 
 
-        public static void RegisterTrain(Train train)
+        public void RegisterTrain(Train train)
         {
             train.PropertyChanged += (sender, e) =>
             {
+                //Debug.Log("Index : " + train.PlayerIndex + " : abonnement DataTrain - PROPERTY : " + e.PropertyName);
                 if (e.PropertyName == nameof(train.CurrentHealth))
                 {
-                    Debug.Log("DATATRAIN santé");
-                    //train.GetComponent<Train>().healthBar.GetComponent<HealthBar>().SetHealth(train.CurrentHealth);
+                    OnPropertyChanged(nameof(Health));
                 }
                 else if (e.PropertyName == nameof(train.CurrentItem))
                 {
-                    Debug.Log("DATATRAIN object");
+                    OnPropertyChanged(nameof(CurrentObject));
                 }
             };
             train.Weapon.PropertyChanged += (sender, e) =>
             {
                 if (e.PropertyName == nameof(train.Weapon.CurrentBulletQuantity))
                 {
-                    Debug.Log("DATATRAIN bullet");
+                    OnPropertyChanged(nameof(train.Weapon.CurrentBulletQuantity));
                 }
             };
         }
+
+        public void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
 
 
         public int Index

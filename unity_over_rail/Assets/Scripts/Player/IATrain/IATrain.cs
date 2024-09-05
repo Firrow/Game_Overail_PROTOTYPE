@@ -32,7 +32,7 @@ public class IATrain : Train
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         myData = GameObject.FindGameObjectWithTag("TEMPDataContainer").GetComponent<DataContainer>().GetTheTrain(PlayerIndex); //ligne temporaire car DataContainer pas static
         //TODO: quand DataContainer static, utiliser le using DataContainer pour appeler la fonction
-        currentState = new Attack(this);
+        CurrentState = new Attack(this);
     }
 
     void Update()
@@ -44,7 +44,7 @@ public class IATrain : Train
     {
         base.FixedUpdate();
 
-        currentState.MainExecution();
+        CurrentState.MainExecution();
         NeedToChangeDirectionToTarget();
 
         GetNextSwitchOnMap();
@@ -54,7 +54,7 @@ public class IATrain : Train
 
     public void ChangeState(IStateTrain newState)
     {
-        currentState = newState;
+        CurrentState = newState;
     }
 
     public void UpdateTarget(ITargetToMove target)
@@ -130,9 +130,10 @@ public class IATrain : Train
         get { return gameManager; }
     }
 
-    public IStateTrain CurrentState1
+    public IStateTrain CurrentState
     {
         get { return currentState; }
+        set { currentState = value; }
     }
 
     public Vector3 TargetPosition

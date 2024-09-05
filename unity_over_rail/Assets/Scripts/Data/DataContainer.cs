@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 /// <summary>
 /// API
@@ -47,7 +48,7 @@ namespace overail.DataContainer_
 
         public void GetAllTrains()
         {
-            foreach (var train in GameObject.FindGameObjectsWithTag("Player"))
+            foreach (GameObject train in GameObject.FindGameObjectsWithTag("Player"))
             {
                 DataTrain dataTrain = new DataTrain(
                     train
@@ -59,15 +60,7 @@ namespace overail.DataContainer_
 
         public DataTrain GetTheTrain(int trainIndex)
         {
-            foreach (var dataTrain in dataTrains)
-            {
-                if (trainIndex == dataTrain.Index)
-                {
-                    myDataTrain = dataTrain;
-                }
-            }
-
-            return myDataTrain;
+            return dataTrains.FirstOrDefault<DataTrain>((dt) => { return trainIndex == dt.Index; });
         }
 
         // --------------------------------------------------------------------------------------------------------------------------------------------------

@@ -69,9 +69,6 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
 
         GetInterface();
         SetInterface();
-
-        // Mets à l'écoute DataTrain
-        //DataTrain.RegisterTrain(this);
     }
 
     protected void Update()
@@ -141,11 +138,10 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
 
     public void UsePickObject()
     {
-        if (currentItem != null && currentItem.TryGetComponent(out IObjects pickedObject))
+        if (CurrentItem != null && CurrentItem.TryGetComponent(out IObjects pickedObject))
         {
             pickedObject.UseObject();
-            currentItem = null;
-            objectSlot.UndisplayActualObject();
+            CurrentItem = null;
         }
     }
 
@@ -432,7 +428,7 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
         }
     }
 
-    private void SetInterface()
+    private void SetInterface() //TODO : faire du propre
     {
         // Set this interface
         bulletBar.SetMaxBullet(Weapon.MaxBulletQuantity);
@@ -466,8 +462,8 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
     {
         this.tag = "Untagged";
 
-        GameObject.FindGameObjectWithTag("TEMPDataContainer").GetComponent<DataContainer>().GetAllTrains() ; //ligne temporaire car DataContainer pas static
-        //TODO: quand DataContainer static, utiliser le using DataContainer pour appeler la fonction
+        GameObject.FindGameObjectWithTag("TEMPDataContainer").GetComponent<DataContainer>().GetAllTrains() ;
+        //TODO: NE PAS UTILISER GETALLTRAINS ! Déclencher un event, abonner DataContainer à cet event pour supprimer le train de la liste des trains
     }
 
 

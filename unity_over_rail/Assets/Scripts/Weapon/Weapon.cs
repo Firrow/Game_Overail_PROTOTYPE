@@ -150,7 +150,7 @@ public class Weapon : MonoBehaviour, INotifyPropertyChanged
     /// </summary>
     public void PressShootButton()
     {
-        if (currentBulletQuantity > 0 && DateTime.Now - lastTimeShot >= FIRE_RATE)
+        if (CurrentBulletQuantity > 0 && DateTime.Now - lastTimeShot >= FIRE_RATE)
         {
             Shoot(firePoint, BULLET_SPEED, bullet, this.gameObject);
             CurrentBulletQuantity--;
