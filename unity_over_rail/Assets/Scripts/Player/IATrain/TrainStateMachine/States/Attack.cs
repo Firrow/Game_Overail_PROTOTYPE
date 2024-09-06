@@ -50,7 +50,7 @@ public class Attack : IStateTrain
         {
             DataSpawner targetDataSpawner = train.targetToMove as DataSpawner;
 
-            // If the nearest ball is recalculated because the previous one has disappeared
+            // If the nearest bullet is recalculated because the previous one has disappeared
             if (targetDataSpawner == null || targetDataSpawner.ObjectOnSpawnerName != "BulletObject")
             {
                 objects = ObjectResearch.ListObjectsInMap(train, "BulletObject");
