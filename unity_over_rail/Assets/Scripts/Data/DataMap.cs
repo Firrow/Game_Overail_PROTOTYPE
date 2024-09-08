@@ -97,7 +97,6 @@ namespace overail.DataMap_
         public List<DataSpawner> GetAllSpawners()
         {
             GameObject[] spawners = GameObject.FindGameObjectsWithTag("Spawner");
-
             List<DataSpawner> dtSpawners = new List<DataSpawner>();
             foreach (var spawner in spawners)
             {

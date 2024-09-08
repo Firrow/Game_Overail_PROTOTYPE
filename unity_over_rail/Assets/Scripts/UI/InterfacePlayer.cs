@@ -24,7 +24,7 @@ public class InterfacePlayer : MonoBehaviour
 
     private void Start()
     {
-        dataContainer = GameObject.FindGameObjectWithTag("TEMPDataContainer").GetComponent<DataContainer>(); //TODO : temporaire
+        dataContainer = GameObject.FindGameObjectWithTag("DataContainer").GetComponent<DataContainer>();
         dataTrain = dataContainer.GetTheTrain(index);
         RegisterTrain();
 

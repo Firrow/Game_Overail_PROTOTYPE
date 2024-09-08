@@ -30,8 +30,7 @@ public class IATrain : Train
         base.Start();
 
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        myData = GameObject.FindGameObjectWithTag("TEMPDataContainer").GetComponent<DataContainer>().GetTheTrain(PlayerIndex); //ligne temporaire car DataContainer pas static
-        //TODO: quand DataContainer static, utiliser le using DataContainer pour appeler la fonction
+        myData = GameObject.FindGameObjectWithTag("DataContainer").GetComponent<DataContainer>().GetTheTrain(PlayerIndex);
         CurrentState = new Attack(this);
     }
 

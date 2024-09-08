@@ -25,13 +25,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        //Appeler toutes les fonctions utiles dans DataContainer :
-        /*CreateTileMatrix();
 
-        spawners = GameObject.FindGameObjectsWithTag("Spawner");
-        GetAllSpawners();
-
-        GetAllTrains();*/
     }
 
     private void Start()

@@ -21,24 +21,14 @@ namespace overail.DataContainer_
     public class DataContainer : MonoBehaviour
     {
         private List<DataTrain> dataTrains = new List<DataTrain>();
-        private DataTrain myDataTrain;
-        private GameObject[] spawners;
-        private List<DataSpawner> dataSpawners = new List<DataSpawner>();
-        private DataTile[,] tileMatrix;
+        private DataMap dataNetworkMap;
 
 
 
-        private void Awake() //temporaire (delete quand DataContainer sera une classe static
+        private void Awake()
         {
             GetAllTrains();
-        }
-
-        private void Start()
-        {
-            tileMatrix = DataMap.CreateTileMatrix();
-
-            spawners = GameObject.FindGameObjectsWithTag("Spawner");
-            dataSpawners = DataMap.GetAllSpawners(spawners);
+            dataNetworkMap = new DataMap();
         }
 
 
@@ -66,21 +56,14 @@ namespace overail.DataContainer_
 
 
 
-        public DataTrain MyDataTrain
-        {
-            get { return myDataTrain; }
-        }
         public List<DataTrain> DataTrains
         {
             get { return dataTrains; }
         }
-        public List<DataSpawner> DataSpawners
+
+        public DataMap DataNetworkMap
         {
-            get { return dataSpawners; }
-        }
-        public DataTile[,] DataTileMatrix
-        {
-            get { return tileMatrix; }
+            get { return dataNetworkMap; }
         }
     }
 }
