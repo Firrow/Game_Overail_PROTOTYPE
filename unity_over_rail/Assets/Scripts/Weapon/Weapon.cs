@@ -33,7 +33,7 @@ public class Weapon : MonoBehaviour, INotifyPropertyChanged
     private void Awake()
     {
         // StartValue
-        CurrentBulletQuantity = 15;
+        CurrentBulletQuantity = 2; //15
     }
 
     void Start()

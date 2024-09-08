@@ -24,7 +24,7 @@ public class InterfacePlayer : MonoBehaviour
 
     private void Start()
     {
-        dataContainer = GameObject.FindGameObjectWithTag("DataContainer").GetComponent<DataContainer>();
+        dataContainer = GameObject.FindGameObjectWithTag("GameManager").GetComponent<DataContainer>();
         dataTrain = dataContainer.GetTheTrain(index);
         RegisterTrain();
 

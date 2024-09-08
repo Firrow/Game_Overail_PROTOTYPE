@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8664517638414571414}
   - component: {fileID: 5040387952589757972}
+  - component: {fileID: 4330550928501333961}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -44,9 +45,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44f044a3e6cfe0c49a07015ca4abf47a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allObjectNames:
+  - HeartObject
+  - BulletObject
+  - ShieldObject
   usualObjects:
   - {fileID: 3275857475779553978, guid: 8830bf297a309fe4fab4676de5feecec, type: 3}
   unusualObjects:
   - {fileID: 3275857475779553978, guid: d243fb79fcff13d42a20440b7240b83f, type: 3}
   rareObjects:
   - {fileID: 3275857475779553978, guid: 3be7371999c4a154dad29c0a0655feae, type: 3}
+--- !u!114 &4330550928501333961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8271320021144401728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 483fca1728473364ab91417c15c6f96c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

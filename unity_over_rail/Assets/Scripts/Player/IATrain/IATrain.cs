@@ -30,7 +30,8 @@ public class IATrain : Train
         base.Start();
 
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        myData = GameObject.FindGameObjectWithTag("DataContainer").GetComponent<DataContainer>().GetTheTrain(PlayerIndex);
+        //myData = GameObject.FindGameObjectWithTag("DataContainer").GetComponent<DataContainer>().GetTheTrain(PlayerIndex);
+        myData = gameManager.GetComponent<DataContainer>().GetTheTrain(PlayerIndex);
         CurrentState = new Attack(this);
     }
 
@@ -61,8 +62,8 @@ public class IATrain : Train
         targetChanged = true;
         targetToMove = target;
         targetPosition = target.Position;
-        //Debug.Log("CHANGE CIBLE");
-        //Debug.Log(targetPosition);
+        Debug.Log("CHANGE CIBLE");
+        Debug.Log(targetPosition);
     }
 
     public void NeedToChangeDirectionToTarget()

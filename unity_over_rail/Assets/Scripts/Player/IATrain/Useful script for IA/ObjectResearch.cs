@@ -17,8 +17,7 @@ namespace overail.IAResearchObject_
         {
             List<DataSpawner> objects = new List<DataSpawner>();
 
-            //GameObject.FindGameObjectWithTag("DataContainer").GetComponent<DataContainer>().DataSpawners
-            foreach (var spawner in GameObject.FindGameObjectWithTag("DataContainer").GetComponent<DataContainer>().DataNetworkMap.DataSpawners) 
+            foreach (var spawner in GameObject.FindGameObjectWithTag("GameManager").GetComponent<DataContainer>().DataNetworkMap.DataSpawners) 
             {
                 if (spawner.ObjectOnSpawnerName == nameObject)
                 {
