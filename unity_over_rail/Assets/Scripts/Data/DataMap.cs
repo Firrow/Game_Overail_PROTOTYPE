@@ -13,16 +13,24 @@ using overail.DataSpawner_;
 
 namespace overail.DataMap_
 {
-    public static class DataMap
+    public class DataMap
     {
-        private static DataTile[,] tileMatrix;
-        private static GameObject[] tiles;
+        private DataTile[,] tileMatrix;
+        private GameObject[] tiles;
+        private List<DataSpawner> dataSpawners;
 
 
 
-        public static DataTile[,] CreateTileMatrix()
+        public DataMap()
         {
-            Debug.Log("CreateTileMatrix");
+            CreateTileMatrix();
+            this.dataSpawners = GetAllSpawners();
+        }
+
+
+
+        public void CreateTileMatrix()
+        {
             GridLayout grid = GameObject.FindObjectOfType<GridLayout>();
             tiles = GameObject.FindGameObjectsWithTag("Tile");
             int lineCount = GameObject.Find("TilemapRails").transform.childCount;
@@ -50,11 +58,9 @@ namespace overail.DataMap_
             {
                 GetNeighbors(tile);
             }
-
-            return tileMatrix;
         }
 
-        private static List<DataTile> GetNeighbors(DataTile dataTile) //TODO : ranger la fonction pour plus de clareté
+        private List<DataTile> GetNeighbors(DataTile dataTile) //TODO : ranger la fonction pour plus de clareté
         {
             if (dataTile.Neighbors.Count == 0)
             {
@@ -88,9 +94,10 @@ namespace overail.DataMap_
             return dataTile.Neighbors;
         }
 
-        public static List<DataSpawner> GetAllSpawners(GameObject[] spawners)
+        public List<DataSpawner> GetAllSpawners()
         {
-            Debug.Log("GetAllSpawners");
+            GameObject[] spawners = GameObject.FindGameObjectsWithTag("Spawner");
+
             List<DataSpawner> dtSpawners = new List<DataSpawner>();
             foreach (var spawner in spawners)
             {
@@ -104,6 +111,18 @@ namespace overail.DataMap_
             }
 
             return dtSpawners;
+        }
+
+
+
+        public List<DataSpawner> DataSpawners
+        {
+            get { return dataSpawners; }
+        }
+
+        public DataTile[,] TileMatrix
+        {
+            get { return tileMatrix; }
         }
     }
 }
