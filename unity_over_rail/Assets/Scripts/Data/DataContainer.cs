@@ -19,6 +19,7 @@ namespace overail.DataContainer_
 {
     public class DataContainer : MonoBehaviour
     {
+        //TODO : faire un fichier accessible par tous les autres fichiers pour accéder au script de DataContainer (plutôt que de faire GameObject.FindObjectWithTag("DataContainer").GetComponent<DataContainer>();
         private List<DataTrain> dataTrains = new List<DataTrain>();
         private DataMap dataNetworkMap;
 

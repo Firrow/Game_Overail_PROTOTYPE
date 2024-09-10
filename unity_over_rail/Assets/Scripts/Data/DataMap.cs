@@ -17,7 +17,6 @@ namespace overail.DataMap_
     {
         private DataTile[,] tileMatrix;
         private GameObject[] tiles;
-        private List<DataTile> dataTiles = new List<DataTile>();
         private List<DataSpawner> dataSpawners;
 
 
@@ -26,7 +25,6 @@ namespace overail.DataMap_
         {
             CreateTileMatrix();
             this.dataSpawners = GetAllSpawners();
-            //GetAllDataTiles();
         }
 
 
@@ -126,14 +124,6 @@ namespace overail.DataMap_
             }
         }
 
-        /*private void GetAllDataTiles()
-        {
-            foreach (var tile in tileMatrix)
-            {
-                dataTiles.Add(tile);
-            }
-        }*/
-
         public DataTile FindDataTile(GameObject tile)
         {
             foreach (var dataTile in tileMatrix)
@@ -142,7 +132,6 @@ namespace overail.DataMap_
                 {
                     return dataTile;
                 }
-                //dataTiles.Add(dataTile);
             }
 
             return null;
@@ -189,11 +178,6 @@ namespace overail.DataMap_
         public DataTile[,] TileMatrix
         {
             get { return tileMatrix; }
-        }
-
-        public List<DataTile> DataTiles //marche ?
-        {
-            get { return dataTiles; }
         }
     }
 }

@@ -78,7 +78,6 @@ namespace overail.DataTrain_
 
         public DataTile CurrentTile // TODO: Convert this Tile into DataTile
         {
-            //get { return GameObject.FindGameObjectWithTag("DataContainer").GetComponent<DataContainer>().DataNetworkMap.GetDataTileOfCurrentTile(this.train.GetComponent<Train>().CurrentTile, GameObject.FindGameObjectWithTag("DataContainer").GetComponent<DataContainer>().DataNetworkMap.DataTiles); }
             get { return GameObject.FindGameObjectWithTag("DataContainer").GetComponent<DataContainer>().DataNetworkMap.FindDataTile(this.train.GetComponent<Train>().CurrentTile); } 
         }
 

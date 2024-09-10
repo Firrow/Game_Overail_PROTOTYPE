@@ -79,6 +79,7 @@ public class IATrain : Train
             // recalculer la prochaine direction à prendre
             // récupérer le prochain aiguillage + ajouter sécurité au cas ou il n'y a pas d'aiguillage
 
+            // CODE À DÉCOMMENTER
             //nextSwitch = dataContainer.DataNetworkMap.GetNextSwitchOnMap(myData.CurrentTile, fromDirection);
 
 
