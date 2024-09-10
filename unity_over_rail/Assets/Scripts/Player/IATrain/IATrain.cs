@@ -23,16 +23,17 @@ public class IATrain : Train
     private bool targetChanged = false;
     private bool enterOnSwitch = false;
     private GameManager gameManager;
+    private DataContainer dataContainer;
 
-
+    public DataTile nextSwitch;
 
     void Start()
     {
         base.Start();
 
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        //myData = GameObject.FindGameObjectWithTag("DataContainer").GetComponent<DataContainer>().GetTheTrain(PlayerIndex);
-        myData = gameManager.GetComponent<DataContainer>().GetTheTrain(PlayerIndex);
+        dataContainer = gameManager.GetComponent<DataContainer>();
+        myData = dataContainer.GetTheTrain(PlayerIndex);
         CurrentState = new Attack(this);
     }
 
@@ -49,7 +50,9 @@ public class IATrain : Train
         NeedToChangeDirectionToTarget();
 
         Debug.Log("current tile DataTile : " + myData.CurrentTile.Tile);
-        //DataMap.GetNextSwitchOnMap(myData.CurrentTile, fromDirection);
+        nextSwitch = dataContainer.DataNetworkMap.GetNextSwitchOnMap(myData.CurrentTile, fromDirection);
+        Debug.Log("next switch : " + nextSwitch.Tile);
+        Debug.Log("------------------------------------------------------------------------------");
     }
 
 

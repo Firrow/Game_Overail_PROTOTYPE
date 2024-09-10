@@ -97,17 +97,36 @@ namespace overail.DataMap_
             return dataTile.Neighbors;
         }
 
-        public DataTile GetNextSimpleTile(DataTile tile, char fromDirection)
+        public DataTile GetNextTile(DataTile tile, string fromDirection)
         {
             foreach (char direction in tile.DirectionsOfTile)
             {
-                if (direction != fromDirection)
+                string directionString = direction.ToString();
+                if (directionString != fromDirection)
                 {
                     return tile.Neighbors[direction];
                 }
             }
 
             return null;
+        }
+
+        public DataTile GetNextSwitchOnMap(DataTile currentTile, string fromDirection)
+        {
+            GridLayout grid = GameObject.FindObjectOfType<GridLayout>();
+
+            if (true)
+            {
+                if (currentTile.IsSwitch) //utile ?
+                {
+                    return currentTile;
+                }
+                else
+                {
+                    //return null;
+                    return GetNextSwitchOnMap(GetNextTile(currentTile, fromDirection), fromDirection);
+                }
+            }
         }
 
         private void GetAllDataTiles()
@@ -147,21 +166,6 @@ namespace overail.DataMap_
             }
 
             return dtSpawners;
-        }
-
-        public DataTile GetNextSwitchOnMap(DataTile currentTile, char fromDirection)
-        {
-            GridLayout grid = GameObject.FindObjectOfType<GridLayout>();
-
-            if (currentTile.isSwitch) //utile ?
-            {
-                return currentTile;
-            }
-            else
-            {
-                Debug.Log(GetNextSimpleTile(currentTile, fromDirection));
-                return null;
-            }
         }
 
 

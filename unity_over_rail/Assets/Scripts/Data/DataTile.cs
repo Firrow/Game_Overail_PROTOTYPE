@@ -13,7 +13,6 @@ namespace overail.DataTile_
     {
         public string directionsOfTile;
         public bool containsSpawner;
-        public bool isSwitch;
         public struct PositionInMatrix
         {
             public int x;
@@ -24,7 +23,7 @@ namespace overail.DataTile_
         private Vector3 tilePosition;
         private GameObject tile;
         private Dictionary<char, DataTile> neighbors = new Dictionary<char, DataTile>();
-        //private List<DataTile> neighbors = new List<DataTile>();
+        private bool isSwitch;
 
 
 
@@ -34,7 +33,7 @@ namespace overail.DataTile_
             this.tilePosition = tilePosition;
             this.directionsOfTile = directionsOfTile;
             this.containsSpawner = containsSpawner;
-            this.isSwitch = containsSpawner;
+            this.isSwitch = isSwitch;
             this.coordinates = coordinates;
         }
 
@@ -72,5 +71,12 @@ namespace overail.DataTile_
             get { return directionsOfTile; }
             set { directionsOfTile = value; }
         }
+
+        public bool IsSwitch
+        {
+            get { return isSwitch; }
+            set { isSwitch = value; }
+        }
+
     }
 }
