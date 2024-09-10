@@ -79,11 +79,15 @@ public class IATrain : Train
             // recalculer la prochaine direction à prendre
             // récupérer le prochain aiguillage + ajouter sécurité au cas ou il n'y a pas d'aiguillage
 
-            //PathResearch.GetNextDirection(this); //return numéro de la direction
+            //nextSwitch = dataContainer.DataNetworkMap.GetNextSwitchOnMap(myData.CurrentTile, fromDirection);
+
 
             // remet les flags à false
             targetChanged = false;
             enterOnSwitch = false;
+
+
+            //NOTE : Pour l'entrée du réseau, faire un choix de direction au hasard
         }
     }
 

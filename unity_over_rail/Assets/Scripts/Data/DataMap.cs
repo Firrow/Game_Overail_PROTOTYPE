@@ -26,7 +26,7 @@ namespace overail.DataMap_
         {
             CreateTileMatrix();
             this.dataSpawners = GetAllSpawners();
-            GetAllDataTiles();
+            //GetAllDataTiles();
         }
 
 
@@ -114,27 +114,38 @@ namespace overail.DataMap_
         public DataTile GetNextSwitchOnMap(DataTile currentTile, string fromDirection)
         {
             GridLayout grid = GameObject.FindObjectOfType<GridLayout>();
+            DataTile nextTile = GetNextTile(currentTile, fromDirection);
 
-            if (true)
+            if (nextTile.IsSwitch)
             {
-                if (currentTile.IsSwitch) //utile ?
-                {
-                    return currentTile;
-                }
-                else
-                {
-                    //return null;
-                    return GetNextSwitchOnMap(GetNextTile(currentTile, fromDirection), fromDirection);
-                }
+                return nextTile;
+            }
+            else
+            {
+                return GetNextSwitchOnMap(nextTile, fromDirection);
             }
         }
 
-        private void GetAllDataTiles()
+        /*private void GetAllDataTiles()
         {
             foreach (var tile in tileMatrix)
             {
                 dataTiles.Add(tile);
             }
+        }*/
+
+        public DataTile FindDataTile(GameObject tile)
+        {
+            foreach (var dataTile in tileMatrix)
+            {
+                if (dataTile.Tile == tile)
+                {
+                    return dataTile;
+                }
+                //dataTiles.Add(dataTile);
+            }
+
+            return null;
         }
 
         public DataTile GetDataTileOfCurrentTile(GameObject currentTile, List<DataTile> tiles)
