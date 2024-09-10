@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using overail.DataTile_;
+using overail.DataContainer_;
 
 /// <summary>
 /// API
@@ -74,10 +76,15 @@ namespace overail.DataTrain_
             get { return this.train.GetComponent<Train>().TrainPosition; }
         }
 
-        public Tile CurrentTile // public DataTile CurrentTile // TODO: Convert this Tile into DataTile
+        public DataTile CurrentTile // TODO: Convert this Tile into DataTile
+        {
+            get { return GameObject.FindGameObjectWithTag("DataContainer").GetComponent<DataContainer>().DataNetworkMap.GetDataTileOfCurrentTile(this.train.GetComponent<Train>().CurrentTile, GameObject.FindGameObjectWithTag("DataContainer").GetComponent<DataContainer>().DataNetworkMap.DataTiles); } 
+        }
+
+        /*public Tile CurrentTile // public DataTile CurrentTile // TODO: Convert this Tile into DataTile
         {
             get { return this.train.GetComponent<Train>().CurrentTile.GetComponent<Tile>(); }
-        }
+        }*/
 
         public string FromDirection
         {

@@ -11,7 +11,7 @@ namespace overail.DataTile_
 {
     public class DataTile
     {
-        public string directionOfTile;
+        public string directionsOfTile;
         public bool containsSpawner;
         public bool isSwitch;
         public struct PositionInMatrix
@@ -23,15 +23,16 @@ namespace overail.DataTile_
         private PositionInMatrix coordinates;
         private Vector3 tilePosition;
         private GameObject tile;
-        private List<DataTile> neighbors = new List<DataTile>();
+        private Dictionary<char, DataTile> neighbors = new Dictionary<char, DataTile>();
+        //private List<DataTile> neighbors = new List<DataTile>();
 
 
 
-        public DataTile(GameObject tile, Vector3 tilePosition, string directionOfTile, bool containsSpawner, bool isSwitch, PositionInMatrix coordinates)
+        public DataTile(GameObject tile, Vector3 tilePosition, string directionsOfTile, bool containsSpawner, bool isSwitch, PositionInMatrix coordinates)
         {
             this.tile = tile;
             this.tilePosition = tilePosition;
-            this.directionOfTile = directionOfTile;
+            this.directionsOfTile = directionsOfTile;
             this.containsSpawner = containsSpawner;
             this.isSwitch = containsSpawner;
             this.coordinates = coordinates;
@@ -39,16 +40,16 @@ namespace overail.DataTile_
 
 
 
-        public Vector3 TilePosition
-        {
-            get { return tilePosition; }
-            set { tilePosition = value; }
-        }
-
         public GameObject Tile
         {
             get { return tile; }
             set { tile = value; }
+        }
+
+        public Vector3 TilePosition
+        {
+            get { return tilePosition; }
+            set { tilePosition = value; }
         }
 
         public PositionInMatrix Coordinates
@@ -60,11 +61,16 @@ namespace overail.DataTile_
         /// <summary>
         /// Lazy evaluation : need to use DataContainer.GetNeighbors() to get and set the Neighbors value
         /// </summary>
-        public List<DataTile> Neighbors
+        public Dictionary<char, DataTile> Neighbors
         {
             get { return neighbors; }
             set { neighbors = value; }
         }
-    }
 
+        public string DirectionsOfTile
+        {
+            get { return directionsOfTile; }
+            set { directionsOfTile = value; }
+        }
+    }
 }

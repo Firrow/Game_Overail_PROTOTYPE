@@ -3,6 +3,7 @@ using UnityEngine;
 using overail.DataTrain_;
 using overail.DataTile_;
 using overail.DataSpawner_;
+using overail.DataMap_;
 using overail.IAPathResearch_;
 using overail.DataContainer_;
 
@@ -47,7 +48,8 @@ public class IATrain : Train
         CurrentState.MainExecution();
         NeedToChangeDirectionToTarget();
 
-        GetNextSwitchOnMap();
+        Debug.Log("current tile DataTile : " + myData.CurrentTile.Tile);
+        //DataMap.GetNextSwitchOnMap(myData.CurrentTile, fromDirection);
     }
 
 
@@ -62,8 +64,8 @@ public class IATrain : Train
         targetChanged = true;
         targetToMove = target;
         targetPosition = target.Position;
-        Debug.Log("CHANGE CIBLE");
-        Debug.Log(targetPosition);
+        //Debug.Log("CHANGE CIBLE");
+        //Debug.Log(targetPosition);
     }
 
     public void NeedToChangeDirectionToTarget()
@@ -90,26 +92,6 @@ public class IATrain : Train
 
     private void GetNextDirectionRecursive()
     {
-
-    }
-
-    private void GetNextSwitchOnMap()
-    {
-        GridLayout grid = GameObject.FindObjectOfType<GridLayout>();
-        Vector3 tmp = grid.CellToWorld(grid.WorldToCell(this.myData.Position));
-        //Debug.Log("Positions : " + tmp);
-        /*Tile currentTile = this.myData.CurrentTile;
-        Tile nextTile;
-        string fromDirectionTrain = this.myData.FromDirection;
-
-        if (currentTile.isSwitch) //utile ?
-        {
-            return currentTile;
-        }
-        else
-        {
-            currentTile
-        }*/
 
     }
 

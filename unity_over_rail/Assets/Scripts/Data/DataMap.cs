@@ -17,6 +17,7 @@ namespace overail.DataMap_
     {
         private DataTile[,] tileMatrix;
         private GameObject[] tiles;
+        private List<DataTile> dataTiles = new List<DataTile>();
         private List<DataSpawner> dataSpawners;
 
 
@@ -25,6 +26,7 @@ namespace overail.DataMap_
         {
             CreateTileMatrix();
             this.dataSpawners = GetAllSpawners();
+            GetAllDataTiles();
         }
 
 
@@ -60,11 +62,11 @@ namespace overail.DataMap_
             }
         }
 
-        private List<DataTile> GetNeighbors(DataTile dataTile) //TODO : ranger la fonction pour plus de clareté
+        private Dictionary<char, DataTile> GetNeighbors(DataTile dataTile) //TODO : ranger la fonction pour plus de clareté
         {
             if (dataTile.Neighbors.Count == 0)
             {
-                foreach (var direction in dataTile.directionOfTile)
+                foreach (char direction in dataTile.DirectionsOfTile)
                 {
                     // Prevents tileStarts from causing problems with their 3rd direction, which is subsequently deleted
                     try
@@ -72,16 +74,16 @@ namespace overail.DataMap_
                         switch (direction)
                         {
                             case 'N':
-                                dataTile.Neighbors.Add(tileMatrix[dataTile.Coordinates.x - 1, dataTile.Coordinates.y]);
+                                dataTile.Neighbors.Add('N', tileMatrix[dataTile.Coordinates.x - 1, dataTile.Coordinates.y]);
                                 break;
                             case 'E':
-                                dataTile.Neighbors.Add(tileMatrix[dataTile.Coordinates.x, dataTile.Coordinates.y + 1]);
+                                dataTile.Neighbors.Add('E', tileMatrix[dataTile.Coordinates.x, dataTile.Coordinates.y + 1]);
                                 break;
                             case 'S':
-                                dataTile.Neighbors.Add(tileMatrix[dataTile.Coordinates.x + 1, dataTile.Coordinates.y]);
+                                dataTile.Neighbors.Add('S', tileMatrix[dataTile.Coordinates.x + 1, dataTile.Coordinates.y]);
                                 break;
                             case 'O':
-                                dataTile.Neighbors.Add(tileMatrix[dataTile.Coordinates.x, dataTile.Coordinates.y - 1]);
+                                dataTile.Neighbors.Add('O', tileMatrix[dataTile.Coordinates.x, dataTile.Coordinates.y - 1]);
                                 break;
                         }
                     }
@@ -91,7 +93,42 @@ namespace overail.DataMap_
                     }
                 }
             }
+
             return dataTile.Neighbors;
+        }
+
+        public DataTile GetNextSimpleTile(DataTile tile, char fromDirection)
+        {
+            foreach (char direction in tile.DirectionsOfTile)
+            {
+                if (direction != fromDirection)
+                {
+                    return tile.Neighbors[direction];
+                }
+            }
+
+            return null;
+        }
+
+        private void GetAllDataTiles()
+        {
+            foreach (var tile in tileMatrix)
+            {
+                dataTiles.Add(tile);
+            }
+        }
+
+        public DataTile GetDataTileOfCurrentTile(GameObject currentTile, List<DataTile> tiles)
+        {
+            foreach (var tile in tiles)
+            {
+                if (tile.Tile == currentTile)
+                {
+                    return tile;
+                }
+            }
+
+            return null;
         }
 
         public List<DataSpawner> GetAllSpawners()
@@ -112,6 +149,21 @@ namespace overail.DataMap_
             return dtSpawners;
         }
 
+        public DataTile GetNextSwitchOnMap(DataTile currentTile, char fromDirection)
+        {
+            GridLayout grid = GameObject.FindObjectOfType<GridLayout>();
+
+            if (currentTile.isSwitch) //utile ?
+            {
+                return currentTile;
+            }
+            else
+            {
+                Debug.Log(GetNextSimpleTile(currentTile, fromDirection));
+                return null;
+            }
+        }
+
 
 
         public List<DataSpawner> DataSpawners
@@ -122,6 +174,11 @@ namespace overail.DataMap_
         public DataTile[,] TileMatrix
         {
             get { return tileMatrix; }
+        }
+
+        public List<DataTile> DataTiles //marche ?
+        {
+            get { return dataTiles; }
         }
     }
 }
