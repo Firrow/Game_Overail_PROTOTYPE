@@ -62,7 +62,7 @@ namespace overail.DataMap_
             }
         }
 
-        private Dictionary<char, DataTile> GetNeighbors(DataTile dataTile) //TODO : ranger la fonction pour plus de clareté
+        private Dictionary<string, DataTile> GetNeighbors(DataTile dataTile) //TODO : ranger la fonction pour plus de clareté
         {
             if (dataTile.Neighbors.Count == 0)
             {
@@ -71,19 +71,19 @@ namespace overail.DataMap_
                     // Prevents tileStarts from causing problems with their 3rd direction, which is subsequently deleted
                     try
                     {
-                        switch (direction)
+                        switch (direction.ToString())
                         {
-                            case 'N':
-                                dataTile.Neighbors.Add('N', tileMatrix[dataTile.Coordinates.x - 1, dataTile.Coordinates.y]);
+                            case "N":
+                                dataTile.Neighbors.Add("N", tileMatrix[dataTile.Coordinates.x - 1, dataTile.Coordinates.y]);
                                 break;
-                            case 'E':
-                                dataTile.Neighbors.Add('E', tileMatrix[dataTile.Coordinates.x, dataTile.Coordinates.y + 1]);
+                            case "E":
+                                dataTile.Neighbors.Add("E", tileMatrix[dataTile.Coordinates.x, dataTile.Coordinates.y + 1]);
                                 break;
-                            case 'S':
-                                dataTile.Neighbors.Add('S', tileMatrix[dataTile.Coordinates.x + 1, dataTile.Coordinates.y]);
+                            case "S":
+                                dataTile.Neighbors.Add("S", tileMatrix[dataTile.Coordinates.x + 1, dataTile.Coordinates.y]);
                                 break;
-                            case 'O':
-                                dataTile.Neighbors.Add('O', tileMatrix[dataTile.Coordinates.x, dataTile.Coordinates.y - 1]);
+                            case "O":
+                                dataTile.Neighbors.Add("O", tileMatrix[dataTile.Coordinates.x, dataTile.Coordinates.y - 1]);
                                 break;
                         }
                     }
@@ -107,7 +107,7 @@ namespace overail.DataMap_
 
             if (tile is not null)
             {
-                foreach (KeyValuePair<char, DataTile> neighbor in tile.Neighbors)
+                foreach (KeyValuePair<string, DataTile> neighbor in tile.Neighbors)
                 {
                     if (neighbor.Key.ToString() != fromDirection)
                     {

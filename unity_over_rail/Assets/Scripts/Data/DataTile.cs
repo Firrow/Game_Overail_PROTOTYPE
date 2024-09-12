@@ -22,7 +22,7 @@ namespace overail.DataTile_
         private PositionInMatrix coordinates;
         private Vector3 tilePosition;
         private GameObject tile;
-        private Dictionary<char, DataTile> neighbors = new Dictionary<char, DataTile>();
+        private Dictionary<string, DataTile> neighbors = new Dictionary<string, DataTile>();
         private bool isSwitch;
 
 
@@ -70,7 +70,7 @@ namespace overail.DataTile_
         /// <summary>
         /// Lazy evaluation : need to use DataContainer.GetNeighbors() to get and set the Neighbors value
         /// </summary>
-        public Dictionary<char, DataTile> Neighbors //TODO : ne plus utiliser de char mais des strings
+        public Dictionary<string, DataTile> Neighbors
         {
             get { return neighbors; }
             set { neighbors = value; }
