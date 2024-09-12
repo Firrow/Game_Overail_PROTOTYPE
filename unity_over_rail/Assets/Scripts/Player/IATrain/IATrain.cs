@@ -25,7 +25,7 @@ public class IATrain : Train
     private GameManager gameManager;
     private DataContainer dataContainer;
 
-    public DataTile nextSwitch;
+
 
     void Start()
     {
@@ -37,10 +37,10 @@ public class IATrain : Train
         CurrentState = new Attack(this);
     }
 
-    void Update()
+    /*void Update()
     {
         base.Update();
-    }
+    }*/
 
     private void FixedUpdate()
     {
@@ -49,10 +49,13 @@ public class IATrain : Train
         CurrentState.MainExecution();
         NeedToChangeDirectionToTarget();
 
-        Debug.Log("current tile DataTile : " + myData.CurrentTile.Tile);
-        nextSwitch = dataContainer.DataNetworkMap.GetNextSwitchOnMap(myData.CurrentTile, fromDirection);
-        Debug.Log("next switch : " + nextSwitch.Tile);
-        Debug.Log("------------------------------------------------------------------------------");
+        //Debug.Log("current tile DataTile : " + myData.CurrentTile.Tile);
+        if (myData.CurrentTile is not null)
+        {
+            var nextSwitch = dataContainer.DataNetworkMap.GetNextSwitchOnMap(myData.CurrentTile, fromDirection);
+        }
+        /*Debug.Log("next switch : " + nextSwitch.Value.Tile);
+        Debug.Log("------------------------------------------------------------------------------");*/
     }
 
 

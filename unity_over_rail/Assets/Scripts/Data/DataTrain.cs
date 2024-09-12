@@ -13,7 +13,7 @@ using overail.DataContainer_;
 
 namespace overail.DataTrain_
 {
-    public class DataTrain : INotifyPropertyChanged
+    public class DataTrain : INotifyPropertyChanged//, ITargetToMove
     {
         public GameObject train;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -76,7 +76,7 @@ namespace overail.DataTrain_
             get { return this.train.GetComponent<Train>().TrainPosition; }
         }
 
-        public DataTile CurrentTile // TODO: Convert this Tile into DataTile
+        public DataTile CurrentTile
         {
             get { return GameObject.FindGameObjectWithTag("DataContainer").GetComponent<DataContainer>().DataNetworkMap.FindDataTile(this.train.GetComponent<Train>().CurrentTile); } 
         }

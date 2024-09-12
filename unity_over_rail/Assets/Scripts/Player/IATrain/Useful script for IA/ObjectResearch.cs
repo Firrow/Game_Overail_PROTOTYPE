@@ -50,7 +50,6 @@ namespace overail.IAResearchObject_
         {
             float distance;
             float tempDistance = 1000000000;
-            GameObject tempObject = null;
             DataSpawner tempspawner = null;
             Vector3 position = new Vector3(0, 0, 0);
 

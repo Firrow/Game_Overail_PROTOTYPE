@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using overail.DataContainer_;
+using overail.DataTile_;
 
 /// <summary>
 /// API
@@ -34,10 +35,9 @@ namespace overail.DataSpawner_
             set { spawner = value; }
         }
 
-        public GameObject TileParent
+        public DataTile CurrentTile
         {
-            get { return tileParent; }
-            set { tileParent = value; }
+            get { return GameObject.FindGameObjectWithTag("DataContainer").GetComponent<DataContainer>().DataNetworkMap.FindDataTile(spawner.transform.parent.gameObject); }
         }
 
         public Vector3 Position

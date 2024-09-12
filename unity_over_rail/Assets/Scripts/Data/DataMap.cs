@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using overail.DataTile_;
 using overail.DataSpawner_;
+using overail.DataContainer_;
 
 
 /// <summary>
@@ -85,45 +87,76 @@ namespace overail.DataMap_
                                 break;
                         }
                     }
-                    catch (IndexOutOfRangeException e)
-                    {
-                        break;
-                    }
+                    catch (IndexOutOfRangeException) { };
                 }
             }
 
             return dataTile.Neighbors;
         }
 
-        public DataTile GetNextTile(DataTile tile, string fromDirection)
+        /// <summary>
+        /// Get all next tiles on the road where the train is.
+        /// </summary>
+        /// <param name="tile"></param>
+        /// <param name="fromDirection"></param>
+        /// <returns> One or more tuple of the fromDirection and his opposite tile 
+        /// (the next tile in a straight line and all next possible tiles of a switch) </returns>
+        public Dictionary<string, DataTile> GetNextTiles(DataTile tile, string fromDirection)
         {
-            foreach (char direction in tile.DirectionsOfTile)
+            Dictionary<string, DataTile> nextTiles = new Dictionary<string, DataTile>();
+
+            if (tile is not null)
             {
-                string directionString = direction.ToString();
-                if (directionString != fromDirection)
+                foreach (KeyValuePair<char, DataTile> neighbor in tile.Neighbors)
                 {
-                    return tile.Neighbors[direction];
+                    if (neighbor.Key.ToString() != fromDirection)
+                    {
+                        nextTiles.Add(DataContainer.OppositeDirections[neighbor.Key.ToString()], neighbor.Value);
+                    }
                 }
             }
 
-            return null;
+            return nextTiles;
         }
 
-        public DataTile GetNextSwitchOnMap(DataTile currentTile, string fromDirection)
+        /// <summary>
+        /// Get the next switch on the road where the train is.
+        /// </summary>
+        /// <param name="currentTile"></param>
+        /// <param name="fromDirection"></param>
+        /// <returns> the dataTile of the finded switch </returns>
+        public KeyValuePair<string, DataTile> GetNextSwitchOnMap(DataTile currentTile, string fromDirection)
         {
-            GridLayout grid = GameObject.FindObjectOfType<GridLayout>();
-            DataTile nextTile = GetNextTile(currentTile, fromDirection);
-
-            if (nextTile.IsSwitch)
-            {
-                return nextTile;
-            }
-            else
-            {
-                return GetNextSwitchOnMap(nextTile, fromDirection);
-            }
+            KeyValuePair<string, DataTile> nextTile = GetNextTiles(currentTile, fromDirection).FirstOrDefault();
+            return nextTile.Value.IsSwitch ? nextTile : GetNextSwitchOnMap(nextTile);
+        }
+        public KeyValuePair<string, DataTile> GetNextSwitchOnMap(KeyValuePair<string, DataTile> currentTile)
+        {
+            return GetNextSwitchOnMap(currentTile.Value, currentTile.Key);
         }
 
+        /// <summary>
+        /// Check if there is the finded target on the road where the train is.
+        /// </summary>
+        /// <param name="currentTile"></param>
+        /// <param name="fromDirection"></param>
+        /// <param name="target"></param>
+        /// <returns> true or false </returns>
+        public bool ThereIsTargetOnRoad(DataTile currentTile, string fromDirection, ITargetToMove target) 
+        {
+            // Using shortchut : if the first is true, we do not evaluate the 'or'
+            return currentTile == target.CurrentTile || ThereIsTargetOnRoad(GetNextTiles(currentTile, fromDirection).FirstOrDefault(), target);
+        }
+        public bool ThereIsTargetOnRoad(KeyValuePair<string, DataTile> nextTile, ITargetToMove target)
+        {
+            return ThereIsTargetOnRoad(nextTile.Value, nextTile.Key, target);
+        }
+
+        /// <summary>
+        /// Find the DataTile of a tile when we have only the tile's game object
+        /// </summary>
+        /// <param name="tile"></param>
+        /// <returns> the DataTile of the tile </returns>
         public DataTile FindDataTile(GameObject tile)
         {
             foreach (var dataTile in tileMatrix)

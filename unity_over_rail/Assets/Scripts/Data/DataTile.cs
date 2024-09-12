@@ -37,6 +37,16 @@ namespace overail.DataTile_
             this.coordinates = coordinates;
         }
 
+        public override bool Equals(object obj)
+        {
+            DataTile otherTile = obj as DataTile;
+            return otherTile.Tile != null && otherTile.Tile == this.Tile;
+        }
+        public override int GetHashCode()
+        {
+            return Tile.GetHashCode();
+        }
+
 
 
         public GameObject Tile
@@ -60,7 +70,7 @@ namespace overail.DataTile_
         /// <summary>
         /// Lazy evaluation : need to use DataContainer.GetNeighbors() to get and set the Neighbors value
         /// </summary>
-        public Dictionary<char, DataTile> Neighbors
+        public Dictionary<char, DataTile> Neighbors //TODO : ne plus utiliser de char mais des strings
         {
             get { return neighbors; }
             set { neighbors = value; }

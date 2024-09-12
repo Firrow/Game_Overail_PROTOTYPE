@@ -13,13 +13,13 @@ public class HumanTrain : Train
 
 
 
-    void Start()
+    /*void Start()
     {
         base.Start();
 
         //healthBar.SetHealth(currentHealth); //Lequel choisir ??? (garder SetMaxHealth pour les tests)
         // TODO : voir pour mettre à jour automatiquement la barre de vie lorsque la valeur est changée dans IATrain
-    }
+    }*/
 
     void Update()
     {
