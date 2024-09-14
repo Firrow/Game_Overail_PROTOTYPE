@@ -1,11 +1,15 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using overail.DataTrain_;
 using overail.DataTile_;
 using overail.DataSpawner_;
 using overail.DataMap_;
 using overail.IAPathResearch_;
 using overail.DataContainer_;
+using overail.TrainActions_;
+using System;
 
 /// <summary>
 /// Script with all function for IA players only.
@@ -13,17 +17,16 @@ using overail.DataContainer_;
 
 public class IATrain : Train
 {
+    private int DEPTH_THRESHOLD = 3;
+
     public ITargetToMove targetToMove = null;
     public DataTrain myData;
 
     private IStateTrain currentState;
-    private int lastChoice;
     private float trainAngle;
     private Vector3 targetPosition;
     private bool targetChanged = false;
     private bool enterOnSwitch = false;
-    private GameManager gameManager;
-    private DataContainer dataContainer;
 
 
 
@@ -31,16 +34,9 @@ public class IATrain : Train
     {
         base.Start();
 
-        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        dataContainer = gameManager.GetComponent<DataContainer>();
         myData = dataContainer.GetTheTrain(PlayerIndex);
         CurrentState = new Attack(this);
     }
-
-    /*void Update()
-    {
-        base.Update();
-    }*/
 
     private void FixedUpdate()
     {
@@ -48,14 +44,6 @@ public class IATrain : Train
 
         CurrentState.MainExecution();
         NeedToChangeDirectionToTarget();
-
-        //Debug.Log("current tile DataTile : " + myData.CurrentTile.Tile);
-        if (myData.CurrentTile is not null)
-        {
-            var nextSwitch = dataContainer.DataNetworkMap.GetNextSwitchOnMap(myData.CurrentTile, fromDirection);
-        }
-        /*Debug.Log("next switch : " + nextSwitch.Value.Tile);
-        Debug.Log("------------------------------------------------------------------------------");*/
     }
 
 
@@ -71,7 +59,7 @@ public class IATrain : Train
         targetToMove = target;
         targetPosition = target.Position;
         //Debug.Log("CHANGE CIBLE");
-        //Debug.Log(targetPosition);
+        Debug.Log(targetPosition);
     }
 
     public void NeedToChangeDirectionToTarget()
@@ -82,9 +70,23 @@ public class IATrain : Train
             // recalculer la prochaine direction à prendre
             // récupérer le prochain aiguillage + ajouter sécurité au cas ou il n'y a pas d'aiguillage
 
-            // CODE À DÉCOMMENTER
-            //nextSwitch = dataContainer.DataNetworkMap.GetNextSwitchOnMap(myData.CurrentTile, fromDirection);
+            DataContainer.DirectionChoice directionChoice = GetNextChoiceDirection();
 
+            switch (directionChoice)
+            {
+                //TODO : remplacer les valeurs brutes par les valeurs dans l'enum créer (voir TODO du Train.cs ligne 101)
+                case DataContainer.DirectionChoice.LEFT:
+                    TrainActions.APIChangeDirection(myData.Index, -1);
+                    break;
+                case DataContainer.DirectionChoice.RIGHT:
+                    TrainActions.APIChangeDirection(myData.Index, 1);
+                    break;
+                case DataContainer.DirectionChoice.RANDOM:
+                    TrainActions.APIChangeDirection(myData.Index, (int)Math.Pow(-1, UnityEngine.Random.Range(1, 3)));
+                    break;
+                default:
+                    break;
+            }
 
             // remet les flags à false
             targetChanged = false;
@@ -95,15 +97,61 @@ public class IATrain : Train
         }
     }
 
-    public static void GetNextDirection()
+    /// <summary>
+    /// Determine the direction choice to do for IA to get the target
+    /// </summary>
+    /// <returns></returns>
+    public DataContainer.DirectionChoice GetNextChoiceDirection()
     {
-        Debug.Log("NEXTDIRECTION");
-        //GetNextDirectionRecursive(train);
+        // If the target is on the same road than the train
+        if (dataContainer.DataNetworkMap.ThereIsTargetOnRoad(myData.CurrentTile, FromDirection, targetToMove))
+        {
+            return DataContainer.DirectionChoice.NO_DIRECTION;
+        }
+
+        KeyValuePair<string, DataTile> nextSwitch = dataContainer.DataNetworkMap.GetNextSwitchOnMap(myData.CurrentTile, FromDirection);
+        Dictionary<string, DataTile> nextTilesOfSwitch = dataContainer.DataNetworkMap.GetNextTiles(nextSwitch.Value, FromDirection);
+
+        //TODO : Do an aggregate with random for default value and conditional (ternary) operator for return
+        foreach (var nextTile in nextTilesOfSwitch)
+        {
+            if (IsTargetHere(nextTile.Value, nextTile.Key))
+            {
+                return dataContainer.DataNetworkMap.WhichChoiceIsNextDirection(nextSwitch.Value, nextSwitch.Key, nextTile.Key);
+            }
+        }
+        return DataContainer.DirectionChoice.RANDOM;
+        //--------
     }
 
-    private void GetNextDirectionRecursive()
+    /// <summary>
+    /// Check if the target is reachable from this tile in a minimum number of switch
+    /// </summary>
+    /// <param name="currentTile"></param>
+    /// <param name="fromDirection"></param>
+    /// <param name="depth"></param>
+    /// <returns></returns>
+    private bool IsTargetHere(DataTile tile, string fromDirection, int depth = 1)
     {
+        if (depth > DEPTH_THRESHOLD)
+        {
+            return false;
+        }
+        else if (dataContainer.DataNetworkMap.ThereIsTargetOnRoad(tile, fromDirection, targetToMove))
+        {
+            return true;
+        }
+        else
+        {
+            var nextSwitch = dataContainer.DataNetworkMap.GetNextSwitchOnMap(tile, fromDirection);
 
+            Dictionary<string, DataTile> nextTilesOfSwitch = dataContainer.DataNetworkMap.GetNextTiles(nextSwitch.Value, nextSwitch.Key);
+
+            //function in linq library which allow to return true if the target is found on one of the 3 next roads or false per default
+            return nextTilesOfSwitch.Aggregate(false, (targetIsFound, nextTile) => {
+                return targetIsFound || IsTargetHere(nextTile.Value, nextTile.Key, ++depth);
+            });
+        }
     }
 
     public override void OnSwitchEnter()

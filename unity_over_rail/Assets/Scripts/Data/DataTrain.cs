@@ -83,7 +83,7 @@ namespace overail.DataTrain_
 
         public string FromDirection
         {
-            get { return this.train.GetComponent<Train>().fromDirection; }
+            get { return this.train.GetComponent<Train>().FromDirection; }
         }
 
         public bool ShieldIsActivate

@@ -16,11 +16,13 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
     protected float SPEED = 1;
     private int MAX_HEALTH = 10;
 
-    public string fromDirection; // TODO : permettre de le determiner automatiquement //TODO : public à remplacer par private + SerializeField ?
+     // TODO : permettre de le determiner automatiquement //TODO : public à remplacer par private + SerializeField ?
     public GameObject leftArrow;
     public GameObject rightArrow;
     public event PropertyChangedEventHandler PropertyChanged;
 
+    protected GameManager gameManager;
+    protected DataContainer dataContainer;
     [SerializeField]
     protected GameObject weapon;
     [SerializeField]
@@ -36,6 +38,7 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
     protected ObjectSlot objectSlot;
     protected float angle = 0f;
 
+    public string fromDirection; //TODO : créer une valeur publique "firstFromDirection" et mettre fromDirection en private et le set dans le Awake ou Start fromDirection = firstFromDirection
     private bool isDead = false;
     private GameObject currentTile;
     private Transform nextRoad;
@@ -62,6 +65,9 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
 
     protected void Start()
     {
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        dataContainer = gameManager.GetComponent<DataContainer>();
+
         CurrentHealth = MAX_HEALTH;
         StartCoroutine(StartGame()); // temporaire
 
@@ -97,6 +103,8 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
 
     public void PlayerChoiceDirection(int directionValue)
     {
+        //TODO : faire un enum avec 0, 1 et -1 (à voir)
+        //TODO : faire un switch
         if (directionValue == 0)
         {
             this.choice = lastChoiceDirection;
@@ -160,9 +168,17 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
         {
             GetNextRoad(collider);
 
+            /*string DirOfTile = currentTile.GetComponent<Tile>().directionOfTile;
+            Debug.Log("indexOf : " + DirOfTile.IndexOf(FromDirection));
+            Debug.Log("indexOf+choice : " + (DirOfTile.IndexOf(FromDirection) + choice));
+            Debug.Log("new index : " + (DirOfTile.IndexOf(FromDirection) + choice) % DirOfTile.Length);
+            string nextDirection = DirOfTile.Substring((DirOfTile.IndexOf(FromDirection) + choice) % DirOfTile.Length, 1);
+            Debug.Log("nextDirection : " + nextDirection);*/
+
+            //if (dataContainer.DataNetworkMap.FindDataTile(currentTile).Neighbors[nextDirection].IsSwitch) //donne l'info à l'IA que le train est arrivé à un aiguillage
             if (currentTile.GetComponent<Tile>().isSwitch) //donne l'info à l'IA que le train est arrivé à un aiguillage
             {
-                this.OnSwitchEnter();
+                    this.OnSwitchEnter();
             }
         }
         else if (collider.gameObject.layer == LayerMask.NameToLayer("Bullets"))
@@ -204,35 +220,40 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
         reversePoints = false;
 
         string _allDirectionsOfATile = GetPossibleDirections(currentTile);
-        int _indexDirection = GetIndexDirection(_allDirectionsOfATile, fromDirection);
+        int _indexDirection = GetIndexDirection(_allDirectionsOfATile, FromDirection);
         string _goDirection = GetDirection(_indexDirection, choice, _allDirectionsOfATile);
 
 
         // DETERMINER LA BONNE ROUTE-----------------------------------------
         // get next route by name and add it to list
-        string nameNextRoad = fromDirection + _goDirection;
+        string nameNextRoad = FromDirection + _goDirection;
         if (currentTile.transform.Find(nameNextRoad) == null)
         {
-            nameNextRoad = _goDirection + fromDirection;
+            nameNextRoad = _goDirection + FromDirection;
             reversePoints = true;
         }
 
         nextRoad = currentTile.transform.Find(nameNextRoad);
 
-        // set fromDirection
-        switch (_goDirection)
+        // set fromDirection 
+        SetFromDirection(_goDirection); 
+    }
+
+    private void SetFromDirection(string goDirection) //TODO : utiliser oppositeDirection
+    {
+        switch (goDirection)
         {
             case "N":
-                fromDirection = "S";
+                FromDirection = "S";
                 break;
             case "E":
-                fromDirection = "O";
+                FromDirection = "O";
                 break;
             case "S":
-                fromDirection = "N";
+                FromDirection = "N";
                 break;
             case "O":
-                fromDirection = "E";
+                FromDirection = "E";
                 break;
         }
     }
@@ -476,6 +497,13 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
     {
         get { return trainPosition; }
     }
+
+    public string FromDirection
+    {
+        get { return fromDirection; }
+        set { fromDirection = value; }
+    }
+
 
     public GameObject CurrentTile
     {

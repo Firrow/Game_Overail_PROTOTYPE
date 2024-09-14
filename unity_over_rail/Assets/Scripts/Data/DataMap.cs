@@ -125,14 +125,35 @@ namespace overail.DataMap_
         /// <param name="currentTile"></param>
         /// <param name="fromDirection"></param>
         /// <returns> the dataTile of the finded switch </returns>
+        /*
         public KeyValuePair<string, DataTile> GetNextSwitchOnMap(DataTile currentTile, string fromDirection)
         {
-            KeyValuePair<string, DataTile> nextTile = GetNextTiles(currentTile, fromDirection).FirstOrDefault();
-            return nextTile.Value.IsSwitch ? nextTile : GetNextSwitchOnMap(nextTile);
+            return currentTile.IsSwitch ? new KeyValuePair<string, DataTile>(fromDirection, currentTile) : GetNextSwitchOnMap(GetNextTiles(currentTile, fromDirection).FirstOrDefault());
         }
         public KeyValuePair<string, DataTile> GetNextSwitchOnMap(KeyValuePair<string, DataTile> currentTile)
         {
             return GetNextSwitchOnMap(currentTile.Value, currentTile.Key);
+        }
+        */
+        public KeyValuePair<string, DataTile> GetNextSwitchOnMap(KeyValuePair<string, DataTile> currentTile)
+        {
+            return currentTile.Value.IsSwitch ? currentTile : GetNextSwitchOnMap(GetNextTiles(currentTile.Value, currentTile.Key).FirstOrDefault());
+        }
+        public KeyValuePair<string, DataTile> GetNextSwitchOnMap(DataTile currentTile, string fromDirection)
+        {
+            return GetNextSwitchOnMap(new KeyValuePair<string, DataTile>(fromDirection, currentTile));
+        }
+
+        /// <summary>
+        /// Allow to convert the next direction (NESO) in a choice (left or right) for a given switch
+        /// </summary>
+        /// <param name="switchTile">Tile that I look</param>
+        /// <param name="fromDirection">The direction where I came from</param>
+        /// <param name="nextDirection">The direction where I look for next direction</param>
+        /// <returns></returns>
+        public DataContainer.DirectionChoice WhichChoiceIsNextDirection(DataTile switchTile, string fromDirection, string nextDirection)
+        {
+            return (switchTile.DirectionsOfTile.IndexOf(nextDirection) - switchTile.DirectionsOfTile.IndexOf(fromDirection))%switchTile.directionsOfTile.Length == 1 ? DataContainer.DirectionChoice.LEFT : DataContainer.DirectionChoice.RIGHT;
         }
 
         /// <summary>
@@ -145,7 +166,7 @@ namespace overail.DataMap_
         public bool ThereIsTargetOnRoad(DataTile currentTile, string fromDirection, ITargetToMove target) 
         {
             // Using shortchut : if the first is true, we do not evaluate the 'or'
-            return currentTile == target.CurrentTile || ThereIsTargetOnRoad(GetNextTiles(currentTile, fromDirection).FirstOrDefault(), target);
+            return currentTile == target.CurrentTile || (!currentTile.IsSwitch && ThereIsTargetOnRoad(GetNextTiles(currentTile, fromDirection).FirstOrDefault(), target));
         }
         public bool ThereIsTargetOnRoad(KeyValuePair<string, DataTile> nextTile, ITargetToMove target)
         {
@@ -164,19 +185,6 @@ namespace overail.DataMap_
                 if (dataTile.Tile == tile)
                 {
                     return dataTile;
-                }
-            }
-
-            return null;
-        }
-
-        public DataTile GetDataTileOfCurrentTile(GameObject currentTile, List<DataTile> tiles)
-        {
-            foreach (var tile in tiles)
-            {
-                if (tile.Tile == currentTile)
-                {
-                    return tile;
                 }
             }
 

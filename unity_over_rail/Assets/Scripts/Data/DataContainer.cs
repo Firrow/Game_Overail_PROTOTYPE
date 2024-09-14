@@ -28,7 +28,13 @@ namespace overail.DataContainer_
             { "E", "O" },
             { "O", "E" }
         }; //CONSTANTE GLOBALE AU JEU ENTIER
-
+        public enum DirectionChoice
+        {
+            NO_DIRECTION,
+            LEFT,
+            RIGHT,
+            RANDOM
+        } //CONSTANTE GLOBALE AU JEU ENTIER
 
 
         private void Awake()
