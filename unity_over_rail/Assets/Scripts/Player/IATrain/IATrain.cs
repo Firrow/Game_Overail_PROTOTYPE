@@ -17,7 +17,7 @@ using System;
 
 public class IATrain : Train
 {
-    private int DEPTH_THRESHOLD = 3;
+    private int DEPTH_THRESHOLD = 7;
 
     public ITargetToMove targetToMove = null;
     public DataTrain myData;
@@ -113,14 +113,20 @@ public class IATrain : Train
         Dictionary<string, DataTile> nextTilesOfSwitch = dataContainer.DataNetworkMap.GetNextTiles(nextSwitch.Value, FromDirection);
 
         //TODO : Do an aggregate with random for default value and conditional (ternary) operator for return
+        DataContainer.DirectionChoice choice = DataContainer.DirectionChoice.RANDOM;
+        int? minDepth = null;
+
         foreach (var nextTile in nextTilesOfSwitch)
         {
-            if (IsTargetHere(nextTile.Value, nextTile.Key))
+            int? currentDepth = IsTargetHere(nextTile.Value, nextTile.Key);
+            if ((minDepth is null && currentDepth is not null) || currentDepth < minDepth)
             {
-                return dataContainer.DataNetworkMap.WhichChoiceIsNextDirection(nextSwitch.Value, nextSwitch.Key, nextTile.Key);
+                minDepth = currentDepth;
+                choice = dataContainer.DataNetworkMap.WhichChoiceIsNextDirection(nextSwitch.Value, nextSwitch.Key, DataContainer.OppositeDirections[nextTile.Key]);
             }
         }
-        return DataContainer.DirectionChoice.RANDOM;
+
+        return choice;
         //--------
     }
 
@@ -131,15 +137,15 @@ public class IATrain : Train
     /// <param name="fromDirection"></param>
     /// <param name="depth"></param>
     /// <returns></returns>
-    private bool IsTargetHere(DataTile tile, string fromDirection, int depth = 1)
+    private int? IsTargetHere(DataTile tile, string fromDirection, int depth = 1)
     {
         if (depth > DEPTH_THRESHOLD)
         {
-            return false; //0
+            return null; // no target was found
         }
         else if (dataContainer.DataNetworkMap.ThereIsTargetOnRoad(tile, fromDirection, targetToMove))
         {
-            return true; //depth
+            return depth; // the target was found
         }
         else
         {
@@ -147,13 +153,15 @@ public class IATrain : Train
 
             Dictionary<string, DataTile> nextTilesOfSwitch = dataContainer.DataNetworkMap.GetNextTiles(nextSwitch.Value, nextSwitch.Key);
 
-            //function in linq library which allow to return true if the target is found on one of the 3 next roads or false per default
-            /*return nextTilesOfSwitch.Aggregate(false, (targetIsFound, nextTile) => {
-                return targetIsFound || IsTargetHere(nextTile.Value, nextTile.Key, ++depth);
-            });*/
+            return nextTilesOfSwitch.Aggregate<KeyValuePair<string, DataTile>, int?>(null, (minDepth, nextTile) => {
+                if (minDepth == 1)
+                {
+                    return minDepth;
+                }
 
-            return nextTilesOfSwitch.Aggregate(false, (targetIsFound, nextTile) => {
-                return targetIsFound || IsTargetHere(nextTile.Value, nextTile.Key, ++depth);
+                int? nextTileDepth = IsTargetHere(nextTile.Value, nextTile.Key, ++depth);
+
+                return nextTileDepth < minDepth ? nextTileDepth : minDepth ?? nextTileDepth; //TODO : voir screen conversation Ulysse pour faire doc sur Notion (null coalescing operator)
             });
         }
     }

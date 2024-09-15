@@ -166,6 +166,8 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
     {
         if (collider.gameObject.tag == "TileTrigger")
         {
+            //TODO : remplacer toutes les occurences de CurrentTile par nextTile
+            //TODO : Sauf si CurrentTile == null
             CurrentTile = collider.transform.parent.gameObject;
 
             string allDirectionsOfATile = GetPossibleDirections(CurrentTile);
@@ -175,15 +177,15 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
             SetNextRoad(CurrentTile, goDirection);
 
             string DirOfTile = CurrentTile.GetComponent<Tile>().directionOfTile;
-            Debug.Log("FromDirection : " + FromDirection);
+            /*Debug.Log("FromDirection : " + FromDirection);
             Debug.Log("Liste directions : " + DirOfTile);
             Debug.Log("indexOf : " + DirOfTile.IndexOf(FromDirection));
             Debug.Log("indexOf+choice : " + (DirOfTile.IndexOf(FromDirection) + choice));
             Debug.Log("longueur tableau direction : " + DirOfTile.Length);
             Debug.Log("new index : " + (DirOfTile.IndexOf(FromDirection) + choice) % DirOfTile.Length);
             Debug.Log("nextDirection : " + goDirection);
+            Debug.Log("--------------------------------------------");*/
 
-            Debug.Log("--------------------------------------------");
             if (dataContainer.DataNetworkMap.FindDataTile(CurrentTile).Neighbors[goDirection].IsSwitch) //donne l'info à l'IA que le train est arrivé à un aiguillage
             //if (CurrentTile.GetComponent<Tile>().isSwitch) //donne l'info à l'IA que le train est arrivé à un aiguillage
             {
@@ -305,6 +307,8 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
         Vector3 p3;
 
         coroutineAllowed = false;
+
+        //TODO : MAJ currentTile avec valeur nextTile
 
         // recovery of point positions in the right direction
         if (reversePoints == true) // reverse direction
