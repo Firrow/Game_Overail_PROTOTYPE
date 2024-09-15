@@ -93,7 +93,7 @@ public class IATrain : Train
             enterOnSwitch = false;
 
 
-            //NOTE : Pour l'entrée du réseau, faire un choix de direction au hasard
+            //TODO : Pour l'entrée du réseau, faire un choix de direction au hasard
         }
     }
 
@@ -135,11 +135,11 @@ public class IATrain : Train
     {
         if (depth > DEPTH_THRESHOLD)
         {
-            return false;
+            return false; //0
         }
         else if (dataContainer.DataNetworkMap.ThereIsTargetOnRoad(tile, fromDirection, targetToMove))
         {
-            return true;
+            return true; //depth
         }
         else
         {
@@ -148,6 +148,10 @@ public class IATrain : Train
             Dictionary<string, DataTile> nextTilesOfSwitch = dataContainer.DataNetworkMap.GetNextTiles(nextSwitch.Value, nextSwitch.Key);
 
             //function in linq library which allow to return true if the target is found on one of the 3 next roads or false per default
+            /*return nextTilesOfSwitch.Aggregate(false, (targetIsFound, nextTile) => {
+                return targetIsFound || IsTargetHere(nextTile.Value, nextTile.Key, ++depth);
+            });*/
+
             return nextTilesOfSwitch.Aggregate(false, (targetIsFound, nextTile) => {
                 return targetIsFound || IsTargetHere(nextTile.Value, nextTile.Key, ++depth);
             });

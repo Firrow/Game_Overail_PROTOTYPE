@@ -166,20 +166,31 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
     {
         if (collider.gameObject.tag == "TileTrigger")
         {
-            GetNextRoad(collider);
+            CurrentTile = collider.transform.parent.gameObject;
 
-            /*string DirOfTile = currentTile.GetComponent<Tile>().directionOfTile;
+            string allDirectionsOfATile = GetPossibleDirections(CurrentTile);
+            int indexDirection = GetIndexDirection(allDirectionsOfATile, FromDirection);
+            string goDirection = GetDirection(indexDirection, choice, allDirectionsOfATile);
+
+            SetNextRoad(CurrentTile, goDirection);
+
+            string DirOfTile = CurrentTile.GetComponent<Tile>().directionOfTile;
+            Debug.Log("FromDirection : " + FromDirection);
+            Debug.Log("Liste directions : " + DirOfTile);
             Debug.Log("indexOf : " + DirOfTile.IndexOf(FromDirection));
             Debug.Log("indexOf+choice : " + (DirOfTile.IndexOf(FromDirection) + choice));
+            Debug.Log("longueur tableau direction : " + DirOfTile.Length);
             Debug.Log("new index : " + (DirOfTile.IndexOf(FromDirection) + choice) % DirOfTile.Length);
-            string nextDirection = DirOfTile.Substring((DirOfTile.IndexOf(FromDirection) + choice) % DirOfTile.Length, 1);
-            Debug.Log("nextDirection : " + nextDirection);*/
+            Debug.Log("nextDirection : " + goDirection);
 
-            //if (dataContainer.DataNetworkMap.FindDataTile(currentTile).Neighbors[nextDirection].IsSwitch) //donne l'info à l'IA que le train est arrivé à un aiguillage
-            if (currentTile.GetComponent<Tile>().isSwitch) //donne l'info à l'IA que le train est arrivé à un aiguillage
+            Debug.Log("--------------------------------------------");
+            if (dataContainer.DataNetworkMap.FindDataTile(CurrentTile).Neighbors[goDirection].IsSwitch) //donne l'info à l'IA que le train est arrivé à un aiguillage
+            //if (CurrentTile.GetComponent<Tile>().isSwitch) //donne l'info à l'IA que le train est arrivé à un aiguillage
             {
-                    this.OnSwitchEnter();
+                this.OnSwitchEnter();
             }
+
+            SetFromDirection(goDirection);
         }
         else if (collider.gameObject.layer == LayerMask.NameToLayer("Bullets"))
         {
@@ -212,31 +223,21 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
         }
     }
 
-    private void GetNextRoad(Collider2D collider)
+    private void SetNextRoad(GameObject tile, string goDirection)
     {
         // DETERMINER LA DIRECTION-----------------------------------------
-        currentTile = collider.transform.parent.gameObject;
-
         reversePoints = false;
-
-        string _allDirectionsOfATile = GetPossibleDirections(currentTile);
-        int _indexDirection = GetIndexDirection(_allDirectionsOfATile, FromDirection);
-        string _goDirection = GetDirection(_indexDirection, choice, _allDirectionsOfATile);
-
 
         // DETERMINER LA BONNE ROUTE-----------------------------------------
         // get next route by name and add it to list
-        string nameNextRoad = FromDirection + _goDirection;
-        if (currentTile.transform.Find(nameNextRoad) == null)
+        string nameNextRoad = FromDirection + goDirection;
+        if (tile.transform.Find(nameNextRoad) == null)
         {
-            nameNextRoad = _goDirection + FromDirection;
+            nameNextRoad = goDirection + FromDirection;
             reversePoints = true;
         }
 
-        nextRoad = currentTile.transform.Find(nameNextRoad);
-
-        // set fromDirection 
-        SetFromDirection(_goDirection); 
+        nextRoad = CurrentTile.transform.Find(nameNextRoad);
     }
 
     private void SetFromDirection(string goDirection) //TODO : utiliser oppositeDirection
