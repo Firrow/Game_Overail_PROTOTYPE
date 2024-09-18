@@ -59,7 +59,7 @@ public class IATrain : Train
         targetToMove = target;
         targetPosition = target.Position;
         //Debug.Log("CHANGE CIBLE");
-        Debug.Log(targetPosition);
+        //Debug.Log(targetPosition);
     }
 
     public void NeedToChangeDirectionToTarget()
@@ -166,7 +166,7 @@ public class IATrain : Train
         }
     }
 
-    public override void OnSwitchEnter()
+    public override void OnSwitchDetected()
     {
         enterOnSwitch = true;
     }

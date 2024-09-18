@@ -84,7 +84,7 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
 
     protected void Update()
     {
-
+        //Debug.Log("Tuile actuelle : " + CurrentTile);
     }
 
     protected void FixedUpdate()
@@ -166,33 +166,23 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
     {
         if (collider.gameObject.tag == "TileTrigger")
         {
-            //TODO : remplacer toutes les occurences de CurrentTile par nextTile
-            //TODO : Sauf si CurrentTile == null
+            //# (Prop) Mis à jour ici / Utilisé par le trigger des collisions, les next roads et le train IA et humain
             CurrentTile = collider.transform.parent.gameObject;
 
-            string allDirectionsOfATile = GetPossibleDirections(CurrentTile);
-            int indexDirection = GetIndexDirection(allDirectionsOfATile, FromDirection);
-            string goDirection = GetDirection(indexDirection, choice, allDirectionsOfATile);
+            string nextDirection = GetDirection(CurrentTile.GetComponent<Tile>(), FromDirection, choice);
 
-            SetNextRoad(CurrentTile, goDirection);
+            //# (Prop, Var) Mis à jour ci-dessus / Met à jour la NextRoad (route sur laquelle ont vient de rentrer)
+            SetCurrentRoad(CurrentTile, nextDirection);
 
-            string DirOfTile = CurrentTile.GetComponent<Tile>().directionOfTile;
-            /*Debug.Log("FromDirection : " + FromDirection);
-            Debug.Log("Liste directions : " + DirOfTile);
-            Debug.Log("indexOf : " + DirOfTile.IndexOf(FromDirection));
-            Debug.Log("indexOf+choice : " + (DirOfTile.IndexOf(FromDirection) + choice));
-            Debug.Log("longueur tableau direction : " + DirOfTile.Length);
-            Debug.Log("new index : " + (DirOfTile.IndexOf(FromDirection) + choice) % DirOfTile.Length);
-            Debug.Log("nextDirection : " + goDirection);
-            Debug.Log("--------------------------------------------");*/
-
-            if (dataContainer.DataNetworkMap.FindDataTile(CurrentTile).Neighbors[goDirection].IsSwitch) //donne l'info à l'IA que le train est arrivé à un aiguillage
-            //if (CurrentTile.GetComponent<Tile>().isSwitch) //donne l'info à l'IA que le train est arrivé à un aiguillage
+            //# (Att) Mis à jour dans le Start / Condition de "détection" d'un aiguillage, principalement pour les IA
+            if (dataContainer.DataNetworkMap.FindDataTile(CurrentTile).Neighbors[nextDirection].IsSwitch) //donne l'info à l'IA que le train est arrivé à un aiguillage
             {
-                this.OnSwitchEnter();
+                //# (Meth) Déclenche l'évènement "SwitchEnter"
+                this.OnSwitchDetected();
             }
 
-            SetFromDirection(goDirection);
+            //# (Var) Mis à jour ci-dessus / Met à jour le FromDirection
+            SetFromDirection(nextDirection);            
         }
         else if (collider.gameObject.layer == LayerMask.NameToLayer("Bullets"))
         {
@@ -225,20 +215,29 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
         }
     }
 
-    private void SetNextRoad(GameObject tile, string goDirection)
+    private void SetCurrentRoad(GameObject tile, string nextDir)
     {
         // DETERMINER LA DIRECTION-----------------------------------------
+        //# (Att) Mis à jour ici / Détermine le sens de lecture de la route (courbe de Bézier)
+        //#   # Pourquoi un attribut ?
         reversePoints = false;
 
         // DETERMINER LA BONNE ROUTE-----------------------------------------
         // get next route by name and add it to list
-        string nameNextRoad = FromDirection + goDirection;
+        //# (Var) Mis à jour ici / Détermine le nom de la prochaine route
+        string nameNextRoad = FromDirection + nextDir;
+        //# (Var) Mis à jour ci-dessus / Cas de route inversé
         if (tile.transform.Find(nameNextRoad) == null)
         {
-            nameNextRoad = goDirection + FromDirection;
+            //# (Var) Mis à jour ici / Détermine le nom de la prochaine route
+            nameNextRoad = nextDir + FromDirection;
+            //# (Att) Mis à jour ici / Détermine le sens de lecture de la route (courbe de Bézier)
+            //#   # Pourquoi un attribut ?
             reversePoints = true;
         }
 
+        //# (Att) Mis à jour ici / La prochaine route (courbe de Bézier) à parcourir
+        //#   # => Remplaçable par un simple appel à *.IndexOf(previousDirection) (?????)
         nextRoad = CurrentTile.transform.Find(nameNextRoad);
     }
 
@@ -262,37 +261,16 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Get possible directions
-    /// </summary>
-    /// <param name="actualTile"></param>
-    /// <returns> directions of current tile </returns>
-    private string GetPossibleDirections(GameObject actualTile)
-    {
-        return actualTile.GetComponent<Tile>().directionOfTile;
-    }
-
-    /// <summary>
-    /// Index calculation of the player's direction of origin in the list of tile directions
-    /// </summary>
-    /// <param name="allDirections"></param>
-    /// <param name="previousDirection"></param>
-    /// <returns> Index of fromDirection </returns>
-    private int GetIndexDirection(string allDirections, string previousDirection)
-    {
-        return allDirections.IndexOf(previousDirection);
-    }
-
-    /// <summary>
     /// Determine the next direction
     /// </summary>
-    /// <param name="indexOriginDirection"></param>
-    /// <param name="playerDirection"></param>
-    /// <param name="allPossibleDirections"></param>
+    /// <param name="tile"></param>
+    /// <param name="fromDir"></param>
+    /// <param name="choice"></param>
     /// <returns> Directions the train can take to get out of the tile </returns>
-    private string GetDirection(int indexOriginDirection, int playerDirection, string allPossibleDirections)
+    private string GetDirection(Tile tile, string fromDir, int choice)
     {
-        int i = indexOriginDirection + playerDirection;
-        return allPossibleDirections.Substring((i + allPossibleDirections.Length) % allPossibleDirections.Length, 1);
+        int i = CurrentTile.GetComponent<Tile>().directionOfTile.IndexOf(fromDir) + choice;
+        return CurrentTile.GetComponent<Tile>().directionOfTile.Substring((i + CurrentTile.GetComponent<Tile>().directionOfTile.Length) % CurrentTile.GetComponent<Tile>().directionOfTile.Length, 1);
     }
 
     /// <summary>
@@ -307,8 +285,6 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
         Vector3 p3;
 
         coroutineAllowed = false;
-
-        //TODO : MAJ currentTile avec valeur nextTile
 
         // recovery of point positions in the right direction
         if (reversePoints == true) // reverse direction
@@ -470,7 +446,7 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
     /// <summary>
     /// Entering on a switch (by IA)
     /// </summary>
-    public virtual void OnSwitchEnter() { }
+    public virtual void OnSwitchDetected() { }
 
     protected void OnPropertyChanged([CallerMemberName] string name = null)
     {
@@ -508,7 +484,6 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
         get { return fromDirection; }
         set { fromDirection = value; }
     }
-
 
     public GameObject CurrentTile
     {
