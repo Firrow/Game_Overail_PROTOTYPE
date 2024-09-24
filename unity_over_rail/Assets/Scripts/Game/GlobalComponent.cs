@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace overail.GlobalComponent_
 {
-    public class GlobalComponent : MonoBehaviour
+    public static class GlobalComponent
     {
         public static Dictionary<string, string> OPPOSITE_DIRECTIONS = new Dictionary<string, string>() {
             { "N", "S" },

@@ -236,7 +236,7 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
         nextRoad = CurrentTile.transform.Find(nameNextRoad);
     }
 
-    private void SetFromDirection(string goDirection) //TODO : utiliser oppositeDirection
+    private void SetFromDirection(string goDirection) //TODO : utiliser oppositeDirection (fonction à supprimer)
     {
         switch (goDirection)
         {

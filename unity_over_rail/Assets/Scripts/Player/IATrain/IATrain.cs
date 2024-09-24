@@ -103,6 +103,9 @@ public class IATrain : Train
     /// <returns></returns>
     public GlobalComponent.DirectionChoice GetNextChoiceDirection()
     {
+        //TODO : Eviter un potentiel train
+
+
         // If the target is on the same road than the train
         if (dataContainer.DataNetworkMap.ThereIsTargetOnRoad(myData.CurrentTile, FromDirection, targetToMove))
         {
