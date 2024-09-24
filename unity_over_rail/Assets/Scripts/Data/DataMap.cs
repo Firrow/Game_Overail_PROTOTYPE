@@ -6,6 +6,7 @@ using UnityEngine;
 using overail.DataTile_;
 using overail.DataSpawner_;
 using overail.DataContainer_;
+using overail.GlobalComponent_;
 
 
 /// <summary>
@@ -138,15 +139,9 @@ namespace overail.DataMap_
         /// <param name="fromDirection">The direction where I came from</param>
         /// <param name="nextDirection">The direction where I look for next direction</param>
         /// <returns></returns>
-        public DataContainer.DirectionChoice WhichChoiceIsNextDirection(DataTile switchTile, string fromDirection, string nextDirection)
+        public GlobalComponent.DirectionChoice WhichChoiceIsNextDirection(DataTile switchTile, string fromDirection, string nextDirection)
         {
-            return mod((switchTile.DirectionsOfTile.IndexOf(nextDirection) - switchTile.DirectionsOfTile.IndexOf(fromDirection)), switchTile.DirectionsOfTile.Length) == 1 ? DataContainer.DirectionChoice.LEFT : DataContainer.DirectionChoice.RIGHT;
-        }
-
-        private int mod(int x, int m)
-        {
-            int r = x % m;
-            return r < 0 ? r + m : r;
+            return GlobalComponent.mod((switchTile.DirectionsOfTile.IndexOf(nextDirection) - switchTile.DirectionsOfTile.IndexOf(fromDirection)), switchTile.DirectionsOfTile.Length) == 1 ? GlobalComponent.DirectionChoice.LEFT : GlobalComponent.DirectionChoice.RIGHT;
         }
 
         /// <summary>

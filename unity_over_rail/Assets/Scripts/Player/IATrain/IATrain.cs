@@ -8,6 +8,7 @@ using overail.DataSpawner_;
 using overail.DataMap_;
 using overail.IAPathResearch_;
 using overail.DataContainer_;
+using overail.GlobalComponent_;
 using overail.TrainActions_;
 using System;
 
@@ -74,18 +75,18 @@ public class IATrain : Train
             targetChanged = false;
             onSwitchDetected = false;
 
-            DataContainer.DirectionChoice directionChoice = GetNextChoiceDirection();
+            GlobalComponent.DirectionChoice directionChoice = GetNextChoiceDirection();
 
             switch (directionChoice)
             {
                 //TODO : remplacer les valeurs brutes par les valeurs dans l'enum créer (voir TODO du Train.cs ligne 101)
-                case DataContainer.DirectionChoice.LEFT:
+                case GlobalComponent.DirectionChoice.LEFT:
                     TrainActions.APIChangeDirection(myData.Index, -1);
                     break;
-                case DataContainer.DirectionChoice.RIGHT:
+                case GlobalComponent.DirectionChoice.RIGHT:
                     TrainActions.APIChangeDirection(myData.Index, 1);
                     break;
-                case DataContainer.DirectionChoice.RANDOM:
+                case GlobalComponent.DirectionChoice.RANDOM:
                     TrainActions.APIChangeDirection(myData.Index, (int)Math.Pow(-1, UnityEngine.Random.Range(1, 3)));
                     break;
                 default:
@@ -100,18 +101,18 @@ public class IATrain : Train
     /// Determine the direction choice to do for IA to get the target
     /// </summary>
     /// <returns></returns>
-    public DataContainer.DirectionChoice GetNextChoiceDirection()
+    public GlobalComponent.DirectionChoice GetNextChoiceDirection()
     {
         // If the target is on the same road than the train
         if (dataContainer.DataNetworkMap.ThereIsTargetOnRoad(myData.CurrentTile, FromDirection, targetToMove))
         {
-            return DataContainer.DirectionChoice.NO_DIRECTION;
+            return GlobalComponent.DirectionChoice.NO_DIRECTION;
         }
 
         Dictionary<string, DataTile> nextTilesOfSwitch = dataContainer.DataNetworkMap.GetNextTiles(detectedSwitch.Value, detectedSwitch.Key);
 
         //TODO : Do an aggregate with random for default value and conditional (ternary) operator for return
-        DataContainer.DirectionChoice choice = DataContainer.DirectionChoice.RANDOM;
+        GlobalComponent.DirectionChoice choice = GlobalComponent.DirectionChoice.RANDOM;
         int? minDepth = null;
 
         foreach (var nextTile in nextTilesOfSwitch)

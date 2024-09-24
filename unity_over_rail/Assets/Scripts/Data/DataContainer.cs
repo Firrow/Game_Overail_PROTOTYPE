@@ -1,3 +1,4 @@
+using overail.GlobalComponent_;
 using overail.DataSpawner_;
 using overail.DataTrain_;
 using overail.DataMap_;
@@ -22,19 +23,7 @@ namespace overail.DataContainer_
         //TODO : faire un fichier accessible par tous les autres fichiers pour accéder au script de DataContainer (plutôt que de faire GameObject.FindObjectWithTag("DataContainer").GetComponent<DataContainer>();
         private List<DataTrain> dataTrains = new List<DataTrain>();
         private DataMap dataNetworkMap;
-        private static Dictionary<string, string> OPPOSITE_DIRECTIONS = new Dictionary<string, string>() {
-            { "N", "S" },
-            { "S", "N" },
-            { "E", "O" },
-            { "O", "E" }
-        }; //CONSTANTE GLOBALE AU JEU ENTIER
-        public enum DirectionChoice
-        {
-            NO_DIRECTION,
-            LEFT,
-            RIGHT,
-            RANDOM
-        } //CONSTANTE GLOBALE AU JEU ENTIER
+
 
 
         private void Awake()
@@ -71,7 +60,7 @@ namespace overail.DataContainer_
 
         public static Dictionary<string, string> OppositeDirections
         {
-            get { return OPPOSITE_DIRECTIONS; }
+            get { return GlobalComponent.OPPOSITE_DIRECTIONS; }
         }
 
         public List<DataTrain> DataTrains
