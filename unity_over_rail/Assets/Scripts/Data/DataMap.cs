@@ -141,7 +141,7 @@ namespace overail.DataMap_
         /// <returns></returns>
         public GlobalComponent.DirectionChoice WhichChoiceIsNextDirection(DataTile switchTile, string fromDirection, string nextDirection)
         {
-            return GlobalComponent.mod((switchTile.DirectionsOfTile.IndexOf(nextDirection) - switchTile.DirectionsOfTile.IndexOf(fromDirection)), switchTile.DirectionsOfTile.Length) == 1 ? GlobalComponent.DirectionChoice.LEFT : GlobalComponent.DirectionChoice.RIGHT;
+            return GlobalComponent.modulo((switchTile.DirectionsOfTile.IndexOf(nextDirection) - switchTile.DirectionsOfTile.IndexOf(fromDirection)), switchTile.DirectionsOfTile.Length) == 1 ? GlobalComponent.DirectionChoice.LEFT : GlobalComponent.DirectionChoice.RIGHT;
         }
 
         /// <summary>
