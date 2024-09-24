@@ -177,7 +177,7 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
             }
 
             //# (Var) Mis à jour ci-dessus / Met à jour le FromDirection
-            SetFromDirection(nextDirection);            
+            FromDirection = GlobalComponent.OPPOSITE_DIRECTIONS[nextDirection];
         }
         else if (collider.gameObject.layer == LayerMask.NameToLayer("Bullets"))
         {
@@ -210,6 +210,11 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
         }
     }
 
+    /// <summary>
+    /// Set the current road follow by the train
+    /// </summary>
+    /// <param name="tile"></param>
+    /// <param name="nextDir"></param>
     private void SetCurrentRoad(GameObject tile, string nextDir)
     {
         // DETERMINER LA DIRECTION-----------------------------------------
@@ -234,25 +239,6 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
         //# (Att) Mis à jour ici / La prochaine route (courbe de Bézier) à parcourir
         //#   # => Remplaçable par un simple appel à *.IndexOf(previousDirection) (?????)
         nextRoad = CurrentTile.transform.Find(nameNextRoad);
-    }
-
-    private void SetFromDirection(string goDirection) //TODO : utiliser oppositeDirection (fonction à supprimer)
-    {
-        switch (goDirection)
-        {
-            case "N":
-                FromDirection = "S";
-                break;
-            case "E":
-                FromDirection = "O";
-                break;
-            case "S":
-                FromDirection = "N";
-                break;
-            case "O":
-                FromDirection = "E";
-                break;
-        }
     }
 
     /// <summary>
