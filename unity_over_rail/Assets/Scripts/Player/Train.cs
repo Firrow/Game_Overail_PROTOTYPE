@@ -17,7 +17,6 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
     protected float SPEED = 1;
     private int MAX_HEALTH = 10;
 
-     // TODO : permettre de le determiner automatiquement //TODO : public à remplacer par private + SerializeField ?
     public GameObject leftArrow;
     public GameObject rightArrow;
     public event PropertyChangedEventHandler PropertyChanged;
@@ -81,11 +80,6 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
         shieldIsActivate = shield.activeSelf;
 
         GetInterface();
-    }
-
-    protected void Update()
-    {
-        //Debug.Log("Tuile actuelle : " + CurrentTile);
     }
 
     protected void FixedUpdate()
@@ -176,9 +170,8 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
             SetCurrentRoad(CurrentTile, nextDirection);
 
             //# (Att) Mis à jour dans le Start / Condition de "détection" d'un aiguillage, principalement pour les IA
-            if (dataContainer.DataNetworkMap.FindDataTile(CurrentTile).Neighbors[nextDirection].IsSwitch) //donne l'info à l'IA que le train est arrivé à un aiguillage
+            if (dataContainer.DataNetworkMap.FindDataTile(CurrentTile).Neighbors[nextDirection].IsSwitch) //donne l'info au train qu'il est arrivé à un aiguillage
             {
-                //Debug.Log("switch : " + dataContainer.DataNetworkMap.FindDataTile(CurrentTile).Neighbors[nextDirection].Tile.name + " currentTile : " + CurrentTile.name);
                 //# (Meth) Déclenche l'évènement "SwitchEnter"
                 this.OnSwitchDetected(dataContainer.DataNetworkMap.FindDataTile(CurrentTile).Neighbors[nextDirection], DataContainer.OppositeDirections[nextDirection]);
             }

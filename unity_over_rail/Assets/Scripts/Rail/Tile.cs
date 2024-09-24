@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    public Vector3 POSITION; //TEMP
+    //public Vector3 POSITION; //TEMP
     public string directionOfTile;
     public bool containsSpawner;
     public bool isSwitch;
@@ -17,6 +17,6 @@ public class Tile : MonoBehaviour
     private void Start()
     {
         GridLayout grid = GameObject.FindObjectOfType<GridLayout>();
-        POSITION = grid.CellToWorld(grid.WorldToCell(this.transform.position));
+        //POSITION = grid.CellToWorld(grid.WorldToCell(this.transform.position));
     }
 }

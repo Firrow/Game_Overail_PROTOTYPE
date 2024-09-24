@@ -63,6 +63,9 @@ public class IATrain : Train
         Debug.Log(targetPosition);
     }
 
+    /// <summary>
+    /// If the target changed or if a switch is two tiles from the train, IA choose a new direction
+    /// </summary>
     public void NeedToChangeDirectionToTarget()
     {
         if (targetChanged || onSwitchDetected)
@@ -70,10 +73,6 @@ public class IATrain : Train
             // remet les flags à false
             targetChanged = false;
             onSwitchDetected = false;
-
-            //DANS PATH : 
-            // recalculer la prochaine direction à prendre
-            // récupérer le prochain aiguillage + ajouter sécurité au cas ou il n'y a pas d'aiguillage
 
             DataContainer.DirectionChoice directionChoice = GetNextChoiceDirection();
 
@@ -93,7 +92,6 @@ public class IATrain : Train
                     break;
             }
 
-
             //TODO : Pour l'entrée du réseau, faire un choix de direction au hasard
         }
     }
@@ -110,32 +108,24 @@ public class IATrain : Train
             return DataContainer.DirectionChoice.NO_DIRECTION;
         }
 
-        //KeyValuePair<string, DataTile> nextSwitch = dataContainer.DataNetworkMap.GetNextSwitchOnMap(myData.CurrentTile, FromDirection);
         Dictionary<string, DataTile> nextTilesOfSwitch = dataContainer.DataNetworkMap.GetNextTiles(detectedSwitch.Value, detectedSwitch.Key);
 
         //TODO : Do an aggregate with random for default value and conditional (ternary) operator for return
         DataContainer.DirectionChoice choice = DataContainer.DirectionChoice.RANDOM;
         int? minDepth = null;
 
-        Debug.Log(" ------ FOREACH ------ : ");
         foreach (var nextTile in nextTilesOfSwitch)
         {
             int? currentDepth = IsTargetHere(nextTile.Value, nextTile.Key);
-
-            //Debug.Log("Current Depth : " + currentDepth);
-            //Debug.Log("Min Depth : " + minDepth);
 
             if ((minDepth is null && currentDepth is not null) || currentDepth < minDepth)
             {
                 minDepth = currentDepth;
                 choice = dataContainer.DataNetworkMap.WhichChoiceIsNextDirection(detectedSwitch.Value, detectedSwitch.Key, DataContainer.OppositeDirections[nextTile.Key]);
             }
-        }
-
-        Debug.Log("detected switch : " + detectedSwitch.Value.DirectionsOfTile + " - " + detectedSwitch.Value.TilePosition + " || choix : " + choice);
+        }        
 
         return choice;
-        //--------
     }
 
     /// <summary>
@@ -162,18 +152,12 @@ public class IATrain : Train
             Dictionary<string, DataTile> nextTilesOfSwitch = dataContainer.DataNetworkMap.GetNextTiles(nextSwitch.Value, nextSwitch.Key);
 
             return nextTilesOfSwitch.Aggregate<KeyValuePair<string, DataTile>, int?>(null, (minDepth, nextTile) => {
-                if (minDepth == 1) //NE PASSE JAMAIS ICI
+                if (minDepth == 1)
                 {
-                    Debug.Log("CHEMIN DE 1");
                     return minDepth;
                 }
-                //Debug.Log("nextTile : " + nextTile.Value.DirectionsOfTile + " - " + nextTile.Value.TilePosition);
 
                 int? nextTileDepth = IsTargetHere(nextTile.Value, nextTile.Key, ++depth);
-
-                
-                //Debug.Log(" nextTileDepth < minDepth : " + nextTileDepth + " < " + minDepth);
-
                 return nextTileDepth < minDepth ? nextTileDepth : minDepth ?? nextTileDepth; //TODO : voir screen conversation Ulysse pour faire doc sur Notion (null coalescing operator)
             });
         }
