@@ -78,7 +78,7 @@ namespace overail.DataTrain_
 
         public DataTile CurrentTile
         {
-            get { return GameObject.FindGameObjectWithTag("DataContainer").GetComponent<DataContainer>().DataNetworkMap.FindDataTile(this.train.GetComponent<Train>().CurrentTile); } 
+            get { return GameObject.FindGameObjectWithTag("GameManager").GetComponent<DataContainer>().DataNetworkMap.FindDataTile(this.train.GetComponent<Train>().CurrentTile); } 
         }
 
         public string FromDirection

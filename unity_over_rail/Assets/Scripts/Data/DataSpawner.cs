@@ -37,7 +37,7 @@ namespace overail.DataSpawner_
 
         public DataTile CurrentTile
         {
-            get { return GameObject.FindGameObjectWithTag("DataContainer").GetComponent<DataContainer>().DataNetworkMap.FindDataTile(spawner.transform.parent.gameObject); }
+            get { return GameObject.FindGameObjectWithTag("GameManager").GetComponent<DataContainer>().DataNetworkMap.FindDataTile(spawner.transform.parent.gameObject); }
         }
 
         public Vector3 Position
