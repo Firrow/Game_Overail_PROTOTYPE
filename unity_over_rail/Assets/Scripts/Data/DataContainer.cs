@@ -57,12 +57,6 @@ namespace overail.DataContainer_
 
 
 
-
-        public static Dictionary<string, string> OppositeDirections
-        {
-            get { return GlobalComponent.OPPOSITE_DIRECTIONS; }
-        }
-
         public List<DataTrain> DataTrains
         {
             get { return dataTrains; }

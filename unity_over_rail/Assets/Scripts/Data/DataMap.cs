@@ -109,7 +109,7 @@ namespace overail.DataMap_
                 {
                     if (neighbor.Key.ToString() != fromDirection)
                     {
-                        nextTiles.Add(DataContainer.OppositeDirections[neighbor.Key.ToString()], neighbor.Value);
+                        nextTiles.Add(GlobalComponent.OPPOSITE_DIRECTIONS[neighbor.Key.ToString()], neighbor.Value);
                     }
                 }
             }

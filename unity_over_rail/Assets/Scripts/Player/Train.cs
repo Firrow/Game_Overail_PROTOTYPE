@@ -2,10 +2,10 @@ using System.Collections;
 using UnityEngine;
 using overail.DataContainer_;
 using overail.DataTrain_;
-
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using overail.DataTile_;
+using overail.GlobalComponent_;
 
 /// <summary>
 /// Main script to managing trains (players and IA)
@@ -173,7 +173,7 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
             if (dataContainer.DataNetworkMap.FindDataTile(CurrentTile).Neighbors[nextDirection].IsSwitch) //donne l'info au train qu'il est arrivé à un aiguillage
             {
                 //# (Meth) Déclenche l'évènement "SwitchEnter"
-                this.OnSwitchDetected(dataContainer.DataNetworkMap.FindDataTile(CurrentTile).Neighbors[nextDirection], DataContainer.OppositeDirections[nextDirection]);
+                this.OnSwitchDetected(dataContainer.DataNetworkMap.FindDataTile(CurrentTile).Neighbors[nextDirection], GlobalComponent.OPPOSITE_DIRECTIONS[nextDirection]);
             }
 
             //# (Var) Mis à jour ci-dessus / Met à jour le FromDirection

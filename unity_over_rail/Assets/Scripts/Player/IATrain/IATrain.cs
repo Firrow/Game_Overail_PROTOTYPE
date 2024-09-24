@@ -122,7 +122,7 @@ public class IATrain : Train
             if ((minDepth is null && currentDepth is not null) || currentDepth < minDepth)
             {
                 minDepth = currentDepth;
-                choice = dataContainer.DataNetworkMap.WhichChoiceIsNextDirection(detectedSwitch.Value, detectedSwitch.Key, DataContainer.OppositeDirections[nextTile.Key]);
+                choice = dataContainer.DataNetworkMap.WhichChoiceIsNextDirection(detectedSwitch.Value, detectedSwitch.Key, GlobalComponent.OPPOSITE_DIRECTIONS[nextTile.Key]);
             }
         }        
 
