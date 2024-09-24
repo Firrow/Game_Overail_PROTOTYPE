@@ -47,9 +47,6 @@ namespace overail.DataMap_
                     tileMatrix[i, j] = new DataTile(
                         tiles[element].gameObject,
                         grid.CellToWorld(grid.WorldToCell(tiles[element].transform.position)),
-                        tiles[element].GetComponent<Tile>().directionOfTile,
-                        tiles[element].GetComponent<Tile>().containsSpawner,
-                        tiles[element].GetComponent<Tile>().isSwitch,
                         new DataTile.PositionInMatrix { x = i, y = j }
                     );
                     element++;
@@ -125,16 +122,6 @@ namespace overail.DataMap_
         /// <param name="currentTile"></param>
         /// <param name="fromDirection"></param>
         /// <returns> the dataTile of the finded switch </returns>
-        /*
-        public KeyValuePair<string, DataTile> GetNextSwitchOnMap(DataTile currentTile, string fromDirection)
-        {
-            return currentTile.IsSwitch ? new KeyValuePair<string, DataTile>(fromDirection, currentTile) : GetNextSwitchOnMap(GetNextTiles(currentTile, fromDirection).FirstOrDefault());
-        }
-        public KeyValuePair<string, DataTile> GetNextSwitchOnMap(KeyValuePair<string, DataTile> currentTile)
-        {
-            return GetNextSwitchOnMap(currentTile.Value, currentTile.Key);
-        }
-        */
         public KeyValuePair<string, DataTile> GetNextSwitchOnMap(KeyValuePair<string, DataTile> currentTile)
         {
             return currentTile.Value.IsSwitch ? currentTile : GetNextSwitchOnMap(GetNextTiles(currentTile.Value, currentTile.Key).FirstOrDefault());
@@ -153,7 +140,21 @@ namespace overail.DataMap_
         /// <returns></returns>
         public DataContainer.DirectionChoice WhichChoiceIsNextDirection(DataTile switchTile, string fromDirection, string nextDirection)
         {
-            return (switchTile.DirectionsOfTile.IndexOf(nextDirection) - switchTile.DirectionsOfTile.IndexOf(fromDirection))%switchTile.directionsOfTile.Length == 1 ? DataContainer.DirectionChoice.LEFT : DataContainer.DirectionChoice.RIGHT;
+            Debug.Log(switchTile.DirectionsOfTile.IndexOf(nextDirection));
+            Debug.Log( " - " + switchTile.DirectionsOfTile.IndexOf(fromDirection));
+            Debug.Log(" % " + switchTile.DirectionsOfTile.Length);
+            Debug.Log((switchTile.DirectionsOfTile.IndexOf(nextDirection) - switchTile.DirectionsOfTile.IndexOf(fromDirection)));
+            Debug.Log("Résultat avec % : " + (switchTile.DirectionsOfTile.IndexOf(nextDirection) - switchTile.DirectionsOfTile.IndexOf(fromDirection)) % switchTile.DirectionsOfTile.Length);
+            Debug.Log("Résultat avec modulo : " + mod((switchTile.DirectionsOfTile.IndexOf(nextDirection) - switchTile.DirectionsOfTile.IndexOf(fromDirection)), switchTile.DirectionsOfTile.Length));
+            Debug.Log("DIRECTION CHOISIE : " + ((switchTile.DirectionsOfTile.IndexOf(nextDirection) - switchTile.DirectionsOfTile.IndexOf(fromDirection)) % switchTile.DirectionsOfTile.Length == 1 ? DataContainer.DirectionChoice.LEFT : DataContainer.DirectionChoice.RIGHT));
+            //return (switchTile.DirectionsOfTile.IndexOf(nextDirection) - switchTile.DirectionsOfTile.IndexOf(fromDirection))%switchTile.DirectionsOfTile.Length == 1 ? DataContainer.DirectionChoice.LEFT : DataContainer.DirectionChoice.RIGHT;
+            return mod((switchTile.DirectionsOfTile.IndexOf(nextDirection) - switchTile.DirectionsOfTile.IndexOf(fromDirection)), switchTile.DirectionsOfTile.Length) == 1 ? DataContainer.DirectionChoice.LEFT : DataContainer.DirectionChoice.RIGHT;
+        }
+
+        private int mod(int x, int m)
+        {
+            int r = x % m;
+            return r < 0 ? r + m : r;
         }
 
         /// <summary>
@@ -163,10 +164,13 @@ namespace overail.DataMap_
         /// <param name="fromDirection"></param>
         /// <param name="target"></param>
         /// <returns> true or false </returns>
-        public bool ThereIsTargetOnRoad(DataTile currentTile, string fromDirection, ITargetToMove target) 
+        public bool ThereIsTargetOnRoad(DataTile currentTile, string fromDirection, ITargetToMove target) //PROBLEM HERE !!!!!!!!!!
         {
             // Using shortchut : if the first is true, we do not evaluate the 'or'
-            return currentTile == target.CurrentTile || (!currentTile.IsSwitch && ThereIsTargetOnRoad(GetNextTiles(currentTile, fromDirection).FirstOrDefault(), target));
+            //Debug.Log("target.CurrentTile : " + target.CurrentTile.TilePosition);
+            //Debug.Log("currentTile : " + currentTile.TilePosition);
+            //Debug.Log("ThereIsTargetOnRoad : " + (currentTile.Equals(target.CurrentTile) /*|| (!currentTile.IsSwitch && ThereIsTargetOnRoad(GetNextTiles(currentTile, fromDirection).FirstOrDefault(), target))*/));
+            return currentTile.Equals(target.CurrentTile) || (!currentTile.IsSwitch && ThereIsTargetOnRoad(GetNextTiles(currentTile, fromDirection).FirstOrDefault(), target));
         }
         public bool ThereIsTargetOnRoad(KeyValuePair<string, DataTile> nextTile, ITargetToMove target)
         {

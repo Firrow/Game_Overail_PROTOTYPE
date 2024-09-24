@@ -5,6 +5,7 @@ using overail.DataTrain_;
 
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using overail.DataTile_;
 
 /// <summary>
 /// Main script to managing trains (players and IA)
@@ -177,8 +178,9 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
             //# (Att) Mis à jour dans le Start / Condition de "détection" d'un aiguillage, principalement pour les IA
             if (dataContainer.DataNetworkMap.FindDataTile(CurrentTile).Neighbors[nextDirection].IsSwitch) //donne l'info à l'IA que le train est arrivé à un aiguillage
             {
+                //Debug.Log("switch : " + dataContainer.DataNetworkMap.FindDataTile(CurrentTile).Neighbors[nextDirection].Tile.name + " currentTile : " + CurrentTile.name);
                 //# (Meth) Déclenche l'évènement "SwitchEnter"
-                this.OnSwitchDetected();
+                this.OnSwitchDetected(dataContainer.DataNetworkMap.FindDataTile(CurrentTile).Neighbors[nextDirection], DataContainer.OppositeDirections[nextDirection]);
             }
 
             //# (Var) Mis à jour ci-dessus / Met à jour le FromDirection
@@ -301,6 +303,8 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
             p2 = nextRoad.Find("p3").position;
             p3 = nextRoad.Find("p4").position;
         }
+
+        //Debug.Log("Je t'aime mon amour !");
 
         while (tParam < 1)
         {
@@ -446,7 +450,7 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
     /// <summary>
     /// Entering on a switch (by IA)
     /// </summary>
-    public virtual void OnSwitchDetected() { }
+    public virtual void OnSwitchDetected(DataTile detectedSwitch, string fromDirection) { }
 
     protected void OnPropertyChanged([CallerMemberName] string name = null)
     {

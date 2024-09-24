@@ -27,26 +27,30 @@ namespace overail.DataTile_
 
 
 
-        public DataTile(GameObject tile, Vector3 tilePosition, string directionsOfTile, bool containsSpawner, bool isSwitch, PositionInMatrix coordinates)
+        public DataTile(GameObject tile, Vector3 tilePosition, /*string directionsOfTile, bool containsSpawner, bool isSwitch,*/ PositionInMatrix coordinates)
         {
             this.tile = tile;
             this.tilePosition = tilePosition;
-            this.directionsOfTile = directionsOfTile;
-            this.containsSpawner = containsSpawner;
-            this.isSwitch = isSwitch;
             this.coordinates = coordinates;
         }
 
         public override bool Equals(object obj)
         {
             DataTile otherTile = obj as DataTile;
-            return otherTile.Tile != null && otherTile.Tile == this.Tile;
+            //Debug.Log("otherTile (target) position : " + otherTile.TilePosition);
+            //Debug.Log("this tile position : " + this.TilePosition);
+            //Debug.Log("== : " + (otherTile.TilePosition == this.TilePosition));
+            return /*otherTile.Tile != null &&*/ otherTile.TilePosition == this.TilePosition;
         }
         public override int GetHashCode()
         {
             return Tile.GetHashCode();
         }
 
+        public override string ToString()
+        {
+            return this.DirectionsOfTile + " - " + this.TilePosition;
+        }
 
 
         public GameObject Tile
@@ -78,14 +82,16 @@ namespace overail.DataTile_
 
         public string DirectionsOfTile
         {
-            get { return directionsOfTile; }
-            set { directionsOfTile = value; }
+            get { return Tile.GetComponent<Tile>().directionOfTile; }
+        }
+        public bool ContainsSpawner
+        {
+            get { return Tile.GetComponent<Tile>().containsSpawner; }
         }
 
         public bool IsSwitch
         {
-            get { return isSwitch; }
-            set { isSwitch = value; }
+            get { return Tile.GetComponent<Tile>().isSwitch; }
         }
 
     }
