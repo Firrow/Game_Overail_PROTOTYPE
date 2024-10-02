@@ -104,29 +104,24 @@ public class IATrain : Train
 
         //TODO : Eviter un potentiel train
         //TODO : Mettre à jour Notion pour cette fonction
+        //TODO : seul cas qui marche : quand switch simple et que train adversaire a déjà choisit sa direction
         foreach (KeyValuePair<string, DataTile> nextTile in nextTilesOfSwitch)
         {
             if (dataContainer.DataNetworkMap.ThereIsTargetOnRoad(nextTile.Value, FromDirection, dataContainer.DataTrains.Cast<ITargetToMove>().ToList()))
             {
                 choice = dataContainer.DataNetworkMap.WhichChoiceIsNextDirection(detectedSwitch.Value, detectedSwitch.Key, GlobalComponent.OPPOSITE_DIRECTIONS[nextTile.Key]);
 
-                if (choice == GlobalComponent.DirectionChoice.LEFT)
-                {
-                    return GlobalComponent.DirectionChoice.RIGHT;
-                }
-                else
-                {
-                    return GlobalComponent.DirectionChoice.LEFT;
-                }
+                //TODO : Faire fonction qui renvoie la direction opposée ???
+                return choice == GlobalComponent.DirectionChoice.LEFT ? GlobalComponent.DirectionChoice.RIGHT : GlobalComponent.DirectionChoice.LEFT;
             }
         }
+
 
         // If the target is on the same road than the train
         if (dataContainer.DataNetworkMap.ThereIsTargetOnRoad(myData.CurrentTile, FromDirection, targetToMove))
         {
             return GlobalComponent.DirectionChoice.NO_DIRECTION;
         }
-
         
 
         //TODO : Do an aggregate with random for default value and conditional (ternary) operator for return
