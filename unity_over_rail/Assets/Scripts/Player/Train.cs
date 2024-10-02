@@ -404,7 +404,7 @@ public class Train : MonoBehaviour, INotifyPropertyChanged
         // Get the right interface
         foreach (GameObject Element in GameObject.FindGameObjectsWithTag("InterfacePlayer"))
         {
-            if (Element.GetComponent<InterfacePlayer>().index == playerIndex)
+            if (Element.GetComponent<InterfacePlayer>().index == PlayerIndex)
             {
                 this.healthBar = Element.GetComponent<InterfacePlayer>().healthBarPlayer.GetComponent<HealthBar>();
                 this.bulletBar = Element.GetComponent<InterfacePlayer>().bulletBarPlayer.GetComponent<BulletBar>();

@@ -20,11 +20,10 @@ namespace overail.DataSpawner_
 
 
 
-        public DataSpawner(GameObject spawner, GameObject tileParent, Vector3 spawnerPosition)
+        public DataSpawner(GameObject spawner, GameObject tileParent)
         {
             this.spawner = spawner;
             this.tileParent = tileParent;
-            this.spawnerPosition = spawnerPosition;
         }
 
 
@@ -42,8 +41,7 @@ namespace overail.DataSpawner_
 
         public Vector3 Position
         {
-            get { return spawnerPosition; }
-            set { spawnerPosition = value; }
+            get { return this.Spawner.GetComponent<SpawnObjects>().transform.position; }
         }
 
         public GameObject ObjectOnSpawner

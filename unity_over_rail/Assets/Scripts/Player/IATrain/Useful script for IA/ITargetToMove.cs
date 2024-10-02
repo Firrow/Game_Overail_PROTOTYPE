@@ -12,7 +12,6 @@ public interface ITargetToMove
     public Vector3 Position
     {
         get;
-        set;
     }
 
     public DataTile CurrentTile

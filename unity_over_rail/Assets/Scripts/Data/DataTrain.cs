@@ -13,7 +13,7 @@ using overail.DataContainer_;
 
 namespace overail.DataTrain_
 {
-    public class DataTrain : INotifyPropertyChanged//, ITargetToMove
+    public class DataTrain : INotifyPropertyChanged, ITargetToMove
     {
         public GameObject train;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -71,7 +71,7 @@ namespace overail.DataTrain_
             get { return this.train.GetComponent<Train>().IsDead; }
         }
 
-        public Vector2 Position
+        public Vector3 Position
         {
             get { return this.train.GetComponent<Train>().TrainPosition; }
         }

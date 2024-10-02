@@ -99,8 +99,27 @@ public class IATrain : Train
     /// <returns></returns>
     public GlobalComponent.DirectionChoice GetNextChoiceDirection()
     {
-        //TODO : Eviter un potentiel train
+        Dictionary<string, DataTile> nextTilesOfSwitch = dataContainer.DataNetworkMap.GetNextTiles(detectedSwitch.Value, detectedSwitch.Key);
+        GlobalComponent.DirectionChoice choice = GlobalComponent.DirectionChoice.RANDOM;
 
+        //TODO : Eviter un potentiel train
+        //TODO : Mettre à jour Notion pour cette fonction
+        foreach (KeyValuePair<string, DataTile> nextTile in nextTilesOfSwitch)
+        {
+            if (dataContainer.DataNetworkMap.ThereIsTargetOnRoad(nextTile.Value, FromDirection, dataContainer.DataTrains.Cast<ITargetToMove>().ToList()))
+            {
+                choice = dataContainer.DataNetworkMap.WhichChoiceIsNextDirection(detectedSwitch.Value, detectedSwitch.Key, GlobalComponent.OPPOSITE_DIRECTIONS[nextTile.Key]);
+
+                if (choice == GlobalComponent.DirectionChoice.LEFT)
+                {
+                    return GlobalComponent.DirectionChoice.RIGHT;
+                }
+                else
+                {
+                    return GlobalComponent.DirectionChoice.LEFT;
+                }
+            }
+        }
 
         // If the target is on the same road than the train
         if (dataContainer.DataNetworkMap.ThereIsTargetOnRoad(myData.CurrentTile, FromDirection, targetToMove))
@@ -108,13 +127,12 @@ public class IATrain : Train
             return GlobalComponent.DirectionChoice.NO_DIRECTION;
         }
 
-        Dictionary<string, DataTile> nextTilesOfSwitch = dataContainer.DataNetworkMap.GetNextTiles(detectedSwitch.Value, detectedSwitch.Key);
+        
 
         //TODO : Do an aggregate with random for default value and conditional (ternary) operator for return
-        GlobalComponent.DirectionChoice choice = GlobalComponent.DirectionChoice.RANDOM;
         int? minDepth = null;
 
-        foreach (var nextTile in nextTilesOfSwitch)
+        foreach (KeyValuePair<string, DataTile> nextTile in nextTilesOfSwitch)
         {
             int? currentDepth = IsTargetHere(nextTile.Value, nextTile.Key);
 

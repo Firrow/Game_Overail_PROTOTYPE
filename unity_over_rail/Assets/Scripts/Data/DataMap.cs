@@ -168,6 +168,15 @@ namespace overail.DataMap_
         {
             return ThereIsTargetOnRoad(nextTile.Value, nextTile.Key, target);
         }
+        public bool ThereIsTargetOnRoad(DataTile currentTile, string fromDirection, List<ITargetToMove> targets)
+        {
+            // Using shortchut : if the first is true, we do not evaluate the 'or'
+            return targets.Select((target, index) => target.CurrentTile).Contains(currentTile) || (!currentTile.IsSwitch && ThereIsTargetOnRoad(GetNextTiles(currentTile, fromDirection).FirstOrDefault(), targets));
+        }
+        public bool ThereIsTargetOnRoad(KeyValuePair<string, DataTile> nextTile, List<ITargetToMove> targets)
+        {
+            return ThereIsTargetOnRoad(nextTile.Value, nextTile.Key, targets);
+        }
 
         /// <summary>
         /// Find the DataTile of a tile when we have only the tile's game object
@@ -199,8 +208,7 @@ namespace overail.DataMap_
             {
                 DataSpawner dataSpawner = new DataSpawner(
                         spawner.gameObject,
-                        spawner.transform.parent.gameObject,
-                        spawner.transform.position
+                        spawner.transform.parent.gameObject
                     );
 
                 dtSpawners.Add(dataSpawner);
