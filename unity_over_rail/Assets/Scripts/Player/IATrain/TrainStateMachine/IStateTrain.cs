@@ -6,4 +6,6 @@ public interface IStateTrain
 {
     public void MainExecution();
     public void UpdateState();
+
+    public void RequiredObject();
 }

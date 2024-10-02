@@ -44,7 +44,7 @@ public class Attack : IStateTrain
         }
     }
 
-    private void RequiredObject()
+    public void RequiredObject()
     {
         if (train.myData.BulletQuantity <= (train.GetComponentInChildren<Weapon>().MaxBulletQuantity / BULLET_LIMIT_DIVIDED))
         {

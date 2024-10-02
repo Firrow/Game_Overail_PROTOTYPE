@@ -32,6 +32,9 @@ namespace overail.DataMap_
 
 
 
+        /// <summary>
+        /// Create a matrix with all tiles of the map at the start of the game
+        /// </summary>
         public void CreateTileMatrix()
         {
             GridLayout grid = GameObject.FindObjectOfType<GridLayout>();
@@ -60,6 +63,11 @@ namespace overail.DataMap_
             }
         }
 
+        /// <summary>
+        /// Get each neighbors of each tiles at the start of the game
+        /// </summary>
+        /// <param name="dataTile"></param>
+        /// <returns></returns>
         private Dictionary<string, DataTile> GetNeighbors(DataTile dataTile) //TODO : ranger la fonction pour plus de clareté
         {
             if (dataTile.Neighbors.Count == 0)
@@ -179,6 +187,10 @@ namespace overail.DataMap_
             return null;
         }
 
+        /// <summary>
+        /// Get all spawners' Datas in the scene
+        /// </summary>
+        /// <returns></returns>
         public List<DataSpawner> GetAllSpawners()
         {
             GameObject[] spawners = GameObject.FindGameObjectsWithTag("Spawner");

@@ -13,6 +13,12 @@ namespace overail.IAResearchObject_
 {
     public class ObjectResearch : MonoBehaviour
     {
+        /// <summary>
+        /// Get all objets in map
+        /// </summary>
+        /// <param name="train"></param>
+        /// <param name="nameObject"></param>
+        /// <returns>list of all DataSpawner which contains an object in map</returns>
         public static List<DataSpawner> ListObjectsInMap(IATrain train, string nameObject)
         {
             List<DataSpawner> objects = new List<DataSpawner>();
@@ -28,6 +34,12 @@ namespace overail.IAResearchObject_
             return objects;
         }
 
+        /// <summary>
+        /// Use the object the train is looking for and try to find if there is an instance of it on map
+        /// </summary>
+        /// <param name="objects"></param>
+        /// <param name="train"></param>
+        /// <returns>true or false</returns>
         public static bool FindTargetInObjects(List<DataSpawner> objects, IATrain train)
         {
             if (objects.Count > 1)
@@ -46,6 +58,12 @@ namespace overail.IAResearchObject_
             }
         }
 
+        /// <summary>
+        /// Take the list of DataSpawners and find the object closest to the train
+        /// </summary>
+        /// <param name="train"></param>
+        /// <param name="objects"></param>
+        /// <returns></returns>
         private static DataSpawner FindNearestObjectInList(IATrain train, List<DataSpawner> objects)
         {
             float distance;

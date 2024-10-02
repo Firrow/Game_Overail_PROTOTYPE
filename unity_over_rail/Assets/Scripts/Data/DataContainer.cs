@@ -1,5 +1,3 @@
-using overail.GlobalComponent_;
-using overail.DataSpawner_;
 using overail.DataTrain_;
 using overail.DataMap_;
 using System;

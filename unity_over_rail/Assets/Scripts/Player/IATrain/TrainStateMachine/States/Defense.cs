@@ -35,5 +35,11 @@ public class Defense : IStateTrain
         }
     }
 
+
+
     //Find Object Heart, Shield
+    public void RequiredObject()
+    {
+        throw new System.NotImplementedException();
+    }
 }
