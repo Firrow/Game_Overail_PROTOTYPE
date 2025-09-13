@@ -1,3 +1,9 @@
 # a local directory allow contributors to keep some files for us
 /local/
 RESSOURCES OVERAIL.lnk
+/unity_over_rail/[Aa]ssets/Mirror-master/
+/unity_over_rail/[Aa]ssets/Mirror/
+/unity_over_rail/[Aa]ssets/ScriptTemplates/
+
+/unity_over_rail/[Aa]ssets/Mirror.meta
+/unity_over_rail/[Aa]ssets/Mirror-master.meta
