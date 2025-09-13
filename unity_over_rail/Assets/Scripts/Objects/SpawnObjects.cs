@@ -12,15 +12,21 @@ public class SpawnObjects : MonoBehaviour
     private GameObject objectToSpawn;
 
 
-    public void Start()
+    /*public void Start()
+    {
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        coroutineIsAllowed = true;
+        waitBeforeSpawn = SpawnObject();
+        StartCoroutine(waitBeforeSpawn);
+    }*/
+
+    public void StartSpawnObject()
     {
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         coroutineIsAllowed = true;
         waitBeforeSpawn = SpawnObject();
         StartCoroutine(waitBeforeSpawn);
     }
-
-
 
     IEnumerator SpawnObject()
     {

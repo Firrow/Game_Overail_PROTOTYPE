@@ -2,10 +2,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Linq;
+using Mirror;
 
 
-public class GameManager : MonoBehaviour
+public class GameManager : NetworkBehaviour
 {
+    public GameObject startGameUI;
+    public GameObject playerManager;
+
     public GameObject[] usualObjects;
     private int PROBABILITY_USUAL_OBJECT = 5;
 
@@ -20,6 +24,14 @@ public class GameManager : MonoBehaviour
 
     public int nextPlayerIndexAvailable = 0;
 
+    public enum GameState
+    {
+        Lobby,
+        Countdown,
+        Playing
+    }
+    [SyncVar] public GameState currentState = GameState.Lobby;
+    int countdown = 3;
 
     private void Start()
     {
@@ -29,4 +41,50 @@ public class GameManager : MonoBehaviour
     }
 
 
+
+
+
+    [Server]
+    public void StartGame()
+    {
+        if (currentState == GameState.Lobby)
+        {
+            currentState = GameState.Countdown;
+            StartCoroutine(CountdownCoroutine());
+        }
+    }
+
+    [Server]
+    private System.Collections.IEnumerator CountdownCoroutine()
+    {
+        Debug.Log(countdown.ToString());
+        while (countdown > 0)
+        {
+            RpcUpdateCountdown(countdown);
+            countdown--;
+            yield return new WaitForSeconds(1f);
+        }
+
+        currentState = GameState.Playing;
+        RpcUpdateCountdown(0);
+        RpcUndisplayStartScreen();
+        foreach (var spawner in GameObject.FindGameObjectsWithTag("Spawner")) {
+            spawner.GetComponent<SpawnObjects>().StartSpawnObject();
+        }
+        playerManager.GetComponent<PlayerInputManager>().playerPrefab.GetComponent<PlayerInputHandler>().GetHumanTrain();
+    }
+
+    [ClientRpc]
+    void RpcUpdateCountdown(int countdownValue)
+    {
+        // MAJ UI pour chaque client
+        startGameUI.GetComponent<StartGame>().UpdateCountdown(countdownValue);
+        Debug.Log(countdownValue.ToString());
+    }
+
+    [ClientRpc]
+    void RpcUndisplayStartScreen()
+    {
+        startGameUI.SetActive(false);
+    }
 }

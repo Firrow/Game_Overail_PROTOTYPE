@@ -1,7 +1,8 @@
-using System.Collections;
-using UnityEngine;
 using Mirror;
 using System;
+using System.Collections;
+using UnityEngine;
+using static GameManager;
 
 public class Train : NetworkBehaviour
 {
@@ -40,11 +41,12 @@ public class Train : NetworkBehaviour
     private bool shieldIsActivate;
     private GameObject shield;
 
-
+    private GameManager gameManager;
 
     protected void Start()
     {
         //coroutineAllowed = true;
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         StartCoroutine(StartGame()); // temporaire
         currentHealth = MAX_HEALTH;
 
@@ -54,7 +56,7 @@ public class Train : NetworkBehaviour
 
     protected void Update()
     {
-
+        
     }
 
     protected void FixedUpdate()
@@ -335,7 +337,11 @@ public class Train : NetworkBehaviour
     // temporaire car fonction décompte quand jeu plus avancé
     private IEnumerator StartGame()
     {
-        yield return new WaitForSeconds(0.1f);
+        //yield return new WaitForSeconds(0.1f);
+        while (gameManager.currentState != GameState.Playing)
+        {
+            yield return new WaitForSeconds(0.1f);
+        }
         coroutineAllowed = true;
     }
 

@@ -9,7 +9,7 @@ public class PlayerInputHandler : MonoBehaviour
     private HumanTrain humanTrain;
 
 
-    /*public void GetHumanTrain()
+    public void GetHumanTrain()
     {
         playerInput = GetComponent<PlayerInput>();
         var humanTrains = FindObjectsOfType<HumanTrain>();
@@ -20,15 +20,15 @@ public class PlayerInputHandler : MonoBehaviour
         Debug.Log("index : " + index);
         Debug.Log("humanTrain : " + humanTrain);
         Debug.Log("--------------------------------------------------");
-    }*/
+    }
 
-    private void Awake()
+    /*private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
         var humanTrains = FindObjectsOfType<HumanTrain>();
         int index = playerInput.playerIndex;
         humanTrain = humanTrains.FirstOrDefault(h => h.GetPlayerIndex() == index);
-    }
+    }*/
 
     public void OnMoveTrain(InputAction.CallbackContext context)
     {
