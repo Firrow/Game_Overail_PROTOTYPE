@@ -1,24 +1,35 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Mirror;
 
 
 public class HumanTrain : Train
 {
+    private GameManager gameManager;
+    private GameObject playerManager;
+    private PlayerInputHandler playerInputHandler;
+
     // Flèches (circle actuellement)
     public GameObject leftArrow;
     public GameObject rightArrow;
     public float trainAngle;
 
 
-    [SerializeField]
-    private int playerIndex = 0;
+    //[SerializeField]
+    //private int playerIndex = 0;
     private float movementInput;
     private int lastChoice;
 
 
     void Start()
     {
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        //playerManager = GameObject.FindGameObjectWithTag("PlayerManager");
+        //playerInputHandler = playerManager.GetComponent<PlayerInputManager>().playerPrefab.GetComponent<PlayerInputHandler>();
+
+        SetupNewPlayer();
+
         base.Start();
 
         foreach (GameObject Element in GameObject.FindGameObjectsWithTag("InterfacePlayer"))
@@ -51,10 +62,21 @@ public class HumanTrain : Train
     }
 
 
+    // SETUP NOUVEAU JOUEUR ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    private void SetupNewPlayer()
+    {
+        playerIndex = gameManager.nextPlayerIndexAvailable;
+        gameManager.nextPlayerIndexAvailable++;
+
+        fromDirection = this.GetComponent<Transform>().position.x < 0 ? "O" : "E";
+
+        //playerInputHandler.GetHumanTrain();
+    }
 
 
     public void PlayerChoiceDirection(InputAction.CallbackContext obj)
     {
+        Debug.Log("PlayerChoiceDirection dans HumanTrain du joueur " + playerIndex);
         movementInput = obj.ReadValue<Vector2>().x;
 
         if (movementInput == 0)

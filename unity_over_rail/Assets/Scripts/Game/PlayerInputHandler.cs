@@ -8,6 +8,20 @@ public class PlayerInputHandler : MonoBehaviour
     private PlayerInput playerInput;
     private HumanTrain humanTrain;
 
+
+    /*public void GetHumanTrain()
+    {
+        playerInput = GetComponent<PlayerInput>();
+        var humanTrains = FindObjectsOfType<HumanTrain>();
+        int index = playerInput.playerIndex;
+        humanTrain = humanTrains.FirstOrDefault(h => h.GetPlayerIndex() == index);
+
+
+        Debug.Log("index : " + index);
+        Debug.Log("humanTrain : " + humanTrain);
+        Debug.Log("--------------------------------------------------");
+    }*/
+
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();

@@ -9,4 +9,4 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   m_configObjects:
-    com.unity.input.settings: {fileID: 11400000, guid: 083f58a210821e742ae1792228005916, type: 2}
+    com.unity.input.settings: {fileID: 11400000, guid: 785a12b3540ac894db32b91a808c4d41, type: 2}

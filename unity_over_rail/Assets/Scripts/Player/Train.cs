@@ -1,9 +1,12 @@
 using System.Collections;
 using UnityEngine;
+using Mirror;
+using System;
 
-public class Train : MonoBehaviour
+public class Train : NetworkBehaviour
 {
-    public string fromDirection; // permettre de le determiner automatiquement //public à remplacer par private + SerializeField ?
+    protected string fromDirection; // permettre de le determiner automatiquement //public à remplacer par private + SerializeField ?
+    public int playerIndex = 0;
 
     [SerializeField]
     protected GameObject weapon;
@@ -38,6 +41,7 @@ public class Train : MonoBehaviour
     private GameObject shield;
 
 
+
     protected void Start()
     {
         //coroutineAllowed = true;
@@ -62,6 +66,12 @@ public class Train : MonoBehaviour
         ManageAcceleration();
         velocity = SPEED + accelerate;
     }
+
+    // SETUP NOUVEAU JOUEUR --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    /*protected void SetupNewPlayer()
+    {
+        Debug.Log("Le setup commence");
+    }*/
 
 
     // DEPLACEMENT --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

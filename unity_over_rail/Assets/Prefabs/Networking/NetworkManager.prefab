@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 512758377242178226}
   - component: {fileID: 512758377242178227}
   - component: {fileID: 512758377242178224}
-  - component: {fileID: 961393263834913806}
+  - component: {fileID: 8744630898918205818}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -54,7 +54,7 @@ MonoBehaviour:
   offlineScene: 
   onlineScene: 
   offlineSceneLoadDelay: 0
-  transport: {fileID: 961393263834913806}
+  transport: {fileID: 8744630898918205818}
   networkAddress: localhost
   maxConnections: 100
   disconnectInactiveConnections: 0
@@ -62,7 +62,7 @@ MonoBehaviour:
   authenticator: {fileID: 0}
   playerPrefab: {fileID: 6282290170516749659, guid: ba568fd15d85480479de40a6e3c1620d, type: 3}
   autoCreatePlayer: 1
-  playerSpawnMethod: 0
+  playerSpawnMethod: 1
   spawnPrefabs: []
   exceptionsDisconnect: 1
   snapshotSettings:
@@ -95,7 +95,7 @@ MonoBehaviour:
   offsetY: 0
   sizeWidth: 300
   sizeHeight: 9999
---- !u!114 &961393263834913806
+--- !u!114 &8744630898918205818
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

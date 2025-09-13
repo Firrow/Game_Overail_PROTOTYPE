@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Linq;
 
+
 public class GameManager : MonoBehaviour
 {
     public GameObject[] usualObjects;
@@ -16,6 +17,8 @@ public class GameManager : MonoBehaviour
 
     public List<GameObject[]> listOfAllObjectLists = new List<GameObject[]>();
     public List<string> allObjectNames = new List<string>() { "heartObject", "bulletObject", "shieldObject" };
+
+    public int nextPlayerIndexAvailable = 0;
 
 
     private void Start()
