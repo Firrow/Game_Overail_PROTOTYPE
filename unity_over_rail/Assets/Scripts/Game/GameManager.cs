@@ -38,6 +38,15 @@ public class GameManager : NetworkBehaviour
         listOfAllObjectLists = listOfAllObjectLists.Concat(Enumerable.Repeat(usualObjects, PROBABILITY_USUAL_OBJECT)).ToList();
         listOfAllObjectLists = listOfAllObjectLists.Concat(Enumerable.Repeat(unusualObjects, PROBABILITY_UNUSUAL_OBJECT)).ToList();
         listOfAllObjectLists = listOfAllObjectLists.Concat(Enumerable.Repeat(rareObjects, PROBABILITY_RARE_OBJECT)).ToList();
+
+        if (isServer)
+        {
+            startGameUI.transform.GetChild(0).gameObject.SetActive(true);
+        }
+        else
+        {
+            startGameUI.transform.GetChild(0).gameObject.SetActive(false);
+        }
     }
 
 
@@ -79,7 +88,6 @@ public class GameManager : NetworkBehaviour
     {
         // MAJ UI pour chaque client
         startGameUI.GetComponent<StartGame>().UpdateCountdown(countdownValue);
-        Debug.Log(countdownValue.ToString());
     }
 
     [ClientRpc]

@@ -7,19 +7,18 @@ using UnityEngine;
 public class StartGame : NetworkBehaviour
 {
     public GameManager gameManager;
+    public GameObject startGameButton;
     public TextMeshProUGUI countdownText;
 
-    [Server]
+    //[Server]
     public void OnStartButtonClicked()
     {
-        if (NetworkServer.active) // Vérifie que c'est bien l'host
-        {
-            Debug.Log("JE LANCE");
-            gameManager.StartGame();
-        }
+        if (!NetworkServer.active) { return; }
+        
+        gameManager.StartGame();
     }
 
-    [Server]
+    //[Server]
     public void UpdateCountdown(int countdown)
     {
         countdownText.text = countdown.ToString();
