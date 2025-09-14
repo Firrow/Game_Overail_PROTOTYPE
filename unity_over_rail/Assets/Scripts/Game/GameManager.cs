@@ -79,7 +79,6 @@ public class GameManager : NetworkBehaviour
         foreach (var spawner in GameObject.FindGameObjectsWithTag("Spawner")) {
             spawner.GetComponent<SpawnObjects>().StartSpawnObject();
         }
-        //playerManager.GetComponent<PlayerInputManager>().playerPrefab.GetComponent<PlayerInputHandler>().GetHumanTrain();
     }
 
     [ClientRpc]
