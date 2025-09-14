@@ -2,9 +2,8 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using Mirror;
 
-public class PlayerInputHandler : /*MonoBehaviour*/ NetworkBehaviour
+public class PlayerInputHandler : MonoBehaviour
 {
     [SerializeField]
     private PlayerInput playerInput;
@@ -81,34 +80,20 @@ public class PlayerInputHandler : /*MonoBehaviour*/ NetworkBehaviour
 
 
     // MULTI ONLINE
-    public override void OnStartAuthority()
+    public void OnStartAuthority()
     {
-        // On active les inputs uniquement pour le joueur local
         playerInput.enabled = true;
-        Debug.Log("OnStartAuthority -> Input activé");
     }
 
-    public override void OnStopAuthority()
+    public void OnStopAuthority()
     {
-        // Si jamais l’autorité est retirée (rare, mais possible), on coupe les inputs
         playerInput.enabled = false;
-        Debug.Log("OnStopAuthority -> Input désactivé");
-    }
-
-    private void Start()
-    {
-        /*if (!isLocalPlayer)
-        {
-            // Désactive les inputs pour les autres joueurs
-            playerInput.enabled = false;
-            Debug.Log("Disable playerInput quand pas local");
-        }*/
     }
 
     public void OnMoveTrain(InputAction.CallbackContext context)
     {
         Debug.Log("OnMoveTrain");
-        if (!isLocalPlayer) return;
+        //if (!isLocalPlayer) return;
 
         Debug.Log("humanTrain : " + humanTrain);
 
@@ -120,7 +105,7 @@ public class PlayerInputHandler : /*MonoBehaviour*/ NetworkBehaviour
 
     public void OnAccelerateTrain(InputAction.CallbackContext context)
     {
-        if (!isLocalPlayer) return;
+        //if (!isLocalPlayer) return;
 
         if (humanTrain != null)
         {
@@ -133,7 +118,7 @@ public class PlayerInputHandler : /*MonoBehaviour*/ NetworkBehaviour
 
     public void OnDecelerateTrain(InputAction.CallbackContext context)
     {
-        if (!isLocalPlayer) return;
+        //if (!isLocalPlayer) return;
 
         if (humanTrain != null)
         {
@@ -146,14 +131,14 @@ public class PlayerInputHandler : /*MonoBehaviour*/ NetworkBehaviour
 
     public void OnMoveWeapon(InputAction.CallbackContext context)
     {
-        if (!isLocalPlayer) return;
+        //if (!isLocalPlayer) return;
 
         humanTrain?.PlayerMoveWeapon(context);
     }
 
     public void OnShoot(InputAction.CallbackContext context)
     {
-        if (!isLocalPlayer) return;
+        //if (!isLocalPlayer) return;
 
         if (humanTrain != null && context.action.ReadValue<float>() == 0)
             humanTrain.PlayerShoot(context);
@@ -161,7 +146,7 @@ public class PlayerInputHandler : /*MonoBehaviour*/ NetworkBehaviour
 
     public void OnUseObject(InputAction.CallbackContext context)
     {
-        if (!isLocalPlayer) return;
+        //if (!isLocalPlayer) return;
 
         if (humanTrain != null && humanTrain.CurrentItem != null && context.action.ReadValue<float>() == 0)
             humanTrain.UsePickObject();

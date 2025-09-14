@@ -181,6 +181,7 @@ GameObject:
   - component: {fileID: 6282290170516749662}
   - component: {fileID: 8830009817697172988}
   - component: {fileID: 8527542783905680919}
+  - component: {fileID: 4100445187391167827}
   - component: {fileID: 2909070777931470947}
   - component: {fileID: 6977014771382812296}
   m_Layer: 6
@@ -348,6 +349,18 @@ MonoBehaviour:
   leftArrow: {fileID: 1311469716273282023}
   rightArrow: {fileID: 5738191835909045885}
   trainAngle: 0
+--- !u!114 &4100445187391167827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6282290170516749659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 696eb262f07e1254aa798a59feb29a96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2909070777931470947
 MonoBehaviour:
   m_ObjectHideFlags: 0
