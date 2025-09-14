@@ -9225,6 +9225,10 @@ PrefabInstance:
       value: PlayerManager
       objectReference: {fileID: 0}
     - target: {fileID: 4779196396100461101, guid: 9353fe5de3162fd4a8a57ce4384e93d4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4779196396100461101, guid: 9353fe5de3162fd4a8a57ce4384e93d4, type: 3}
       propertyPath: m_TagString
       value: PlayerManager
       objectReference: {fileID: 0}

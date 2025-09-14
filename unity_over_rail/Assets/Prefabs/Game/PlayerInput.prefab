@@ -219,3 +219,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95bcd34beb541024fbaffb3b06ea184a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  playerInput: {fileID: 0}
+  humanTrain: {fileID: 0}

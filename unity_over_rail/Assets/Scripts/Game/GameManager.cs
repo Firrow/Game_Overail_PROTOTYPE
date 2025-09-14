@@ -66,7 +66,6 @@ public class GameManager : NetworkBehaviour
     [Server]
     private System.Collections.IEnumerator CountdownCoroutine()
     {
-        Debug.Log(countdown.ToString());
         while (countdown > 0)
         {
             RpcUpdateCountdown(countdown);
@@ -80,7 +79,7 @@ public class GameManager : NetworkBehaviour
         foreach (var spawner in GameObject.FindGameObjectsWithTag("Spawner")) {
             spawner.GetComponent<SpawnObjects>().StartSpawnObject();
         }
-        playerManager.GetComponent<PlayerInputManager>().playerPrefab.GetComponent<PlayerInputHandler>().GetHumanTrain();
+        //playerManager.GetComponent<PlayerInputManager>().playerPrefab.GetComponent<PlayerInputHandler>().GetHumanTrain();
     }
 
     [ClientRpc]
