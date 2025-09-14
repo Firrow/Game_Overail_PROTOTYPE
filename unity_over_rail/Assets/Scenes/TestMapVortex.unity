@@ -6658,6 +6658,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 154b6c2bdf9a1d449a95c735994ce80f, type: 3}
+--- !u!1 &1499413398 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8897363104447330288, guid: 0892b569f4e136a4c857572aa36aa6ab, type: 3}
+  m_PrefabInstance: {fileID: 8897363103755520001}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1499413403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499413398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 2016494876
+  _assetId: 3217521891
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &1510990475
 GameObject:
   m_ObjectHideFlags: 0
@@ -9541,5 +9563,9 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1486569305}
+    - target: {fileID: 8897363104568923256, guid: 0892b569f4e136a4c857572aa36aa6ab, type: 3}
+      propertyPath: startGameButton
+      value: 
+      objectReference: {fileID: 1499413398}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0892b569f4e136a4c857572aa36aa6ab, type: 3}
