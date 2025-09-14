@@ -80,15 +80,7 @@ public class PlayerInputHandler : /*MonoBehaviour*/ NetworkBehaviour
 
 
 
-
-    private void Awake()
-    {
-        //playerInput = GetComponent<PlayerInput>();
-        //humanTrain = GetComponent<HumanTrain>();
-        // Ton prefab de joueur DOIT contenir HumanTrain
-        // ou au minimum avoir un champ [SerializeField] vers son train.
-    }
-
+    // MULTI ONLINE
     public override void OnStartAuthority()
     {
         // On active les inputs uniquement pour le joueur local
