@@ -41,7 +41,7 @@ public class Train : NetworkBehaviour
     private bool shieldIsActivate;
     private GameObject shield;
 
-    private GameManager gameManager;
+    protected GameManager gameManager;
 
     protected void Start()
     {
@@ -69,11 +69,6 @@ public class Train : NetworkBehaviour
         velocity = SPEED + accelerate;
     }
 
-    // SETUP NOUVEAU JOUEUR --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    /*protected void SetupNewPlayer()
-    {
-        Debug.Log("Le setup commence");
-    }*/
 
 
     // DEPLACEMENT --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

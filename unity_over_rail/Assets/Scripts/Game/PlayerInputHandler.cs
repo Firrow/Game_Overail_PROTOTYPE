@@ -77,13 +77,13 @@ public class PlayerInputHandler : MonoBehaviour
         Application.Quit();
     }*/
 
-    public void GetPlayerInputReference()
+    /*public void GetPlayerInputReference()
     {
         playerInput = GetComponent<PlayerInput>();
         var humanTrains = FindObjectsOfType<HumanTrain>();
         int index = playerInput.playerIndex;
         humanTrain = humanTrains.FirstOrDefault(h => h.GetPlayerIndex() == index);
-    }
+    }*/
 
     // MULTI ONLINE
     public void OnStartAuthority()
@@ -98,21 +98,12 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void OnMoveTrain(InputAction.CallbackContext context)
     {
-        Debug.Log("OnMoveTrain");
-        //if (!isLocalPlayer) return;
-
-        Debug.Log("humanTrain : " + humanTrain);
-
         if (humanTrain != null)
             humanTrain.PlayerChoiceDirection(context);
-
-        Debug.Log("-----------------");
     }
 
     public void OnAccelerateTrain(InputAction.CallbackContext context)
     {
-        //if (!isLocalPlayer) return;
-
         if (humanTrain != null)
         {
             if (context.started)
@@ -124,8 +115,6 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void OnDecelerateTrain(InputAction.CallbackContext context)
     {
-        //if (!isLocalPlayer) return;
-
         if (humanTrain != null)
         {
             if (context.started)
@@ -137,23 +126,17 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void OnMoveWeapon(InputAction.CallbackContext context)
     {
-        //if (!isLocalPlayer) return;
-
         humanTrain?.PlayerMoveWeapon(context);
     }
 
     public void OnShoot(InputAction.CallbackContext context)
     {
-        //if (!isLocalPlayer) return;
-
         if (humanTrain != null && context.action.ReadValue<float>() == 0)
             humanTrain.PlayerShoot(context);
     }
 
     public void OnUseObject(InputAction.CallbackContext context)
     {
-        //if (!isLocalPlayer) return;
-
         if (humanTrain != null && humanTrain.CurrentItem != null && context.action.ReadValue<float>() == 0)
             humanTrain.UsePickObject();
     }

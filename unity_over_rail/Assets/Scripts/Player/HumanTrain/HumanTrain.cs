@@ -6,7 +6,6 @@ using Mirror;
 
 public class HumanTrain : Train
 {
-    private GameManager gameManager;
     private GameObject playerManager;
     private PlayerInputHandler playerInputHandler;
 
@@ -22,11 +21,9 @@ public class HumanTrain : Train
 
     void Start()
     {
-        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        base.Start();
 
         SetupNewPlayer();
-
-        base.Start();
 
         foreach (GameObject Element in GameObject.FindGameObjectsWithTag("InterfacePlayer"))
         {
@@ -62,26 +59,17 @@ public class HumanTrain : Train
     private void SetupNewPlayer()
     {
         playerIndex = gameManager.nextPlayerIndexAvailable;
-        PlayerInputHandler playerInputHandler = this.transform.GetChild(4).GetComponent<PlayerInputHandler>();
         gameManager.nextPlayerIndexAvailable++;
 
         fromDirection = this.GetComponent<Transform>().position.x < 0 ? "O" : "E";
 
-        // N'A PAS PU ÊTRE TESTÉ CAR SCRIPT HÉRITANT DE NETWORKBEHAVIOUR NE MARCHE PAS QUAND SERVER PAS ON
-        if (!NetworkClient.active)
-        {
-            playerInputHandler.GetPlayerInputReference();
-        }
-        else
-        {
-            playerInputHandler.OnStartAuthority();
-        }
+        PlayerInputHandler playerInputHandler = this.transform.GetChild(4).GetComponent<PlayerInputHandler>();
+        playerInputHandler.OnStartAuthority();
     }
 
 
     public void PlayerChoiceDirection(InputAction.CallbackContext obj)
     {
-        Debug.Log("PlayerChoiceDirection dans HumanTrain du joueur " + playerIndex);
         movementInput = obj.ReadValue<Vector2>().x;
 
         if (movementInput == 0)
