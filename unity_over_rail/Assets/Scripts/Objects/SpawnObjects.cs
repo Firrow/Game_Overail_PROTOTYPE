@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using Mirror;
 
 
-public class SpawnObjects : MonoBehaviour
+public class SpawnObjects : NetworkBehaviour
 {
     private bool containsObject = false;
     private bool coroutineIsAllowed = false;
@@ -11,14 +12,6 @@ public class SpawnObjects : MonoBehaviour
     private GameManager gameManager;
     private GameObject objectToSpawn;
 
-
-    /*public void Start()
-    {
-        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        coroutineIsAllowed = true;
-        waitBeforeSpawn = SpawnObject();
-        StartCoroutine(waitBeforeSpawn);
-    }*/
 
     public void StartSpawnObject()
     {
@@ -37,8 +30,12 @@ public class SpawnObjects : MonoBehaviour
             {
                 containsObject = true;
                 objectToSpawn = GetObjectToSpawn();
-                GetObjectToSpawn();
-                Instantiate(objectToSpawn, this.transform.position, Quaternion.Euler(0, 0, 0));
+
+                // On instancie l’objet côté serveur
+                GameObject spawned = Instantiate(objectToSpawn, this.transform.position, Quaternion.Euler(0, 0, 0));
+
+                // On le fait apparaître sur tous les clients
+                NetworkServer.Spawn(spawned);
             }
         }
     }

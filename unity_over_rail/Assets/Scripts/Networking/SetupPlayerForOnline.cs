@@ -5,7 +5,7 @@ using Mirror;
 
 public class SetupPlayerForOnline : NetworkBehaviour
 {
-    private PlayerInputHandler playerInputHandler;
+    /*private PlayerInputHandler playerInputHandler;
 
     private void Start()
     {
@@ -20,5 +20,5 @@ public class SetupPlayerForOnline : NetworkBehaviour
     public override void OnStopAuthority()
     {
         playerInputHandler?.OnStopAuthority();
-    }
+    }*/
 }

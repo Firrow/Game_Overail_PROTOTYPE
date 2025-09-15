@@ -77,7 +77,13 @@ public class PlayerInputHandler : MonoBehaviour
         Application.Quit();
     }*/
 
-
+    public void GetPlayerInputReference()
+    {
+        playerInput = GetComponent<PlayerInput>();
+        var humanTrains = FindObjectsOfType<HumanTrain>();
+        int index = playerInput.playerIndex;
+        humanTrain = humanTrains.FirstOrDefault(h => h.GetPlayerIndex() == index);
+    }
 
     // MULTI ONLINE
     public void OnStartAuthority()
