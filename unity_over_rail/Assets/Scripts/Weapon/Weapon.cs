@@ -108,7 +108,7 @@ public class Weapon : MonoBehaviour
     }
 
 
-    public void PressShootButton()
+    /*public void PressShootButton()
     {
         if (currentBulletQuantity > 0 && DateTime.Now - lastTimeShot >= FIRE_RATE)
         {
@@ -121,15 +121,23 @@ public class Weapon : MonoBehaviour
     public void Shoot(Transform firePointWeapon, float speed, GameObject projectile, GameObject weaponOrigin) // Fonction appelée lors de l'input de tir
     {
         GameObject bulletInst = Instantiate(projectile, firePointWeapon.transform.position, weaponOrigin.transform.rotation);
+        NetworkServer.Spawn(bulletInst);
         Rigidbody2D rb = bulletInst.GetComponent<Rigidbody2D>();
         rb.AddForce(firePointWeapon.right * speed, ForceMode2D.Impulse);
 
         lastTimeShot = DateTime.Now;
+    }*/
+
+    public bool CanShoot()
+    {
+        return currentBulletQuantity > 0 && DateTime.Now - lastTimeShot >= FIRE_RATE;
     }
 
-
-
-
+    public void ConsumeBullet()
+    {
+        currentBulletQuantity--;
+        this.GetComponentInParent<HumanTrain>().UpdateBulletBar(currentBulletQuantity);
+    }
 
 
     public int CurrentBulletQuantity
@@ -141,5 +149,10 @@ public class Weapon : MonoBehaviour
     public int MaxBulletQuantity
     {
         get { return MAX_BULLET_QUANTITY; }
+    }
+
+    public float BulletSpeed
+    {
+        get { return BULLET_SPEED; }
     }
 }

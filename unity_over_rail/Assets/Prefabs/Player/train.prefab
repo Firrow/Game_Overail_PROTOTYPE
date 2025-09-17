@@ -426,6 +426,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.015
       objectReference: {fileID: 0}
+    - target: {fileID: 3709980852418785847, guid: ef4ec2a9577453444ac4bb41cd116558, type: 3}
+      propertyPath: _assetId
+      value: 1500564942
+      objectReference: {fileID: 0}
     - target: {fileID: 3869872560792549308, guid: ef4ec2a9577453444ac4bb41cd116558, type: 3}
       propertyPath: bullet
       value: 

@@ -1,14 +1,12 @@
+using Mirror;
+using Mirror.Examples.Tanks;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Mirror;
 
 
 public class HumanTrain : Train
 {
-    private GameObject playerManager;
-    private PlayerInputHandler playerInputHandler;
-
     // Flèches (circle actuellement)
     public GameObject leftArrow;
     public GameObject rightArrow;
@@ -112,10 +110,26 @@ public class HumanTrain : Train
 
     public void PlayerShoot(InputAction.CallbackContext obj)
     {
-        this.gameObject.GetComponentInChildren<Weapon>().PressShootButton();
+        //this.gameObject.GetComponentInChildren<Weapon>().PressShootButton();
+        if (!isOwned) return; // <-- IMPORTANT : seul le propriétaire peut déclencher le tir
+
+        if (weapon.GetComponent<Weapon>().CanShoot())
+        {
+            CmdShoot();
+            weapon.GetComponent<Weapon>().ConsumeBullet();
+        }
     }
 
+    [Command]
+    public void CmdShoot()
+    {
+        GameObject bulletInstance = Instantiate(weapon.GetComponent<Weapon>().bullet, weapon.GetComponent<Weapon>().firePoint.transform.position, weapon.transform.rotation);
 
+        Rigidbody2D rb = bulletInstance.GetComponent<Rigidbody2D>();
+        rb.AddForce(weapon.GetComponent<Weapon>().firePoint.right * weapon.GetComponent<Weapon>().BulletSpeed, ForceMode2D.Impulse);
+
+        NetworkServer.Spawn(bulletInstance);
+    }
 
     public void UsePickObject()
     {
