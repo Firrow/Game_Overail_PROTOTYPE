@@ -24,23 +24,35 @@ public class GameManager : NetworkBehaviour
 
     private int nextPlayerIndex = -1;
 
-    private enum State
+    public enum GameState
     {
         WaitingToStart,
         CountdownToStart,
         GamePlaying,
         GameOver
     }
-    private State state = State.WaitingToStart;
+    private NetworkVariable<GameState> state = new(GameState.WaitingToStart, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+    public NetworkVariable<GameState> State => state;
     private float countdown = 3f;
     [SerializeField] private StartScreen startScreen;
+
+    public event OnVariableChangeDelegate OnVariableChange;
+    public delegate void OnVariableChangeDelegate(/*NetworkVariable<State> newState*/);
+
 
 
     private void Start()
     {
+        state.OnValueChanged += OnStateChanged;
+
         listOfAllObjectLists = listOfAllObjectLists.Concat(Enumerable.Repeat(usualObjects, PROBABILITY_USUAL_OBJECT)).ToList();
         listOfAllObjectLists = listOfAllObjectLists.Concat(Enumerable.Repeat(unusualObjects, PROBABILITY_UNUSUAL_OBJECT)).ToList();
         listOfAllObjectLists = listOfAllObjectLists.Concat(Enumerable.Repeat(rareObjects, PROBABILITY_RARE_OBJECT)).ToList();
+    }
+
+    private void OnStateChanged(GameState previous, GameState current)
+    {
+        Debug.Log($"Game state changed from {previous} to {current}");
     }
 
     public int SetPlayerIndex()
@@ -52,7 +64,7 @@ public class GameManager : NetworkBehaviour
     //TODO : A GERER PAR LE SERVER
     public void StartCountdown()
     {
-        state = State.CountdownToStart;
+        state.Value = GameState.CountdownToStart;
         startScreen.HideButton(); //TODO : RÉPLIQUER LE UNDISPLAY DU BOUTON
         StartCoroutine(DecreaseCountdown());
     }
@@ -60,16 +72,29 @@ public class GameManager : NetworkBehaviour
     //TODO : A SYNCHRONISER CHEZ TOUS LES CLIENTS
     private IEnumerator DecreaseCountdown()
     {
-        Debug.Log(countdown);
         while (countdown > 0)
         {
+            Debug.Log(countdown);
             yield return new WaitForSeconds(1);
             countdown--;
-            startScreen.DisplayCountdown(countdown);
-            Debug.Log(countdown);
         }
         //TODO : mettre listener sur state sur tous les éléments qui doivent se lancer après
-        state = State.GamePlaying;
+        state.Value = GameState.GamePlaying;
         startScreen.HideScreen();
     }
+
+
+
+
+    /*public NetworkVariable<State> GameState
+    {
+        get { return state; }
+        set 
+        { 
+            state = value;
+            if (OnVariableChange != null)
+                OnVariableChange(/*state);
+        }
+    }*/
+
 }

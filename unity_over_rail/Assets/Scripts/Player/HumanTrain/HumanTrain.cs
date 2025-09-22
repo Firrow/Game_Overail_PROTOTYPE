@@ -16,6 +16,9 @@ public class HumanTrain : Train
     private float movementInput;
     private int lastChoice;
 
+
+
+
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
@@ -56,6 +59,7 @@ public class HumanTrain : Train
         lastChoice = 1;
 
         //StartMoving(); //temp
+        gameManager.State.OnValueChanged += OnGameStateChanged;
     }
 
     void Update()
@@ -70,6 +74,21 @@ public class HumanTrain : Train
     }
 
 
+
+    /*private void StartTrain()
+    {
+        Debug.Log("STAAAAAAAAAAAAAAAAAAAAAAAART");
+        StartMoving();
+    }*/
+
+    private void OnGameStateChanged(GameManager.GameState previous, GameManager.GameState current)
+    {
+        if (current == GameManager.GameState.GamePlaying)
+        {
+            Debug.Log("STAAAAAAAAAAAAAAAAAAAAAAAART");
+            StartMoving();
+        }
+    }
 
     public void PlayerChoiceDirection(InputAction.CallbackContext obj)
     {
