@@ -66,27 +66,15 @@ public class GameManager : NetworkBehaviour
     {
         while (countdown > 0)
         {
-            Debug.Log(countdown);
+            startScreen.DisplayCountdown(countdown);
             yield return new WaitForSeconds(1);
             countdown--;
         }
         //TODO : mettre listener sur state sur tous les éléments qui doivent se lancer après
+        //Train : done
+        //Spawn object :
+        //Autre ?
         state.Value = GameState.GamePlaying;
         startScreen.HideScreen();
     }
-
-
-
-
-    /*public NetworkVariable<State> GameState
-    {
-        get { return state; }
-        set 
-        { 
-            state = value;
-            if (OnVariableChange != null)
-                OnVariableChange(/*state);
-        }
-    }*/
-
 }

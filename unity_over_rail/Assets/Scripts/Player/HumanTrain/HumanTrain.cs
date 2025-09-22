@@ -78,7 +78,6 @@ public class HumanTrain : Train
     {
         if (current == GameManager.GameState.GamePlaying)
         {
-            Debug.Log("STAAAAAAAAAAAAAAAAAAAAAAAART");
             StartMoving();
         }
     }
