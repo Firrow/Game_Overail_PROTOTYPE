@@ -58,7 +58,6 @@ public class HumanTrain : Train
         this.choice = 1;
         lastChoice = 1;
 
-        //StartMoving(); //temp
         gameManager.State.OnValueChanged += OnGameStateChanged;
     }
 
@@ -74,12 +73,6 @@ public class HumanTrain : Train
     }
 
 
-
-    /*private void StartTrain()
-    {
-        Debug.Log("STAAAAAAAAAAAAAAAAAAAAAAAART");
-        StartMoving();
-    }*/
 
     private void OnGameStateChanged(GameManager.GameState previous, GameManager.GameState current)
     {
