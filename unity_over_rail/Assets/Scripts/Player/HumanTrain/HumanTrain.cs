@@ -55,7 +55,7 @@ public class HumanTrain : Train
         this.choice = 1;
         lastChoice = 1;
 
-        StartMoving(); //temp
+        //StartMoving(); //temp
     }
 
     void Update()
@@ -99,6 +99,7 @@ public class HumanTrain : Train
         else
             increaseAcceleration = false;
     }
+
     public void PlayerDecreaseVelocity(bool isDecelerate)
     {
         if (isDecelerate)
@@ -106,7 +107,6 @@ public class HumanTrain : Train
         else
             decreaseAcceleration = false;
     }
-
 
     public void PlayerMoveWeapon(InputAction.CallbackContext obj)
     {
