@@ -55,7 +55,7 @@ public class HumanTrain : Train
         this.choice = 1;
         lastChoice = 1;
 
-        //StartMoving(); //temp
+        StartMoving(); //temp
     }
 
     void Update()
