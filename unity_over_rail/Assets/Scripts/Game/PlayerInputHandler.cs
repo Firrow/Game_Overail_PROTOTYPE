@@ -5,16 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class PlayerInputHandler : MonoBehaviour
 {
-    private PlayerInput playerInput;
-    private HumanTrain humanTrain;
+    //private PlayerInput playerInput;
+    [SerializeField] private HumanTrain humanTrain;
 
-    private void Awake()
+    //private void Awake()
+    /*private void Start()
     {
         playerInput = GetComponent<PlayerInput>();
-        var humanTrains = FindObjectsOfType<HumanTrain>();
+        //var humanTrains = FindObjectsOfType<HumanTrain>();
         int index = playerInput.playerIndex;
-        humanTrain = humanTrains.FirstOrDefault(h => h.GetPlayerIndex() == index);
-    }
+        //humanTrain = humanTrains.FirstOrDefault(h => h.GetPlayerIndex() == index);
+    }*/
 
     public void OnMoveTrain(InputAction.CallbackContext context)
     {

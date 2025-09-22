@@ -67,6 +67,7 @@ public class Train : NetworkBehaviour
         velocity = SPEED + accelerate;
     }
 
+    //call by game manager after countdown (?)
     protected void StartMoving()
     {
         StartCoroutine(StartGame());
