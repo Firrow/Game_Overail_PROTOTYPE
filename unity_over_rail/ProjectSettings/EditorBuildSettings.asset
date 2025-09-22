@@ -8,5 +8,8 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/Multi_TestMapVortex.unity
+    guid: 2dfb2355c499f934a833f8241c9f5a82
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 083f58a210821e742ae1792228005916, type: 2}

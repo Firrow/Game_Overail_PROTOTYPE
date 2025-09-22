@@ -16,11 +16,27 @@ public class HumanTrain : Train
     private float movementInput;
     private int lastChoice;
 
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+        Initialize();
+    }
 
-    void Start()
+    //void Start()
+    private void Initialize()
     {
         base.Start();
 
+        //index
+        playerIndex = gameManager.SetPlayerIndex();
+
+        //position
+        gameObject.transform.position = gameManager.playerSpawnPoints[playerIndex].transform.position;
+
+        //direction
+        fromDirection = gameObject.transform.position.x < 0 ? "O" : "E";
+
+        //interface
         foreach (GameObject Element in GameObject.FindGameObjectsWithTag("InterfacePlayer"))
         {
             if (Element.GetComponent<InterfacePlayer>().index == playerIndex)
@@ -34,6 +50,7 @@ public class HumanTrain : Train
         bulletBar.SetBullet(weapon.GetComponent<Weapon>().CurrentBulletQuantity);
         healthBar.SetMaxHealth(MaxHealth);
 
+        //arrow on train
         ChangeArrowColor(leftArrow.GetComponent<SpriteRenderer>(), rightArrow.GetComponent<SpriteRenderer>());
         this.choice = 1;
         lastChoice = 1;
@@ -49,7 +66,6 @@ public class HumanTrain : Train
     {
         base.FixedUpdate();
     }
-
 
 
 

@@ -181,6 +181,7 @@ GameObject:
   - component: {fileID: 6282290170516749662}
   - component: {fileID: 8830009817697172988}
   - component: {fileID: 8527542783905680919}
+  - component: {fileID: 1842776648107706422}
   m_Layer: 6
   m_Name: train
   m_TagString: Player
@@ -339,10 +340,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fromDirection: 
   weapon: {fileID: 625254992458161528}
-  tempRotation: {fileID: 0}
   leftArrow: {fileID: 1311469716273282023}
   rightArrow: {fileID: 5738191835909045885}
+  trainAngle: 0
   playerIndex: 0
+--- !u!114 &1842776648107706422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6282290170516749659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 856053928
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 1
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!1001 &4642678766319070741
 PrefabInstance:
   m_ObjectHideFlags: 0

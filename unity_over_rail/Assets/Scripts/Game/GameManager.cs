@@ -17,6 +17,10 @@ public class GameManager : MonoBehaviour
     public List<GameObject[]> listOfAllObjectLists = new List<GameObject[]>();
     public List<string> allObjectNames = new List<string>() { "heartObject", "bulletObject", "shieldObject" };
 
+    public GameObject[] playerSpawnPoints;
+
+    private int nextPlayerIndex = -1;
+
 
     private void Start()
     {
@@ -25,5 +29,9 @@ public class GameManager : MonoBehaviour
         listOfAllObjectLists = listOfAllObjectLists.Concat(Enumerable.Repeat(rareObjects, PROBABILITY_RARE_OBJECT)).ToList();
     }
 
-
+    public int SetPlayerIndex()
+    {
+        nextPlayerIndex++;
+        return nextPlayerIndex;
+    }
 }

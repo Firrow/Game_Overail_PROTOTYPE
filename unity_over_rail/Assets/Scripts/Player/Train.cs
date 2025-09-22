@@ -1,9 +1,11 @@
 using System.Collections;
+using Unity.Netcode;
 using UnityEngine;
 
-public class Train : MonoBehaviour
+public class Train : NetworkBehaviour
 {
     public string fromDirection; // permettre de le determiner automatiquement //public à remplacer par private + SerializeField ?
+    protected GameManager gameManager;
 
     [SerializeField]
     protected GameObject weapon;
@@ -40,8 +42,10 @@ public class Train : MonoBehaviour
 
     protected void Start()
     {
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+
         //coroutineAllowed = true;
-        StartCoroutine(StartGame()); // temporaire
+        //StartCoroutine(StartGame()); // temporaire
         currentHealth = MAX_HEALTH;
 
         shield = this.gameObject.transform.GetChild(1).gameObject;
@@ -63,6 +67,10 @@ public class Train : MonoBehaviour
         velocity = SPEED + accelerate;
     }
 
+    protected void StartMoving()
+    {
+        StartCoroutine(StartGame());
+    }
 
     // DEPLACEMENT --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     private void OnTriggerEnter2D(Collider2D collider)
