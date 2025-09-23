@@ -4,6 +4,7 @@ using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class GameManager : NetworkBehaviour
@@ -53,15 +54,24 @@ public class GameManager : NetworkBehaviour
         return nextPlayerIndex;
     }
 
-    //TODO : A GERER PAR LE SERVER
-    public void StartCountdown()
+    public void SetupStartScreen()
     {
-        state.Value = GameState.CountdownToStart;
-        startScreen.HideButton(); //TODO : RÉPLIQUER LE UNDISPLAY DU BOUTON
-        StartCoroutine(DecreaseCountdown());
+        Debug.Log("isHost : " + IsHost);
+
+        if (IsHost)
+        {
+            startScreen.ShowButton();
+        }
+
+        ChangeGameState(GameState.CountdownToStart);
     }
 
-    //TODO : A SYNCHRONISER CHEZ TOUS LES CLIENTS
+    [ClientRpc]
+    public void StartCountdownClientRpc()
+    {
+        StartCoroutine(DecreaseCountdown()); 
+    }
+
     private IEnumerator DecreaseCountdown()
     {
         while (countdown > 0)
@@ -71,7 +81,17 @@ public class GameManager : NetworkBehaviour
             countdown--;
         }
 
-        state.Value = GameState.GamePlaying;
+        ChangeGameState(GameState.GamePlaying);
         startScreen.HideScreen();
+    }
+
+
+
+    private void ChangeGameState(GameState newState)
+    {
+        if (IsServer)
+        {
+            state.Value = newState;
+        }
     }
 }

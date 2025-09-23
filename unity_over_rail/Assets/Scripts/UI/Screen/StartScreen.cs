@@ -10,19 +10,31 @@ public class StartScreen : MonoBehaviour
     private GameManager gameManager;
 
 
+    private void Awake()
+    {
+        ShowScreen();
+        HideButton();
+    }
+
     private void Start()
     {
-        Show();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
-    //TODO : SEUL L'HOST PEUT LE FAIRE
+
+
     public void OnStartClick()
     {
-        gameManager.StartCountdown();
+        gameManager.StartCountdownClientRpc();
+        HideButton();
     }
 
-    private void Show()
+    public void ShowButton()
+    {
+        startButton.SetActive(true);
+    }
+
+    private void ShowScreen()
     {
         gameObject.SetActive(true);
     }
