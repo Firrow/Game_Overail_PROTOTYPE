@@ -44,17 +44,10 @@ public class Train : NetworkBehaviour
     {
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
 
-        //coroutineAllowed = true;
-        //StartCoroutine(StartGame()); // temporaire
         currentHealth = MAX_HEALTH;
 
         shield = this.gameObject.transform.GetChild(1).gameObject;
         shieldIsActivate = shield.activeSelf;
-    }
-
-    protected void Update()
-    {
-
     }
 
     protected void FixedUpdate()
@@ -67,7 +60,8 @@ public class Train : NetworkBehaviour
         velocity = SPEED + accelerate;
     }
 
-    //call by game manager after countdown (?)
+
+
     protected void StartMoving()
     {
         StartCoroutine(StartGame());

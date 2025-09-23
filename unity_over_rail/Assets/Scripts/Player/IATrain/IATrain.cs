@@ -21,7 +21,7 @@ public class IATrain : Train
 
     void Update()
     {
-        base.Update();
+        
     }
 
     private void FixedUpdate()

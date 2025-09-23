@@ -63,7 +63,6 @@ public class HumanTrain : Train
 
     void Update()
     {
-        base.Update();
         trainAngle = angle;
     }
 
@@ -158,10 +157,6 @@ public class HumanTrain : Train
     {
         bulletBar.SetBullet(updateValue);
     }
-
-
-
-
 
 
 

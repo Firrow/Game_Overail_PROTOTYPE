@@ -70,10 +70,7 @@ public class GameManager : NetworkBehaviour
             yield return new WaitForSeconds(1);
             countdown--;
         }
-        //TODO : mettre listener sur state sur tous les éléments qui doivent se lancer après
-        //Train : done
-        //Spawn object :
-        //Autre ?
+
         state.Value = GameState.GamePlaying;
         startScreen.HideScreen();
     }

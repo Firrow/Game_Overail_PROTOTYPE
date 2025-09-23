@@ -16,11 +16,20 @@ public class SpawnObjects : MonoBehaviour
     {
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         coroutineIsAllowed = true;
-        waitBeforeSpawn = SpawnObject();
-        StartCoroutine(waitBeforeSpawn);
+
+        gameManager.State.OnValueChanged += OnGameStateChanged;
     }
 
 
+
+    private void OnGameStateChanged(GameManager.GameState previous, GameManager.GameState current)
+    {
+        if (current == GameManager.GameState.GamePlaying)
+        {
+            waitBeforeSpawn = SpawnObject();
+            StartCoroutine(waitBeforeSpawn);
+        }
+    }
 
     IEnumerator SpawnObject()
     {
