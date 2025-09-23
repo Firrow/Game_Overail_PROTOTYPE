@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Linq;
+using Unity.Netcode;
 using UnityEngine;
 
 
-public class SpawnObjects : MonoBehaviour
+public class SpawnObjects : NetworkBehaviour
 {
     private bool containsObject = false;
     private bool coroutineIsAllowed = false;
@@ -24,7 +25,7 @@ public class SpawnObjects : MonoBehaviour
 
     private void OnGameStateChanged(GameManager.GameState previous, GameManager.GameState current)
     {
-        if (current == GameManager.GameState.GamePlaying)
+        if (IsServer && current == GameManager.GameState.GamePlaying)
         {
             waitBeforeSpawn = SpawnObject();
             StartCoroutine(waitBeforeSpawn);
@@ -40,8 +41,10 @@ public class SpawnObjects : MonoBehaviour
             {
                 containsObject = true;
                 objectToSpawn = GetObjectToSpawn();
-                GetObjectToSpawn();
-                Instantiate(objectToSpawn, this.transform.position, Quaternion.Euler(0, 0, 0));
+
+                GameObject obj = Instantiate(objectToSpawn, this.transform.position, Quaternion.Euler(0, 0, 0));
+                NetworkObject objSpawned = obj.GetComponent<NetworkObject>();
+                objSpawned.Spawn();
             }
         }
     }
@@ -56,8 +59,19 @@ public class SpawnObjects : MonoBehaviour
     {
         StopCoroutine(waitBeforeSpawn);
         waitBeforeSpawn = SpawnObject();
-        StartCoroutine(waitBeforeSpawn);
+        StartCoroutine(SpawnObject());
     }
+
+    public void DestroyCollectedObject(GameObject objectToDestroy)
+    {
+        if (IsServer)
+        {
+            Debug.Log(objectToDestroy.name);
+            NetworkObject.Destroy(objectToDestroy);
+            RestartCoroutine();
+        }
+    }
+
 
 
     public bool ContainsObject
@@ -65,5 +79,4 @@ public class SpawnObjects : MonoBehaviour
         get { return containsObject; }
         set { containsObject = value; }
     }
-
 }

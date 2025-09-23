@@ -312,8 +312,7 @@ public class Train : NetworkBehaviour
         }
 
         spawner.ContainsObject = false;
-        spawner.RestartCoroutine();
-        Destroy(itemCollided.gameObject);
+        spawner.DestroyCollectedObject(itemCollided.gameObject);
     }
 
     // INTERFACE -------------------------------------------------------------------------------------------------------------------------------------
