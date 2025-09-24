@@ -108,13 +108,12 @@ public class Weapon : MonoBehaviour
     }
 
 
-    public void PressShootButton()
+    /*public void PressShootButton()
     {
-        if (currentBulletQuantity > 0 && DateTime.Now - lastTimeShot >= FIRE_RATE)
+        if (CanShoot())
         {
             Shoot(firePoint, BULLET_SPEED, bullet, this.gameObject);
-            currentBulletQuantity--;
-            this.GetComponentInParent<HumanTrain>().UpdateBulletBar(currentBulletQuantity);
+            ConsumeBullet();
         }
     }
 
@@ -125,10 +124,18 @@ public class Weapon : MonoBehaviour
         rb.AddForce(firePointWeapon.right * speed, ForceMode2D.Impulse);
 
         lastTimeShot = DateTime.Now;
+    }*/
+
+    public bool CanShoot()
+    {
+        return currentBulletQuantity > 0 && DateTime.Now - lastTimeShot >= FIRE_RATE;
     }
 
-
-
+    public void ConsumeBullet()
+    {
+        currentBulletQuantity--;
+        this.GetComponentInParent<HumanTrain>().UpdateBulletBar(currentBulletQuantity);
+    }
 
 
 
@@ -141,5 +148,9 @@ public class Weapon : MonoBehaviour
     public int MaxBulletQuantity
     {
         get { return MAX_BULLET_QUANTITY; }
+    }
+    public float BulletSpeed
+    {
+        get { return BULLET_SPEED; }
     }
 }
