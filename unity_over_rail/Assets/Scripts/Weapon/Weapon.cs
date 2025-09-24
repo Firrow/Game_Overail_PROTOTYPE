@@ -1,8 +1,9 @@
 using System;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Weapon : MonoBehaviour
+public class Weapon : NetworkBehaviour
 {
     public GameObject bullet;
     public Transform firePoint;
@@ -98,6 +99,7 @@ public class Weapon : MonoBehaviour
 
     public void UpdateWeaponRotation(Quaternion targetRotationValue)
     {
+        //TODO : REPLICATE
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotationValue, Time.deltaTime * WEAPON_SPEED);
     }
 
@@ -107,24 +109,26 @@ public class Weapon : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, this.transform.rotation.eulerAngles.z - deltaAngleTrain));
     }
 
-
-    /*public void PressShootButton()
+    [ServerRpc (RequireOwnership = false)]
+    public void ShootServerRpc(ServerRpcParams rpcParams = default)
     {
-        if (CanShoot())
-        {
-            Shoot(firePoint, BULLET_SPEED, bullet, this.gameObject);
-            ConsumeBullet();
-        }
+        // On instancie la balle côté serveur
+        GameObject bulletInstance = Instantiate(
+            bullet,
+            firePoint.position,
+            firePoint.rotation
+        );
+
+        // Important : le prefab doit avoir un NetworkObject attaché
+        var networkObject = bulletInstance.GetComponent<NetworkObject>();
+        networkObject.Spawn(); // visible sur tous les clients
+
+        // Ajout de la force
+        Rigidbody2D rb = bulletInstance.GetComponent<Rigidbody2D>();
+        rb.AddForce(firePoint.right * BULLET_SPEED, ForceMode2D.Impulse);
     }
 
-    public void Shoot(Transform firePointWeapon, float speed, GameObject projectile, GameObject weaponOrigin) // Fonction appelée lors de l'input de tir
-    {
-        GameObject bulletInst = Instantiate(projectile, firePointWeapon.transform.position, weaponOrigin.transform.rotation);
-        Rigidbody2D rb = bulletInst.GetComponent<Rigidbody2D>();
-        rb.AddForce(firePointWeapon.right * speed, ForceMode2D.Impulse);
 
-        lastTimeShot = DateTime.Now;
-    }*/
 
     public bool CanShoot()
     {
@@ -148,9 +152,5 @@ public class Weapon : MonoBehaviour
     public int MaxBulletQuantity
     {
         get { return MAX_BULLET_QUANTITY; }
-    }
-    public float BulletSpeed
-    {
-        get { return BULLET_SPEED; }
     }
 }

@@ -1,11 +1,13 @@
 using System.Collections;
+using Unity.Netcode;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : NetworkBehaviour
 {
     private int damage = 1;
     private float AUTODESTRUCTION_TIME = 1f;
     private float DELAY_COLLISION = 0.175f;
+
 
 
     void Start()
@@ -13,6 +15,7 @@ public class Bullet : MonoBehaviour
         StartCoroutine(EnableCollisionAfterDelay(DELAY_COLLISION));
         StartCoroutine(DestroyBulletWhenNoCollisions(AUTODESTRUCTION_TIME));
     }
+
 
 
     // Donne un delay à l'activation collision balle pour ne pas toucher le joueur qui tir
@@ -26,7 +29,13 @@ public class Bullet : MonoBehaviour
     IEnumerator DestroyBulletWhenNoCollisions(float delay)
     {
         yield return new WaitForSeconds(delay);
-        Destroy(this.gameObject);
+        DestroyBullet();
+    }
+
+    public void DestroyBullet()
+    {
+        if (IsServer && NetworkObject.IsSpawned)
+            NetworkObject.Destroy(this.gameObject);
     }
 
 

@@ -79,7 +79,7 @@ public class Train : NetworkBehaviour
             if (!this.gameObject.transform.GetChild(1).gameObject.activeSelf) // if shield is disable
             {
                 TakeDamage(collider.gameObject.GetComponent<Bullet>().Damage);
-                Destroy(collider.gameObject);
+                collider.gameObject.GetComponent<Bullet>().DestroyBullet();
             }
         }
         else if (collider.gameObject.layer == LayerMask.NameToLayer("Objects") && currentItem == null)
@@ -95,6 +95,7 @@ public class Train : NetworkBehaviour
             TakeDamage(MAX_HEALTH);
 
             //Undisplay values in interface player
+            //TODO : REPLICATE TRAIN DESTRUCTION
             ResetInterface();
         }
     }

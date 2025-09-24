@@ -66,7 +66,6 @@ public class SpawnObjects : NetworkBehaviour
     {
         if (IsServer)
         {
-            Debug.Log(objectToDestroy.name);
             NetworkObject.Destroy(objectToDestroy);
             RestartCoroutine();
         }
