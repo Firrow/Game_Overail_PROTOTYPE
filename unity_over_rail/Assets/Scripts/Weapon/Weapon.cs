@@ -23,6 +23,13 @@ public class Weapon : NetworkBehaviour
     private float angleMemory = 0f;
     private Quaternion targetRotation;
 
+    // Variable réseau pour partager la rotation
+    private NetworkVariable<Quaternion> syncedRotation = new NetworkVariable<Quaternion>(
+        Quaternion.identity,
+        NetworkVariableReadPermission.Everyone,
+        NetworkVariableWritePermission.Owner
+    );
+
 
     void Start()
     {
@@ -40,14 +47,24 @@ public class Weapon : NetworkBehaviour
 
     private void FixedUpdate()
     {
-        if (inputIsKeyboard)
+        if (IsOwner) // seul le joueur local calcule sa rotation
         {
-            CalculWeaponRotationWithMouse();
+            if (inputIsKeyboard)
+            {
+                CalculWeaponRotationWithMouse();
+            }
+            else
+            {
+                CalculWeaponRotationWithJoystick();
+            }
+
+            syncedRotation.Value = targetRotation;
         }
         else
         {
-            CalculWeaponRotationWithJoystick();
+            targetRotation = syncedRotation.Value;
         }
+
         UpdateWeaponRotation(targetRotation);
     }
 
