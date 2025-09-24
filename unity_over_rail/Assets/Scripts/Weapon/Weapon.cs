@@ -21,9 +21,9 @@ public class Weapon : NetworkBehaviour
     private Vector2 positionWeaponOnScreen = new Vector2();
     private float targetAngle = 0f;
     private float angleMemory = 0f;
+    private Quaternion weaponRotation;
     private Quaternion targetRotation;
 
-    // Variable réseau pour partager la rotation
     private NetworkVariable<Quaternion> syncedRotation = new NetworkVariable<Quaternion>(
         Quaternion.identity,
         NetworkVariableReadPermission.Everyone,
@@ -65,10 +65,16 @@ public class Weapon : NetworkBehaviour
             targetRotation = syncedRotation.Value;
         }
 
-        UpdateWeaponRotation(targetRotation);
+        weaponRotation = Quaternion.Slerp(
+            transform.rotation,
+            targetRotation,
+            Time.deltaTime * 15f // <- facteur de lissage à ajuster
+        );
+
+        UpdateWeaponRotation(weaponRotation);
     }
 
-    public void moveWeapon(Vector2 moveValue, bool isKeyboard)
+    public void MoveWeapon(Vector2 moveValue, bool isKeyboard)
     {
         if (isKeyboard)
         {
@@ -126,7 +132,7 @@ public class Weapon : NetworkBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, this.transform.rotation.eulerAngles.z - deltaAngleTrain));
     }
 
-    [ServerRpc (RequireOwnership = false)]
+    [ServerRpc(RequireOwnership = false)]
     public void ShootServerRpc(ServerRpcParams rpcParams = default)
     {
         // On instancie la balle côté serveur

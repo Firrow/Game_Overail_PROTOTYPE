@@ -121,7 +121,7 @@ public class HumanTrain : Train
 
     public void PlayerMoveWeapon(InputAction.CallbackContext obj)
     {
-        this.gameObject.GetComponentInChildren<Weapon>().moveWeapon(obj.ReadValue<Vector2>(), obj.control.device is Mouse);
+        this.gameObject.GetComponentInChildren<Weapon>().MoveWeapon(obj.ReadValue<Vector2>(), obj.control.device is Mouse);
     }
 
     public void PlayerShoot(InputAction.CallbackContext obj)
