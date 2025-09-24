@@ -124,39 +124,15 @@ public class HumanTrain : Train
         this.gameObject.GetComponentInChildren<Weapon>().moveWeapon(obj.ReadValue<Vector2>(), obj.control.device is Mouse);
     }
 
-    /*public void PlayerShoot(InputAction.CallbackContext obj)
-    {
-        this.gameObject.GetComponentInChildren<Weapon>().PressShootButton();
-    }*/
-
     public void PlayerShoot(InputAction.CallbackContext obj)
     {
-        if (!IsOwner) return; // seul le joueur local déclenche
+        if (!IsOwner) return;
 
         if (weapon.GetComponent<Weapon>().CanShoot())
         {
-            ShootServerRpc();
+            weapon.GetComponent<Weapon>().ShootServerRpc();
             weapon.GetComponent<Weapon>().ConsumeBullet();
         }
-    }
-
-    [ServerRpc]
-    private void ShootServerRpc(ServerRpcParams rpcParams = default)
-    {
-        // On instancie la balle côté serveur
-        GameObject bulletInstance = Instantiate(
-            weapon.GetComponent<Weapon>().bullet,
-            weapon.GetComponent<Weapon>().firePoint.position,
-            weapon.GetComponent<Weapon>().firePoint.rotation
-        );
-
-        // Important : le prefab doit avoir un NetworkObject attaché
-        var networkObject = bulletInstance.GetComponent<NetworkObject>();
-        networkObject.Spawn(); // visible sur tous les clients
-
-        // Ajout de la force
-        Rigidbody2D rb = bulletInstance.GetComponent<Rigidbody2D>();
-        rb.AddForce(weapon.GetComponent<Weapon>().firePoint.right * weapon.GetComponent<Weapon>().BulletSpeed, ForceMode2D.Impulse);
     }
 
 

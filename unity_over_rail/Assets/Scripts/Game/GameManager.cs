@@ -56,8 +56,6 @@ public class GameManager : NetworkBehaviour
 
     public void SetupStartScreen()
     {
-        Debug.Log("isHost : " + IsHost);
-
         if (IsHost)
         {
             startScreen.ShowButton();
