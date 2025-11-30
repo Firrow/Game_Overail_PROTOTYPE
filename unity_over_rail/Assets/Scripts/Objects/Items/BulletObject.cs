@@ -6,7 +6,7 @@ public class BulletObject : MonoBehaviour, IObjects
 {
     private GameObject ownerTrain;
     private Weapon weapon;
-    private int RECOVERY_BULLET_VALUE = 15;
+    private int RECOVERY_BULLET_VALUE = 1;
 
     public void GetTrain(GameObject train)
     {

@@ -32,7 +32,7 @@ public class Train : MonoBehaviour
     private Vector3 trainPosition;
     private Quaternion rotationMemory;
 
-    private int MAX_HEALTH = 10;
+    private int MAX_HEALTH = 1;
     private int currentHealth;
     private bool shieldIsActivate;
     private GameObject shield;
@@ -272,7 +272,7 @@ public class Train : MonoBehaviour
 
     private void IncreaseAccelerate()
     {
-        if (velocity < 2.5f)
+        if (velocity < 1.8f) //2.5
         {
             if (isStopped)
                 isStopped = false;
